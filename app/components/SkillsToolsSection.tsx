@@ -13,10 +13,10 @@ const roles = [
     gradient: "bg-gradient-to-br from-blue-50 to-blue-100",
     borderColor: "border-blue-200",
     skills: [
-      "Requirement analysis",
-      "Business process modeling & Functional process",
+      "Requirement Analysis",
+      "Business Process Modeling & Functional Process",
       "Communication & Documentation",
-      "Database Understanding (ERD)",
+      "Database Understanding (Entity Relation Diagram)",
       "Critical Thinking & Problem Solving",
     ],
     tools: [
@@ -33,9 +33,9 @@ const roles = [
     gradient: "bg-gradient-to-br from-purple-50 to-purple-100",
     borderColor: "border-purple-200",
     skills: [
+      "System Design (High Design Level Fidelity)",
       "User Research",
       "Wireframing & Prototyping",
-      "System Design (High Design Level Fidelity)",
       "Interaction Design",
       "Usability Testing",
       "Design Thinking",
