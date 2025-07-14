@@ -5,7 +5,7 @@ import Image from "next/image"
 const experiences = [
   {
     id: 1,
-    company: "PT Topas Multi Finance",
+    company: "PT Topas Multi Finance - Member of Mayapada Group",
     division: "System Analyst",
     period: "March 2024 - June 2025",
     logo: "/assets/company-logos/icon_topas.png",
