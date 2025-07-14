@@ -46,7 +46,7 @@ const experiences = [
     id: 4,
     company: "Universitas Surabaya",
     division: "Bachelor of Information Systems",
-    period: "2018 – 2020",
+    period: "2017 – 2021",
     logo: "/assets/company-logos/icon_ubaya.png",
     details: [
       "Supported programming courses by assisting lecturers, guiding first-semester students, and preparing as well as reviewing coding exercises to strengthen learning outcomes.",
