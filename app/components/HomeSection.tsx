@@ -115,10 +115,10 @@ export default function HomeSection() {
               </h2>
 
               <p className="text-gray-600 text-base lg:text-lg leading-relaxed text-justify">
-                I am motivated by a passion for solving problems through intelligent system analysis and well-planned
-                design. This portfolio showcases my dedication to designing clean, high-detail user interfaces (UI) and
+                I am motivated by a passion for solving problems through intelligent system analysis and well planned
+                design. This portfolio showcases my dedication to designing clean, high detail user interfaces (UI) and
                 user experiences (UX) using Figma, then implementing them with various programming languages and
-                seamlessly deploying them via Vercel. I invite you to explore my work—each project reflects my
+                seamlessly deploying them via Vercel. I invite you to explore my work each project reflects my
                 commitment to building efficient, user-friendly solutions by blending logic and creativity.
               </p>
             </div>
