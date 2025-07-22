@@ -47,11 +47,11 @@ export default function AboutSection() {
               </h2>
 
               <p className="text-gray-600 text-base lg:text-lg leading-relaxed text-justify">
-                A detail-driven IT professional with a solid background in System Analysis, UI/UX Designer, Data Analyst & Fullstack Software
-                Development. With over three years of experience as a System Analyst, UI/UX Designer, and Data Analyst at Astra Honda and Topas Multifinance, 
+                A detail driven IT professional with a solid background in System Analysis, UI/UX Designer, Data Analyst & Fullstack Software
+                Development. With over three years of experience as a System Analyst, UI/UX Designer, and Data Analyst at Astra Honda and Topas Multifinance 
                 a member of the Mayapada Group, I specialize in translating business needs into effective, secure, and scalable systems. 
-                I also have experience in designing user-friendly UI/UX that keeps pace with the times, is data-driven, 
-                and works closely and communicates with cross-functional teams to ensure smooth and high-performance solutions.
+                I also have experience in designing user friendly UI/UX that keeps pace with the times, is data driven, 
+                and works closely and communicates with cross functional teams to ensure smooth and high performance solutions.
               </p>
             </div>
 
