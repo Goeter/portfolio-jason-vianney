@@ -12,10 +12,10 @@ const experiences = [
     details: [
       "Led system design and business analysis to develop applications that improved operational efficiency by 30% through structured document tracking, streamlined data recording, and integrated financial workflows.",
       "Processing data, cleaning data, making it useful for the company, creating a mobile application system to make it easier for users to borrow money, and from the company's perspective, obtaining location data and new user data.",
-      "Providing a modern and user-friendly company website that enhances product visibility, displays job vacancies, and facilitates user access, enabling follow up with new users, accelerating responses to customer inquiries, and increasing engagement levels.",
+      "Providing a modern and user friendly company website that enhances product visibility, displays job vacancies, and facilitates user access, enabling follow up with new users, accelerating responses to customer inquiries, and increasing engagement levels.",
       "Designed an internal HR application with enhanced features for workforce planning, performance tracking, attendance, leave, and payroll streamlining HR processes and ensuring secure, centralized data management.",
-      "Designed high-fidelity user experiences and effectively aligned solutions with business and stakeholder needs.",
-      "Efficiently managed tasks to meet tight deadlines, ensuring on-time go-live of applications with successful QA validation.",
+      "Designed high fidelity user experiences and effectively aligned solutions with business and stakeholder needs.",
+      "Efficiently managed tasks to meet tight deadlines, ensuring on time go live of applications with successful QA validation.",
     ],
   },
   {
@@ -26,7 +26,7 @@ const experiences = [
     logo: "/assets/company-logos/icon_astra.png",
     details: [
       "Developed internal monitoring tools to track part movement between dealers and warehouses, improving stock visibility and streamlining motorcycle assembly operations.",
-      "Redesigning the old application into a new version that is more secure, has more complete features, and is more user-friendly, improving the overall reliability of the system in data storage and more organized data monitoring.",
+      "Redesigning the old application into a new version that is more secure, has more complete features, and is more user friendly, improving the overall reliability of the system in data storage and more organized data monitoring.",
       "Performing unit testing prior to launch reduces bugs and minimizes human error by validating the system's inputs to ensure a smoother user experience at launch.",
     ],
   },
@@ -37,8 +37,8 @@ const experiences = [
     period: "February 2022 - February 2023",
     logo: "/assets/company-logos/icon_wings.png",
     details: [
-      "Improved internal international sales system by refining features, and adding user-friendly menus to enhance stock recording and digital sales monitoring across Asia.",
-      "Enhanced mobile application with barcode photo capture feature, enabling seamless product recording and real-time data input into a centralized database.",
+      "Improved internal international sales system by refining features, and adding user friendly menus to enhance stock recording and digital sales monitoring across Asia.",
+      "Enhanced mobile application with barcode photo capture feature, enabling seamless product recording and real time data input into a centralized database.",
       "Resolved critical bugs in web and mobile applications during field use, restoring functionality and ensuring uninterrupted user operations.",
     ],
   },
@@ -49,8 +49,8 @@ const experiences = [
     period: "2017 – 2021",
     logo: "/assets/company-logos/icon_ubaya.png",
     details: [
-      "Supported programming courses by assisting lecturers, guiding first-semester students, and preparing as well as reviewing coding exercises to strengthen learning outcomes.",
-      "Assisted in teaching Business Mathematics by guiding first-semester students, conducting assistant-led classes, and providing as well as evaluating practice exercises to support student understanding.",
+      "Supported programming courses by assisting lecturers, guiding first semester students, and preparing as well as reviewing coding exercises to strengthen learning outcomes.",
+      "Assisted in teaching Business Mathematics by guiding first semester students, conducting assistant-led classes, and providing as well as evaluating practice exercises to support student understanding.",
     ],
   },
 ]
