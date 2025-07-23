@@ -11,9 +11,9 @@ const experiences = [
     logo: "/assets/company-logos/icon_topas.png",
     details: [
       "Led system design and business analysis to develop applications that improved operational efficiency by 30% through structured document tracking, streamlined data recording, and integrated financial workflows.",
-      "Compiled comprehensive documentation for systems to support ISO 27001 compliance, enhancing information security and audit readiness.",
-      "Delivered a modern, user-friendly company website that increased brand visibility and improved user access, contributing to faster customer inquiries and higher engagement.",
-      "Designed an internal HR application with enhanced features for workforce planning, performance tracking, attendance, leave, and payroll—streamlining HR processes and ensuring secure, centralized data management.",
+      "Processing data, cleaning data, making it useful for the company, creating a mobile application system to make it easier for users to borrow money, and from the company's perspective, obtaining location data and new user data.",
+      "Providing a modern and user-friendly company website that enhances product visibility, displays job vacancies, and facilitates user access, enabling follow up with new users, accelerating responses to customer inquiries, and increasing engagement levels.",
+      "Designed an internal HR application with enhanced features for workforce planning, performance tracking, attendance, leave, and payroll streamlining HR processes and ensuring secure, centralized data management.",
       "Designed high-fidelity user experiences and effectively aligned solutions with business and stakeholder needs.",
       "Efficiently managed tasks to meet tight deadlines, ensuring on-time go-live of applications with successful QA validation.",
     ],
@@ -26,8 +26,8 @@ const experiences = [
     logo: "/assets/company-logos/icon_astra.png",
     details: [
       "Developed internal monitoring tools to track part movement between dealers and warehouses, improving stock visibility and streamlining motorcycle assembly operations.",
-      "Redesigned legacy application into a secure, user-friendly version, minimizing human error and improving overall system reliability.",
-      "Conducting through unit testing prior to launch reduced bugs and minimized human error to ensure a smoother user experience at launch.",
+      "Redesigning the old application into a new version that is more secure, has more complete features, and is more user-friendly, improving the overall reliability of the system in data storage and more organized data monitoring.",
+      "Performing unit testing prior to launch reduces bugs and minimizes human error by validating the system's inputs to ensure a smoother user experience at launch.",
     ],
   },
   {
