@@ -115,9 +115,11 @@ export default function HomeSection() {
               </h2>
 
               <p className="text-gray-600 text-base lg:text-lg leading-relaxed text-justify">
-                I am motivated to solve problems through system analysis, business requirements, functional requirements, and well-planned experience design. 
-                This portfolio showcases my dedication to designing clean, high-detail user interfaces (UI) and user experiences (UX) using Figma, then implementing them with programming languages and deploying them via Vercel. 
-                I invite you to explore my work, each project reflects my commitment to building efficient, user-friendly solutions by combining logic and creativity.
+                A detail driven IT professional with a solid background in System Analysis, UI/UX Designer, Data Analyst & Fullstack Software Development. 
+                With over three years of experience as a System Analyst, UI/UX Designer & Data Analyst at Astra Honda & Topas Multifinance a member of the Mayapada Group, 
+                I specialize in translating business needs into effective, secure, and scalable systems. 
+                I also have experience in designing user friendly UI/UX that keeps pace with the times, is data driven, 
+                and works closely and communicates with cross functional teams to ensure smooth and high performance solutions.
               </p>
             </div>
           </div>
