@@ -14,12 +14,12 @@ const roles = [
     borderColor: "border-blue-200",
     skills: [
       "Business Analysis (BRD, FSD, SRS, Use Case, Flow Diagram)",
-      "Requirement Elicitation (Interview, Observation, Dokumentation)",
+      "Requirement Elicitation (Interview, Observation, Documentation)",
       "Modelling Tools (UML, BPMN, ERD)",
       "Database SQL (MySQL, PostgreSQL)",
       "System Design (High Level & Low Level Design)",
       "QA Support (Test Case Writing, UAT Coordination)",
-      "Project Lifecycle(Agile / Scrum)",
+      "Project Lifecycle(Agile, Scrum)",
       "Communication (Technical writing, bridging IT & business)",
     ],
     tools: [
