@@ -39,13 +39,16 @@ const roles = [
       "Interaction Design",
       "Usability Testing",
       "Design Thinking",
-      "Accessibility Principles",
+      "User Persona",
+      "Data-driven Design",
     ],
     tools: [
       "Figma, Adobe XD",
       "Adobe Illustrator", 
       "Balsamiq (UI)",
-      "Notion, Google Docs", 
+      "Notion, Google Docs",
+      "Miro / Whimsical",
+      "Hotjar / Google Analytics",
       ],
   },
   {
