@@ -115,11 +115,9 @@ export default function HomeSection() {
               </h2>
 
               <p className="text-gray-600 text-base lg:text-lg leading-relaxed text-justify">
-                A detail driven IT professional with a solid background in System Analysis, UI/UX Designer, Data Analyst & Fullstack Software Development. 
-                With over three years of experience as a System Analyst, UI/UX Designer & Data Analyst at Astra Honda & Topas Multifinance a member of the Mayapada Group, 
-                I specialize in translating business needs into effective, secure, and scalable systems. 
-                I also have experience in designing user friendly UI/UX that keeps pace with the times, is data driven, 
-                and works closely and communicates with cross functional teams to ensure smooth and high performance solutions.
+                I am an IT professional with 3 years of experience in the manufacturing and finance industries, focusing on System Analyst, UI/UX Designer, and Data Analyst. 
+                I am skilled at translating business needs into efficient, secure, and user-friendly digital solutions. 
+                I have experience designing intuitive, data-driven interfaces and am accustomed to working across teams to ensure targeted and impactful results.
               </p>
             </div>
           </div>
