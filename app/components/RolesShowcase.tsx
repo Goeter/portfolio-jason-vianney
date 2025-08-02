@@ -112,7 +112,7 @@ export default function RolesShowcase() {
             Professional Expertise
           </h2>
           <p className="text-cyan-200 text-lg max-w-2xl mx-auto">
-            Specialized skills and tools across three key technology domains
+            Skills & Tools I use in these three areas of expertise
           </p>
         </div>
 
