@@ -66,22 +66,119 @@ export default function Home() {
   }, [isClient])
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 relative overflow-x-hidden">
-      {/* Modern Professional Background */}
-      <div className="fixed inset-0 bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
-        {/* Geometric Pattern Overlay */}
-        <div className="absolute inset-0 opacity-30">
-          <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width=%2260%22 height=%2260%22 viewBox=%220 0 60 60%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cg fill=%22none%22 fillRule=%22evenodd%22%3E%3Cg fill=%22%23334155%22 fillOpacity=%220.05%22%3E%3Ccircle cx=%2230%22 cy=%2230%22 r=%222%22/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')]" />
+    <div className="min-h-screen relative overflow-x-hidden">
+      {/* Modern Futuristic IT Background */}
+      <div className="fixed inset-0 bg-gradient-to-br from-slate-900 via-blue-900 to-purple-900">
+        {/* Animated Grid Pattern */}
+        <div className="absolute inset-0 opacity-20">
+          <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width=%2280%22 height=%2280%22 viewBox=%220 0 80 80%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cg fill=%22none%22 fillRule=%22evenodd%22%3E%3Cg stroke=%22%2300ffff%22 strokeWidth=%221%22%3E%3Cpath d=%22M0 0h80v80H0z%22/%3E%3Cpath d=%22M20 0v80M40 0v80M60 0v80M0 20h80M0 40h80M0 60h80%22/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] animate-pulse" />
         </div>
 
-        {/* Subtle Gradient Overlays */}
-        <div className="absolute top-0 left-0 w-full h-1/3 bg-gradient-to-b from-blue-500/5 to-transparent" />
-        <div className="absolute bottom-0 right-0 w-2/3 h-2/3 bg-gradient-to-tl from-indigo-500/5 to-transparent" />
+        {/* Bright Neon Geometric Shapes */}
+        <div className="absolute top-20 left-20 w-64 h-64 bg-gradient-to-r from-cyan-400/30 to-blue-500/30 rounded-full blur-3xl animate-pulse" />
+        <div
+          className="absolute top-40 right-32 w-48 h-48 bg-gradient-to-r from-purple-400/30 to-pink-500/30 rounded-full blur-2xl animate-bounce"
+          style={{ animationDuration: "3s" }}
+        />
+        <div
+          className="absolute bottom-32 left-40 w-56 h-56 bg-gradient-to-r from-green-400/30 to-emerald-500/30 rounded-full blur-3xl animate-pulse"
+          style={{ animationDelay: "1s" }}
+        />
+        <div
+          className="absolute bottom-20 right-20 w-40 h-40 bg-gradient-to-r from-yellow-400/30 to-orange-500/30 rounded-full blur-2xl animate-bounce"
+          style={{ animationDuration: "4s", animationDelay: "2s" }}
+        />
 
-        {/* Modern Geometric Shapes */}
-        <div className="absolute top-20 right-20 w-32 h-32 bg-gradient-to-br from-blue-400/10 to-indigo-400/10 rounded-full blur-xl" />
-        <div className="absolute bottom-40 left-20 w-48 h-48 bg-gradient-to-tr from-purple-400/10 to-pink-400/10 rounded-full blur-xl" />
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-gradient-to-r from-cyan-400/5 to-blue-400/5 rounded-full blur-2xl" />
+        {/* Circuit Board Pattern */}
+        <div className="absolute inset-0 opacity-10">
+          <svg className="w-full h-full" viewBox="0 0 1200 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+            {/* Horizontal Lines */}
+            <path d="M0 100 L300 100 L350 150 L600 150 L650 100 L1200 100" stroke="#00ffff" strokeWidth="2" />
+            <path
+              d="M0 300 L200 300 L250 250 L500 250 L550 300 L800 300 L850 350 L1200 350"
+              stroke="#ff00ff"
+              strokeWidth="2"
+            />
+            <path d="M0 500 L400 500 L450 450 L700 450 L750 500 L1200 500" stroke="#00ff00" strokeWidth="2" />
+            <path
+              d="M0 700 L150 700 L200 650 L450 650 L500 700 L750 700 L800 650 L1200 650"
+              stroke="#ffff00"
+              strokeWidth="2"
+            />
+
+            {/* Vertical Lines */}
+            <path d="M200 0 L200 200 L250 250 L250 400 L200 450 L200 800" stroke="#00ffff" strokeWidth="2" />
+            <path d="M500 0 L500 150 L550 200 L550 350 L500 400 L500 800" stroke="#ff00ff" strokeWidth="2" />
+            <path d="M800 0 L800 100 L850 150 L850 300 L800 350 L800 800" stroke="#00ff00" strokeWidth="2" />
+
+            {/* Circuit Nodes */}
+            <circle cx="200" cy="100" r="8" fill="#00ffff" className="animate-pulse" />
+            <circle
+              cx="500"
+              cy="250"
+              r="8"
+              fill="#ff00ff"
+              className="animate-pulse"
+              style={{ animationDelay: "0.5s" }}
+            />
+            <circle cx="800" cy="350" r="8" fill="#00ff00" className="animate-pulse" style={{ animationDelay: "1s" }} />
+            <circle
+              cx="350"
+              cy="500"
+              r="8"
+              fill="#ffff00"
+              className="animate-pulse"
+              style={{ animationDelay: "1.5s" }}
+            />
+          </svg>
+        </div>
+
+        {/* Floating Data Particles */}
+        <div className="absolute inset-0 overflow-hidden">
+          <div
+            className="absolute top-1/4 left-1/4 w-2 h-2 bg-cyan-400 rounded-full animate-ping"
+            style={{ animationDelay: "0s" }}
+          />
+          <div
+            className="absolute top-1/3 right-1/3 w-1 h-1 bg-purple-400 rounded-full animate-ping"
+            style={{ animationDelay: "1s" }}
+          />
+          <div
+            className="absolute bottom-1/4 left-1/3 w-3 h-3 bg-green-400 rounded-full animate-ping"
+            style={{ animationDelay: "2s" }}
+          />
+          <div
+            className="absolute bottom-1/3 right-1/4 w-2 h-2 bg-yellow-400 rounded-full animate-ping"
+            style={{ animationDelay: "3s" }}
+          />
+          <div
+            className="absolute top-1/2 left-1/2 w-1 h-1 bg-pink-400 rounded-full animate-ping"
+            style={{ animationDelay: "4s" }}
+          />
+        </div>
+
+        {/* Holographic Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-transparent via-cyan-500/5 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-purple-500/5 to-transparent" />
+
+        {/* Matrix-style Binary Rain Effect */}
+        <div className="absolute inset-0 opacity-5">
+          <div className="absolute top-0 left-10 text-green-400 text-xs font-mono animate-pulse">
+            01001000 01100101 01101100 01101100 01101111
+          </div>
+          <div
+            className="absolute top-20 left-32 text-cyan-400 text-xs font-mono animate-pulse"
+            style={{ animationDelay: "1s" }}
+          >
+            01010111 01101111 01110010 01101100 01100100
+          </div>
+          <div
+            className="absolute top-40 left-16 text-purple-400 text-xs font-mono animate-pulse"
+            style={{ animationDelay: "2s" }}
+          >
+            01000100 01100001 01110100 01100001
+          </div>
+        </div>
       </div>
 
       <Navbar activeSection={activeSection} />
