@@ -98,7 +98,7 @@ export default function HomeSection() {
 
     return () => clearInterval(interval)
   }, [isClient, isPaused])
-
+  
   const handleDownloadCV = () => {
     const fileId = "13NU5NaR9tItyhTbfPnrH9ufsxWzxKjOc5k7DeqySLXM"
     const downloadUrl = `https://drive.google.com/uc?export=download&id=${fileId}`
