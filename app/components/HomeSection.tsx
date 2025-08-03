@@ -101,7 +101,7 @@ export default function HomeSection() {
   
   const handleDownloadCV = () => {
     const fileId = "13NU5NaR9tItyhTbfPnrH9ufsxWzxKjOc5k7DeqySLXM"
-    const downloadUrl = `https://drive.google.com/uc?export=download&id=${fileId}`
+    const downloadUrl = `hhttps://docs.google.com/document/d/${fileId}/export?format=pdf`
 
     const link = document.createElement("a")
     link.href = downloadUrl
