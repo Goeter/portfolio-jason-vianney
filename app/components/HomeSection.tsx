@@ -2,9 +2,8 @@
 
 import { useState, useEffect } from "react"
 import Image from "next/image"
-import { Button } from "@/components/ui/button"
 
-// Tambahkan ini jika kamu belum punya komponen Button
+// Tambahkan komponen Button jika belum ada
 function Button({ children, ...props }: React.ButtonHTMLAttributes<HTMLButtonElement>) {
   return (
     <button
@@ -18,94 +17,26 @@ function Button({ children, ...props }: React.ButtonHTMLAttributes<HTMLButtonEle
   )
 }
 
-const roles = [
-  {
-    id: 1,
-    title: "System Analyst",
-    emoji: "✅",
-    gradient: "bg-gradient-to-br from-blue-50 to-blue-100",
-    borderColor: "border-blue-200",
-    skills: [
-      "Requirement analysis",
-      "Business process modeling",
-      "Critical Thinking & Problem Solving",
-      "Communication & Documentation",
-      "System Design (High Level Fidelity)",
-      "Database Understanding (ERD)",
-    ],
-    tools: [
-      "Microsoft Visio (Flowchart)",
-      "SQL (MySQL, PostgreSQL, Oracle)",
-      "Jira / Trello",
-      "Microsoft Office (Excel, Word, Power Point)",
-      "BPMN tools (BPMN.io)",
-    ],
-  },
-  {
-    id: 2,
-    title: "Data Analyst",
-    emoji: "✅",
-    gradient: "bg-gradient-to-br from-green-50 to-green-100",
-    borderColor: "border-green-200",
-    skills: [
-      "Data Cleaning & Wrangling",
-      "Data Visualization",
-      "Statistical Analysis",
-      "SQL Querying",
-      "Spreadsheet Analysis",
-      "Communication & Presentation with Data",
-    ],
-    tools: [
-      "Excel / Google Sheets",
-      "SQL (PostgreSQL, MySQL)",
-      "Python (Pandas, NumPy)",
-      "Power BI / Tableau",
-      "Google Data Studio",
-    ],
-  },
-  {
-    id: 3,
-    title: "UI/UX Designer",
-    emoji: "✅",
-    gradient: "bg-gradient-to-br from-purple-50 to-purple-100",
-    borderColor: "border-purple-200",
-    skills: [
-      "User Research & Persona Creation",
-      "Wireframing & Prototyping",
-      "Interaction Design",
-      "Usability Testing",
-      "Design Thinking",
-      "Accessibility Principles",
-    ],
-    tools: ["Figma / Adobe XD", "Balsamiq (Wireframe / UI)", "Trello"],
-  },
-]
-
 export default function HomeSection() {
-  const [currentSlide, setCurrentSlide] = useState(0)
   const [isClient, setIsClient] = useState(false)
-  const [isPaused, setIsPaused] = useState(false)
 
   useEffect(() => {
     setIsClient(true)
   }, [])
 
-  useEffect(() => {
-    if (!isClient || isPaused) return
-
-    const interval = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % roles.length)
-    }, 4000)
-
-    return () => clearInterval(interval)
-  }, [isClient, isPaused])
-  
-  const handleDownloadCV = () => {
+  const handleDownloadAndOpenPDF = () => {
     const fileId = "13NU5NaR9tItyhTbfPnrH9ufsxWzxKjOc5k7DeqySLXM"
-    const downloadUrl = `hhttps://docs.google.com/document/d/${fileId}/export?format=pdf`
+    const pdfUrl = `https://docs.google.com/document/d/${fileId}/export?format=pdf`
 
+    // 1. Buka tab baru untuk menampilkan file PDF
+    const newTab = window.open(pdfUrl, "_blank")
+    if (newTab) {
+      newTab.focus()
+    }
+
+    // 2. Trigger download otomatis
     const link = document.createElement("a")
-    link.href = downloadUrl
+    link.href = pdfUrl
     link.download = "Jason_Vianney_Sugiarto_Resume.pdf"
     document.body.appendChild(link)
     link.click()
@@ -127,7 +58,7 @@ export default function HomeSection() {
               </h1>
 
               <h2 className="text-cyan-300 text-xl lg:text-2xl xl:text-3xl font-semibold leading-tight">
-                System Analyst, UI/UX Design,
+                System Analyst, UI/UX Designer,
                 <br />
                 Data Analyst, Remote
               </h2>
@@ -140,8 +71,8 @@ export default function HomeSection() {
                 results.
               </p>
 
-              <Button onClick={handleDownloadCV}>
-                Download Resume
+              <Button onClick={handleDownloadAndOpenPDF}>
+                Download & View Resume
               </Button>
             </div>
           </div>
