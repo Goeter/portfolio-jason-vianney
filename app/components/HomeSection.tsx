@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react"
 import Image from "next/image"
+import { Button } from "@/components/ui/button"
 
 // Tambahkan ini jika kamu belum punya komponen Button
 function Button({ children, ...props }: React.ButtonHTMLAttributes<HTMLButtonElement>) {
