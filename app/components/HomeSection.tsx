@@ -145,7 +145,10 @@ export default function HomeSection() {
             >
               Download Resume
             </Button>
-
+              </div>
+            </div>
+          </div>
+        
           {/* Right Content - Profile Image */}
           <div className="flex justify-center lg:justify-end scroll-animate opacity-0 translate-y-8 transition-all duration-1000 delay-300">
             <div className="relative">
