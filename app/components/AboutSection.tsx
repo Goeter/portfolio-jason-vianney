@@ -4,20 +4,6 @@ import Image from "next/image"
 import { Button } from "@/components/ui/button"
 
 export default function AboutSection() {
-  const handleDownloadCV = () => {
-    // Convert Google Drive view link to direct download link
-    const fileId = "13NU5NaR9tItyhTbfPnrH9ufsxWzxKjOc5k7DeqySLXM"
-    const downloadUrl = `https://docs.google.com/document/d/${fileId}/export?format=pdf`
-
-    // Create a temporary link and trigger download
-    const link = document.createElement("a")
-    link.href = downloadUrl
-    link.download = "Jason_Vianney_Sugiarto_Resume.pdf"
-    document.body.appendChild(link)
-    link.click()
-    document.body.removeChild(link)
-  }
-
   return (
     <section id="about" className="min-h-screen flex items-center py-20 relative">
       {/* Futuristic Background Overlay */}
@@ -70,13 +56,6 @@ export default function AboutSection() {
                 communicates with cross functional teams to ensure smooth and high performance solutions.
               </p>
             </div>
-
-            <Button
-              onClick={handleDownloadCV}
-              className="bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-400 hover:to-blue-400 text-white font-semibold px-8 py-3 rounded-lg transition-all duration-300 shadow-lg shadow-cyan-500/30 hover:shadow-xl hover:shadow-cyan-500/40 transform hover:scale-105"
-            >
-              Download Resume
-            </Button>
           </div>
         </div>
       </div>
