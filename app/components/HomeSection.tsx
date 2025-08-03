@@ -3,6 +3,20 @@
 import { useState, useEffect } from "react"
 import Image from "next/image"
 
+// Tambahkan ini jika kamu belum punya komponen Button
+function Button({ children, ...props }: React.ButtonHTMLAttributes<HTMLButtonElement>) {
+  return (
+    <button
+      {...props}
+      className={`bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-400 hover:to-blue-400 
+      text-white font-semibold px-8 py-3 rounded-lg transition-all duration-300 
+      shadow-lg shadow-cyan-500/30 hover:shadow-xl hover:shadow-cyan-500/40 transform hover:scale-105`}
+    >
+      {children}
+    </button>
+  )
+}
+
 const roles = [
   {
     id: 1,
@@ -67,20 +81,6 @@ const roles = [
 ]
 
 export default function HomeSection() {
-  const handleDownloadCV = () => {
-    // Convert Google Drive view link to direct download link
-    const fileId = "13NU5NaR9tItyhTbfPnrH9ufsxWzxKjOc5k7DeqySLXM"
-    const downloadUrl = `https://docs.google.com/document/d/${fileId}/export?format=pdf`
-
-    // Create a temporary link and trigger download
-    const link = document.createElement("a")
-    link.href = downloadUrl
-    link.download = "Jason_Vianney_Sugiarto_Resume.pdf"
-    document.body.appendChild(link)
-    link.click()
-    document.body.removeChild(link)
-  }
-  
   const [currentSlide, setCurrentSlide] = useState(0)
   const [isClient, setIsClient] = useState(false)
   const [isPaused, setIsPaused] = useState(false)
@@ -99,16 +99,16 @@ export default function HomeSection() {
     return () => clearInterval(interval)
   }, [isClient, isPaused])
 
-  const nextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % roles.length)
-  }
+  const handleDownloadCV = () => {
+    const fileId = "13NU5NaR9tItyhTbfPnrH9ufsxWzxKjOc5k7DeqySLXM"
+    const downloadUrl = `https://drive.google.com/uc?export=download&id=${fileId}`
 
-  const prevSlide = () => {
-    setCurrentSlide((prev) => (prev - 1 + roles.length) % roles.length)
-  }
-
-  const goToSlide = (index: number) => {
-    setCurrentSlide(index)
+    const link = document.createElement("a")
+    link.href = downloadUrl
+    link.download = "Jason_Vianney_Sugiarto_Resume.pdf"
+    document.body.appendChild(link)
+    link.click()
+    document.body.removeChild(link)
   }
 
   return (
@@ -139,16 +139,12 @@ export default function HomeSection() {
                 results.
               </p>
 
-              <Button
-              onClick={handleDownloadCV}
-              className="bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-400 hover:to-blue-400 text-white font-semibold px-8 py-3 rounded-lg transition-all duration-300 shadow-lg shadow-cyan-500/30 hover:shadow-xl hover:shadow-cyan-500/40 transform hover:scale-105"
-            >
-              Download Resume
-            </Button>
-              </div>
+              <Button onClick={handleDownloadCV}>
+                Download Resume
+              </Button>
             </div>
           </div>
-        
+
           {/* Right Content - Profile Image */}
           <div className="flex justify-center lg:justify-end scroll-animate opacity-0 translate-y-8 transition-all duration-1000 delay-300">
             <div className="relative">
@@ -161,7 +157,6 @@ export default function HomeSection() {
                   className="w-full h-full object-cover"
                 />
               </div>
-              {/* Decorative ring */}
               <div className="absolute inset-0 rounded-full border-2 border-cyan-300 animate-pulse"></div>
             </div>
           </div>
