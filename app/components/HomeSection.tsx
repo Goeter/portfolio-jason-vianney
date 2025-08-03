@@ -67,6 +67,20 @@ const roles = [
 ]
 
 export default function HomeSection() {
+  const handleDownloadCV = () => {
+    // Convert Google Drive view link to direct download link
+    const fileId = "13NU5NaR9tItyhTbfPnrH9ufsxWzxKjOc5k7DeqySLXM"
+    const downloadUrl = `https://docs.google.com/document/d/${fileId}/export?format=pdf`
+
+    // Create a temporary link and trigger download
+    const link = document.createElement("a")
+    link.href = downloadUrl
+    link.download = "Jason_Vianney_Sugiarto_Resume.pdf"
+    document.body.appendChild(link)
+    link.click()
+    document.body.removeChild(link)
+  }
+  
   const [currentSlide, setCurrentSlide] = useState(0)
   const [isClient, setIsClient] = useState(false)
   const [isPaused, setIsPaused] = useState(false)
@@ -124,6 +138,13 @@ export default function HomeSection() {
                 data-driven interfaces and am accustomed to working across teams to ensure targeted and impactful
                 results.
               </p>
+
+              <Button
+              onClick={handleDownloadCV}
+              className="bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-400 hover:to-blue-400 text-white font-semibold px-8 py-3 rounded-lg transition-all duration-300 shadow-lg shadow-cyan-500/30 hover:shadow-xl hover:shadow-cyan-500/40 transform hover:scale-105"
+            >
+              Download Resume
+            </Button>
             </div>
           </div>
 
