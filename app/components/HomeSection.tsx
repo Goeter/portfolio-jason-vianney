@@ -1,9 +1,8 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useEffect, useState } from "react"
 import Image from "next/image"
 
-// Tambahkan komponen Button jika belum ada
 function Button({ children, ...props }: React.ButtonHTMLAttributes<HTMLButtonElement>) {
   return (
     <button
@@ -24,17 +23,10 @@ export default function HomeSection() {
     setIsClient(true)
   }, [])
 
-  const handleDownloadAndOpenPDF = () => {
+  const handleDownloadPDF = () => {
     const fileId = "13NU5NaR9tItyhTbfPnrH9ufsxWzxKjOc5k7DeqySLXM"
     const pdfUrl = `https://docs.google.com/document/d/${fileId}/export?format=pdf`
 
-    // 1. Buka tab baru untuk menampilkan file PDF
-    const newTab = window.open(pdfUrl, "_blank")
-    if (newTab) {
-      newTab.focus()
-    }
-
-    // 2. Trigger download otomatis
     const link = document.createElement("a")
     link.href = pdfUrl
     link.download = "Jason_Vianney_Sugiarto_Resume.pdf"
@@ -71,8 +63,8 @@ export default function HomeSection() {
                 results.
               </p>
 
-              <Button onClick={handleDownloadAndOpenPDF}>
-                Download & View Resume
+              <Button onClick={handleDownloadPDF}>
+                Download Resume
               </Button>
             </div>
           </div>
