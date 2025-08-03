@@ -111,9 +111,6 @@ export default function RolesShowcase() {
           <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
             Professional Expertise
           </h2>
-          <p className="text-cyan-200 text-lg max-w-2xl mx-auto">
-            Skills & Tools I use in these three areas of expertise
-          </p>
         </div>
 
         {/* Roles Grid */}
