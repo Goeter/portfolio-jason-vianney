@@ -91,7 +91,6 @@ export default function CertificatesSection() {
       <div className="container mx-auto px-4 max-w-6xl relative z-10">
         <div className="flex items-center justify-between mb-8 scroll-animate opacity-0 translate-y-8 transition-all duration-1000">
           <h2 className="text-white text-3xl lg:text-4xl xl:text-5xl font-bold bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent flex items-center gap-3">
-            <Award className="w-8 h-8 lg:w-10 lg:h-10 text-green-400" />
             Certificates
           </h2>
           <Link href="/certificates">
