@@ -52,14 +52,14 @@ export default function HomeSection() {
               <h2 className="text-cyan-300 text-xl lg:text-2xl xl:text-3xl font-semibold leading-tight">
                 System Analyst, UI/UX Designer,
                 <br />
-                Data Analyst, Remote
+                Data Analyst
               </h2>
 
               <p className="text-white text-base lg:text-lg leading-relaxed text-justify font-medium">
                 I am an IT professional with 3 years of experience in the manufacturing and finance industries, focusing
                 on System Analyst, UI/UX Designer, and Data Analyst. I am skilled at translating business needs into
-                efficient, secure, and user-friendly digital solutions. I have experience designing intuitive,
-                data-driven interfaces and am accustomed to working across teams to ensure targeted and impactful
+                efficient, secure, and user friendly digital solutions. I have experience designing intuitive,
+                data driven interfaces and am accustomed to working across teams to ensure targeted and impactful
                 results.
               </p>
 
