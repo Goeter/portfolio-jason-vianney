@@ -98,7 +98,7 @@ export default function AllProjects() {
       <div className="relative z-10 bg-cyan-400 py-4">
         <div className="container mx-auto px-4">
           <div className="flex items-center gap-4">
-            <Link href="/">
+            <Link href="/#projectsection">
               <Button variant="ghost" size="sm" className="text-black hover:bg-cyan-300 flex items-center gap-2">
                 <ChevronLeft className="w-5 h-5" />
                 Back
