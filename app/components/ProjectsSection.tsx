@@ -64,6 +64,7 @@ export default function ProjectsSection() {
   const [cardsPerView, setCardsPerView] = useState(3)
   const [isClient, setIsClient] = useState(false)
   const [showModal, setShowModal] = useState(false)
+  const [selectedImage, setSelectedImage] = useState<string | null>(null)
 
   useEffect(() => {
     setIsClient(true)
@@ -100,6 +101,10 @@ export default function ProjectsSection() {
     if (!isClient) return 0
     const percentage = 100 / cardsPerView
     return currentIndex * percentage
+  }
+
+  const handleImageClick = (image: string) => {
+    setSelectedImage(image)
   }
 
   return (
@@ -148,63 +153,21 @@ export default function ProjectsSection() {
                   <div key={project.id} className="w-full md:w-1/2 lg:w-1/3 flex-shrink-0 px-2">
                     <Card className="bg-gradient-to-br from-slate-800 to-blue-900 shadow-lg h-full">
                       <CardContent className="p-0 flex flex-col h-full">
-                        <div className="aspect-video bg-gray-800 rounded-t-lg overflow-hidden">
+                        <div className="aspect-video bg-gray-800 rounded-t-lg overflow-hidden cursor-pointer" onClick={() => handleImageClick(project.image)}>
                           {project.image.includes("mobile-app/combined") ? (
                             <div className="flex h-full">
-                              <Image
-                                src="/assets/projects/mobile-app/topas-mobile-dashboard.jpeg"
-                                alt="Dashboard"
-                                width={100}
-                                height={200}
-                                className="w-1/3 object-cover"
-                              />
-                              <Image
-                                src="/assets/projects/mobile-app/topas-mobile-menu.jpeg"
-                                alt="Menu"
-                                width={100}
-                                height={200}
-                                className="w-1/3 object-cover"
-                              />
-                              <Image
-                                src="/assets/projects/mobile-app/topas-mobile-profile.jpeg"
-                                alt="Profile"
-                                width={100}
-                                height={200}
-                                className="w-1/3 object-cover"
-                              />
+                              <Image src="/assets/projects/mobile-app/topas-mobile-dashboard.jpeg" alt="Dashboard" width={100} height={200} className="w-1/3 object-cover" />
+                              <Image src="/assets/projects/mobile-app/topas-mobile-menu.jpeg" alt="Menu" width={100} height={200} className="w-1/3 object-cover" />
+                              <Image src="/assets/projects/mobile-app/topas-mobile-profile.jpeg" alt="Profile" width={100} height={200} className="w-1/3 object-cover" />
                             </div>
                           ) : project.image.includes("mobile-mata-elang/combined") ? (
                             <div className="flex h-full">
-                              <Image
-                                src="/assets/projects/mobile-mata-elang/foto-1.png"
-                                alt="Mata Elang Dashboard"
-                                width={100}
-                                height={200}
-                                className="w-1/3 object-cover"
-                              />
-                              <Image
-                                src="/assets/projects/mobile-mata-elang/foto-2.png"
-                                alt="Mata Elang Subscription Offer"
-                                width={100}
-                                height={200}
-                                className="w-1/3 object-cover"
-                              />
-                              <Image
-                                src="/assets/projects/mobile-mata-elang/foto-3.png"
-                                alt="Mata Elang Subscription Options"
-                                width={100}
-                                height={200}
-                                className="w-1/3 object-cover"
-                              />
+                              <Image src="/assets/projects/mobile-mata-elang/foto-1.png" alt="Dashboard" width={100} height={200} className="w-1/3 object-cover" />
+                              <Image src="/assets/projects/mobile-mata-elang/foto-2.png" alt="Sub Offer" width={100} height={200} className="w-1/3 object-cover" />
+                              <Image src="/assets/projects/mobile-mata-elang/foto-3.png" alt="Sub Opt" width={100} height={200} className="w-1/3 object-cover" />
                             </div>
                           ) : (
-                            <Image
-                              src={project.image || "/placeholder.svg"}
-                              alt={project.title}
-                              width={300}
-                              height={200}
-                              className="w-full h-full object-cover"
-                            />
+                            <Image src={project.image || "/placeholder.svg"} alt={project.title} width={300} height={200} className="w-full h-full object-cover" />
                           )}
                         </div>
                         <div className="p-4 flex flex-col flex-grow">
@@ -230,30 +193,40 @@ export default function ProjectsSection() {
         </div>
       </section>
 
-      {/* ✅ MODAL */}
+      {/* Modal untuk Link Website */}
       {showModal && (
         <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center">
           <div className="bg-white rounded-lg shadow-xl max-w-md w-full p-6 relative animate-fade-in-up">
-            <button
-              className="absolute top-2 right-2 text-gray-500 hover:text-gray-800"
-              onClick={() => setShowModal(false)}
-              aria-label="Close Modal"
-            >
+            <button className="absolute top-2 right-2 text-gray-500 hover:text-gray-800" onClick={() => setShowModal(false)} aria-label="Close Modal">
               <X className="w-5 h-5" />
             </button>
             <h2 className="text-xl font-bold text-gray-800 mb-2">PT Topas Multi Finance Website</h2>
-            <p className="text-sm text-gray-600 mb-4">
-              Klik tombol di bawah ini untuk mengunjungi website resmi.
-            </p>
-            <Link
-              href="https://frontend.topasmultifinance.co.id"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <Button className="bg-cyan-600 hover:bg-cyan-700 text-white w-full">
-                Buka Website
-              </Button>
+            <p className="text-sm text-gray-600 mb-4">Klik tombol di bawah ini untuk mengunjungi website resmi.</p>
+            <Link href="https://frontend.topasmultifinance.co.id" target="_blank" rel="noopener noreferrer">
+              <Button className="bg-cyan-600 hover:bg-cyan-700 text-white w-full">Buka Website</Button>
             </Link>
+          </div>
+        </div>
+      )}
+
+      {/* Modal untuk Gambar */}
+      {selectedImage && (
+        <div className="fixed inset-0 bg-black/80 backdrop-blur z-50 flex items-center justify-center animate-fade-in-up">
+          <div className="relative max-w-4xl w-full mx-4">
+            <button
+              className="absolute top-2 right-2 text-white hover:text-gray-300 z-10"
+              onClick={() => setSelectedImage(null)}
+              aria-label="Close Image Modal"
+            >
+              <X className="w-6 h-6" />
+            </button>
+            <Image
+              src={selectedImage}
+              alt="Full Size Project"
+              width={1200}
+              height={800}
+              className="w-full h-auto rounded-lg shadow-2xl object-contain"
+            />
           </div>
         </div>
       )}
