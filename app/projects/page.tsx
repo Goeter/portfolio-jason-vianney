@@ -1,6 +1,6 @@
 "use client"
 
-import { ChevronLeft } from "lucide-react"
+import { ChevronLeft } from 'lucide-react'
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import Link from "next/link"
@@ -48,6 +48,20 @@ const projects: Project[] = [
     description:
       "A new menu for printing the disbursement note, which was previously written manually by hand. It can now be printed more neatly and quickly using the system, and is stored securely in the system",
     image: "/assets/projects/vehicle-registration-certificate-system.png",
+  },
+  {
+    id: 6,
+    title: "Mobile Mata Elang & Subscribe",
+    description:
+      "Create a mobile application to track credit vehicles and help field users or third parties use the application by subscribing to our application.",
+    image: "/assets/projects/mobile-mata-elang/combined", // New combined image path
+  },
+  {
+    id: 7,
+    title: "Mobile Loan Flow Survey",
+    description:
+      "Create a survey application to be used when visiting debtors' homes, so that the data is centralized and neatly stored in the company database, and can be followed up properly.",
+    image: "/assets/projects/flow-survey-pinjaman.jpg", // New image path
   },
 ]
 
@@ -145,6 +159,38 @@ export default function AllProjects() {
                           <Image
                             src="/assets/projects/mobile-app/topas-mobile-profile.jpeg"
                             alt="Topas Mobile App Profile"
+                            width={100}
+                            height={200}
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  ) : project.image.includes("mobile-mata-elang/combined") ? (
+                    <div className="w-full h-full bg-gray-100 flex items-center justify-center p-2">
+                      <div className="flex space-x-1 w-full h-full">
+                        <div className="flex-1 rounded-lg overflow-hidden">
+                          <Image
+                            src="/assets/projects/mobile-mata-elang/foto-1.png"
+                            alt="Mata Elang Dashboard"
+                            width={100}
+                            height={200}
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                        <div className="flex-1 rounded-lg overflow-hidden">
+                          <Image
+                            src="/assets/projects/mobile-mata-elang/foto-2.png"
+                            alt="Mata Elang Subscription Offer"
+                            width={100}
+                            height={200}
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                        <div className="flex-1 rounded-lg overflow-hidden">
+                          <Image
+                            src="/assets/projects/mobile-mata-elang/foto-3.png"
+                            alt="Mata Elang Subscription Options"
                             width={100}
                             height={200}
                             className="w-full h-full object-cover"
