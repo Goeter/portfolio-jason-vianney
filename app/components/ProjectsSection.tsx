@@ -35,18 +35,6 @@ const projects = [
     description: "UI for listing all employees in company.",
     image: "/projects/foto 3.png",
   },
-  {
-    id: 6,
-    title: "HRIS KPI",
-    description: "UI for managing employee KPIs.",
-    image: "/projects/foto 4.png",
-  },
-  {
-    id: 7,
-    title: "Mobile Survey App",
-    description: "Initial design of mobile app for field survey.",
-    image: "/projects/mobile-survey-app.png",
-  },
 ];
 
 export default function ProjectsSection() {
