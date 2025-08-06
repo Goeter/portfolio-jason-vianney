@@ -49,6 +49,7 @@ export default function ProjectsSection() {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [cardsPerView, setCardsPerView] = useState(3)
   const [isClient, setIsClient] = useState(false)
+  const [activeEmbedId, setActiveEmbedId] = useState<number | null>(null)
 
   useEffect(() => {
     setIsClient(true)
@@ -91,14 +92,9 @@ export default function ProjectsSection() {
 
   return (
     <section id="projects" className="min-h-screen flex items-center py-20 relative">
-      {/* Futuristic Background Overlay */}
+      {/* Background Overlay */}
       <div className="absolute inset-0 bg-gradient-to-br from-slate-900/60 via-blue-900/60 to-purple-900/60 backdrop-blur-sm">
-        {/* Tech Grid Pattern */}
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width=%2260%22 height=%2260%22 viewBox=%220 0 60 60%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cg fill=%22none%22 fillRule=%22evenodd%22%3E%3Cg stroke=%22%2300ffff%22 strokeWidth=%221%22%3E%3Cpath d=%22M0 0h60v60H0z%22/%3E%3Cpath d=%22M15 0v60M30 0v60M45 0v60M0 15h60M0 30h60M0 45h60%22/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')]" />
-        </div>
-
-        {/* Floating Neon Elements */}
+        <div className="absolute inset-0 opacity-10 bg-[url('data:image/svg+xml,%3Csvg width=%2260%22 height=%2260%22 viewBox=%220 0 60 60%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cg fill=%22none%22 fillRule=%22evenodd%22%3E%3Cg stroke=%22%2300ffff%22 strokeWidth=%221%22%3E%3Cpath d=%22M0 0h60v60H0z%22/%3E%3Cpath d=%22M15 0v60M30 0v60M45 0v60M0 15h60M0 30h60M0 45h60%22/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')]" />
         <div className="absolute top-20 right-20 w-32 h-32 bg-gradient-to-br from-cyan-400/20 to-blue-400/20 rounded-full blur-xl animate-pulse" />
         <div
           className="absolute bottom-40 left-20 w-48 h-48 bg-gradient-to-tr from-purple-400/20 to-pink-400/20 rounded-full blur-xl animate-pulse"
@@ -107,7 +103,7 @@ export default function ProjectsSection() {
       </div>
 
       <div className="container mx-auto px-4 max-w-6xl relative z-10">
-        <div className="flex items-center justify-between mb-8 scroll-animate opacity-0 translate-y-8 transition-all duration-1000">
+        <div className="flex items-center justify-between mb-8">
           <h2 className="text-white text-3xl lg:text-4xl xl:text-5xl font-bold bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
             Projects
           </h2>
@@ -119,8 +115,7 @@ export default function ProjectsSection() {
           </Link>
         </div>
 
-        <div className="relative scroll-animate opacity-0 translate-y-8 transition-all duration-1000 delay-300">
-          {/* Navigation Buttons */}
+        <div className="relative">
           <Button
             variant="outline"
             size="icon"
@@ -141,7 +136,6 @@ export default function ProjectsSection() {
             <ChevronRight className="w-6 h-6" />
           </Button>
 
-          {/* Carousel */}
           <div className="overflow-hidden mx-8">
             <div
               className="flex transition-transform duration-500 ease-in-out"
@@ -157,33 +151,17 @@ export default function ProjectsSection() {
                         {project.image.includes("mobile-app/combined") ? (
                           <div className="w-full h-full bg-gray-800 flex items-center justify-center p-2">
                             <div className="flex space-x-1 w-full h-full">
-                              <div className="flex-1 rounded-lg overflow-hidden">
-                                <Image
-                                  src="/assets/projects/mobile-app/topas-mobile-dashboard.jpeg"
-                                  alt="Topas Mobile App Dashboard"
-                                  width={100}
-                                  height={200}
-                                  className="w-full h-full object-cover"
-                                />
-                              </div>
-                              <div className="flex-1 rounded-lg overflow-hidden">
-                                <Image
-                                  src="/assets/projects/mobile-app/topas-mobile-menu.jpeg"
-                                  alt="Topas Mobile App Menu"
-                                  width={100}
-                                  height={200}
-                                  className="w-full h-full object-cover"
-                                />
-                              </div>
-                              <div className="flex-1 rounded-lg overflow-hidden">
-                                <Image
-                                  src="/assets/projects/mobile-app/topas-mobile-profile.jpeg"
-                                  alt="Topas Mobile App Profile"
-                                  width={100}
-                                  height={200}
-                                  className="w-full h-full object-cover"
-                                />
-                              </div>
+                              {["dashboard", "menu", "profile"].map((img) => (
+                                <div key={img} className="flex-1 rounded-lg overflow-hidden">
+                                  <Image
+                                    src={`/assets/projects/mobile-app/topas-mobile-${img}.jpeg`}
+                                    alt={`Topas Mobile App ${img}`}
+                                    width={100}
+                                    height={200}
+                                    className="w-full h-full object-cover"
+                                  />
+                                </div>
+                              ))}
                             </div>
                           </div>
                         ) : (
@@ -199,14 +177,40 @@ export default function ProjectsSection() {
                       <div className="bg-gradient-to-br from-cyan-900/80 to-blue-900/80 p-4 rounded-b-lg flex-grow flex flex-col">
                         <h3 className="text-white font-bold text-lg mb-2">{project.title}</h3>
                         <p className="text-gray-300 text-sm mb-4 flex-grow line-clamp-3">{project.description}</p>
-                        <Link href={`/experience/${project.id}`}>
-                          <Button
-                            variant="link"
-                            className="text-cyan-400 hover:text-cyan-300 p-0 text-sm self-start font-semibold"
-                          >
-                            See Detail {">"}
-                          </Button>
-                        </Link>
+
+                        {/* Kondisi khusus project ID = 1 */}
+                        {project.id === 1 ? (
+                          <>
+                            <Button
+                              variant="link"
+                              className="text-cyan-400 hover:text-cyan-300 p-0 text-sm self-start font-semibold"
+                              onClick={() =>
+                                setActiveEmbedId(activeEmbedId === 1 ? null : 1)
+                              }
+                            >
+                              {activeEmbedId === 1 ? "Hide Live Preview" : "Live Preview >"}
+                            </Button>
+
+                            {activeEmbedId === 1 && (
+                              <div className="mt-4 w-full h-[500px] rounded-lg overflow-hidden border border-cyan-500">
+                                <iframe
+                                  src="https://frontend.topasmultifinance.co.id/"
+                                  className="w-full h-full"
+                                  title="Topas Multi Finance Website"
+                                />
+                              </div>
+                            )}
+                          </>
+                        ) : (
+                          <Link href={`/experience/${project.id}`}>
+                            <Button
+                              variant="link"
+                              className="text-cyan-400 hover:text-cyan-300 p-0 text-sm self-start font-semibold"
+                            >
+                              See Detail {">"}
+                            </Button>
+                          </Link>
+                        )}
                       </div>
                     </CardContent>
                   </Card>
