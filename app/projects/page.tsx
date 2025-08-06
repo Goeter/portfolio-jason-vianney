@@ -130,8 +130,9 @@ export default function AllProjects() {
           {projects.map((project) => (
             <Card
               key={project.id}
-              className="bg-gradient-to-br from-slate-800 to-blue-900 shadow-lg border border-white/10 hover:shadow-xl transition-all duration-300 h-full"
+              className="bg-gradient-to-br from-[#0f172a] via-[#1e3a8a] to-[#3b82f6] border border-cyan-400/30 shadow-lg shadow-cyan-500/10 backdrop-blur-md hover:scale-[1.02] transition-transform duration-300 h-full"
             >
+
               <CardContent className="p-0 flex flex-col h-full">
                 <div className="aspect-video bg-gray-300 rounded-t-lg flex-shrink-0 overflow-hidden">
                   {project.image.includes("mobile-app/combined") ? (
