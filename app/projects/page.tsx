@@ -109,11 +109,11 @@ export default function AllProjects() {
       </div>
 
       {/* Header */}
-      <div className="relative z-10 bg-cyan-400 py-4">
+      <div className="relative z-10 bg-gradient-to-r from-cyan-500 via-blue-700 to-purple-800 py-4 shadow-md">
         <div className="container mx-auto px-4">
           <div className="flex items-center gap-4">
             <Link href="/#projects">
-              <Button variant="ghost" size="sm" className="text-black hover:bg-cyan-300 flex items-center gap-2">
+              <Button variant="ghost" size="sm" className="text-white hover:bg-white/10 hover:text-cyan-300 transition-colors flex items-center gap-2">
                 <ChevronLeft className="w-5 h-5" />
                 Back
               </Button>
@@ -130,7 +130,7 @@ export default function AllProjects() {
           {projects.map((project) => (
             <Card
               key={project.id}
-              className="bg-white/10 backdrop-blur-sm border-white/20 hover:bg-white/20 transition-all duration-300 h-full"
+              className="bg-gradient-to-br from-slate-800 to-blue-900 shadow-lg border border-white/10 hover:shadow-xl transition-all duration-300 h-full"
             >
               <CardContent className="p-0 flex flex-col h-full">
                 <div className="aspect-video bg-gray-300 rounded-t-lg flex-shrink-0 overflow-hidden">
