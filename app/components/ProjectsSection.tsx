@@ -41,20 +41,6 @@ const projects = [
       "Antarmuka daftar seluruh karyawan perusahaan dalam sistem HRIS.",
     image: "/projects/foto 3.png",
   },
-  {
-    id: 6,
-    title: "UI: HRIS Web KPI",
-    description:
-      "Antarmuka pengelolaan Key Performance Indicator (KPI) karyawan.",
-    image: "/projects/foto 4.png",
-  },
-  {
-    id: 7,
-    title: "Mobile Survey App",
-    description:
-      "Desain awal aplikasi mobile untuk keperluan survey lapangan.",
-    image: "/projects/mobile-survey-app.png",
-  },
 ];
 
 export default function ProjectsSection() {
