@@ -54,14 +54,14 @@ const projects: Project[] = [
     title: "Mobile Mata Elang & Subscribe",
     description:
       "Create a mobile application to track credit vehicles and help field users or third parties use the application by subscribing to our application.",
-    image: "/assets/projects/mobile-mata-elang/combined", // New combined image path
+    image: "/assets/projects/mobile-mata-elang/combined",
   },
   {
     id: 7,
     title: "Mobile Loan Flow Survey",
     description:
       "Create a survey application to be used when visiting debtors' homes, so that the data is centralized and neatly stored in the company database, and can be followed up properly.",
-    image: "/assets/projects/flow-survey-pinjaman.jpg", // New image path
+    image: "/assets/projects/flow-survey-pinjaman.jpg",
   },
 ]
 
@@ -92,18 +92,8 @@ export default function AllProjects() {
         <div className="absolute bottom-0 left-0 w-1/2 h-1/2">
           <svg className="w-full h-full opacity-20" viewBox="0 0 400 400" fill="none" aria-hidden="true">
             <polygon points="50,25 75,50 75,100 50,125 25,100 25,50" stroke="#3b82f6" strokeWidth="1" fill="none" />
-            <polygon
-              points="100,75 125,100 125,150 100,175 75,150 75,100"
-              stroke="#60a5fa"
-              strokeWidth="1"
-              fill="none"
-            />
-            <polygon
-              points="150,25 175,50 175,100 150,125 125,100 125,50"
-              stroke="#93c5fd"
-              strokeWidth="1"
-              fill="none"
-            />
+            <polygon points="100,75 125,100 125,150 100,175 75,150 75,100" stroke="#60a5fa" strokeWidth="1" fill="none" />
+            <polygon points="150,25 175,50 175,100 150,125 125,100 125,50" stroke="#93c5fd" strokeWidth="1" fill="none" />
           </svg>
         </div>
       </div>
@@ -113,7 +103,11 @@ export default function AllProjects() {
         <div className="container mx-auto px-4">
           <div className="flex items-center gap-4">
             <Link href="/#projects">
-              <Button variant="ghost" size="sm" className="text-white hover:bg-white/10 hover:text-cyan-300 transition-colors flex items-center gap-2">
+              <Button
+                variant="ghost"
+                size="sm"
+                className="text-white hover:text-cyan-300 transition-colors flex items-center gap-2 hover:shadow-[0_0_10px_2px_rgba(34,211,238,0.7)]"
+              >
                 <ChevronLeft className="w-5 h-5" />
                 Back
               </Button>
@@ -130,11 +124,12 @@ export default function AllProjects() {
           {projects.map((project) => (
             <Card
               key={project.id}
-              className="bg-gradient-to-br from-[#0f172a] via-[#1e3a8a] to-[#3b82f6] border border-cyan-400/30 shadow-lg shadow-cyan-500/10 backdrop-blur-md hover:scale-[1.02] transition-transform duration-300 h-full"
+              className="relative group bg-gradient-to-br from-[#1a1c2c] to-[#2e3a59] border border-transparent rounded-xl p-[1px] shadow-lg hover:scale-[1.02] transition-transform duration-300 h-full"
             >
+              <div className="absolute inset-0 rounded-xl pointer-events-none group-hover:opacity-100 opacity-20 transition-opacity duration-500 border-2 border-transparent group-hover:border-cyan-400 animate-[pulse_4s_infinite]"></div>
 
-              <CardContent className="p-0 flex flex-col h-full">
-                <div className="aspect-video bg-gray-300 rounded-t-lg flex-shrink-0 overflow-hidden">
+              <CardContent className="p-0 flex flex-col h-full bg-[#0f172a]/80 backdrop-blur-md rounded-xl z-10 relative">
+                <div className="aspect-video bg-gray-300 rounded-t-xl flex-shrink-0 overflow-hidden">
                   {project.image.includes("mobile-app/combined") ? (
                     <div className="w-full h-full bg-gray-100 flex items-center justify-center p-2">
                       <div className="flex space-x-1 w-full h-full">
@@ -209,9 +204,9 @@ export default function AllProjects() {
                     />
                   )}
                 </div>
-                <div className="bg-cyan-200 p-4 rounded-b-lg flex-grow flex flex-col">
-                  <h3 className="text-black font-bold text-lg mb-2">{project.title}</h3>
-                  <p className="text-black text-sm mb-4 flex-grow line-clamp-4">{project.description}</p>
+                <div className="p-4 rounded-b-xl flex-grow flex flex-col text-white">
+                  <h3 className="font-bold text-lg mb-2">{project.title}</h3>
+                  <p className="text-sm mb-4 flex-grow line-clamp-4 opacity-90">{project.description}</p>
                 </div>
               </CardContent>
             </Card>
