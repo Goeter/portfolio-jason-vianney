@@ -12,7 +12,7 @@ const projects = [
     id: 1,
     title: "PT Topas Multi Finance Website",
     description:
-      "Public-facing corporate website that sells Topas Multi Finance products and builds brand awareness and customer trust through professional digital presence",
+      "Public-facing corporate website that sells products and builds brand awareness and customer trust through professional digital presence",
     image: "/assets/projects/topas-website.png",
   },
   {
