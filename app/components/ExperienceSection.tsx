@@ -25,7 +25,7 @@ const experiences = [
     period: "February 2023 - February 2024",
     logo: "/assets/company-logos/icon_astra.png",
     details: [
-      "Developed internal monitoring tools to track part movement between dealers and warehouses, improving stock visibility and streamlining motorcycle assembly operations.",
+      "Develop internal monitoring tools to track the movement of parts between dealers and warehouses.",
       "Redesigning the old application into a new version that is more secure, has more complete features, and is more user friendly, improving the overall reliability of the system in data storage and more organized data monitoring.",
       "Performing unit testing prior to launch reduces bugs and minimizes human error by validating the system's inputs to ensure a smoother user experience at launch.",
     ],
