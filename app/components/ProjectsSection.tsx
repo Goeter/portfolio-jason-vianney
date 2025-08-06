@@ -119,7 +119,7 @@ export default function ProjectsSection() {
             </h2>
             <Link href="/projects">
               <Button className="bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-400 hover:to-emerald-400 text-white font-semibold px-6 py-2 rounded-lg shadow-lg shadow-green-500/30 hover:shadow-xl hover:shadow-green-500/40 transform hover:scale-105 transition-all duration-300">
-                All Projects{" "}
+                All Projects
                 <span className="bg-green-600 text-white px-2 py-1 rounded-md border border-green-700 ml-2">
                   {projects.length}
                 </span>{" "}
@@ -167,9 +167,9 @@ export default function ProjectsSection() {
                             </div>
                           ) : project.image.includes("mobile-mata-elang/combined") ? (
                             <div className="flex h-full">
-                              <Image src="/assets/projects/mobile-mata-elang/foto-1.png" alt="Dashboard" width={100} height={200} className="w-1/3 object-cover" />
-                              <Image src="/assets/projects/mobile-mata-elang/foto-2.png" alt="Sub Offer" width={100} height={200} className="w-1/3 object-cover" />
-                              <Image src="/assets/projects/mobile-mata-elang/foto-3.png" alt="Sub Opt" width={100} height={200} className="w-1/3 object-cover" />
+                              <Image src="/assets/projects/mobile-mata-elang/foto-1.png" alt="Foto 1" width={100} height={200} className="w-1/3 object-cover" />
+                              <Image src="/assets/projects/mobile-mata-elang/foto-2.png" alt="Foto 2" width={100} height={200} className="w-1/3 object-cover" />
+                              <Image src="/assets/projects/mobile-mata-elang/foto-3.png" alt="Foto 3" width={100} height={200} className="w-1/3 object-cover" />
                             </div>
                           ) : (
                             <Image src={project.image || "/placeholder.svg"} alt={project.title} width={300} height={200} className="w-full h-full object-cover" />
@@ -214,22 +214,20 @@ export default function ProjectsSection() {
         </div>
       )}
 
-      {/* Modal untuk Gambar */}
+      {/* Modal Gambar dengan Tampilan Baru */}
       {selectedImage && (
         <div className="fixed inset-0 bg-black/80 backdrop-blur z-50 flex items-center justify-center animate-fade-in-up">
-          <div className="relative w-full max-w-[90vw] max-h-[90vh] mx-4 bg-white p-4 rounded-lg shadow-2xl overflow-auto">
-            <div className="flex justify-end">
-              <Button
-                variant="destructive"
-                onClick={() => {
-                  setSelectedImage(null)
-                  setSelectedProjectId(null)
-                }}
-                className="mb-4"
-              >
-                <X className="mr-2 w-4 h-4" /> Tutup
-              </Button>
-            </div>
+          <div className="relative w-full max-w-[600px] max-h-[90vh] mx-4 bg-white p-4 rounded-lg shadow-2xl overflow-auto">
+            <button
+              className="absolute top-2 right-2 w-8 h-8 rounded-full bg-gray-200 hover:bg-gray-300 text-gray-600 hover:text-gray-800 flex items-center justify-center shadow-md"
+              onClick={() => {
+                setSelectedImage(null)
+                setSelectedProjectId(null)
+              }}
+              aria-label="Close"
+            >
+              <X className="w-4 h-4" />
+            </button>
 
             {selectedProjectId === 2 ? (
               <div className="flex flex-wrap gap-4 justify-center items-center">
