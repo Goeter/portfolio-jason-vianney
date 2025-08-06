@@ -155,7 +155,10 @@ export default function ProjectsSection() {
                   <div key={project.id} className="w-full md:w-1/2 lg:w-1/3 flex-shrink-0 px-2">
                     <Card className="bg-gradient-to-br from-slate-800 to-blue-900 shadow-lg h-full">
                       <CardContent className="p-0 flex flex-col h-full">
-                        <div className="aspect-video bg-gray-800 rounded-t-lg overflow-hidden cursor-pointer" onClick={() => handleImageClick(project.image, project.id)}>
+                        <div
+                          className="aspect-video bg-gray-800 rounded-t-lg overflow-hidden cursor-pointer"
+                          onClick={() => handleImageClick(project.image, project.id)}
+                        >
                           {project.image.includes("mobile-app/combined") ? (
                             <div className="flex h-full">
                               <Image src="/assets/projects/mobile-app/topas-mobile-dashboard.jpeg" alt="Dashboard" width={100} height={200} className="w-1/3 object-cover" />
@@ -214,7 +217,7 @@ export default function ProjectsSection() {
       {/* Modal untuk Gambar */}
       {selectedImage && (
         <div className="fixed inset-0 bg-black/80 backdrop-blur z-50 flex items-center justify-center animate-fade-in-up">
-          <div className="relative max-w-5xl w-full mx-4 bg-white p-4 rounded-lg shadow-2xl">
+          <div className="relative w-full max-w-[90vw] max-h-[90vh] mx-4 bg-white p-4 rounded-lg shadow-2xl overflow-auto">
             <div className="flex justify-end">
               <Button
                 variant="destructive"
@@ -229,16 +232,16 @@ export default function ProjectsSection() {
             </div>
 
             {selectedProjectId === 2 ? (
-              <div className="flex gap-4 justify-center items-center">
-                <Image src="/assets/projects/mobile-app/topas-mobile-dashboard.jpeg" alt="Dashboard" width={300} height={600} className="rounded-lg object-contain" />
-                <Image src="/assets/projects/mobile-app/topas-mobile-menu.jpeg" alt="Menu" width={300} height={600} className="rounded-lg object-contain" />
-                <Image src="/assets/projects/mobile-app/topas-mobile-profile.jpeg" alt="Profile" width={300} height={600} className="rounded-lg object-contain" />
+              <div className="flex flex-wrap gap-4 justify-center items-center">
+                <Image src="/assets/projects/mobile-app/topas-mobile-dashboard.jpeg" alt="Dashboard" width={300} height={600} className="rounded-lg object-contain max-w-full max-h-[80vh]" />
+                <Image src="/assets/projects/mobile-app/topas-mobile-menu.jpeg" alt="Menu" width={300} height={600} className="rounded-lg object-contain max-w-full max-h-[80vh]" />
+                <Image src="/assets/projects/mobile-app/topas-mobile-profile.jpeg" alt="Profile" width={300} height={600} className="rounded-lg object-contain max-w-full max-h-[80vh]" />
               </div>
             ) : selectedProjectId === 6 ? (
-              <div className="flex gap-4 justify-center items-center">
-                <Image src="/assets/projects/mobile-mata-elang/foto-1.png" alt="Foto 1" width={300} height={600} className="rounded-lg object-contain" />
-                <Image src="/assets/projects/mobile-mata-elang/foto-2.png" alt="Foto 2" width={300} height={600} className="rounded-lg object-contain" />
-                <Image src="/assets/projects/mobile-mata-elang/foto-3.png" alt="Foto 3" width={300} height={600} className="rounded-lg object-contain" />
+              <div className="flex flex-wrap gap-4 justify-center items-center">
+                <Image src="/assets/projects/mobile-mata-elang/foto-1.png" alt="Foto 1" width={300} height={600} className="rounded-lg object-contain max-w-full max-h-[80vh]" />
+                <Image src="/assets/projects/mobile-mata-elang/foto-2.png" alt="Foto 2" width={300} height={600} className="rounded-lg object-contain max-w-full max-h-[80vh]" />
+                <Image src="/assets/projects/mobile-mata-elang/foto-3.png" alt="Foto 3" width={300} height={600} className="rounded-lg object-contain max-w-full max-h-[80vh]" />
               </div>
             ) : (
               <Image
@@ -246,7 +249,7 @@ export default function ProjectsSection() {
                 alt="Full Size Project"
                 width={1200}
                 height={800}
-                className="w-full h-auto rounded-lg object-contain"
+                className="w-full h-auto rounded-lg object-contain max-w-full max-h-[80vh]"
               />
             )}
           </div>
