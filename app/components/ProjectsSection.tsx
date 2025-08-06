@@ -1,7 +1,8 @@
+
 "use client"
 
 import { useState, useEffect } from "react"
-import { ChevronLeft, ChevronRight, X } from "lucide-react"
+import { ChevronLeft, ChevronRight, X } from 'lucide-react'
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import Link from "next/link"
@@ -42,6 +43,20 @@ const projects = [
     description:
       "A new menu for printing the disbursement note, which was previously written manually by hand. It can now be printed more neatly and quickly using the system, and is stored securely in the system",
     image: "/assets/projects/vehicle-registration-certificate-system.png",
+  },
+  {
+    id: 6,
+    title: "Mobile Mata Elang & Subscribe",
+    description:
+      "Create a mobile application to track credit vehicles and help field users or third parties use the application by subscribing to our application.",
+    image: "/assets/projects/mobile-mata-elang/combined", // New combined image path
+  },
+  {
+    id: 7,
+    title: "Mobile Loan Flow Survey",
+    description:
+      "Create a survey application to be used when visiting debtors' homes, so that the data is centralized and neatly stored in the company database, and can be followed up properly.",
+    image: "/assets/projects/flow-survey-pinjaman.jpg", // New image path
   },
 ]
 
@@ -96,12 +111,16 @@ export default function ProjectsSection() {
         {/* Backgrounds and overlays omitted for brevity – use your existing code here */}
         <div className="container mx-auto px-4 max-w-6xl relative z-10">
           <div className="flex items-center justify-between mb-8">
-            <h2 className="text-white text-4xl font-bold bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
+            <h2 className="text-white text-3xl lg:text-4xl xl:text-5xl font-bold bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">
               Projects
             </h2>
             <Link href="/projects">
-              <Button className="bg-gradient-to-r from-green-500 to-emerald-500 text-white">
-                All Projects <span className="ml-2">&gt;</span>
+              <Button className="bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-400 hover:to-emerald-400 text-white font-semibold px-6 py-2 rounded-lg shadow-lg shadow-green-500/30 hover:shadow-xl hover:shadow-green-500/40 transform hover:scale-105 transition-all duration-300">
+                All Projects{" "}
+                <span className="bg-green-600 text-white px-2 py-1 rounded-md border border-green-700 ml-2">
+                  {projects.length}
+                </span>{" "}
+                {">"}
               </Button>
             </Link>
           </div>
@@ -110,7 +129,7 @@ export default function ProjectsSection() {
             <Button
               variant="outline"
               size="icon"
-              className="absolute left-0 top-1/2 -translate-y-1/2 z-10"
+              className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-slate-800/80 border-cyan-500/50 hover:bg-slate-700/80 shadow-lg text-cyan-300 hover:text-cyan-200"
               onClick={prevSlide}
             >
               <ChevronLeft className="w-6 h-6" />
@@ -118,7 +137,7 @@ export default function ProjectsSection() {
             <Button
               variant="outline"
               size="icon"
-              className="absolute right-0 top-1/2 -translate-y-1/2 z-10"
+              className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-slate-800/80 border-cyan-500/50 hover:bg-slate-700/80 shadow-lg text-cyan-300 hover:text-cyan-200"
               onClick={nextSlide}
             >
               <ChevronRight className="w-6 h-6" />
@@ -160,9 +179,33 @@ export default function ProjectsSection() {
                                 className="w-1/3 object-cover"
                               />
                             </div>
+                          ) : project.image.includes("mobile-mata-elang/combined") ? (
+                            <div className="flex h-full">
+                              <Image
+                                src="/assets/projects/mobile-mata-elang/foto-1.png"
+                                alt="Mata Elang Dashboard"
+                                width={100}
+                                height={200}
+                                className="w-1/3 object-cover"
+                              />
+                              <Image
+                                src="/assets/projects/mobile-mata-elang/foto-2.png"
+                                alt="Mata Elang Subscription Offer"
+                                width={100}
+                                height={200}
+                                className="w-1/3 object-cover"
+                              />
+                              <Image
+                                src="/assets/projects/mobile-mata-elang/foto-3.png"
+                                alt="Mata Elang Subscription Options"
+                                width={100}
+                                height={200}
+                                className="w-1/3 object-cover"
+                              />
+                            </div>
                           ) : (
                             <Image
-                              src={project.image}
+                              src={project.image || "/placeholder.svg"}
                               alt={project.title}
                               width={300}
                               height={200}
