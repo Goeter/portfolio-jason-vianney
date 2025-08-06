@@ -65,6 +65,7 @@ export default function ProjectsSection() {
   const [isClient, setIsClient] = useState(false)
   const [showModal, setShowModal] = useState(false)
   const [selectedImage, setSelectedImage] = useState<string | null>(null)
+  const [selectedProjectId, setSelectedProjectId] = useState<number | null>(null)
 
   useEffect(() => {
     setIsClient(true)
@@ -103,8 +104,9 @@ export default function ProjectsSection() {
     return currentIndex * percentage
   }
 
-  const handleImageClick = (image: string) => {
+  const handleImageClick = (image: string, id: number) => {
     setSelectedImage(image)
+    setSelectedProjectId(id)
   }
 
   return (
@@ -153,7 +155,7 @@ export default function ProjectsSection() {
                   <div key={project.id} className="w-full md:w-1/2 lg:w-1/3 flex-shrink-0 px-2">
                     <Card className="bg-gradient-to-br from-slate-800 to-blue-900 shadow-lg h-full">
                       <CardContent className="p-0 flex flex-col h-full">
-                        <div className="aspect-video bg-gray-800 rounded-t-lg overflow-hidden cursor-pointer" onClick={() => handleImageClick(project.image)}>
+                        <div className="aspect-video bg-gray-800 rounded-t-lg overflow-hidden cursor-pointer" onClick={() => handleImageClick(project.image, project.id)}>
                           {project.image.includes("mobile-app/combined") ? (
                             <div className="flex h-full">
                               <Image src="/assets/projects/mobile-app/topas-mobile-dashboard.jpeg" alt="Dashboard" width={100} height={200} className="w-1/3 object-cover" />
@@ -212,21 +214,41 @@ export default function ProjectsSection() {
       {/* Modal untuk Gambar */}
       {selectedImage && (
         <div className="fixed inset-0 bg-black/80 backdrop-blur z-50 flex items-center justify-center animate-fade-in-up">
-          <div className="relative max-w-4xl w-full mx-4">
-            <button
-              className="absolute top-2 right-2 text-white hover:text-gray-300 z-10"
-              onClick={() => setSelectedImage(null)}
-              aria-label="Close Image Modal"
-            >
-              <X className="w-6 h-6" />
-            </button>
-            <Image
-              src={selectedImage}
-              alt="Full Size Project"
-              width={1200}
-              height={800}
-              className="w-full h-auto rounded-lg shadow-2xl object-contain"
-            />
+          <div className="relative max-w-5xl w-full mx-4 bg-white p-4 rounded-lg shadow-2xl">
+            <div className="flex justify-end">
+              <Button
+                variant="destructive"
+                onClick={() => {
+                  setSelectedImage(null)
+                  setSelectedProjectId(null)
+                }}
+                className="mb-4"
+              >
+                <X className="mr-2 w-4 h-4" /> Tutup
+              </Button>
+            </div>
+
+            {selectedProjectId === 2 ? (
+              <div className="flex gap-4 justify-center items-center">
+                <Image src="/assets/projects/mobile-app/topas-mobile-dashboard.jpeg" alt="Dashboard" width={300} height={600} className="rounded-lg object-contain" />
+                <Image src="/assets/projects/mobile-app/topas-mobile-menu.jpeg" alt="Menu" width={300} height={600} className="rounded-lg object-contain" />
+                <Image src="/assets/projects/mobile-app/topas-mobile-profile.jpeg" alt="Profile" width={300} height={600} className="rounded-lg object-contain" />
+              </div>
+            ) : selectedProjectId === 6 ? (
+              <div className="flex gap-4 justify-center items-center">
+                <Image src="/assets/projects/mobile-mata-elang/foto-1.png" alt="Foto 1" width={300} height={600} className="rounded-lg object-contain" />
+                <Image src="/assets/projects/mobile-mata-elang/foto-2.png" alt="Foto 2" width={300} height={600} className="rounded-lg object-contain" />
+                <Image src="/assets/projects/mobile-mata-elang/foto-3.png" alt="Foto 3" width={300} height={600} className="rounded-lg object-contain" />
+              </div>
+            ) : (
+              <Image
+                src={selectedImage}
+                alt="Full Size Project"
+                width={1200}
+                height={800}
+                className="w-full h-auto rounded-lg object-contain"
+              />
+            )}
           </div>
         </div>
       )}
