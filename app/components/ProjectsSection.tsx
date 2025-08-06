@@ -1,4 +1,3 @@
-
 "use client"
 
 import { useState, useEffect } from "react"
@@ -49,14 +48,14 @@ const projects = [
     title: "Mobile Mata Elang & Subscribe",
     description:
       "Create a mobile application to track credit vehicles and help field users or third parties use the application by subscribing to our application.",
-    image: "/assets/projects/mobile-mata-elang/combined", // New combined image path
+    image: "/assets/projects/mobile-mata-elang/combined",
   },
   {
     id: 7,
     title: "Mobile Loan Flow Survey",
     description:
       "Create a survey application to be used when visiting debtors' homes, so that the data is centralized and neatly stored in the company database, and can be followed up properly.",
-    image: "/assets/projects/flow-survey-pinjaman.jpg", // New image path
+    image: "/assets/projects/flow-survey-pinjaman.jpg",
   },
 ]
 
@@ -68,7 +67,6 @@ export default function ProjectsSection() {
 
   useEffect(() => {
     setIsClient(true)
-
     const updateCardsPerView = () => {
       if (typeof window !== "undefined") {
         if (window.innerWidth < 768) {
@@ -82,7 +80,6 @@ export default function ProjectsSection() {
     }
 
     updateCardsPerView()
-
     if (typeof window !== "undefined") {
       window.addEventListener("resize", updateCardsPerView)
       return () => window.removeEventListener("resize", updateCardsPerView)
@@ -108,7 +105,6 @@ export default function ProjectsSection() {
   return (
     <>
       <section id="projects" className="min-h-screen flex items-center py-20 relative">
-        {/* Backgrounds and overlays omitted for brevity – use your existing code here */}
         <div className="container mx-auto px-4 max-w-6xl relative z-10">
           <div className="flex items-center justify-between mb-8">
             <h2 className="text-white text-3xl lg:text-4xl xl:text-5xl font-bold bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">
@@ -146,9 +142,7 @@ export default function ProjectsSection() {
             <div className="overflow-hidden mx-8">
               <div
                 className="flex transition-transform duration-500 ease-in-out"
-                style={{
-                  transform: `translateX(-${getTransformValue()}%)`,
-                }}
+                style={{ transform: `translateX(-${getTransformValue()}%)` }}
               >
                 {projects.map((project) => (
                   <div key={project.id} className="w-full md:w-1/2 lg:w-1/3 flex-shrink-0 px-2">
@@ -216,7 +210,7 @@ export default function ProjectsSection() {
                         <div className="p-4 flex flex-col flex-grow">
                           <h3 className="text-white font-bold text-lg mb-2">{project.title}</h3>
                           <p className="text-gray-300 text-sm mb-4 flex-grow">{project.description}</p>
-                          {project.id === 1 ? (
+                          {project.id === 1 && (
                             <Button
                               variant="link"
                               className="text-cyan-400 p-0 self-start"
@@ -224,12 +218,6 @@ export default function ProjectsSection() {
                             >
                               Visit Website &gt;
                             </Button>
-                          ) : (
-                            <Link href={`/experience/${project.id}`}>
-                              <Button variant="link" className="text-cyan-400 p-0 self-start">
-                                See Detail &gt;
-                              </Button>
-                            </Link>
                           )}
                         </div>
                       </CardContent>
