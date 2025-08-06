@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { ChevronLeft, ChevronRight, Award } from "lucide-react"
+import { ChevronLeft, ChevronRight, Award, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import Link from "next/link"
@@ -41,6 +41,7 @@ export default function CertificatesSection() {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [cardsPerView, setCardsPerView] = useState(3)
   const [isClient, setIsClient] = useState(false)
+  const [selectedImage, setSelectedImage] = useState<string | null>(null)
 
   useEffect(() => {
     setIsClient(true)
@@ -88,8 +89,35 @@ export default function CertificatesSection() {
         </div>
       </div>
 
+      {/* Modal Image Viewer */}
+      {selectedImage && (
+        <div
+          className="fixed inset-0 z-50 bg-black bg-opacity-80 flex items-center justify-center"
+          onClick={() => setSelectedImage(null)}
+        >
+          <div className="relative max-w-4xl max-h-[90vh] mx-auto">
+            <button
+              className="absolute top-2 right-2 bg-slate-800 hover:bg-slate-700 text-white p-1 rounded-full z-10"
+              onClick={(e) => {
+                e.stopPropagation()
+                setSelectedImage(null)
+              }}
+            >
+              <X className="w-5 h-5" />
+            </button>
+            <Image
+              src={selectedImage}
+              alt="Certificate Detail"
+              width={1200}
+              height={800}
+              className="w-full h-auto max-h-[90vh] object-contain rounded-lg"
+            />
+          </div>
+        </div>
+      )}
+
       <div className="container mx-auto px-4 max-w-6xl relative z-10">
-        <div className="flex items-center justify-between mb-8 scroll-animate opacity-0 translate-y-8 transition-all duration-1000">
+        <div className="flex items-center justify-between mb-8">
           <h2 className="text-white text-3xl lg:text-4xl xl:text-5xl font-bold bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent flex items-center gap-3">
             Certificates
           </h2>
@@ -104,7 +132,7 @@ export default function CertificatesSection() {
           </Link>
         </div>
 
-        <div className="relative scroll-animate opacity-0 translate-y-8 transition-all duration-1000 delay-300">
+        <div className="relative">
           <Button
             variant="outline"
             size="icon"
@@ -134,13 +162,16 @@ export default function CertificatesSection() {
                 <div key={certificate.id} className="w-full md:w-1/2 lg:w-1/3 flex-shrink-0 px-2">
                   <Card className="bg-gradient-to-br from-slate-800/90 to-green-900/90 backdrop-blur-sm border-green-500/30 hover:border-green-400/50 transition-all duration-300 transform hover:scale-105 h-full shadow-lg shadow-green-500/20">
                     <CardContent className="p-0 flex flex-col h-full">
-                      <div className="aspect-video bg-gray-800 rounded-t-lg flex-shrink-0 overflow-hidden">
+                      <div
+                        className="aspect-video bg-gray-800 rounded-t-lg flex-shrink-0 overflow-hidden cursor-pointer"
+                        onClick={() => setSelectedImage(certificate.image)}
+                      >
                         <Image
                           src={certificate.image || "/placeholder.svg"}
                           alt={`${certificate.title} certificate`}
                           width={300}
                           height={200}
-                          className="w-full h-full object-cover"
+                          className="w-full h-full object-cover transition-transform duration-200 hover:scale-105"
                         />
                       </div>
                       <div className="bg-gradient-to-br from-green-900/80 to-emerald-900/80 p-4 rounded-b-lg flex-grow">
