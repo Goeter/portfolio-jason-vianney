@@ -9,52 +9,59 @@ const projects = [
   {
     id: 1,
     title: "Topas Website",
-    description: "Website resmi perusahaan multifinance yang menampilkan informasi produk, promo, berita, dan form pengajuan. Dilengkapi dengan notifikasi email untuk tim internal.",
+    description:
+      "Website resmi perusahaan multifinance yang menampilkan informasi produk, promo, berita, dan form pengajuan. Dilengkapi dengan notifikasi email untuk tim internal.",
     image: "/projects/topas-website.png",
   },
   {
     id: 2,
     title: "Flow Survey Pinjaman Mobile Application",
-    description: "Alur proses survey pengajuan pinjaman yang dilakukan oleh surveyor melalui aplikasi mobile.",
+    description:
+      "Alur proses survey pengajuan pinjaman yang dilakukan oleh surveyor melalui aplikasi mobile.",
     image: "/projects/Flow Survey Pinjaman Mobile Application.jpg",
   },
   {
     id: 3,
     title: "UI: HRIS Web Absensi & Recruitment",
-    description: "Tampilan antarmuka sistem HRIS internal perusahaan untuk absensi dan perekrutan.",
+    description:
+      "Tampilan antarmuka sistem HRIS internal perusahaan untuk absensi dan perekrutan.",
     image: "/projects/foto 1.png",
   },
   {
     id: 4,
     title: "UI: HRIS Web Man Power Planning",
-    description: "Tampilan fitur perencanaan kebutuhan tenaga kerja dalam aplikasi HR.",
+    description:
+      "Tampilan fitur perencanaan kebutuhan tenaga kerja dalam aplikasi HR.",
     image: "/projects/foto 2.png",
   },
   {
     id: 5,
     title: "UI: HRIS Web List Karyawan",
-    description: "Antarmuka daftar seluruh karyawan perusahaan dalam sistem HRIS.",
+    description:
+      "Antarmuka daftar seluruh karyawan perusahaan dalam sistem HRIS.",
     image: "/projects/foto 3.png",
   },
   {
     id: 6,
     title: "UI: HRIS Web KPI",
-    description: "Antarmuka pengelolaan Key Performance Indicator (KPI) karyawan.",
+    description:
+      "Antarmuka pengelolaan Key Performance Indicator (KPI) karyawan.",
     image: "/projects/foto 4.png",
   },
   {
     id: 7,
     title: "Mobile Survey App",
-    description: "Desain awal aplikasi mobile untuk keperluan survey lapangan.",
+    description:
+      "Desain awal aplikasi mobile untuk keperluan survey lapangan.",
     image: "/projects/mobile-survey-app.png",
   },
 ];
 
 export default function ProjectsSection() {
-  const [selectedProject, setSelectedProject] = useState(null);
-  const modalRef = useRef(null);
+  const [selectedProject, setSelectedProject] = useState<null | typeof projects[0]>(null);
+  const modalRef = useRef<HTMLDivElement>(null);
 
-  const openModal = (project: any) => {
+  const openModal = (project: typeof projects[0]) => {
     setSelectedProject(project);
   };
 
@@ -64,15 +71,13 @@ export default function ProjectsSection() {
 
   useEffect(() => {
     const handleOutsideClick = (event: MouseEvent) => {
-      if (modalRef.current && !(modalRef.current as HTMLElement).contains(event.target as Node)) {
+      if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
         closeModal();
       }
     };
 
     if (selectedProject) {
       document.addEventListener("mousedown", handleOutsideClick);
-    } else {
-      document.removeEventListener("mousedown", handleOutsideClick);
     }
 
     return () => {
@@ -92,8 +97,12 @@ export default function ProjectsSection() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {projects.map((project) => (
-            <Card key={project.id} className="cursor-pointer hover:scale-105 transition-transform duration-300">
-              <CardContent className="p-4 h-[460px] flex flex-col justify-between" onClick={() => openModal(project)}>
+            <Card
+              key={project.id}
+              className="cursor-pointer hover:scale-105 transition-transform duration-300"
+              onClick={() => openModal(project)}
+            >
+              <CardContent className="p-4 h-[460px] flex flex-col justify-between">
                 <img
                   src={project.image}
                   alt={project.title}
