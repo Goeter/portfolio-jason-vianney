@@ -124,7 +124,7 @@ export default function AllProjects() {
 
       {/* Content */}
       <div className="relative z-10 container mx-auto px-4 py-8">
-        <h1 className="text-white text-3xl font-bold mb-8">All my project</h1>
+        <h1 className="text-white text-3xl font-bold mb-8">All my projects</h1>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {projects.map((project) => (
@@ -211,14 +211,6 @@ export default function AllProjects() {
                 <div className="bg-cyan-200 p-4 rounded-b-lg flex-grow flex flex-col">
                   <h3 className="text-black font-bold text-lg mb-2">{project.title}</h3>
                   <p className="text-black text-sm mb-4 flex-grow line-clamp-4">{project.description}</p>
-                  <Link href={`/experience/${project.id}`}>
-                    <Button
-                      variant="link"
-                      className="text-blue-600 hover:text-blue-500 p-0 text-sm self-start font-semibold"
-                    >
-                      See Detail {">"}
-                    </Button>
-                  </Link>
                 </div>
               </CardContent>
             </Card>
