@@ -53,53 +53,30 @@ export default function ProjectsSection() {
 
   useEffect(() => {
     setIsClient(true)
-
     const updateCardsPerView = () => {
       if (typeof window !== "undefined") {
-        if (window.innerWidth < 768) {
-          setCardsPerView(1)
-        } else if (window.innerWidth < 1024) {
-          setCardsPerView(2)
-        } else {
-          setCardsPerView(3)
-        }
+        if (window.innerWidth < 768) setCardsPerView(1)
+        else if (window.innerWidth < 1024) setCardsPerView(2)
+        else setCardsPerView(3)
       }
     }
-
     updateCardsPerView()
-
-    if (typeof window !== "undefined") {
-      window.addEventListener("resize", updateCardsPerView)
-      return () => window.removeEventListener("resize", updateCardsPerView)
-    }
+    window.addEventListener("resize", updateCardsPerView)
+    return () => window.removeEventListener("resize", updateCardsPerView)
   }, [])
 
   const maxIndex = Math.max(1, projects.length - cardsPerView + 1)
-
-  const nextSlide = () => {
-    setCurrentIndex((prev) => (prev + 1) % maxIndex)
-  }
-
-  const prevSlide = () => {
-    setCurrentIndex((prev) => (prev - 1 + maxIndex) % maxIndex)
-  }
-
-  const getTransformValue = () => {
-    if (!isClient) return 0
-    const percentage = 100 / cardsPerView
-    return currentIndex * percentage
-  }
+  const nextSlide = () => setCurrentIndex((prev) => (prev + 1) % maxIndex)
+  const prevSlide = () => setCurrentIndex((prev) => (prev - 1 + maxIndex) % maxIndex)
+  const getTransformValue = () => (!isClient ? 0 : currentIndex * (100 / cardsPerView))
 
   return (
     <section id="projects" className="min-h-screen flex items-center py-20 relative">
       {/* Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-slate-900/60 via-blue-900/60 to-purple-900/60 backdrop-blur-sm">
-        <div className="absolute inset-0 opacity-10 bg-[url('data:image/svg+xml,%3Csvg width=%2260%22 height=%2260%22 viewBox=%220 0 60 60%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cg fill=%22none%22 fillRule=%22evenodd%22%3E%3Cg stroke=%22%2300ffff%22 strokeWidth=%221%22%3E%3Cpath d=%22M0 0h60v60H0z%22/%3E%3Cpath d=%22M15 0v60M30 0v60M45 0v60M0 15h60M0 30h60M0 45h60%22/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')"] />
+        <div className="absolute inset-0 opacity-10 bg-[url('data:image/svg+xml,%3Csvg width=%2260%22 height=%2260%22 viewBox=%220 0 60 60%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cg fill=%22none%22 fillRule=%22evenodd%22%3E%3Cg stroke=%22%2300ffff%22 strokeWidth=%221%22%3E%3Cpath d=%22M0 0h60v60H0z%22/%3E%3Cpath d=%22M15 0v60M30 0v60M45 0v60M0 15h60M0 30h60M0 45h60%22/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')]" />
         <div className="absolute top-20 right-20 w-32 h-32 bg-gradient-to-br from-cyan-400/20 to-blue-400/20 rounded-full blur-xl animate-pulse" />
-        <div
-          className="absolute bottom-40 left-20 w-48 h-48 bg-gradient-to-tr from-purple-400/20 to-pink-400/20 rounded-full blur-xl animate-pulse"
-          style={{ animationDelay: "1s" }}
-        />
+        <div className="absolute bottom-40 left-20 w-48 h-48 bg-gradient-to-tr from-purple-400/20 to-pink-400/20 rounded-full blur-xl animate-pulse" style={{ animationDelay: "1s" }} />
       </div>
 
       {/* Modal */}
@@ -129,7 +106,7 @@ export default function ProjectsSection() {
 
       <div className="container mx-auto px-4 max-w-6xl relative z-10">
         <div className="flex items-center justify-between mb-8">
-          <h2 className="text-white text-3xl lg:text-4xl xl:text-5xl font-bold bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
+          <h2 className="text-white text-4xl font-bold bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
             Projects
           </h2>
         </div>
@@ -138,21 +115,20 @@ export default function ProjectsSection() {
           <Button
             variant="outline"
             size="icon"
-            className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-slate-800/80 border-cyan-500/50 hover:bg-slate-700/80 shadow-lg text-cyan-300 hover:text-cyan-200"
+            className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-slate-800/80 border-cyan-500/50"
             onClick={prevSlide}
             aria-label="Previous projects"
           >
-            <ChevronLeft className="w-6 h-6" />
+            <ChevronLeft className="w-6 h-6 text-cyan-300" />
           </Button>
-
           <Button
             variant="outline"
             size="icon"
-            className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-slate-800/80 border-cyan-500/50 hover:bg-slate-700/80 shadow-lg text-cyan-300 hover:text-cyan-200"
+            className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-slate-800/80 border-cyan-500/50"
             onClick={nextSlide}
             aria-label="Next projects"
           >
-            <ChevronRight className="w-6 h-6" />
+            <ChevronRight className="w-6 h-6 text-cyan-300" />
           </Button>
 
           <div className="overflow-hidden mx-8">
@@ -162,9 +138,9 @@ export default function ProjectsSection() {
             >
               {projects.map((project) => (
                 <div key={project.id} className="w-full md:w-1/2 lg:w-1/3 flex-shrink-0 px-2">
-                  <Card className="bg-gradient-to-br from-slate-800/90 to-blue-900/90 backdrop-blur-sm border-cyan-500/30 hover:border-cyan-400/50 hover:bg-slate-700/90 transition-all duration-300 transform hover:scale-105 h-full shadow-lg shadow-cyan-500/20">
-                    <CardContent className="p-0 flex flex-col h-[460px]">
-                      <div className="aspect-video bg-gray-800 rounded-t-lg flex-shrink-0 overflow-hidden">
+                  <Card className="bg-gradient-to-br from-slate-800/90 to-blue-900/90 h-[460px] flex flex-col justify-between border-cyan-500/30 hover:border-cyan-400/50 transition-all duration-300 transform hover:scale-105 shadow-lg shadow-cyan-500/20">
+                    <CardContent className="p-0 h-full flex flex-col">
+                      <div className="aspect-video bg-gray-800 rounded-t-lg overflow-hidden">
                         <Image
                           src={project.image || "/placeholder.svg"}
                           alt={`${project.title} screenshot`}
@@ -173,8 +149,8 @@ export default function ProjectsSection() {
                           className="w-full h-full object-cover"
                         />
                       </div>
-                      <div className="bg-gradient-to-br from-cyan-900/80 to-blue-900/80 p-4 rounded-b-lg flex-grow flex flex-col">
-                        <h3 className="text-white font-bold text-lg mb-2">{project.title}</h3>
+                      <div className="bg-gradient-to-br from-cyan-900/80 to-blue-900/80 p-4 rounded-b-lg flex flex-col flex-grow">
+                        <h3 className="text-white font-bold text-lg mb-2 line-clamp-2">{project.title}</h3>
                         <p className="text-gray-300 text-sm mb-4 flex-grow line-clamp-3">{project.description}</p>
                         {project.id === 1 ? (
                           <Button
@@ -182,7 +158,7 @@ export default function ProjectsSection() {
                             className="text-cyan-400 hover:text-cyan-300 p-0 text-sm self-start font-semibold"
                             onClick={() => setShowModal(true)}
                           >
-                            Live Preview {">"}
+                            Live Preview {" >"}
                           </Button>
                         ) : (
                           <Link href={`/experience/${project.id}`}>
