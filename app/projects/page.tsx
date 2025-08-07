@@ -37,9 +37,9 @@ const projects: Project[] = [
   },
   {
     id: 4,
-    title: "Monitoring Server",
+    title: "Monitoring & Feedback Prospect",
     description:
-      "This application is a new version of S_AHMITSYS023 used to monitor and display data prepared by AHM to be retrieved by dealers and data sent by dealers that has been entered into the AHM B2B database",
+      "Developing an internal application for recording motorcycle sales from dealers, order confirmation, delivery scheduling, and document completeness checks.",
     image: "/assets/projects/monitoring-server.png",
   },
   {
