@@ -31,7 +31,7 @@ const projects = [
   },
   {
     id: 4,
-    title: "Monitoring Server",
+    title: "Monitoring & Feedback Prospect",
     description:
       "Developing an internal application for recording motorcycle sales from dealers, order confirmation, delivery scheduling, and document completeness checks.",
     image: "/assets/projects/monitoring-server.png",
