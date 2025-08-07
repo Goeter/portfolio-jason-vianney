@@ -230,16 +230,16 @@ export default function ProjectsSection() {
             </button>
 
             {selectedProjectId === 2 ? (
-              <div className="flex flex-wrap gap-4 justify-center items-center">
-                <Image src="/assets/projects/mobile-app/topas-mobile-dashboard.jpeg" alt="Dashboard" width={300} height={600} className="rounded-lg object-contain max-w-full max-h-[80vh]" />
-                <Image src="/assets/projects/mobile-app/topas-mobile-menu.jpeg" alt="Menu" width={300} height={600} className="rounded-lg object-contain max-w-full max-h-[80vh]" />
-                <Image src="/assets/projects/mobile-app/topas-mobile-profile.jpeg" alt="Profile" width={300} height={600} className="rounded-lg object-contain max-w-full max-h-[80vh]" />
+              <div className="flex gap-2 overflow-x-auto max-w-full">
+                <Image src="/assets/projects/mobile-app/topas-mobile-dashboard.jpeg" alt="Dashboard" width={180} height={360} className="rounded-lg object-contain" />
+                <Image src="/assets/projects/mobile-app/topas-mobile-menu.jpeg" alt="Menu" width={180} height={360} className="rounded-lg object-contain" />
+                <Image src="/assets/projects/mobile-app/topas-mobile-profile.jpeg" alt="Profile" width={180} height={360} className="rounded-lg object-contain" />
               </div>
             ) : selectedProjectId === 6 ? (
-              <div className="flex flex-wrap gap-4 justify-center items-center">
-                <Image src="/assets/projects/mobile-mata-elang/foto-1.png" alt="Foto 1" width={300} height={600} className="rounded-lg object-contain max-w-full max-h-[80vh]" />
-                <Image src="/assets/projects/mobile-mata-elang/foto-2.png" alt="Foto 2" width={300} height={600} className="rounded-lg object-contain max-w-full max-h-[80vh]" />
-                <Image src="/assets/projects/mobile-mata-elang/foto-3.png" alt="Foto 3" width={300} height={600} className="rounded-lg object-contain max-w-full max-h-[80vh]" />
+              <div className="flex gap-2 overflow-x-auto max-w-full">
+                <Image src="/assets/projects/mobile-mata-elang/foto-1.png" alt="Foto 1" width={180} height={360} className="rounded-lg object-contain" />
+                <Image src="/assets/projects/mobile-mata-elang/foto-2.png" alt="Foto 2" width={180} height={360} className="rounded-lg object-contain" />
+                <Image src="/assets/projects/mobile-mata-elang/foto-3.png" alt="Foto 3" width={180} height={360} className="rounded-lg object-contain" />
               </div>
             ) : (
               <Image
