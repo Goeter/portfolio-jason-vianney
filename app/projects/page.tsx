@@ -63,6 +63,13 @@ const projects: Project[] = [
       "Create a survey application to be used when visiting debtors' homes, so that the data is centralized and neatly stored in the company database, and can be followed up properly.",
     image: "/assets/projects/flow-survey-pinjaman.jpg",
   },
+  {
+    id: 8,
+    title: "Dashboard Admin Ticketing",
+    description:
+      "Create a website dashboard monitoring ticketing.",
+    image: "/assets/projects/dashboard_ticketing.png",
+  },
 ]
 
 export default function AllProjects() {
