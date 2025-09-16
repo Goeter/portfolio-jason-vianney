@@ -24,7 +24,7 @@ export default function HomeSection() {
   }, [])
 
   const handleDownloadPDF = () => {
-    const fileId = "13NU5NaR9tItyhTbfPnrH9ufsxWzxKjOc5k7DeqySLXM"
+    const fileId = "10Nllp8ydFAMENKFA0089aGdT5hCijCNd95oKo_DI3NU"
     const pdfUrl = `https://docs.google.com/document/d/${fileId}/export?format=pdf`
 
     const link = document.createElement("a")
