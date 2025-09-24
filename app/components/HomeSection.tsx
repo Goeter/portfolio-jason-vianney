@@ -56,11 +56,7 @@ export default function HomeSection() {
               </h2>
 
               <p className="text-white text-base lg:text-lg leading-relaxed text-justify font-medium">
-                I am an IT professional with 3 years of experience in the manufacturing and finance industries, focusing
-                on System Analyst, UI/UX Designer, and Data Analyst. I am skilled at translating business needs into
-                efficient, secure, and user friendly digital solutions. I have experience designing intuitive,
-                data driven interfaces and am accustomed to working across teams to ensure targeted and impactful
-                results.
+               I’m an IT professional based in Jakarta with experience in Systems Analysis, UI/UX Design, and Data Analysis. I enjoy turning business needs into practical, secure solutions and designing interfaces that feel modern, smooth, and easy to use. I can work independently or collaborate closely with teams to ensure every project runs efficiently and delivers a great user experience.
               </p>
 
               <Button onClick={handleDownloadPDF}>
