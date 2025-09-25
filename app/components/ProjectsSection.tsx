@@ -194,6 +194,16 @@ export default function ProjectsSection() {
                               Visit Website &gt;
                             </Button>
                           )}
+
+                          {project.id === 2 && (
+                            <Button
+                              variant="link"
+                              className="text-cyan-400 p-0 self-start"
+                              onClick={() => setShowModal2(true)}
+                            >
+                              Visit Website &gt;
+                            </Button>
+                          )}
                         </div>
                       </CardContent>
                     </Card>
@@ -213,9 +223,24 @@ export default function ProjectsSection() {
               <X className="w-5 h-5" />
             </button>
             <h2 className="text-xl font-bold text-gray-800 mb-2">PT Topas Multi Finance Website</h2>
-            <p className="text-sm text-gray-600 mb-4">Klik tombol di bawah ini untuk mengunjungi website resmi.</p>
+            <p className="text-sm text-gray-600 mb-4">Click the button below to visit the official website.</p>
             <Link href="https://frontend.topasmultifinance.co.id" target="_blank" rel="noopener noreferrer">
-              <Button className="bg-cyan-600 hover:bg-cyan-700 text-white w-full">Buka Website</Button>
+              <Button className="bg-cyan-600 hover:bg-cyan-700 text-white w-full">Open Website</Button>
+            </Link>
+          </div>
+        </div>
+      )}
+
+      {showModal2 && (
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center">
+          <div className="bg-white rounded-lg shadow-xl max-w-md w-full p-6 relative animate-fade-in-up">
+            <button className="absolute top-2 right-2 text-gray-500 hover:text-gray-800" onClick={() => setShowModal(false)} aria-label="Close Modal">
+              <X className="w-5 h-5" />
+            </button>
+            <h2 className="text-xl font-bold text-gray-800 mb-2">PT Zigma (Plumbing supply store)</h2>
+            <p className="text-sm text-gray-600 mb-4">Click the button below to visit the official website.</p>
+            <Link href="https://frontend.topasmultifinance.co.id" target="_blank" rel="noopener noreferrer">
+              <Button className="bg-cyan-600 hover:bg-cyan-700 text-white w-full">Open Website</Button>
             </Link>
           </div>
         </div>
