@@ -242,7 +242,7 @@ export default function ProjectsSection() {
       {showModal2 && (
         <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center">
           <div className="bg-white rounded-lg shadow-xl max-w-md w-full p-6 relative animate-fade-in-up">
-            <button className="absolute top-2 right-2 text-gray-500 hover:text-gray-800" onClick={() => setShowModal(false)} aria-label="Close Modal">
+            <button className="absolute top-2 right-2 text-gray-500 hover:text-gray-800" onClick={() => setShowModal2(false)} aria-label="Close Modal">
               <X className="w-5 h-5" />
             </button>
             <h2 className="text-xl font-bold text-gray-800 mb-2">PT Zigma (Plumbing supply store)</h2>
