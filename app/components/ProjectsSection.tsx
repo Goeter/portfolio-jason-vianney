@@ -269,13 +269,13 @@ export default function ProjectsSection() {
               <X className="w-4 h-4" />
             </button>
 
-            {selectedProjectId === 2 ? (
+            {selectedProjectId === 3 ? (
               <div className="flex gap-2 overflow-x-auto max-w-full">
                 <Image src="/assets/projects/mobile-app/topas-mobile-dashboard.jpeg" alt="Dashboard" width={180} height={360} className="rounded-lg object-contain" />
                 <Image src="/assets/projects/mobile-app/topas-mobile-menu.jpeg" alt="Menu" width={180} height={360} className="rounded-lg object-contain" />
                 <Image src="/assets/projects/mobile-app/topas-mobile-profile.jpeg" alt="Profile" width={180} height={360} className="rounded-lg object-contain" />
               </div>
-            ) : selectedProjectId === 6 ? (
+            ) : selectedProjectId === 7 ? (
               <div className="flex gap-2 overflow-x-auto max-w-full">
                 <Image src="/assets/projects/mobile-mata-elang/foto-1.png" alt="Foto 1" width={180} height={360} className="rounded-lg object-contain" />
                 <Image src="/assets/projects/mobile-mata-elang/foto-2.png" alt="Foto 2" width={180} height={360} className="rounded-lg object-contain" />
