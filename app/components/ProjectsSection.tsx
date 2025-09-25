@@ -20,7 +20,7 @@ const projects = [
     title: "PT. Alfa Berkat Sigma",
     description:
       "A plumbing supply store website that showcases its companies",
-    image: "/assets/projects/mobile-app/combined",
+    image: "/assets/projects/sigma-picture.png",
   },
   {
     id: 3,
