@@ -12,53 +12,60 @@ const projects = [
     id: 1,
     title: "PT Topas Multi Finance Website",
     description:
-      "Public-facing corporate website that sells Topas Multi Finance products and builds brand awareness and customer trust through professional digital presence",
+      "Public facing corporate website that sells Topas Multi Finance products and builds brand awareness and customer trust through professional digital presence",
     image: "/assets/projects/topas-website.png",
   },
   {
     id: 2,
+    title: "PT Zigma",
+    description:
+      "A plumbing supply store website that showcases its companies",
+    image: "/assets/projects/mobile-app/combined",
+  },
+  {
+    id: 3,
     title: "Topas Multi Finance Mobile Application",
     description:
       "Mobile application for Topas Multi Finance customers and internal staff with features for loan management, disbursement tracking, customer monitoring, and comprehensive financial services",
     image: "/assets/projects/mobile-app/combined",
   },
   {
-    id: 3,
+    id: 4,
     title: "HR Topas Application",
     description:
       "A project to develop an HRD application for tracking employee attendance, recording absences, tracking salaries, workforce planning with KPIs, and comprehensive recruitment process management",
     image: "/assets/projects/hr-topas-application.png",
   },
   {
-    id: 4,
+    id: 5,
     title: "Monitoring & Feedback Prospect",
     description:
       "Developing an internal application for recording motorcycle sales from dealers, order confirmation, delivery scheduling, and document completeness checks.",
     image: "/assets/projects/monitoring-server.png",
   },
   {
-    id: 5,
+    id: 6,
     title: "Vehicle Registration Certificate System",
     description:
       "A new menu for printing the disbursement note, which was previously written manually by hand. It can now be printed more neatly and quickly using the system, and is stored securely in the system",
     image: "/assets/projects/vehicle-registration-certificate-system.png",
   },
   {
-    id: 6,
+    id: 7,
     title: "Mobile Mata Elang & Subscribe",
     description:
       "Create a mobile application to track credit vehicles and help field users or third parties use the application by subscribing to our application.",
     image: "/assets/projects/mobile-mata-elang/combined",
   },
   {
-    id: 7,
+    id: 8,
     title: "Mobile Loan Flow Survey",
     description:
       "Create a survey application to be used when visiting debtors' homes, so that the data is centralized and neatly stored in the company database, and can be followed up properly.",
     image: "/assets/projects/flow-survey-pinjaman.jpg",
   },
   {
-    id: 8,
+    id: 9,
     title: "Dashboard Admin Ticketing",
     description:
       "Create a website dashboard monitoring ticketing",
