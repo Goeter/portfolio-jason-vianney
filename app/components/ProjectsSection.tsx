@@ -17,7 +17,7 @@ const projects = [
   },
   {
     id: 2,
-    title: "PT Zigma",
+    title: "PT. Alfa Berkat Sigma",
     description:
       "A plumbing supply store website that showcases its companies",
     image: "/assets/projects/mobile-app/combined",
@@ -246,7 +246,7 @@ export default function ProjectsSection() {
             </button>
             <h2 className="text-xl font-bold text-gray-800 mb-2">PT Zigma (Plumbing supply store)</h2>
             <p className="text-sm text-gray-600 mb-4">Click the button below to visit the official website.</p>
-            <Link href="https://frontend.topasmultifinance.co.id" target="_blank" rel="noopener noreferrer">
+            <Link href="https://sigma-andrew-ten.vercel.app" target="_blank" rel="noopener noreferrer">
               <Button className="bg-cyan-600 hover:bg-cyan-700 text-white w-full">Open Website</Button>
             </Link>
           </div>
