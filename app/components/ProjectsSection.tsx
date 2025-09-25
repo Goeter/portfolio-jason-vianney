@@ -78,6 +78,7 @@ export default function ProjectsSection() {
   const [cardsPerView, setCardsPerView] = useState(3)
   const [isClient, setIsClient] = useState(false)
   const [showModal, setShowModal] = useState(false)
+  const [showModal2, setShowModal2] = useState(false)
   const [selectedImage, setSelectedImage] = useState<string | null>(null)
   const [selectedProjectId, setSelectedProjectId] = useState<number | null>(null)
 
