@@ -10,12 +10,10 @@ const experiences = [
     period: "March 2024 - June 2025",
     logo: "/assets/company-logos/icon_topas.png",
     details: [
-      "Led system design and business analysis to develop applications that improved operational efficiency by 30% through structured document tracking, streamlined data recording, and integrated financial workflows.",
-      "Processing data, cleaning data, making it useful for the company, creating a mobile application system to make it easier for users to borrow money, and from the company's perspective, obtaining location data and new user data.",
-      "Providing a modern and user friendly company website that enhances product visibility, displays job vacancies, and facilitates user access, enabling follow up with new users, accelerating responses to customer inquiries, and increasing engagement levels.",
-      "Designed an internal HR application with enhanced features for workforce planning, performance tracking, attendance, leave, and payroll streamlining HR processes and ensuring secure, centralized data management.",
-      "Designed high fidelity user experiences and effectively aligned solutions with business and stakeholder needs.",
-      "Efficiently managed tasks to meet tight deadlines, ensuring on time go live of applications with successful QA validation.",
+      "Designing systems and conducting analyses to develop applications that improve operational efficiency by 30% through better document tracking and integrated financial workflows.",
+      "Developing a modern corporate website to increase product visibility, ensure clear and secure supervision by authorities, encourage customer engagement, and share clear job vacancies.",
+      "Building a secure HR platform for workforce planning, performance monitoring, attendance, leave, warning letters, and payroll in a centralized database.",
+      "Leading projects from planning to launch, ensuring strict deadlines are met and quality standards are maintained.",
     ],
   },
   {
