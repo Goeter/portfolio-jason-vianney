@@ -7,41 +7,41 @@ import Link from "next/link"
 import Image from "next/image"
 
 const certificates = [
-  {
+{
     id: 1,
-    title: "UI/UX Webinar Participation",
+    title: "English Certificate",
     description:
-      "Certificate of participation in 'Ngulik UI/UX' webinar held by Program Studi Sistem Informasi UBAYA, focusing on modern UI/UX design principles, user research methodologies, and practical design implementation strategies.",
-    image: "/assets/certificates/ui-ux-webinar-ubaya.png",
-    issuer: "Universitas Surabaya (UBAYA)",
-    date: "May 2025",
-  },
-  {
-    id: 1,
-    title: "UI/UX Webinar Participation",
-    description:
-      "Certificate of participation in 'Ngulik UI/UX' webinar held by Program Studi Sistem Informasi UBAYA, focusing on modern UI/UX design principles, user research methodologies, and practical design implementation strategies.",
-    image: "/assets/certificates/ui-ux-webinar-ubaya.png",
-    issuer: "Universitas Surabaya (UBAYA)",
-    date: "May 2025",
+      "Has achieved CEFR C1 - Advanced (Score 599), Compare to IELTS (same with band 8).",
+    image: "/assets/certificates/English Certificate Gabung_1.jpg",
+    issuer: "British Council - English Course",
+    date: "09 October 2025",
   },
   {
     id: 2,
-    title: "Data Analyst Python & SQL Certification",
+    title: "Data Analyst Python & SQL",
     description:
-      "Comprehensive 21-hour course covering Python for data analysis, SQL database management, data visualization techniques, and hands-on projects. Includes practical implementation of data cleaning, analysis, and reporting workflows.",
+      "In depth training in Python for data analysis, data organization, and SQL database management.",
     image: "/assets/certificates/data-analyst-udemy.jpeg",
     issuer: "Udemy",
-    date: "August 2025",
+    date: "02 August 2025",
   },
   {
     id: 3,
     title: "Intro to Data Analytics",
     description:
-      "Intensive 1-week certified online course covering fundamental data analytics concepts, statistical analysis methods, data interpretation techniques, and practical applications in business intelligence and decision-making processes.",
+      "Fundamentals of data analysis, including organizing and interpreting data using spreadsheets.",
     image: "/assets/certificates/data-analyst-revou.jpeg",
     issuer: "RevoU",
-    date: "July 2025",
+    date: "18 July 2025",
+  },
+  {
+    id: 4,
+    title: "UI/UX Webinar Participation",
+    description:
+      "Comprehensive training on UI/UX principles, design tools, and best practice.",
+    image: "/assets/certificates/ui-ux-webinar-ubaya.png",
+    issuer: "Universitas Surabaya (UBAYA)",
+    date: "24 May 2025",
   },
 ]
 
