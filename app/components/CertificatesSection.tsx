@@ -30,7 +30,7 @@ const certificates = [
     id: 3,
     title: "Intro to Data Analytics",
     description:
-      "1-week certified course covering fundamental data analytics concepts, statistical analysis methods, and business intelligence principles.",
+      "Fundamentals of data analysis, including organizing and interpreting data using spreadsheets.",
     image: "/assets/certificates/data-analyst-revou.jpeg",
     issuer: "RevoU",
     date: "18 July 2025",
@@ -39,7 +39,7 @@ const certificates = [
     id: 4,
     title: "UI/UX Webinar Participation",
     description:
-      "Certificate of participation in 'Ngulik UI/UX' webinar by UBAYA, covering modern UI/UX design principles and user research methodologies.",
+      "Comprehensive training on UI/UX principles, design tools, and best practice.",
     image: "/assets/certificates/ui-ux-webinar-ubaya.png",
     issuer: "Universitas Surabaya (UBAYA)",
     date: "24 May 2025",
