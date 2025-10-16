@@ -10,21 +10,21 @@ import Image from "next/image"
 const certificates = [
   {
     id: 1,
-    title: "UI/UX Webinar Participation",
+    title: "English Certificate",
     description:
-      "Certificate of participation in 'Ngulik UI/UX' webinar by UBAYA, covering modern UI/UX design principles and user research methodologies.",
-    image: "/assets/certificates/ui-ux-webinar-ubaya.png",
-    issuer: "Universitas Surabaya (UBAYA)",
-    date: "May 2025",
+      "Has achieved CEFR C1 - Advanced (Score 599), Compare to IELTS (same with band 8).",
+    image: "/assets/certificates/data-analyst-udemy.jpeg",
+    issuer: "British Council - English Course",
+    date: "09 October 2025",
   },
   {
     id: 2,
     title: "Data Analyst Python & SQL",
     description:
-      "21-hour course covering Python for data analysis, SQL database management, and data visualization techniques with hands-on projects.",
+      "In depth training in Python for data analysis, data organization, and SQL database management.",
     image: "/assets/certificates/data-analyst-udemy.jpeg",
     issuer: "Udemy",
-    date: "August 2025",
+    date: "02 August 2025",
   },
   {
     id: 3,
@@ -33,8 +33,19 @@ const certificates = [
       "1-week certified course covering fundamental data analytics concepts, statistical analysis methods, and business intelligence principles.",
     image: "/assets/certificates/data-analyst-revou.jpeg",
     issuer: "RevoU",
-    date: "July 2025",
+    date: "18 July 2025",
   },
+  {
+    id: 4,
+    title: "UI/UX Webinar Participation",
+    description:
+      "Certificate of participation in 'Ngulik UI/UX' webinar by UBAYA, covering modern UI/UX design principles and user research methodologies.",
+    image: "/assets/certificates/ui-ux-webinar-ubaya.png",
+    issuer: "Universitas Surabaya (UBAYA)",
+    date: "24 May 2025",
+  },
+  
+  
 ]
 
 export default function CertificatesSection() {
