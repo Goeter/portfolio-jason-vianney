@@ -17,6 +17,15 @@ const certificates = [
     date: "May 2025",
   },
   {
+    id: 1,
+    title: "UI/UX Webinar Participation",
+    description:
+      "Certificate of participation in 'Ngulik UI/UX' webinar held by Program Studi Sistem Informasi UBAYA, focusing on modern UI/UX design principles, user research methodologies, and practical design implementation strategies.",
+    image: "/assets/certificates/ui-ux-webinar-ubaya.png",
+    issuer: "Universitas Surabaya (UBAYA)",
+    date: "May 2025",
+  },
+  {
     id: 2,
     title: "Data Analyst Python & SQL Certification",
     description:
