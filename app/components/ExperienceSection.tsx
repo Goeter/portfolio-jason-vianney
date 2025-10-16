@@ -23,9 +23,9 @@ const experiences = [
     period: "February 2023 - February 2024",
     logo: "/assets/company-logos/icon_astra.png",
     details: [
-      "Develop internal monitoring tools to track the movement of parts between dealers and warehouses.",
-      "Redesigning the old application into a new version that is more secure, has more complete features, and is more user friendly, improving the overall reliability of the system in data storage and more organized data monitoring.",
-      "Performing unit testing prior to launch reduces bugs and minimizes human error by validating the system's inputs to ensure a smoother user experience at launch.",
+      "Developed an internal application for dealer motorcycle sales, order confirmation, delivery scheduling, and document validation.",
+      "Redesigned an outdated system with stronger security, expanded features, and a more user-friendly interface, resulting in improved reliability and data management.",
+      "Performing unit testing to minimize bugs and human error, ensuring smooth deployment and user adoption.",
     ],
   },
   {
@@ -35,9 +35,9 @@ const experiences = [
     period: "February 2022 - February 2023",
     logo: "/assets/company-logos/icon_wings.png",
     details: [
-      "Improved internal international sales system by refining features, and adding user friendly menus to enhance stock recording and digital sales monitoring across Asia.",
-      "Enhanced mobile application with barcode photo capture feature, enabling seamless product recording and real time data input into a centralized database.",
-      "Resolved critical bugs in web and mobile applications during field use, restoring functionality and ensuring uninterrupted user operations.",
+      "Enhancing the international sales website for seamless inventory tracking and real time digital sales monitoring across Asia.",
+      "Improving the mobile application with product photo and barcode scanning features, enabling accurate, real-time data input into a centralized database for faster reporting.",
+      "Resolving critical bugs on the web and mobile platforms during live operations, restoring full functionality and uninterrupted use.",
     ],
   },
   {
@@ -47,8 +47,8 @@ const experiences = [
     period: "2017 – 2021",
     logo: "/assets/company-logos/icon_ubaya.png",
     details: [
-      "Supported programming courses by assisting lecturers, guiding first semester students, and preparing as well as reviewing coding exercises to strengthen learning outcomes.",
-      "Assisted in teaching Business Mathematics by guiding first semester students, conducting assistant-led classes, and providing as well as evaluating practice exercises to support student understanding.",
+      "Assisting professors by preparing programming exercises and reviewing assignments to reinforce programming fundamentals.",
+      "Opening a Business Mathematics class provides tutoring and exercises to hone mathematical logic skills in business.",
     ],
   },
 ]
