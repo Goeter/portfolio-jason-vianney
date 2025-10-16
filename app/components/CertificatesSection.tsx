@@ -14,7 +14,7 @@ const certificates = [
     description:
       "Has achieved CEFR C1 - Advanced (Score 599), Compare to IELTS (same with band 8).",
     image: "/assets/certificates/English Certificate Gabung_1.jpg",
-    issuer: "British Council - English Course",
+    issuer: "British Council",
     date: "09 October 2025",
   },
   {
