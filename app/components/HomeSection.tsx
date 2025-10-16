@@ -56,7 +56,7 @@ export default function HomeSection() {
               </h2>
 
               <p className="text-white text-base lg:text-lg leading-relaxed text-justify font-medium">
-               I’m an IT professional based in Jakarta with experience in Systems Analysis, UI/UX Design, and Data Analysis. I enjoy turning business needs into practical, secure solutions and designing interfaces that feel modern, smooth, and easy to use. I can work independently or collaborate closely with teams to ensure every project runs efficiently and delivers a great user experience.
+               IT professional with practical experience in System Analysis, UI/UX Design, and Data Analysis. Dedicated to transforming business requirements into secure and practical solutions, as well as designing modern and intuitive interfaces. Equally comfortable working independently or collaborating with teams to produce efficient, user oriented results.
               </p>
 
               <Button onClick={handleDownloadPDF}>
