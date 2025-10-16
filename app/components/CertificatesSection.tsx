@@ -13,7 +13,7 @@ const certificates = [
     title: "English Certificate",
     description:
       "Has achieved CEFR C1 - Advanced (Score 599), Compare to IELTS (same with band 8).",
-    image: "/assets/certificates/data-analyst-udemy.jpeg",
+    image: "/assets/certificates/English Certificate_1.jpg",
     issuer: "British Council - English Course",
     date: "09 October 2025",
   },
