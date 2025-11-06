@@ -20,7 +20,7 @@ const roles = [
     tools: [
       "Microsoft Visio, BPMN.io",
       "Jira, Trello, ClickUp",
-      "SQL Clients (DBeaver, pgAdmin)",
+      "SQL Clients",
       "Google Docs, MS Word",
     ],
   },
@@ -32,11 +32,9 @@ const roles = [
     titleColor: "text-purple-300",
     skills: [
       "Wireframing & Prototyping",
-      "User Research & Personas",
-      "Interaction Design",
-      "Usability Testing",
-      "Design Thinking Process",
-      "Accessibility Principles",
+      "User Research (Awwwards & Dribbble)",
+      "HTML, CSS, Javascript",
+      "React/Next.Js, ",
     ],
     tools: [
       "Figma, Adobe XD",
