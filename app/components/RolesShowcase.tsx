@@ -34,7 +34,7 @@ const roles = [
       "Wireframing & Prototyping",
       "User Research (Awwwards & Dribbble)",
       "HTML, CSS, Javascript",
-      "React/Next.Js, ",
+      "React/Next.Js",
     ],
     tools: [
       "Figma, Adobe XD",
