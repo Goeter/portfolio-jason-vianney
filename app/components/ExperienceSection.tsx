@@ -10,7 +10,7 @@ const experiences = [
     period: "March 2024 - June 2025",
     logo: "/assets/company-logos/icon_topas.png",
     details: [
-      "Designing systems and conducting analyses to develop applications that improve operational efficiency by 30% through better document tracking and integrated financial workflows.",
+      "Developing systems to increase operational efficiency 50% through integrated document and financial workflows.",
       "Developing a modern corporate website to increase product visibility, ensure clear and secure supervision by authorities, encourage customer engagement, and share clear job vacancies.",
       "Building a secure HR platform for workforce planning, performance monitoring, attendance, leave, warning letters, and payroll in a centralized database.",
       "Leading projects from planning to launch, ensuring strict deadlines are met and quality standards are maintained.",
