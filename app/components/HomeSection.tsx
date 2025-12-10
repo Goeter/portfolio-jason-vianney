@@ -56,7 +56,7 @@ export default function HomeSection() {
               </h2>
 
               <p className="text-white text-base lg:text-lg leading-relaxed text-justify font-medium">
-               IT professional with practical experience in System Analysis, UI/UX Design, and Data Analysis. Dedicated to transforming business requirements into secure and practical solutions, as well as designing modern and intuitive interfaces. Equally comfortable working independently or collaborating with teams to produce efficient, user oriented results.
+               IT Professional focused on Front-end Development, System Analyst, UI/UX Design, and Data Analyst. I manage projects efficiently, create secure and user-friendly solutions, and turn data into clear, useful information. Comfortable working both independently and in teams to deliver reliable results.
               </p>
 
               <Button onClick={handleDownloadPDF}>
