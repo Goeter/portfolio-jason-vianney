@@ -11,9 +11,9 @@ const experiences = [
     logo: "/assets/company-logos/icon_topas.png",
     details: [
       "Developing systems to increase operational efficiency 50% through integrated document and financial workflows.",
-      "Developing a modern corporate website to increase product visibility, ensure clear and secure supervision by authorities, encourage customer engagement, and share clear job vacancies.",
-      "Building a secure HR platform for workforce planning, performance monitoring, attendance, leave, warning letters, and payroll in a centralized database.",
-      "Leading projects from planning to launch, ensuring strict deadlines are met and quality standards are maintained.",
+      "Developing a corporate website to boost product visibility, enable secure oversight, engage customers, and list job vacancies.",
+      "Creating an online loan mobile application to make it easier for customers.",
+      "Building a centralized HR system to manage payroll, attendance, performance, and employee records securely.",
     ],
   },
   {
@@ -24,7 +24,7 @@ const experiences = [
     logo: "/assets/company-logos/icon_astra.png",
     details: [
       "Developed an internal application for dealer motorcycle sales, order confirmation, delivery scheduling, and document validation.",
-      "Redesigned an outdated system with stronger security, expanded features, and a more user-friendly interface, resulting in improved reliability and data management.",
+      "Modernized an outdated system to be more secure, user-friendly, and reliable.",
       "Performing unit testing to minimize bugs and human error, ensuring smooth deployment and user adoption.",
     ],
   },
@@ -36,7 +36,7 @@ const experiences = [
     logo: "/assets/company-logos/icon_wings.png",
     details: [
       "Enhancing the international sales website for seamless inventory tracking and real time digital sales monitoring across Asia.",
-      "Improving the mobile application with product photo and barcode scanning features, enabling accurate, real-time data input into a centralized database for faster reporting.",
+      "Enhanced the mobile app with scanning features for accurate, real-time data capture.",
       "Resolving critical bugs on the web and mobile platforms during live operations, restoring full functionality and uninterrupted use.",
     ],
   },
