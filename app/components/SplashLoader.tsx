@@ -34,7 +34,7 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
       {/* Foreground content - only name and roles, no progress bar */}
       <section className="relative z-10 flex h-full flex-col items-center justify-center px-6 text-center">
         <NeonText
-          title="Jason Vianney"
+          title="Jason Vianney Sugiarto"
           roles={["Front End Developer", "System Analyst", "UI/UX Design", "Data Analyst"]}
         />
       </section>
