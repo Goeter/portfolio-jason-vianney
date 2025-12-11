@@ -111,7 +111,6 @@ export default function HomeSection() {
                 Hello, I'm{" "}
                 <span className="bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent block mt-1">
                   Jason Vianney Sugiarto
-                  <br></br>
                 </span>
               </motion.h1>
 
