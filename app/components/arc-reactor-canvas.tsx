@@ -101,39 +101,55 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
       <ArcReactorCanvas className="absolute inset-0" />
 
       <section className="relative z-10 h-full">
-        <div className="relative flex h-full flex-col items-center justify-center">
+        <div className="relative flex h-full flex-col items-center justify-center px-4 sm:px-6">
           
-          {/* Nama dalam Satu Baris - Dekat dengan Loading */}
+          {/* Nama dengan Font yang Bagus - Tidak Terpotong */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="absolute top-1/4 w-full max-w-4xl px-4 text-center"
+            className="absolute top-8 sm:top-12 w-full max-w-5xl text-center px-4"
           >
             <div className="relative">
               {/* Glow Effect */}
-              <div className="absolute -inset-4 animate-pulse rounded-full bg-gradient-to-r from-blue-500/5 via-cyan-500/5 to-purple-500/5 blur-xl" />
+              <div className="absolute -inset-8 animate-pulse rounded-full bg-gradient-to-r from-blue-500/5 via-cyan-500/5 to-purple-500/5 blur-3xl" />
               
-              {/* Nama dalam Satu Baris */}
+              {/* Nama Utama dengan Font yang Lebih Bagus dan Tidak Terpotong */}
               <div className="relative">
-                <h1 className="relative font-['Poppins'] text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold tracking-tight text-white">
+                {/* Shadow Text untuk Depth */}
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-400/10 via-cyan-400/10 to-purple-400/10 blur-2xl" />
+                
+                {/* Main Text - Menggunakan font sans dengan line-height yang cukup */}
+                <h1 className="relative font-['Poppins'] text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold leading-[1.1] tracking-tight text-white">
                   <span className="bg-gradient-to-r from-blue-300 via-cyan-200 to-purple-300 bg-clip-text text-transparent">
-                    Jason Vianney Sugiarto
+                    Jason
+                  </span>
+                  <br />
+                  <span className="bg-gradient-to-r from-cyan-200 via-blue-300 to-purple-300 bg-clip-text text-transparent">
+                    Vianney
+                  </span>
+                  <br />
+                  <span className="bg-gradient-to-r from-purple-300 via-cyan-200 to-blue-300 bg-clip-text text-transparent">
+                    Sugiarto
                   </span>
                 </h1>
-                
-                {/* Garis dekoratif di bawah nama */}
-                <motion.div
-                  initial={{ scaleX: 0 }}
-                  animate={{ scaleX: 1 }}
-                  transition={{ delay: 0.3, duration: 0.8 }}
-                  className="mx-auto mt-3 h-[1px] w-48 sm:w-64 bg-gradient-to-r from-transparent via-cyan-400/50 to-transparent"
-                />
               </div>
+              
+              {/* Decorative Lines */}
+              <motion.div
+                initial={{ scaleX: 0 }}
+                animate={{ scaleX: 1 }}
+                transition={{ delay: 0.5, duration: 1 }}
+                className="mx-auto mt-4 sm:mt-6 flex items-center justify-center gap-4 sm:gap-6"
+              >
+                <div className="h-[1px] w-12 sm:w-16 bg-gradient-to-r from-transparent via-blue-400/50 to-transparent" />
+                <div className="h-[1px] w-12 sm:w-16 bg-gradient-to-r from-transparent via-cyan-400/50 to-transparent" />
+                <div className="h-[1px] w-12 sm:w-16 bg-gradient-to-r from-transparent via-purple-400/50 to-transparent" />
+              </motion.div>
             </div>
           </motion.div>
 
-          {/* Loading Circle - Tepat di Tengah */}
+          {/* Loading Circle - POSISI PUSAT TEPAT DI ATAS ARC REACTOR */}
           <div className="relative flex items-center justify-center">
             <motion.div
               initial={{ scale: 0.8, opacity: 0 }}
@@ -158,16 +174,16 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
                 className="absolute -inset-2 sm:-inset-3 rounded-full border border-cyan-400/20"
               />
               
-              {/* Main Loading Circle */}
+              {/* Main Loading Circle - Ukuran Proporsional dengan Arc Reactor */}
               <div className="relative h-[100px] w-[100px] sm:h-[120px] sm:w-[120px] md:h-[140px] md:w-[140px]">
-                {/* Progress Ring */}
+                {/* Progress Ring - Match Arc Reactor Charge Ring */}
                 <svg className="absolute inset-0 h-full w-full -rotate-90">
                   <circle
                     cx="50%"
                     cy="50%"
-                    r="calc(50% - 8px)"
+                    r="calc(50% - 8px)" // Lebih dalam dari Arc Reactor track
                     stroke="url(#progressGradient)"
-                    strokeWidth="4"
+                    strokeWidth="4" // Lebih tebal untuk kontras
                     fill="none"
                     strokeDasharray="314"
                     strokeDashoffset={314 - (314 * loadingPercentage) / 100}
@@ -176,14 +192,14 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
                   />
                   <defs>
                     <linearGradient id="progressGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                      <stop offset="0%" stopColor="#00E5FF" />
-                      <stop offset="50%" stopColor="#19A0FF" />
+                      <stop offset="0%" stopColor="#00E5FF" /> {/* COLORS.cyan */}
+                      <stop offset="50%" stopColor="#19A0FF" /> {/* COLORS.blue */}
                       <stop offset="100%" stopColor="#00E5FF" />
                     </linearGradient>
                   </defs>
                 </svg>
 
-                {/* Inner Circle */}
+                {/* Inner Circle - Transparan agar Arc Reactor terlihat */}
                 <div className="absolute inset-4 flex items-center justify-center rounded-full bg-gradient-to-br from-blue-900/20 via-purple-900/15 to-cyan-900/20 backdrop-blur-[2px] sm:inset-5 md:inset-6">
                   {/* Percentage Display */}
                   <div className="text-center">
@@ -209,7 +225,7 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
                     </motion.div>
                   </div>
 
-                  {/* Center Dot */}
+                  {/* Center Dot - Match Arc Reactor Core */}
                   <motion.div
                     animate={{ scale: [1, 1.3, 1] }}
                     transition={{ duration: 2, repeat: Infinity }}
@@ -217,7 +233,7 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
                   />
                 </div>
 
-                {/* Small Dots on Circle */}
+                {/* Small Dots on Circle - Match Arc Reactor Rotation */}
                 {[...Array(12)].map((_, i) => {
                   const angle = (i * 30) * (Math.PI / 180)
                   const radius = "calc(50% - 8px)"
@@ -240,18 +256,25 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
                   )
                 })}
               </div>
+              
+              {/* Additional Glow Rings - Enhanced Effect */}
+              <div className="absolute -inset-4 sm:-inset-5 rounded-full border border-cyan-400/10" />
+              <div className="absolute -inset-6 sm:-inset-7 rounded-full border border-blue-400/5" />
             </motion.div>
           </div>
 
-          {/* Skills Grid - Di Bawah Loading */}
+          {/* Skills Grid */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3, duration: 0.8 }}
-            className="absolute bottom-8 sm:bottom-12 w-full max-w-4xl px-4"
+            className="absolute bottom-8 sm:bottom-12 w-full max-w-5xl px-4"
           >
             {/* Container untuk skills */}
             <div className="relative">
+              {/* Background Pattern */}
+              <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-blue-900/5 via-transparent to-purple-900/5" />
+              
               {/* Grid untuk skills */}
               <div className="relative grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
                 {skills.map((skill, index) => {
@@ -308,30 +331,70 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
                           </p>
                         </div>
                       </div>
+                      
+                      {/* Outer Glow Effect */}
+                      <div className="absolute -inset-1 -z-10 rounded-xl bg-gradient-to-br from-blue-500/0 via-purple-500/0 to-cyan-500/0 blur-md transition-all duration-500 group-hover:from-blue-500/10 group-hover:via-purple-500/10 group-hover:to-cyan-500/10" />
                     </motion.div>
                   )
                 })}
               </div>
               
-              {/* Tagline */}
+              {/* Connecting Line */}
+              <motion.div
+                initial={{ scaleX: 0 }}
+                animate={{ scaleX: 1 }}
+                transition={{ delay: 1.2, duration: 1.2 }}
+                className="absolute -bottom-2 left-1/4 right-1/4 h-[1px] bg-gradient-to-r from-transparent via-cyan-400/30 to-transparent"
+              />
+            </div>
+            
+            {/* Tagline */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 1.8 }}
+              className="mt-4 sm:mt-6 text-center"
+            >
+              <p className="font-['Inter'] text-xs sm:text-sm font-medium text-gray-300/70">
+                <span className="bg-gradient-to-r from-blue-300/90 via-cyan-300/90 to-purple-300/90 bg-clip-text text-transparent">
+                  Crafting digital excellence
+                </span>
+              </p>
+              
+              {/* Animated Dots */}
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ delay: 1.8 }}
-                className="mt-4 sm:mt-6 text-center"
+                transition={{ delay: 2 }}
+                className="mt-3 flex justify-center gap-2"
               >
-                <p className="font-['Inter'] text-xs sm:text-sm font-medium text-gray-300/70">
-                  <span className="bg-gradient-to-r from-blue-300/90 via-cyan-300/90 to-purple-300/90 bg-clip-text text-transparent">
-                    Building digital solutions with precision
-                  </span>
-                </p>
+                {[...Array(3)].map((_, i) => (
+                  <motion.div
+                    key={i}
+                    animate={{ 
+                      y: [0, -3, 0],
+                      scale: [1, 1.2, 1],
+                      backgroundColor: [
+                        "rgba(0, 229, 255, 0.5)",
+                        "rgba(25, 160, 255, 0.8)", 
+                        "rgba(0, 229, 255, 0.5)"
+                      ]
+                    }}
+                    transition={{
+                      duration: 1.5,
+                      repeat: Infinity,
+                      delay: i * 0.15
+                    }}
+                    className="h-1.5 w-1.5 rounded-full"
+                  />
+                ))}
               </motion.div>
-            </div>
+            </motion.div>
           </motion.div>
         </div>
       </section>
 
-      {/* Vignette Effect */}
+      {/* Enhanced Vignette Effect */}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 z-0"
