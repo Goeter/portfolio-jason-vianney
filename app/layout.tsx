@@ -1,42 +1,28 @@
-import type React from "react"
-import type { Metadata } from "next"
-import { Inter } from "next/font/google"
-import "./globals.css"
+// File: app/layout.tsx
+import type { Metadata } from 'next'
+import { Inter } from 'next/font/google'
+import './globals.css'
+import Navigation from '@/components/Navigation'
 
-const inter = Inter({
-  subsets: ["latin"],
-  display: "swap",
-})
+const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: "Jason Vianney Sugiarto - Portfolio",
-  description:
-    "System Analyst, UI/UX Design, Data Analyst - Professional Portfolio showcasing experience in business analysis, system design, and data visualization.",
-  keywords: ["System Analyst", "UI/UX Design", "Data Analyst", "Portfolio", "Jason Vianney Sugiarto"],
-  authors: [{ name: "Jason Vianney Sugiarto" }],
-  creator: "Jason Vianney Sugiarto",
-  openGraph: {
-    title: "Jason Vianney Sugiarto - Portfolio",
-    description: "System Analyst, UI/UX Design, Data Analyst - Professional Portfolio",
-    type: "website",
-    locale: "en_US",
-  },
-  robots: {
-    index: true,
-    follow: true,
-  },
-    generator: 'v0.dev'
+  title: 'Jason Vianney Sugiarto - IT Professional',
+  description: 'Front-end Developer, System Analyst, UI/UX Designer, Data Analyst',
 }
 
-interface RootLayoutProps {
+export default function RootLayout({
+  children,
+}: {
   children: React.ReactNode
-}
-
-export default function RootLayout({ children }: RootLayoutProps) {
+}) {
   return (
     <html lang="en" className="scroll-smooth">
-      <body className={inter.className} suppressHydrationWarning>
-        {children}
+      <body className={`${inter.className} bg-gray-950 text-white overflow-x-hidden`}>
+        <Navigation />
+        <main className="pt-16">
+          {children}
+        </main>
       </body>
     </html>
   )
