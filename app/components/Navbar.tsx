@@ -1,108 +1,141 @@
-// File: components/Navigation.tsx
 "use client"
 
-import { useState, useEffect } from 'react'
-import { motion } from 'framer-motion'
-import Link from 'next/link'
+import { useState } from "react"
+import { Home, FolderOpen, X, Wrench, Briefcase, Award } from "lucide-react"
+import { Button } from "@/components/ui/button"
 
-const navItems = [
-  { name: 'Home', href: '#home' },
-  { name: 'About', href: '#about' },
-  { name: 'Skills', href: '#skills' },
-  { name: 'Projects', href: '#projects' },
-  { name: 'Experience', href: '#experience' },
-  { name: 'Contact', href: '#contact' },
-]
+interface NavbarProps {
+  activeSection: string
+}
 
-export default function Navigation() {
-  const [isScrolled, setIsScrolled] = useState(false)
-  const [activeSection, setActiveSection] = useState('home')
+export default function Navbar({ activeSection }: NavbarProps) {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50)
-      
-      // Update active section based on scroll
-      const sections = navItems.map(item => item.href.replace('#', ''))
-      const currentSection = sections.find(section => {
-        const element = document.getElementById(section)
-        if (element) {
-          const rect = element.getBoundingClientRect()
-          return rect.top <= 100 && rect.bottom >= 100
-        }
-        return false
-      })
-      
-      if (currentSection) {
-        setActiveSection(currentSection)
+  const navItems = [
+    { id: "home", label: "Home", icon: Home },
+    { id: "roles", label: "Professional Expertise", icon: Wrench },
+    { id: "projects", label: "Projects", icon: FolderOpen },
+    { id: "certificates", label: "Certificates", icon: Award },
+    { id: "experience", label: "Experience", icon: Briefcase },
+  ]
+
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId)
+    if (element) {
+      const navbarHeight = 80
+      const windowHeight = window.innerHeight
+      const elementHeight = element.offsetHeight
+      const elementTop = element.offsetTop
+
+      let scrollPosition
+      if (elementHeight < windowHeight) {
+        scrollPosition = elementTop - (windowHeight - elementHeight) / 2 - navbarHeight / 2
+      } else {
+        scrollPosition = elementTop - navbarHeight
       }
-    }
 
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
+      window.scrollTo({
+        top: Math.max(0, scrollPosition),
+        behavior: "smooth",
+      })
+    }
+    setIsMobileMenuOpen(false)
+  }
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-      isScrolled 
-        ? 'bg-gray-900/95 backdrop-blur-md border-b border-gray-800/50' 
-        : 'bg-transparent'
-    }`}>
-      <div className="container mx-auto px-4 max-w-7xl">
-        <div className="flex items-center justify-between h-16">
-          {/* Logo */}
-          <motion.div 
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5 }}
-            className="flex items-center space-x-2"
-          >
-            <div className="w-8 h-8 bg-gradient-to-br from-cyan-500 to-blue-500 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-lg">J</span>
+    <>
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-slate-900/90 via-blue-900/90 to-purple-900/90 backdrop-blur-md shadow-2xl border-b border-cyan-500/30">
+        <div className="container mx-auto px-4">
+          <div className="flex items-center justify-between h-20">
+            {/* Logo */}
+            <div className="flex items-center">
+              <div className="w-12 h-12 bg-gradient-to-r from-cyan-500 to-purple-500 rounded-full flex items-center justify-center shadow-lg shadow-cyan-500/30">
+                <span className="text-white font-bold text-lg">JV</span>
+              </div>
             </div>
-            <span className="text-white font-bold text-xl">
-              Jason<span className="text-cyan-400">.</span>
-            </span>
-          </motion.div>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-1">
-            {navItems.map((item, index) => (
-              <motion.div
-                key={item.name}
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.3, delay: index * 0.1 }}
-              >
-                <Link
-                  href={item.href}
-                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 ${
-                    activeSection === item.href.replace('#', '')
-                      ? 'text-cyan-400 bg-cyan-500/10'
-                      : 'text-gray-300 hover:text-cyan-300 hover:bg-gray-800/50'
-                  }`}
-                  onClick={() => setActiveSection(item.href.replace('#', ''))}
-                >
-                  {item.name}
-                </Link>
-              </motion.div>
-            ))}
+            {/* Desktop Navigation */}
+            <div className="hidden lg:flex items-center space-x-6">
+              {navItems.map((item) => {
+                const Icon = item.icon
+                const isActive = activeSection === item.id
+                return (
+                  <button
+                    key={item.id}
+                    onClick={() => scrollToSection(item.id)}
+                    className={`flex items-center space-x-2 px-3 py-2 rounded-lg transition-all duration-300 text-sm ${
+                      isActive
+                        ? "text-white font-bold shadow-lg bg-cyan-500/20 border border-cyan-400/50"
+                        : "text-white hover:text-cyan-300 hover:font-bold hover:shadow-md hover:bg-cyan-500/10"
+                    }`}
+                  >
+                    <Icon className="w-4 h-4" />
+                    <span>{item.label}</span>
+                  </button>
+                )
+              })}
+            </div>
+
+            {/* Mobile Menu Button */}
+            <Button
+              variant="ghost"
+              size="icon"
+              className="lg:hidden transition-transform duration-300 text-cyan-300 hover:text-cyan-200 hover:bg-cyan-500/20"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            >
+              {isMobileMenuOpen ? (
+                <X className="w-6 h-6" />
+              ) : (
+                <div className="flex flex-col space-y-1">
+                  <div className="w-5 h-0.5 bg-cyan-300"></div>
+                  <div className="w-5 h-0.5 bg-cyan-300"></div>
+                  <div className="w-5 h-0.5 bg-cyan-300"></div>
+                </div>
+              )}
+            </Button>
           </div>
-
-          {/* Mobile Menu Button */}
-          <motion.button
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5 }}
-            className="md:hidden p-2 rounded-lg text-gray-300 hover:text-cyan-300 hover:bg-gray-800/50"
-            onClick={() => {/* Add mobile menu toggle logic */}}
-          >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
-          </motion.button>
         </div>
-      </div>
-    </nav>
+      </nav>
+
+      {/* Mobile Menu */}
+      {isMobileMenuOpen && (
+        <div className="fixed inset-0 z-50 lg:hidden">
+          <div className="fixed inset-0 bg-black/70" onClick={() => setIsMobileMenuOpen(false)} />
+          <div className="fixed right-0 top-0 h-full w-80 bg-gradient-to-b from-slate-900/95 via-blue-900/95 to-purple-900/95 backdrop-blur-md shadow-2xl border-l border-cyan-500/30">
+            <div className="flex items-center justify-between p-4 border-b border-cyan-500/30">
+              <h2 className="text-lg font-semibold text-white">Menu</h2>
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="text-cyan-300 hover:text-cyan-200"
+              >
+                <X className="w-6 h-6" />
+              </Button>
+            </div>
+            <div className="p-4 space-y-4">
+              {navItems.map((item) => {
+                const Icon = item.icon
+                const isActive = activeSection === item.id
+                return (
+                  <button
+                    key={item.id}
+                    onClick={() => scrollToSection(item.id)}
+                    className={`flex items-center space-x-3 w-full px-4 py-3 rounded-lg transition-all duration-300 ${
+                      isActive
+                        ? "text-white font-bold bg-cyan-500/20 border border-cyan-400/50"
+                        : "text-white hover:text-cyan-300 hover:bg-cyan-500/10"
+                    }`}
+                  >
+                    <Icon className="w-5 h-5" />
+                    <span>{item.label}</span>
+                  </button>
+                )
+              })}
+            </div>
+          </div>
+        </div>
+      )}
+    </>
   )
 }
