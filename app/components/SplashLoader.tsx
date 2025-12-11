@@ -7,11 +7,7 @@ import {
   Code, 
   Cpu, 
   Palette, 
-  BarChart3,
-  Terminal,
-  Database,
-  Layers,
-  Smartphone
+  BarChart3
 } from "lucide-react"
 
 type Props = {
@@ -107,42 +103,54 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
       <section className="relative z-10 h-full">
         <div className="relative flex h-full flex-col items-center justify-center px-4 sm:px-6">
           
-          {/* Nama dengan Font yang Lebih Round dan Tidak Terpotong */}
+          {/* Nama dengan Font yang Bagus - Tidak Terpotong */}
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="mb-8 w-full max-w-4xl text-center px-4"
+            className="mb-10 w-full max-w-5xl text-center px-4"
           >
             <div className="relative">
               {/* Glow Effect */}
-              <div className="absolute -inset-6 animate-pulse rounded-full bg-gradient-to-r from-blue-500/5 via-cyan-500/5 to-purple-500/5 blur-2xl" />
+              <div className="absolute -inset-8 animate-pulse rounded-full bg-gradient-to-r from-blue-500/5 via-cyan-500/5 to-purple-500/5 blur-3xl" />
               
-              {/* Nama Utama dengan Font yang Lebih Round */}
-              <h1 className="relative bg-gradient-to-r from-blue-300 via-cyan-200 to-purple-300 bg-clip-text font-['Inter'] text-4xl font-semibold tracking-tight text-transparent sm:text-5xl md:text-6xl lg:text-7xl">
-                Jason Vianney Sugiarto
-              </h1>
-              
-              {/* Title/Subtitle */}
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4, duration: 0.6 }}
-                className="mt-4"
-              >
-                <div className="inline-flex items-center gap-3">
-                  <div className="h-[1px] w-8 bg-gradient-to-r from-transparent via-blue-400/40 to-transparent" />
-                  <span className="bg-gradient-to-r from-blue-300/80 to-cyan-300/80 bg-clip-text font-['Inter'] text-sm font-medium tracking-widest text-transparent sm:text-base">
-                    FULL-STACK DEVELOPER
+              {/* Nama Utama dengan Font yang Lebih Bagus dan Tidak Terpotong */}
+              <div className="relative">
+                {/* Shadow Text untuk Depth */}
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-400/10 via-cyan-400/10 to-purple-400/10 blur-2xl" />
+                
+                {/* Main Text - Menggunakan font sans dengan line-height yang cukup */}
+                <h1 className="relative font-['Poppins'] text-5xl font-semibold leading-[1.1] tracking-tight text-white sm:text-6xl md:text-7xl lg:text-8xl">
+                  <span className="bg-gradient-to-r from-blue-300 via-cyan-200 to-purple-300 bg-clip-text text-transparent">
+                    Jason
                   </span>
-                  <div className="h-[1px] w-8 bg-gradient-to-r from-transparent via-cyan-400/40 to-transparent" />
-                </div>
+                  <br />
+                  <span className="bg-gradient-to-r from-cyan-200 via-blue-300 to-purple-300 bg-clip-text text-transparent">
+                    Vianney
+                  </span>
+                  <br />
+                  <span className="bg-gradient-to-r from-purple-300 via-cyan-200 to-blue-300 bg-clip-text text-transparent">
+                    Sugiarto
+                  </span>
+                </h1>
+              </div>
+              
+              {/* Decorative Lines */}
+              <motion.div
+                initial={{ scaleX: 0 }}
+                animate={{ scaleX: 1 }}
+                transition={{ delay: 0.5, duration: 1 }}
+                className="mx-auto mt-6 flex items-center justify-center gap-6"
+              >
+                <div className="h-[2px] w-16 bg-gradient-to-r from-transparent via-blue-400/50 to-transparent sm:w-24" />
+                <div className="h-[2px] w-16 bg-gradient-to-r from-transparent via-cyan-400/50 to-transparent sm:w-24" />
+                <div className="h-[2px] w-16 bg-gradient-to-r from-transparent via-purple-400/50 to-transparent sm:w-24" />
               </motion.div>
             </div>
           </motion.div>
 
           {/* Loading Circle - Posisi di Tengah */}
-          <div className="relative my-8">
+          <div className="relative my-10">
             <motion.div
               initial={{ scale: 0.8, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
@@ -251,12 +259,12 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
             </motion.div>
           </div>
 
-          {/* Skills Grid dengan Icon dan Warna yang Keren */}
+          {/* Skills Grid tanpa Progress Bar */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3, duration: 0.8 }}
-            className="mt-8 w-full max-w-5xl px-4"
+            className="mt-10 w-full max-w-5xl px-4"
           >
             {/* Container untuk skills */}
             <div className="relative">
@@ -264,7 +272,7 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
               <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-blue-900/5 via-transparent to-purple-900/5" />
               
               {/* Grid untuk skills */}
-              <div className="relative grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-4">
+              <div className="relative grid grid-cols-2 gap-5 sm:gap-6 lg:grid-cols-4">
                 {skills.map((skill, index) => {
                   const Icon = skill.icon
                   return (
@@ -286,7 +294,7 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
                       className="group relative cursor-default"
                     >
                       {/* Main Card */}
-                      <div className={`relative overflow-hidden rounded-2xl border border-white/10 ${skill.bgColor} p-4 backdrop-blur-sm transition-all duration-300 group-hover:border-white/20 group-hover:shadow-2xl sm:p-5`}>
+                      <div className={`relative overflow-hidden rounded-2xl border border-white/10 ${skill.bgColor} p-5 backdrop-blur-sm transition-all duration-300 group-hover:border-white/20 group-hover:shadow-2xl sm:p-6`}>
                         
                         {/* Animated gradient background */}
                         <div className="absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100">
@@ -300,8 +308,8 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
                             <div className={`absolute -inset-3 rounded-full bg-gradient-to-br ${skill.color} opacity-20 blur-md transition-all duration-500 group-hover:opacity-30`} />
                             
                             {/* Icon Circle */}
-                            <div className={`relative flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br ${skill.color} p-3 shadow-lg sm:h-16 sm:w-16`}>
-                              <Icon className="h-7 w-7 text-white sm:h-8 sm:w-8" />
+                            <div className={`relative flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br ${skill.color} p-3 shadow-lg sm:h-18 sm:w-18`}>
+                              <Icon className="h-8 w-8 text-white sm:h-9 sm:w-9" />
                             </div>
                             
                             {/* Corner Decorations */}
@@ -312,29 +320,17 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
                           </div>
                         </div>
                         
-                        {/* Skill Content */}
+                        {/* Skill Content - Tanpa Progress Bar */}
                         <div className="relative text-center">
                           {/* Skill Title */}
-                          <h3 className="font-['Inter'] text-sm font-semibold text-white sm:text-base">
+                          <h3 className="font-['Inter'] text-base font-semibold text-white sm:text-lg">
                             {skill.title}
                           </h3>
                           
                           {/* Skill Description */}
-                          <p className="mt-2 font-['Inter'] text-xs text-gray-300/80 sm:text-sm">
+                          <p className="mt-3 font-['Inter'] text-sm text-gray-300/80 sm:text-base">
                             {skill.description}
                           </p>
-                          
-                          {/* Progress Indicator */}
-                          <div className="mt-4">
-                            <div className="h-1 w-full overflow-hidden rounded-full bg-white/10">
-                              <motion.div
-                                initial={{ width: "0%" }}
-                                animate={{ width: `${80 + (index * 5)}%` }}
-                                transition={{ delay: 1 + index * 0.1, duration: 1 }}
-                                className={`h-full rounded-full bg-gradient-to-r ${skill.color}`}
-                              />
-                            </div>
-                          </div>
                         </div>
                         
                         {/* Floating Elements */}
@@ -358,16 +354,16 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
               />
             </div>
             
-            {/* Tagline dengan Font Inter */}
+            {/* Tagline */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 1.8 }}
-              className="mt-8 text-center"
+              className="mt-10 text-center"
             >
-              <p className="font-['Inter'] text-sm font-medium text-gray-300/70 sm:text-base">
-                <span className="bg-gradient-to-r from-blue-300/90 to-cyan-300/90 bg-clip-text text-transparent">
-                  Transforming ideas into exceptional digital experiences
+              <p className="font-['Inter'] text-base font-medium text-gray-300/70 sm:text-lg">
+                <span className="bg-gradient-to-r from-blue-300/90 via-cyan-300/90 to-purple-300/90 bg-clip-text text-transparent">
+                  Crafting digital excellence through innovative solutions
                 </span>
               </p>
               
@@ -376,18 +372,18 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 2 }}
-                className="mt-4 flex justify-center gap-2"
+                className="mt-6 flex justify-center gap-3"
               >
                 {[...Array(3)].map((_, i) => (
                   <motion.div
                     key={i}
                     animate={{ 
-                      y: [0, -4, 0],
-                      scale: [1, 1.2, 1],
+                      y: [0, -5, 0],
+                      scale: [1, 1.3, 1],
                       backgroundColor: [
-                        "rgba(99, 102, 241, 0.5)",
-                        "rgba(6, 182, 212, 0.8)", 
-                        "rgba(99, 102, 241, 0.5)"
+                        "rgba(99, 102, 241, 0.6)",
+                        "rgba(6, 182, 212, 0.9)", 
+                        "rgba(99, 102, 241, 0.6)"
                       ]
                     }}
                     transition={{
@@ -395,7 +391,7 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
                       repeat: Infinity,
                       delay: i * 0.2
                     }}
-                    className="h-2 w-2 rounded-full"
+                    className="h-2.5 w-2.5 rounded-full"
                   />
                 ))}
               </motion.div>
