@@ -17,7 +17,7 @@ const roles = [
     ],
     tools: [
       "Microsoft Visio, BPMN.io",
-      "Trello, ClickUp",
+      "Trello",
       "SQL Clients",
       "Google Docs, MS Word",
     ],
@@ -31,14 +31,13 @@ const roles = [
     skills: [
       "Wireframing & Prototyping",
       "User Research (Awwwards & Dribbble)",
-      "HTML, CSS, Javascript",
+      "HTML, CSS, PHP, Javascript",
       "React/Next.Js",
     ],
     tools: [
       "Figma, Adobe XD",
       "Adobe Illustrator",
       "Balsamiq Wireframes",
-      "Hotjar, Google Analytics",
     ],
   },
   {
@@ -48,19 +47,16 @@ const roles = [
     borderColor: "border-green-400/50",
     titleColor: "text-green-300",
     skills: [
-      "Data Cleaning & Wrangling",
-      "Statistical Analysis",
+      "Analysis Data, Cleaning",
       "Data Visualization",
       "SQL Querying",
-      "Spreadsheet Analysis",
-      "Report Generation",
+      "Report Preparation",
     ],
     tools: [
       "Excel, Google Sheets",
-      "SQL (MySQL, PostgreSQL)",
+      "SQL",
       "Python",
-      "Power BI, Tableau",
-      "Google Data Studio",
+      "Power BI",
     ],
   },
 ]
