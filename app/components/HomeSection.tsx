@@ -50,7 +50,7 @@ export default function HomeSection() {
               </h1>
 
               <h2 className="text-cyan-300 text-xl lg:text-2xl xl:text-3xl font-semibold leading-tight">
-                System Analyst, UI/UX Designer,
+                Front-end Developer, System Analyst, UI/UX Designer,
                 <br />
                 Data Analyst
               </h2>
