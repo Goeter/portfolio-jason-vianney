@@ -3,6 +3,16 @@
 import { useEffect, useState, useRef } from "react"
 import ArcReactorCanvas from "./arc-reactor-canvas"
 import { motion } from "framer-motion"
+import { 
+  Code, 
+  Cpu, 
+  Palette, 
+  BarChart3,
+  Terminal,
+  Database,
+  Layers,
+  Smartphone
+} from "lucide-react"
 
 type Props = {
   onLoadingComplete: () => void
@@ -16,10 +26,34 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
   const totalDuration = 6500
 
   const skills = [
-    "Front-end Development",
-    "System Analyst", 
-    "UI/UX Design",
-    "Data Analyst"
+    {
+      title: "Front-end Development",
+      icon: Code,
+      color: "from-blue-500 to-cyan-400",
+      bgColor: "bg-gradient-to-br from-blue-900/30 to-cyan-900/20",
+      description: "Modern web interfaces"
+    },
+    {
+      title: "System Analyst",
+      icon: Cpu,
+      color: "from-purple-500 to-pink-400",
+      bgColor: "bg-gradient-to-br from-purple-900/30 to-pink-900/20",
+      description: "Architecture & solutions"
+    },
+    {
+      title: "UI/UX Design",
+      icon: Palette,
+      color: "from-amber-500 to-orange-400",
+      bgColor: "bg-gradient-to-br from-amber-900/30 to-orange-900/20",
+      description: "User-centered design"
+    },
+    {
+      title: "Data Analyst",
+      icon: BarChart3,
+      color: "from-emerald-500 to-teal-400",
+      bgColor: "bg-gradient-to-br from-emerald-900/30 to-teal-900/20",
+      description: "Insights & analytics"
+    }
   ]
 
   // Animasi loading persentase
@@ -71,31 +105,39 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
       <ArcReactorCanvas className="absolute inset-0" />
 
       <section className="relative z-10 h-full">
-        <div className="relative flex h-full flex-col items-center justify-center px-6">
+        <div className="relative flex h-full flex-col items-center justify-center px-4 sm:px-6">
           
-          {/* Nama dengan Typography yang Bagus */}
+          {/* Nama dengan Font yang Lebih Round dan Tidak Terpotong */}
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="mb-8 text-center"
+            className="mb-8 w-full max-w-4xl text-center px-4"
           >
             <div className="relative">
-              {/* Glow Effect di belakang nama */}
-              <div className="absolute -inset-4 animate-pulse rounded-full bg-gradient-to-r from-blue-500/10 via-cyan-500/10 to-blue-500/10 blur-xl" />
+              {/* Glow Effect */}
+              <div className="absolute -inset-6 animate-pulse rounded-full bg-gradient-to-r from-blue-500/5 via-cyan-500/5 to-purple-500/5 blur-2xl" />
               
-              {/* Nama Utama */}
-              <h1 className="relative bg-gradient-to-r from-blue-300 via-white to-cyan-300 bg-clip-text text-3xl font-bold tracking-tight text-transparent sm:text-4xl md:text-5xl lg:text-6xl">
+              {/* Nama Utama dengan Font yang Lebih Round */}
+              <h1 className="relative bg-gradient-to-r from-blue-300 via-cyan-200 to-purple-300 bg-clip-text font-['Inter'] text-4xl font-semibold tracking-tight text-transparent sm:text-5xl md:text-6xl lg:text-7xl">
                 Jason Vianney Sugiarto
               </h1>
               
-              {/* Subtitle garis tipis */}
+              {/* Title/Subtitle */}
               <motion.div
-                initial={{ scaleX: 0 }}
-                animate={{ scaleX: 1 }}
-                transition={{ delay: 0.5, duration: 0.8 }}
-                className="mx-auto mt-3 h-[1px] w-32 bg-gradient-to-r from-transparent via-blue-400/50 to-transparent sm:w-48"
-              />
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4, duration: 0.6 }}
+                className="mt-4"
+              >
+                <div className="inline-flex items-center gap-3">
+                  <div className="h-[1px] w-8 bg-gradient-to-r from-transparent via-blue-400/40 to-transparent" />
+                  <span className="bg-gradient-to-r from-blue-300/80 to-cyan-300/80 bg-clip-text font-['Inter'] text-sm font-medium tracking-widest text-transparent sm:text-base">
+                    FULL-STACK DEVELOPER
+                  </span>
+                  <div className="h-[1px] w-8 bg-gradient-to-r from-transparent via-cyan-400/40 to-transparent" />
+                </div>
+              </motion.div>
             </div>
           </motion.div>
 
@@ -112,28 +154,28 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
                 animate={{ 
                   rotate: 360,
                   boxShadow: [
-                    "0 0 20px rgba(59, 130, 246, 0.3)",
-                    "0 0 40px rgba(59, 130, 246, 0.5)", 
-                    "0 0 20px rgba(59, 130, 246, 0.3)"
+                    "0 0 25px rgba(99, 102, 241, 0.3)",
+                    "0 0 45px rgba(99, 102, 241, 0.5)", 
+                    "0 0 25px rgba(99, 102, 241, 0.3)"
                   ]
                 }}
                 transition={{
-                  rotate: { duration: 10, repeat: Infinity, ease: "linear" },
-                  boxShadow: { duration: 2, repeat: Infinity }
+                  rotate: { duration: 12, repeat: Infinity, ease: "linear" },
+                  boxShadow: { duration: 2.5, repeat: Infinity }
                 }}
-                className="absolute -inset-2 rounded-full border border-blue-400/20 sm:-inset-3"
+                className="absolute -inset-3 rounded-full border border-indigo-400/20 sm:-inset-4"
               />
               
               {/* Main Loading Circle */}
-              <div className="relative h-[90px] w-[90px] sm:h-[110px] sm:w-[110px] md:h-[130px] md:w-[130px]">
+              <div className="relative h-[100px] w-[100px] sm:h-[120px] sm:w-[120px] md:h-[140px] md:w-[140px]">
                 {/* Progress Ring */}
                 <svg className="absolute inset-0 h-full w-full -rotate-90">
                   <circle
                     cx="50%"
                     cy="50%"
-                    r="calc(50% - 5px)"
+                    r="calc(50% - 6px)"
                     stroke="url(#progressGradient)"
-                    strokeWidth="2.5"
+                    strokeWidth="3"
                     fill="none"
                     strokeDasharray="314"
                     strokeDashoffset={314 - (314 * loadingPercentage) / 100}
@@ -142,15 +184,15 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
                   />
                   <defs>
                     <linearGradient id="progressGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                      <stop offset="0%" stopColor="#3b82f6" />
-                      <stop offset="50%" stopColor="#22d3ee" />
-                      <stop offset="100%" stopColor="#3b82f6" />
+                      <stop offset="0%" stopColor="#6366f1" />
+                      <stop offset="50%" stopColor="#06b6d4" />
+                      <stop offset="100%" stopColor="#8b5cf6" />
                     </linearGradient>
                   </defs>
                 </svg>
 
                 {/* Inner Circle */}
-                <div className="absolute inset-3 flex items-center justify-center rounded-full bg-gradient-to-br from-blue-900/40 to-cyan-900/40 backdrop-blur-[3px] sm:inset-4 md:inset-5">
+                <div className="absolute inset-4 flex items-center justify-center rounded-full bg-gradient-to-br from-blue-900/40 via-purple-900/30 to-cyan-900/40 backdrop-blur-[4px] sm:inset-5 md:inset-6">
                   {/* Percentage Display */}
                   <div className="text-center">
                     <motion.div
@@ -159,17 +201,17 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
                       animate={{ scale: 1 }}
                       className="relative"
                     >
-                      <span className="text-2xl font-bold text-white sm:text-3xl md:text-4xl">
+                      <span className="font-['Inter'] text-3xl font-bold text-white sm:text-4xl md:text-5xl">
                         {loadingPercentage}
                       </span>
-                      <span className="text-lg font-semibold text-blue-300 sm:text-xl md:text-2xl">%</span>
+                      <span className="font-['Inter'] text-xl font-semibold text-cyan-300 sm:text-2xl md:text-3xl">%</span>
                     </motion.div>
                     
                     {/* Loading Text */}
                     <motion.div
                       animate={{ opacity: [0.6, 1, 0.6] }}
                       transition={{ duration: 1.5, repeat: Infinity }}
-                      className="mt-1 text-[10px] font-medium uppercase tracking-[0.2em] text-cyan-300/80 sm:text-[11px]"
+                      className="mt-1 font-['Inter'] text-[10px] font-medium uppercase tracking-[0.25em] text-cyan-300/90 sm:text-[12px]"
                     >
                       Loading
                     </motion.div>
@@ -177,26 +219,26 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
 
                   {/* Center Dot */}
                   <motion.div
-                    animate={{ scale: [1, 1.3, 1] }}
+                    animate={{ scale: [1, 1.4, 1] }}
                     transition={{ duration: 2, repeat: Infinity }}
-                    className="absolute h-2 w-2 rounded-full bg-blue-400 sm:h-2.5 sm:w-2.5"
+                    className="absolute h-2.5 w-2.5 rounded-full bg-gradient-to-r from-cyan-400 to-blue-400 sm:h-3 sm:w-3"
                   />
                 </div>
 
                 {/* Small Dots on Circle */}
-                {[...Array(12)].map((_, i) => {
-                  const angle = (i * 30) * (Math.PI / 180)
-                  const radius = "calc(50% - 5px)"
+                {[...Array(16)].map((_, i) => {
+                  const angle = (i * 22.5) * (Math.PI / 180)
+                  const radius = "calc(50% - 6px)"
                   return (
                     <motion.div
                       key={i}
                       initial={{ scale: 0, opacity: 0 }}
                       animate={{ 
-                        scale: loadingPercentage >= (i + 1) * 8.3 ? 1 : 0.5,
-                        opacity: loadingPercentage >= (i + 1) * 8.3 ? 1 : 0.3
+                        scale: loadingPercentage >= (i + 1) * 6.25 ? 1 : 0.5,
+                        opacity: loadingPercentage >= (i + 1) * 6.25 ? 1 : 0.3
                       }}
-                      transition={{ delay: i * 0.02 }}
-                      className="absolute h-1.5 w-1.5 rounded-full bg-blue-400 sm:h-2 sm:w-2"
+                      transition={{ delay: i * 0.015 }}
+                      className="absolute h-2 w-2 rounded-full bg-gradient-to-r from-cyan-400 to-blue-400 sm:h-2.5 sm:w-2.5"
                       style={{
                         left: `calc(50% + ${radius} * ${Math.cos(angle)})`,
                         top: `calc(50% + ${radius} * ${Math.sin(angle)})`,
@@ -209,92 +251,165 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
             </motion.div>
           </div>
 
-          {/* Skills List dengan Layout Rapi */}
+          {/* Skills Grid dengan Icon dan Warna yang Keren */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3, duration: 0.8 }}
-            className="mt-8 w-full max-w-2xl"
+            className="mt-8 w-full max-w-5xl px-4"
           >
             {/* Container untuk skills */}
             <div className="relative">
-              {/* Background glow untuk skills */}
-              <div className="absolute -inset-4 rounded-2xl bg-gradient-to-r from-blue-500/5 via-transparent to-cyan-500/5 blur-lg" />
+              {/* Background Pattern */}
+              <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-blue-900/5 via-transparent to-purple-900/5" />
               
               {/* Grid untuk skills */}
-              <div className="relative grid grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-4">
-                {skills.map((skill, index) => (
-                  <motion.div
-                    key={skill}
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: 0.5 + index * 0.1 }}
-                    whileHover={{ scale: 1.05, y: -2 }}
-                    className="group relative cursor-default"
-                  >
-                    {/* Card untuk setiap skill */}
-                    <div className="relative overflow-hidden rounded-xl border border-blue-400/20 bg-gradient-to-b from-blue-900/20 to-cyan-900/20 p-3 backdrop-blur-sm transition-all duration-300 group-hover:border-blue-400/40 group-hover:bg-blue-900/30 sm:p-4">
-                      {/* Animated background on hover */}
-                      <div className="absolute inset-0 bg-gradient-to-r from-blue-500/0 via-cyan-500/0 to-blue-500/0 transition-all duration-500 group-hover:from-blue-500/10 group-hover:via-cyan-500/10 group-hover:to-blue-500/10" />
-                      
-                      {/* Skill Icon */}
-                      <div className="relative mb-2 flex justify-center">
-                        <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-blue-500/20 to-cyan-500/20 group-hover:from-blue-500/30 group-hover:to-cyan-500/30 sm:h-10 sm:w-10">
-                          <span className="text-sm font-bold text-blue-300 group-hover:text-cyan-300 sm:text-base">
-                            {index + 1}
-                          </span>
+              <div className="relative grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-4">
+                {skills.map((skill, index) => {
+                  const Icon = skill.icon
+                  return (
+                    <motion.div
+                      key={skill.title}
+                      initial={{ opacity: 0, scale: 0.9, y: 20 }}
+                      animate={{ opacity: 1, scale: 1, y: 0 }}
+                      transition={{ 
+                        delay: 0.5 + index * 0.15,
+                        type: "spring",
+                        stiffness: 100,
+                        damping: 15
+                      }}
+                      whileHover={{ 
+                        scale: 1.05, 
+                        y: -4,
+                        transition: { duration: 0.2 }
+                      }}
+                      className="group relative cursor-default"
+                    >
+                      {/* Main Card */}
+                      <div className={`relative overflow-hidden rounded-2xl border border-white/10 ${skill.bgColor} p-4 backdrop-blur-sm transition-all duration-300 group-hover:border-white/20 group-hover:shadow-2xl sm:p-5`}>
+                        
+                        {/* Animated gradient background */}
+                        <div className="absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100">
+                          <div className={`absolute inset-0 bg-gradient-to-br ${skill.color} opacity-10`} />
                         </div>
+                        
+                        {/* Icon Container */}
+                        <div className="relative mb-4 flex justify-center">
+                          <div className="relative">
+                            {/* Icon Background Glow */}
+                            <div className={`absolute -inset-3 rounded-full bg-gradient-to-br ${skill.color} opacity-20 blur-md transition-all duration-500 group-hover:opacity-30`} />
+                            
+                            {/* Icon Circle */}
+                            <div className={`relative flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br ${skill.color} p-3 shadow-lg sm:h-16 sm:w-16`}>
+                              <Icon className="h-7 w-7 text-white sm:h-8 sm:w-8" />
+                            </div>
+                            
+                            {/* Corner Decorations */}
+                            <div className="absolute -top-1 -left-1 h-3 w-3 rounded-full bg-white/20" />
+                            <div className="absolute -top-1 -right-1 h-3 w-3 rounded-full bg-white/20" />
+                            <div className="absolute -bottom-1 -left-1 h-3 w-3 rounded-full bg-white/20" />
+                            <div className="absolute -bottom-1 -right-1 h-3 w-3 rounded-full bg-white/20" />
+                          </div>
+                        </div>
+                        
+                        {/* Skill Content */}
+                        <div className="relative text-center">
+                          {/* Skill Title */}
+                          <h3 className="font-['Inter'] text-sm font-semibold text-white sm:text-base">
+                            {skill.title}
+                          </h3>
+                          
+                          {/* Skill Description */}
+                          <p className="mt-2 font-['Inter'] text-xs text-gray-300/80 sm:text-sm">
+                            {skill.description}
+                          </p>
+                          
+                          {/* Progress Indicator */}
+                          <div className="mt-4">
+                            <div className="h-1 w-full overflow-hidden rounded-full bg-white/10">
+                              <motion.div
+                                initial={{ width: "0%" }}
+                                animate={{ width: `${80 + (index * 5)}%` }}
+                                transition={{ delay: 1 + index * 0.1, duration: 1 }}
+                                className={`h-full rounded-full bg-gradient-to-r ${skill.color}`}
+                              />
+                            </div>
+                          </div>
+                        </div>
+                        
+                        {/* Floating Elements */}
+                        <div className="absolute -right-2 -top-2 h-4 w-4 rounded-full bg-white/10 blur-sm" />
+                        <div className="absolute -bottom-2 -left-2 h-4 w-4 rounded-full bg-white/10 blur-sm" />
                       </div>
                       
-                      {/* Skill Text */}
-                      <p className="relative text-center text-xs font-semibold text-gray-200 group-hover:text-white sm:text-sm">
-                        {skill}
-                      </p>
-                      
-                      {/* Bottom border effect */}
-                      <motion.div
-                        initial={{ scaleX: 0 }}
-                        animate={{ scaleX: 1 }}
-                        transition={{ delay: 0.8 + index * 0.1 }}
-                        className="absolute bottom-0 left-1/4 h-[1px] w-1/2 bg-gradient-to-r from-transparent via-blue-400/50 to-transparent"
-                      />
-                    </div>
-                    
-                    {/* Glow effect on hover */}
-                    <div className="absolute -inset-1 -z-10 rounded-xl bg-gradient-to-r from-blue-500/0 to-cyan-500/0 blur-md transition-all duration-300 group-hover:from-blue-500/20 group-hover:to-cyan-500/20" />
-                  </motion.div>
-                ))}
+                      {/* Outer Glow Effect */}
+                      <div className="absolute -inset-1 -z-10 rounded-2xl bg-gradient-to-br from-blue-500/0 via-purple-500/0 to-cyan-500/0 blur-xl transition-all duration-500 group-hover:from-blue-500/20 group-hover:via-purple-500/20 group-hover:to-cyan-500/20" />
+                    </motion.div>
+                  )
+                })}
               </div>
               
-              {/* Connecting line between skills */}
+              {/* Connecting Line */}
               <motion.div
                 initial={{ scaleX: 0 }}
                 animate={{ scaleX: 1 }}
-                transition={{ delay: 1, duration: 1 }}
-                className="absolute -bottom-2 left-1/4 right-1/4 h-[1px] bg-gradient-to-r from-transparent via-blue-400/30 to-transparent"
+                transition={{ delay: 1.2, duration: 1.2 }}
+                className="absolute -bottom-3 left-1/4 right-1/4 h-[2px] bg-gradient-to-r from-transparent via-indigo-400/40 to-transparent"
               />
             </div>
             
-            {/* Subtle tagline */}
-            <motion.p
+            {/* Tagline dengan Font Inter */}
+            <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 1.5 }}
-              className="mt-6 text-center text-sm font-medium text-gray-300/70 sm:text-base"
+              transition={{ delay: 1.8 }}
+              className="mt-8 text-center"
             >
-              Crafting digital experiences with precision and innovation
-            </motion.p>
+              <p className="font-['Inter'] text-sm font-medium text-gray-300/70 sm:text-base">
+                <span className="bg-gradient-to-r from-blue-300/90 to-cyan-300/90 bg-clip-text text-transparent">
+                  Transforming ideas into exceptional digital experiences
+                </span>
+              </p>
+              
+              {/* Animated Dots */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 2 }}
+                className="mt-4 flex justify-center gap-2"
+              >
+                {[...Array(3)].map((_, i) => (
+                  <motion.div
+                    key={i}
+                    animate={{ 
+                      y: [0, -4, 0],
+                      scale: [1, 1.2, 1],
+                      backgroundColor: [
+                        "rgba(99, 102, 241, 0.5)",
+                        "rgba(6, 182, 212, 0.8)", 
+                        "rgba(99, 102, 241, 0.5)"
+                      ]
+                    }}
+                    transition={{
+                      duration: 1.5,
+                      repeat: Infinity,
+                      delay: i * 0.2
+                    }}
+                    className="h-2 w-2 rounded-full"
+                  />
+                ))}
+              </motion.div>
+            </motion.div>
           </motion.div>
         </div>
       </section>
 
-      {/* Vignette Effect */}
+      {/* Enhanced Vignette Effect */}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 z-0"
         style={{
-          background:
-            "radial-gradient(ellipse at center, rgba(0,0,0,0) 40%, rgba(0,0,0,0.25) 65%, rgba(0,0,0,0.5) 100%)",
+          background: "radial-gradient(ellipse at center, rgba(0,0,0,0) 30%, rgba(0,0,0,0.3) 60%, rgba(0,0,0,0.6) 100%)",
         }}
       />
     </main>
