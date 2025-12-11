@@ -122,15 +122,7 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
                 {/* Main Text - Menggunakan font sans dengan line-height yang cukup */}
                 <h1 className="relative font-['Poppins'] text-5xl font-semibold leading-[1.1] tracking-tight text-white sm:text-6xl md:text-7xl lg:text-8xl">
                   <span className="bg-gradient-to-r from-blue-300 via-cyan-200 to-purple-300 bg-clip-text text-transparent">
-                    Jason
-                  </span>
-                  <br />
-                  <span className="bg-gradient-to-r from-cyan-200 via-blue-300 to-purple-300 bg-clip-text text-transparent">
-                    Vianney
-                  </span>
-                  <br />
-                  <span className="bg-gradient-to-r from-purple-300 via-cyan-200 to-blue-300 bg-clip-text text-transparent">
-                    Sugiarto
+                    Jason Vianney Sugiarto
                   </span>
                 </h1>
               </div>
