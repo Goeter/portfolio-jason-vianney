@@ -101,69 +101,61 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
       <ArcReactorCanvas className="absolute inset-0" />
 
       <section className="relative z-10 h-full">
-        <div className="relative flex h-full flex-col items-center justify-center px-4 sm:px-6">
+        <div className="relative flex h-full flex-col items-center justify-center">
           
-          {/* Nama dengan Font yang Bagus - Tidak Terpotong */}
+          {/* Nama dalam Satu Baris - Dekat dengan Loading */}
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="mb-10 w-full max-w-5xl text-center px-4"
+            className="absolute top-1/4 w-full max-w-4xl px-4 text-center"
           >
             <div className="relative">
               {/* Glow Effect */}
-              <div className="absolute -inset-8 animate-pulse rounded-full bg-gradient-to-r from-blue-500/5 via-cyan-500/5 to-purple-500/5 blur-3xl" />
+              <div className="absolute -inset-4 animate-pulse rounded-full bg-gradient-to-r from-blue-500/5 via-cyan-500/5 to-purple-500/5 blur-xl" />
               
-              {/* Nama Utama dengan Font yang Lebih Bagus dan Tidak Terpotong */}
+              {/* Nama dalam Satu Baris */}
               <div className="relative">
-                {/* Shadow Text untuk Depth */}
-                <div className="absolute inset-0 bg-gradient-to-r from-blue-400/10 via-cyan-400/10 to-purple-400/10 blur-2xl" />
-                
-                {/* Main Text - Menggunakan font sans dengan line-height yang cukup */}
-                <h1 className="relative font-['Poppins'] text-5xl font-semibold leading-[1.1] tracking-tight text-white sm:text-6xl md:text-7xl lg:text-8xl">
+                <h1 className="relative font-['Poppins'] text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold tracking-tight text-white">
                   <span className="bg-gradient-to-r from-blue-300 via-cyan-200 to-purple-300 bg-clip-text text-transparent">
                     Jason Vianney Sugiarto
                   </span>
                 </h1>
+                
+                {/* Garis dekoratif di bawah nama */}
+                <motion.div
+                  initial={{ scaleX: 0 }}
+                  animate={{ scaleX: 1 }}
+                  transition={{ delay: 0.3, duration: 0.8 }}
+                  className="mx-auto mt-3 h-[1px] w-48 sm:w-64 bg-gradient-to-r from-transparent via-cyan-400/50 to-transparent"
+                />
               </div>
-              
-              {/* Decorative Lines */}
-              <motion.div
-                initial={{ scaleX: 0 }}
-                animate={{ scaleX: 1 }}
-                transition={{ delay: 0.5, duration: 1 }}
-                className="mx-auto mt-6 flex items-center justify-center gap-6"
-              >
-                <div className="h-[2px] w-16 bg-gradient-to-r from-transparent via-blue-400/50 to-transparent sm:w-24" />
-                <div className="h-[2px] w-16 bg-gradient-to-r from-transparent via-cyan-400/50 to-transparent sm:w-24" />
-                <div className="h-[2px] w-16 bg-gradient-to-r from-transparent via-purple-400/50 to-transparent sm:w-24" />
-              </motion.div>
             </div>
           </motion.div>
 
-          {/* Loading Circle - Posisi di Tengah */}
-          <div className="relative my-10">
+          {/* Loading Circle - Tepat di Tengah */}
+          <div className="relative flex items-center justify-center">
             <motion.div
               initial={{ scale: 0.8, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               transition={{ duration: 0.5 }}
               className="relative"
             >
-              {/* Outer Glow Effect */}
+              {/* Outer Glow Effect - Match Arc Reactor Glow */}
               <motion.div
                 animate={{ 
                   rotate: 360,
                   boxShadow: [
-                    "0 0 25px rgba(99, 102, 241, 0.3)",
-                    "0 0 45px rgba(99, 102, 241, 0.5)", 
-                    "0 0 25px rgba(99, 102, 241, 0.3)"
+                    "0 0 20px rgba(0, 229, 255, 0.3)",
+                    "0 0 40px rgba(0, 229, 255, 0.5)", 
+                    "0 0 20px rgba(0, 229, 255, 0.3)"
                   ]
                 }}
                 transition={{
-                  rotate: { duration: 12, repeat: Infinity, ease: "linear" },
-                  boxShadow: { duration: 2.5, repeat: Infinity }
+                  rotate: { duration: 8, repeat: Infinity, ease: "linear" },
+                  boxShadow: { duration: 2, repeat: Infinity }
                 }}
-                className="absolute -inset-3 rounded-full border border-indigo-400/20 sm:-inset-4"
+                className="absolute -inset-2 sm:-inset-3 rounded-full border border-cyan-400/20"
               />
               
               {/* Main Loading Circle */}
@@ -173,9 +165,9 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
                   <circle
                     cx="50%"
                     cy="50%"
-                    r="calc(50% - 6px)"
+                    r="calc(50% - 8px)"
                     stroke="url(#progressGradient)"
-                    strokeWidth="3"
+                    strokeWidth="4"
                     fill="none"
                     strokeDasharray="314"
                     strokeDashoffset={314 - (314 * loadingPercentage) / 100}
@@ -184,15 +176,15 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
                   />
                   <defs>
                     <linearGradient id="progressGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                      <stop offset="0%" stopColor="#6366f1" />
-                      <stop offset="50%" stopColor="#06b6d4" />
-                      <stop offset="100%" stopColor="#8b5cf6" />
+                      <stop offset="0%" stopColor="#00E5FF" />
+                      <stop offset="50%" stopColor="#19A0FF" />
+                      <stop offset="100%" stopColor="#00E5FF" />
                     </linearGradient>
                   </defs>
                 </svg>
 
                 {/* Inner Circle */}
-                <div className="absolute inset-4 flex items-center justify-center rounded-full bg-gradient-to-br from-blue-900/40 via-purple-900/30 to-cyan-900/40 backdrop-blur-[4px] sm:inset-5 md:inset-6">
+                <div className="absolute inset-4 flex items-center justify-center rounded-full bg-gradient-to-br from-blue-900/20 via-purple-900/15 to-cyan-900/20 backdrop-blur-[2px] sm:inset-5 md:inset-6">
                   {/* Percentage Display */}
                   <div className="text-center">
                     <motion.div
@@ -201,17 +193,17 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
                       animate={{ scale: 1 }}
                       className="relative"
                     >
-                      <span className="font-['Inter'] text-3xl font-bold text-white sm:text-4xl md:text-5xl">
+                      <span className="font-['Inter'] text-2xl sm:text-3xl md:text-4xl font-bold text-white">
                         {loadingPercentage}
                       </span>
-                      <span className="font-['Inter'] text-xl font-semibold text-cyan-300 sm:text-2xl md:text-3xl">%</span>
+                      <span className="font-['Inter'] text-lg sm:text-xl md:text-2xl font-semibold text-cyan-300">%</span>
                     </motion.div>
                     
                     {/* Loading Text */}
                     <motion.div
                       animate={{ opacity: [0.6, 1, 0.6] }}
                       transition={{ duration: 1.5, repeat: Infinity }}
-                      className="mt-1 font-['Inter'] text-[10px] font-medium uppercase tracking-[0.25em] text-cyan-300/90 sm:text-[12px]"
+                      className="mt-1 font-['Inter'] text-[10px] sm:text-[11px] font-medium uppercase tracking-[0.2em] text-cyan-300/90"
                     >
                       Loading
                     </motion.div>
@@ -219,26 +211,26 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
 
                   {/* Center Dot */}
                   <motion.div
-                    animate={{ scale: [1, 1.4, 1] }}
+                    animate={{ scale: [1, 1.3, 1] }}
                     transition={{ duration: 2, repeat: Infinity }}
-                    className="absolute h-2.5 w-2.5 rounded-full bg-gradient-to-r from-cyan-400 to-blue-400 sm:h-3 sm:w-3"
+                    className="absolute h-2 w-2 rounded-full bg-gradient-to-r from-cyan-400 to-blue-400 sm:h-2.5 sm:w-2.5"
                   />
                 </div>
 
                 {/* Small Dots on Circle */}
-                {[...Array(16)].map((_, i) => {
-                  const angle = (i * 22.5) * (Math.PI / 180)
-                  const radius = "calc(50% - 6px)"
+                {[...Array(12)].map((_, i) => {
+                  const angle = (i * 30) * (Math.PI / 180)
+                  const radius = "calc(50% - 8px)"
                   return (
                     <motion.div
                       key={i}
                       initial={{ scale: 0, opacity: 0 }}
                       animate={{ 
-                        scale: loadingPercentage >= (i + 1) * 6.25 ? 1 : 0.5,
-                        opacity: loadingPercentage >= (i + 1) * 6.25 ? 1 : 0.3
+                        scale: loadingPercentage >= (i + 1) * 8.33 ? 1 : 0.5,
+                        opacity: loadingPercentage >= (i + 1) * 8.33 ? 1 : 0.3
                       }}
-                      transition={{ delay: i * 0.015 }}
-                      className="absolute h-2 w-2 rounded-full bg-gradient-to-r from-cyan-400 to-blue-400 sm:h-2.5 sm:w-2.5"
+                      transition={{ delay: i * 0.02 }}
+                      className="absolute h-1.5 w-1.5 rounded-full bg-cyan-400 sm:h-2 sm:w-2"
                       style={{
                         left: `calc(50% + ${radius} * ${Math.cos(angle)})`,
                         top: `calc(50% + ${radius} * ${Math.sin(angle)})`,
@@ -251,20 +243,17 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
             </motion.div>
           </div>
 
-          {/* Skills Grid tanpa Progress Bar */}
+          {/* Skills Grid - Di Bawah Loading */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3, duration: 0.8 }}
-            className="mt-10 w-full max-w-5xl px-4"
+            className="absolute bottom-8 sm:bottom-12 w-full max-w-4xl px-4"
           >
             {/* Container untuk skills */}
             <div className="relative">
-              {/* Background Pattern */}
-              <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-blue-900/5 via-transparent to-purple-900/5" />
-              
               {/* Grid untuk skills */}
-              <div className="relative grid grid-cols-2 gap-5 sm:gap-6 lg:grid-cols-4">
+              <div className="relative grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
                 {skills.map((skill, index) => {
                   const Icon = skill.icon
                   return (
@@ -280,13 +269,13 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
                       }}
                       whileHover={{ 
                         scale: 1.05, 
-                        y: -4,
+                        y: -2,
                         transition: { duration: 0.2 }
                       }}
                       className="group relative cursor-default"
                     >
                       {/* Main Card */}
-                      <div className={`relative overflow-hidden rounded-2xl border border-white/10 ${skill.bgColor} p-5 backdrop-blur-sm transition-all duration-300 group-hover:border-white/20 group-hover:shadow-2xl sm:p-6`}>
+                      <div className={`relative overflow-hidden rounded-xl border border-white/10 ${skill.bgColor} p-3 sm:p-4 backdrop-blur-sm transition-all duration-300 group-hover:border-white/20 group-hover:shadow-xl`}>
                         
                         {/* Animated gradient background */}
                         <div className="absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100">
@@ -294,105 +283,55 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
                         </div>
                         
                         {/* Icon Container */}
-                        <div className="relative mb-4 flex justify-center">
+                        <div className="relative mb-3 flex justify-center">
                           <div className="relative">
                             {/* Icon Background Glow */}
-                            <div className={`absolute -inset-3 rounded-full bg-gradient-to-br ${skill.color} opacity-20 blur-md transition-all duration-500 group-hover:opacity-30`} />
+                            <div className={`absolute -inset-2 rounded-full bg-gradient-to-br ${skill.color} opacity-20 blur-sm transition-all duration-500 group-hover:opacity-30`} />
                             
                             {/* Icon Circle */}
-                            <div className={`relative flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br ${skill.color} p-3 shadow-lg sm:h-18 sm:w-18`}>
-                              <Icon className="h-8 w-8 text-white sm:h-9 sm:w-9" />
+                            <div className={`relative flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br ${skill.color} p-2 shadow-md sm:h-14 sm:w-14`}>
+                              <Icon className="h-6 w-6 text-white sm:h-7 sm:w-7" />
                             </div>
-                            
-                            {/* Corner Decorations */}
-                            <div className="absolute -top-1 -left-1 h-3 w-3 rounded-full bg-white/20" />
-                            <div className="absolute -top-1 -right-1 h-3 w-3 rounded-full bg-white/20" />
-                            <div className="absolute -bottom-1 -left-1 h-3 w-3 rounded-full bg-white/20" />
-                            <div className="absolute -bottom-1 -right-1 h-3 w-3 rounded-full bg-white/20" />
                           </div>
                         </div>
                         
-                        {/* Skill Content - Tanpa Progress Bar */}
+                        {/* Skill Content */}
                         <div className="relative text-center">
                           {/* Skill Title */}
-                          <h3 className="font-['Inter'] text-base font-semibold text-white sm:text-lg">
+                          <h3 className="font-['Inter'] text-xs sm:text-sm font-semibold text-white">
                             {skill.title}
                           </h3>
                           
                           {/* Skill Description */}
-                          <p className="mt-3 font-['Inter'] text-sm text-gray-300/80 sm:text-base">
+                          <p className="mt-2 font-['Inter'] text-[10px] sm:text-xs text-gray-300/80">
                             {skill.description}
                           </p>
                         </div>
-                        
-                        {/* Floating Elements */}
-                        <div className="absolute -right-2 -top-2 h-4 w-4 rounded-full bg-white/10 blur-sm" />
-                        <div className="absolute -bottom-2 -left-2 h-4 w-4 rounded-full bg-white/10 blur-sm" />
                       </div>
-                      
-                      {/* Outer Glow Effect */}
-                      <div className="absolute -inset-1 -z-10 rounded-2xl bg-gradient-to-br from-blue-500/0 via-purple-500/0 to-cyan-500/0 blur-xl transition-all duration-500 group-hover:from-blue-500/20 group-hover:via-purple-500/20 group-hover:to-cyan-500/20" />
                     </motion.div>
                   )
                 })}
               </div>
               
-              {/* Connecting Line */}
-              <motion.div
-                initial={{ scaleX: 0 }}
-                animate={{ scaleX: 1 }}
-                transition={{ delay: 1.2, duration: 1.2 }}
-                className="absolute -bottom-3 left-1/4 right-1/4 h-[2px] bg-gradient-to-r from-transparent via-indigo-400/40 to-transparent"
-              />
-            </div>
-            
-            {/* Tagline */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 1.8 }}
-              className="mt-10 text-center"
-            >
-              <p className="font-['Inter'] text-base font-medium text-gray-300/70 sm:text-lg">
-                <span className="bg-gradient-to-r from-blue-300/90 via-cyan-300/90 to-purple-300/90 bg-clip-text text-transparent">
-                  Crafting digital excellence through innovative solutions
-                </span>
-              </p>
-              
-              {/* Animated Dots */}
+              {/* Tagline */}
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ delay: 2 }}
-                className="mt-6 flex justify-center gap-3"
+                transition={{ delay: 1.8 }}
+                className="mt-4 sm:mt-6 text-center"
               >
-                {[...Array(3)].map((_, i) => (
-                  <motion.div
-                    key={i}
-                    animate={{ 
-                      y: [0, -5, 0],
-                      scale: [1, 1.3, 1],
-                      backgroundColor: [
-                        "rgba(99, 102, 241, 0.6)",
-                        "rgba(6, 182, 212, 0.9)", 
-                        "rgba(99, 102, 241, 0.6)"
-                      ]
-                    }}
-                    transition={{
-                      duration: 1.5,
-                      repeat: Infinity,
-                      delay: i * 0.2
-                    }}
-                    className="h-2.5 w-2.5 rounded-full"
-                  />
-                ))}
+                <p className="font-['Inter'] text-xs sm:text-sm font-medium text-gray-300/70">
+                  <span className="bg-gradient-to-r from-blue-300/90 via-cyan-300/90 to-purple-300/90 bg-clip-text text-transparent">
+                    Building digital solutions with precision
+                  </span>
+                </p>
               </motion.div>
-            </motion.div>
+            </div>
           </motion.div>
         </div>
       </section>
 
-      {/* Enhanced Vignette Effect */}
+      {/* Vignette Effect */}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 z-0"
