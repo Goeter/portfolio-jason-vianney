@@ -1,8 +1,8 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import ArcReactorCanvas from "@/components/arc-reactor-canvas"
-import NeonText from "@/components/neon-text"
+import ArcReactorCanvas from "./components/arc-reactor-canvas"
+import NeonText from "./components/neon-text"
 
 type Props = {
   onLoadingComplete: () => void
