@@ -103,13 +103,13 @@ export default function HomeSection() {
             
             <div className="space-y-5">
               <motion.h1 
-                className="text-white text-4xl lg:text-5xl font-bold leading-tight"
+                className="text-white text-4xl lg:text-5xl font-bold"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3, duration: 0.8 }}
               >
                 Hello, I'm{" "}
-                <span className="bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent block mt-1">
+                <span className="bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent block mt-1 leading-[1.15] pb-[0.1em]">
                   Jason Vianney Sugiarto
                 </span>
               </motion.h1>
