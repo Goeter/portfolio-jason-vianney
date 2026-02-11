@@ -121,13 +121,13 @@ export default function HomeSection() {
                 transition={{ delay: 0.5, duration: 0.8 }}
               >
                 <div className="flex flex-wrap items-center gap-x-3 gap-y-2 text-lg lg:text-xl">
-                  <span className="text-cyan-300 font-medium">Front-end Development</span>
+                  <span className="text-cyan-300 font-medium">Fullstack Developer</span>
                   <span className="text-gray-400">•</span>
                   <span className="text-blue-300 font-medium">System Analysis</span>
                   <span className="text-gray-400">•</span>
                   <span className="text-green-300 font-medium">UI/UX Design</span>
                   <span className="text-gray-400">•</span>
-                  <span className="text-orange-300 font-medium">Data Analytics</span>
+                  <span className="text-orange-300 font-medium">Data Analyst</span>
                 </div>
               </motion.div>
 
@@ -138,8 +138,8 @@ export default function HomeSection() {
                 transition={{ delay: 0.7, duration: 0.8 }}
               >
                 IT Professional focused on creating innovative digital solutions through fullstack development, 
-                system analysis, user-centered design, and data-driven insights. I transform complex challenges 
-                into elegant, efficient, and user-friendly experiences.
+                system analysis, user-centered design, and data driven insights. I transform complex challenges 
+                into elegant, efficient, and user friendly experiences.
               </motion.p>
             </div>
 
