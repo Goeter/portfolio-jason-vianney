@@ -19,6 +19,15 @@ const certificates = [
   },
   {
     id: 2,
+    title: "Teaching Certification",
+    description:
+      "Teaching Mathematic, English and Physics",
+    image: "/assets/certificates/Teaching Certification.png",
+    issuer: "British Council",
+    date: "09 October 2025",
+  },
+  {
+    id: 3,
     title: "Data Analyst Python & SQL",
     description:
       "In depth training in Python for data analysis, data organization, and SQL database management.",
@@ -27,7 +36,7 @@ const certificates = [
     date: "02 August 2025",
   },
   {
-    id: 3,
+    id: 4,
     title: "Intro to Data Analytics",
     description:
       "Fundamentals of data analysis, including organizing and interpreting data using spreadsheets.",
@@ -36,7 +45,7 @@ const certificates = [
     date: "18 July 2025",
   },
   {
-    id: 4,
+    id: 5,
     title: "UI/UX Webinar Participation",
     description:
       "Comprehensive training on UI/UX principles, design tools, and best practice.",
