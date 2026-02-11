@@ -101,23 +101,23 @@ export default function HomeSection() {
               </span>
             </motion.div> */}
 
-            <motion.div 
-              className="flex justify-start w-full mb-4" // Memastikan container selalu mulai dari kiri
-            >
-              <span className="
-                inline-block 
-                w-max 
-                max-w-[calc(100vw-2rem)] 
-                whitespace-nowrap 
-                px-4 py-2 
-                bg-gradient-to-r from-cyan-500/10 to-blue-500/10 
-                rounded-full border border-cyan-500/20 
-                backdrop-blur-sm 
-                text-cyan-300 text-xs md:text-sm font-medium
-              ">
-                IT Professional
-              </span>
-            </motion.div>
+              <motion.div 
+                // mt-20 atau mt-24 memberikan jarak dari atas (navbar) agar tidak tertutup
+                className="flex justify-start w-full mt-24 mb-4 md:mt-0" 
+              >
+                <span className="
+                  inline-block 
+                  w-max 
+                  whitespace-nowrap 
+                  px-4 py-2 
+                  bg-gradient-to-r from-cyan-500/10 to-blue-500/10 
+                  rounded-full border border-cyan-500/20 
+                  backdrop-blur-sm 
+                  text-cyan-300 text-xs md:text-sm font-medium
+                ">
+                  IT Professional
+                </span>
+              </motion.div>
             
             <div className="space-y-5">
               <motion.h1 
