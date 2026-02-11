@@ -91,19 +91,24 @@ export default function HomeSection() {
             transition={{ duration: 0.8, ease: "easeOut" }}
             className="space-y-7"
           >
-            <motion.div 
+            {/* <motion.div 
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.2, duration: 0.6 }}
-            >
+            > */}
               {/* <span className="px-4 py-2 bg-gradient-to-r from-cyan-500/10 to-blue-500/10 rounded-full border border-cyan-500/20 backdrop-blur-sm text-cyan-300 text-sm font-medium">
                 IT Professional
               </span>
             </motion.div> */}
 
-            <span className="inline-block w-fit whitespace-nowrap px-4 py-2 bg-gradient-to-r from-cyan-500/10 to-blue-500/10 rounded-full border border-cyan-500/20 backdrop-blur-sm text-cyan-300 text-sm font-medium">
-              IT Professional
-            </span>
+            <motion.div 
+              className="flex justify-center md:justify-start w-full" 
+              /* pastikan ada w-full dan alignment yang sesuai */
+            >
+              <span className="inline-block whitespace-nowrap px-4 py-2 bg-gradient-to-r from-cyan-500/10 to-blue-500/10 rounded-full border border-cyan-500/20 backdrop-blur-sm text-cyan-300 text-sm font-medium">
+                IT Professional
+              </span>
+            </motion.div>
             
             <div className="space-y-5">
               <motion.h1 
