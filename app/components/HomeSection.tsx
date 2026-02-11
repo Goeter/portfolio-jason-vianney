@@ -186,12 +186,11 @@ export default function HomeSection() {
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1, ease: "easeOut" }}
-            className="flex justify-center lg:justify-end relative"
+            className="flex justify-center lg:justify-end relative mt-10 lg:mt-0"
           >
-            {/* Main Profile Image - Full Transparency */}
-            <div className="relative">
+            <div className="relative scale-75 sm:scale-90 lg:scale-100 transition-transform duration-500">
               {/* Profile Image Container */}
-              <div className="relative w-80 h-80 lg:w-88 lg:h-88 rounded-full overflow-hidden border border-cyan-400/5 shadow-xl shadow-cyan-500/3 group">
+              <div className="relative w-64 h-64 sm:w-80 sm:h-80 lg:w-88 lg:h-88 rounded-full overflow-hidden border border-cyan-400/5 shadow-xl shadow-cyan-500/3 group">
                 <Image
                   src="/assets/profile/home.png"
                   alt="Jason Vianney Sugiarto"
@@ -200,73 +199,44 @@ export default function HomeSection() {
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                   priority
                 />
-                
-                {/* Subtle Hover Overlay */}
                 <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/0 via-transparent to-blue-500/0 opacity-0 group-hover:opacity-10 transition-opacity duration-500" />
               </div>
               
-              {/* Floating Tech Bubbles - More Subtle */}
+              {/* Floating Tech Bubbles - Skala disesuaikan agar tidak menabrak pinggir */}
               <motion.div 
-                className="absolute top-6 -left-5 w-16 h-16 bg-gradient-to-br from-cyan-500 to-blue-500 rounded-full flex items-center justify-center shadow-lg shadow-cyan-500/30 cursor-pointer"
-                animate={{ 
-                  y: [0, -12, 0],
-                }}
-                transition={{ 
-                  repeat: Infinity, 
-                  duration: 3.8,
-                  ease: "easeInOut"
-                }}
+                className="absolute top-2 -left-4 sm:top-6 sm:-left-5 w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-br from-cyan-500 to-blue-500 rounded-full flex items-center justify-center shadow-lg shadow-cyan-500/30 cursor-pointer"
+                animate={{ y: [0, -12, 0] }}
+                transition={{ repeat: Infinity, duration: 3.8, ease: "easeInOut" }}
                 whileHover={{ scale: 1.12 }}
               >
-                <Code className="w-7 h-7 text-white" />
+                <Code className="w-5 h-5 sm:w-7 sm:h-7 text-white" />
               </motion.div>
               
               <motion.div 
-                className="absolute -top-2 right-14 w-14 h-14 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center shadow-lg shadow-purple-500/30 cursor-pointer"
-                animate={{ 
-                  y: [0, -16, 0],
-                }}
-                transition={{ 
-                  repeat: Infinity, 
-                  duration: 4.2,
-                  ease: "easeInOut",
-                  delay: 0.6
-                }}
+                className="absolute -top-4 right-10 sm:-top-2 sm:right-14 w-10 h-10 sm:w-14 sm:h-14 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center shadow-lg shadow-purple-500/30 cursor-pointer"
+                animate={{ y: [0, -16, 0] }}
+                transition={{ repeat: Infinity, duration: 4.2, ease: "easeInOut", delay: 0.6 }}
                 whileHover={{ scale: 1.12 }}
               >
-                <Cpu className="w-6 h-6 text-white" />
+                <Cpu className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
               </motion.div>
               
               <motion.div 
-                className="absolute bottom-8 -right-4 w-14 h-14 bg-gradient-to-br from-green-500 to-emerald-500 rounded-full flex items-center justify-center shadow-lg shadow-green-500/30 cursor-pointer"
-                animate={{ 
-                  y: [0, 8, 0],
-                }}
-                transition={{ 
-                  repeat: Infinity, 
-                  duration: 3.5,
-                  ease: "easeInOut",
-                  delay: 1.2
-                }}
+                className="absolute bottom-6 -right-2 sm:bottom-8 sm:-right-4 w-10 h-10 sm:w-14 sm:h-14 bg-gradient-to-br from-green-500 to-emerald-500 rounded-full flex items-center justify-center shadow-lg shadow-green-500/30 cursor-pointer"
+                animate={{ y: [0, 8, 0] }}
+                transition={{ repeat: Infinity, duration: 3.5, ease: "easeInOut", delay: 1.2 }}
                 whileHover={{ scale: 1.12 }}
               >
-                <Palette className="w-6 h-6 text-white" />
+                <Palette className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
               </motion.div>
               
               <motion.div 
-                className="absolute -bottom-3 left-20 w-12 h-12 bg-gradient-to-br from-orange-500 to-red-500 rounded-full flex items-center justify-center shadow-lg shadow-orange-500/30 cursor-pointer"
-                animate={{ 
-                  y: [0, 12, 0],
-                }}
-                transition={{ 
-                  repeat: Infinity, 
-                  duration: 4.5,
-                  ease: "easeInOut",
-                  delay: 1.8
-                }}
+                className="absolute -bottom-4 left-16 sm:-bottom-3 sm:left-20 w-8 h-8 sm:w-12 sm:h-12 bg-gradient-to-br from-orange-500 to-red-500 rounded-full flex items-center justify-center shadow-lg shadow-orange-500/30 cursor-pointer"
+                animate={{ y: [0, 12, 0] }}
+                transition={{ repeat: Infinity, duration: 4.5, ease: "easeInOut", delay: 1.8 }}
                 whileHover={{ scale: 1.12 }}
               >
-                <BarChart3 className="w-5 h-5 text-white" />
+                <BarChart3 className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
               </motion.div>
             </div>
           </motion.div>
