@@ -102,10 +102,19 @@ export default function HomeSection() {
             </motion.div> */}
 
             <motion.div 
-              className="flex justify-center md:justify-start w-full" 
-              /* pastikan ada w-full dan alignment yang sesuai */
+              className="flex justify-start w-full mb-4" // Memastikan container selalu mulai dari kiri
             >
-              <span className="inline-block whitespace-nowrap px-4 py-2 bg-gradient-to-r from-cyan-500/10 to-blue-500/10 rounded-full border border-cyan-500/20 backdrop-blur-sm text-cyan-300 text-sm font-medium">
+              <span className="
+                inline-block 
+                w-max 
+                max-w-[calc(100vw-2rem)] 
+                whitespace-nowrap 
+                px-4 py-2 
+                bg-gradient-to-r from-cyan-500/10 to-blue-500/10 
+                rounded-full border border-cyan-500/20 
+                backdrop-blur-sm 
+                text-cyan-300 text-xs md:text-sm font-medium
+              ">
                 IT Professional
               </span>
             </motion.div>
