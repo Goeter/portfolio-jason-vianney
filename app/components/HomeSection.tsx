@@ -137,7 +137,7 @@ export default function HomeSection() {
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.7, duration: 0.8 }}
               >
-                IT Professional focused on creating innovative digital solutions through front-end development, 
+                IT Professional focused on creating innovative digital solutions through fullstack development, 
                 system analysis, user-centered design, and data-driven insights. I transform complex challenges 
                 into elegant, efficient, and user-friendly experiences.
               </motion.p>
