@@ -29,7 +29,7 @@ export default function FloatingContact() {
     },
     {
       icon: Mail,
-      href: "https://mail.google.com/mail/?view=cm&fs=1&to=jasonvianneys@gmail.com&su=Collaboration%20Opportunity&body=Hello%20Jason,%0D%0A%0D%0AI%20would%20like%20to%20discuss%20a%20collaboration%20opportunity%20with%20you.%20Please%20contact%20me%20for%20collaborations,%20freelance%20work,%20or%20other%20opportunities.%20I%20am%20always%20open%20to%20creative%20conversations.%0D%0A%0D%0ABest%20regards,",
+      href: "https://mail.google.com/mail/?view=cm&fs=1&to=jasonvianneys@gmail.com",
       color: "bg-red-500 hover:bg-red-600",
       label: "Gmail",
     },
@@ -37,11 +37,14 @@ export default function FloatingContact() {
 
   return (
     <div className="fixed bottom-8 right-8 z-50">
-      <div className="flex flex-col items-end space-y-3">
+      <div className="flex flex-col items-end space-y-4">
+        
         {/* Contact Icons */}
         <div
-          className={`flex flex-col space-y-3 transition-all duration-300 ${
-            isExpanded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4 pointer-events-none"
+          className={`flex flex-col space-y-3 transition-all duration-500 ${
+            isExpanded
+              ? "opacity-100 translate-y-0"
+              : "opacity-0 translate-y-6 pointer-events-none"
           }`}
         >
           {contactLinks.map((link, index) => {
@@ -52,37 +55,75 @@ export default function FloatingContact() {
                 href={link.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`w-12 h-12 rounded-full ${link.color} flex items-center justify-center text-white shadow-lg hover:shadow-xl transform hover:scale-110 transition-all duration-300`}
+                className={`
+                  w-12 h-12 rounded-full ${link.color}
+                  flex items-center justify-center text-white
+                  shadow-lg backdrop-blur-md
+                  transform transition-all duration-500
+                  hover:scale-125 hover:-translate-y-1
+                  hover:shadow-2xl
+                `}
+                style={{
+                  transitionDelay: `${index * 80}ms`,
+                }}
                 aria-label={link.label}
-                title={
-                  link.label === "Gmail"
-                    ? "Please contact me for collaborations, freelance work, or other opportunities. I am always open to creative conversations."
-                    : link.label
-                }
               >
-                <Icon className="w-6 h-6" />
+                <Icon className="w-5 h-5" />
               </a>
             )
           })}
         </div>
 
-        {/* Main Contact Button */}
-        <Button
-          onClick={() => setIsExpanded(!isExpanded)}
-          className="w-16 h-16 rounded-full bg-green-400 hover:bg-green-300 text-black font-bold text-sm shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 flex items-center justify-center"
-        >
-          <div className={`transition-transform duration-300 ${isExpanded ? "rotate-45" : ""}`}>
-            {isExpanded ? (
-              <div className="relative w-6 h-6">
-                <div className="absolute top-1/2 left-0 w-6 h-0.5 bg-black transform -translate-y-1/2"></div>
-                <div className="absolute top-0 left-1/2 w-0.5 h-6 bg-black transform -translate-x-1/2"></div>
-              </div>
-            ) : (
-              <span>Contact</span>
-            )}
-          </div>
-        </Button>
+        {/* Main Button */}
+        <div className="relative">
+          
+          {/* Glow Pulse */}
+          <div className="absolute inset-0 rounded-full bg-green-400 opacity-40 blur-xl animate-ping"></div>
+
+          <Button
+            onClick={() => setIsExpanded(!isExpanded)}
+            className="
+              relative
+              w-16 h-16 rounded-full
+              bg-green-400 hover:bg-green-300
+              text-black font-semibold text-sm
+              shadow-xl
+              flex items-center justify-center
+              transition-all duration-300
+              hover:scale-110
+              active:scale-95
+            "
+          >
+            {/* Floating effect */}
+            <div className="absolute inset-0 rounded-full animate-[float_3s_ease-in-out_infinite]"></div>
+
+            {/* Content */}
+            <div
+              className={`transition-all duration-300 ${
+                isExpanded ? "rotate-45 scale-110" : "scale-100"
+              }`}
+            >
+              {isExpanded ? (
+                <div className="relative w-6 h-6">
+                  <div className="absolute top-1/2 left-0 w-6 h-0.5 bg-black transform -translate-y-1/2"></div>
+                  <div className="absolute top-0 left-1/2 w-0.5 h-6 bg-black transform -translate-x-1/2"></div>
+                </div>
+              ) : (
+                <span className="tracking-wide">Contact</span>
+              )}
+            </div>
+          </Button>
+        </div>
       </div>
+
+      {/* Custom animation */}
+      <style jsx>{`
+        @keyframes float {
+          0% { transform: translateY(0px); }
+          50% { transform: translateY(-6px); }
+          100% { transform: translateY(0px); }
+        }
+      `}</style>
     </div>
   )
 }
