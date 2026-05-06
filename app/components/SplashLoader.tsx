@@ -3,15 +3,37 @@
 import { useEffect, useState, useRef } from "react"
 import ArcReactorCanvas from "./arc-reactor-canvas"
 import { motion } from "framer-motion"
-import { 
-  Code, 
-  Cpu, 
-  Palette, 
+import {
+  Code,
+  Cpu,
+  Palette,
   BarChart3
 } from "lucide-react"
 
 type Props = {
   onLoadingComplete: () => void
+}
+
+// ================= AI TYPEWRITER =================
+function useTypewriter(text: string, speed = 70) {
+  const [displayText, setDisplayText] = useState("")
+
+  useEffect(() => {
+    let i = 0
+
+    const interval = setInterval(() => {
+      setDisplayText(text.slice(0, i))
+      i++
+
+      if (i > text.length) {
+        clearInterval(interval)
+      }
+    }, speed)
+
+    return () => clearInterval(interval)
+  }, [text, speed])
+
+  return displayText
 }
 
 export default function SplashLoader({ onLoadingComplete }: Props) {
@@ -21,6 +43,8 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
   const animationFrameRef = useRef<number | null>(null)
   const startTimeRef = useRef<number>(0)
   const totalDuration = 6500
+
+  const typedWelcome = useTypewriter("WELCOME TO MY PORTFOLIO", 65)
 
   const skills = [
     {
@@ -53,7 +77,7 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
     }
   ]
 
-  // LOADING ANIMATION
+  // ================= LOADING =================
   useEffect(() => {
     const animateLoading = (currentTime: number) => {
       if (!startTimeRef.current) {
@@ -82,7 +106,7 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
     }
   }, [])
 
-  // TRANSITION CLEAN (NO MARVEL FX)
+  // ================= TRANSITION =================
   useEffect(() => {
     const timer = setTimeout(() => {
       setFadeOut(true)
@@ -103,7 +127,7 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
       }`}
     >
 
-      {/* BACKGROUND DEPTH */}
+      {/* BACKGROUND */}
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(0,229,255,0.10),transparent_60%)]" />
         <div className="absolute inset-0 opacity-[0.04] [background-image:linear-gradient(to_right,white_1px,transparent_1px),linear-gradient(to_bottom,white_1px,transparent_1px)] [background-size:42px_42px]" />
@@ -121,22 +145,28 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
           className="absolute top-[12%] text-center px-4"
         >
 
-          {/* WELCOME */}
-          <motion.p
-            animate={{
-              opacity: [0.6, 1, 0.6],
-              letterSpacing: ["0.3em", "0.4em", "0.3em"]
-            }}
-            transition={{ duration: 3, repeat: Infinity }}
-            className="text-xs tracking-[0.4em] text-cyan-300/70 mb-3"
+          {/* AI SYSTEM TEXT */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.3 }}
+            className="text-[10px] tracking-[0.3em] text-cyan-400/40 mb-2"
           >
-            WELCOME TO MY PORTFOLIO
-          </motion.p>
+            AI SYSTEM INITIALIZING
+          </motion.div>
 
-          {/* NAME (ROUND / FLOW ANIMATION) */}
+          {/* TYPEWRITER WELCOME */}
+          <p className="text-xs tracking-[0.4em] text-cyan-300/70 mb-3">
+            <span className="relative">
+              {typedWelcome}
+              <span className="ml-1 animate-pulse">|</span>
+            </span>
+          </p>
+
+          {/* FLOATING NAME (ROUND MOTION) */}
           <motion.h1
             animate={{
-              rotate: [-0.5, 0.5, -0.5],
+              rotate: [-0.6, 0.6, -0.6],
               y: [0, -2, 0],
               scale: [1, 1.01, 1]
             }}
@@ -147,7 +177,6 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
             }}
             className="text-4xl md:text-6xl font-semibold bg-gradient-to-r from-blue-300 via-cyan-200 to-purple-300 bg-clip-text text-transparent"
             style={{
-              fontFamily: "Poppins, sans-serif",
               borderRadius: "999px",
               display: "inline-block"
             }}
@@ -155,11 +184,11 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
             Jason Vianney Sugiarto
           </motion.h1>
 
-          {/* subtle underline glow */}
+          {/* underline glow */}
           <motion.div
             initial={{ scaleX: 0 }}
             animate={{ scaleX: 1 }}
-            transition={{ delay: 0.5, duration: 1 }}
+            transition={{ delay: 0.6, duration: 1 }}
             className="mx-auto mt-4 h-[1px] w-44 bg-gradient-to-r from-transparent via-cyan-400/70 to-transparent"
           />
         </motion.div>
@@ -172,7 +201,7 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
             {/* SOFT GLOW */}
             <div className="absolute inset-0 rounded-full bg-cyan-400/10 blur-2xl" />
 
-            {/* PROGRESS RING */}
+            {/* RING */}
             <svg className="absolute inset-0 h-full w-full -rotate-90">
               <circle
                 cx="50%"
