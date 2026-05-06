@@ -3,19 +3,20 @@
 import { useEffect, useState, useRef } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Code, Cpu, Palette, BarChart3 } from "lucide-react"
+import ParticleOrbitCanvas from "./ParticleOrbitCanvas"
 
 type Props = {
   onLoadingComplete: () => void
 }
 
 // ================= TYPEWRITER =================
-function useTypewriter(text: string, speed = 60, delay = 0) {
+function useTypewriter(text: string, speed = 55, delay = 0) {
   const [out, setOut] = useState("")
 
   useEffect(() => {
     let i = 0
 
-    const t = setTimeout(() => {
+    const start = setTimeout(() => {
       const interval = setInterval(() => {
         setOut(text.slice(0, i))
         i++
@@ -23,7 +24,7 @@ function useTypewriter(text: string, speed = 60, delay = 0) {
       }, speed)
     }, delay)
 
-    return () => clearTimeout(t)
+    return () => clearTimeout(start)
   }, [text, speed, delay])
 
   return out
@@ -37,9 +38,9 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
   const startRef = useRef<number>(0)
   const duration = 5200
 
-  // TEXT
-  const welcome = useTypewriter("WELCOME TO MY PORTFOLIO", 55, 300)
-  const name = useTypewriter("Jason Vianney Sugiarto", 65, 1800)
+  // TEXT ANIMATION
+  const welcome = useTypewriter("WELCOME TO MY PORTFOLIO", 50, 300)
+  const name = useTypewriter("Jason Vianney Sugiarto", 60, 1600)
 
   const skills = [
     { title: "Front-end Dev", icon: Code, color: "from-cyan-400 to-blue-500" },
@@ -48,22 +49,22 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
     { title: "Data Analyst", icon: BarChart3, color: "from-green-400 to-emerald-500" }
   ]
 
-  // ================= LOADING + PULSE SYNC =================
+  // ================= LOADING SYSTEM =================
   useEffect(() => {
     const animate = (t: number) => {
       if (!startRef.current) startRef.current = t
 
-      const p = Math.min((t - startRef.current) / duration, 1)
-      const eased = 1 - Math.pow(1 - p, 3)
+      const progress = Math.min((t - startRef.current) / duration, 1)
+      const eased = 1 - Math.pow(1 - progress, 3)
 
       setLoading(Math.floor(eased * 100))
 
       // stage control
-      if (p > 0.1) setStage(1)
-      if (p > 0.35) setStage(2)
-      if (p > 0.6) setStage(3)
+      if (progress > 0.15) setStage(1)
+      if (progress > 0.35) setStage(2)
+      if (progress > 0.6) setStage(3)
 
-      if (p < 1) requestAnimationFrame(animate)
+      if (progress < 1) requestAnimationFrame(animate)
     }
 
     requestAnimationFrame(animate)
@@ -85,66 +86,46 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
         <motion.main
           initial={{ opacity: 1 }}
           animate={{ opacity: 1 }}
-          exit={{ opacity: 0, scale: 1.05, filter: "blur(10px)" }}
+          exit={{ opacity: 0, scale: 1.05, filter: "blur(12px)" }}
           transition={{ duration: 0.9 }}
           className="relative h-dvh w-full overflow-hidden bg-[oklch(0.15_0_0)]"
         >
 
-          {/* ================= BACKGROUND PARTICLES (CLEAN) ================= */}
-          <div className="absolute inset-0 overflow-hidden">
-            {[...Array(18)].map((_, i) => (
-              <motion.div
-                key={i}
-                animate={{
-                  y: [0, -20, 0],
-                  x: [0, Math.random() * 10 - 5, 0],
-                  opacity: [0.2, 0.4, 0.2]
-                }}
-                transition={{
-                  duration: 6 + Math.random() * 4,
-                  repeat: Infinity
-                }}
-                className="absolute w-1 h-1 bg-cyan-300/40 rounded-full"
-                style={{
-                  top: `${Math.random() * 100}%`,
-                  left: `${Math.random() * 100}%`
-                }}
-              />
-            ))}
+          {/* ================= BACKGROUND ================= */}
+          <div className="absolute inset-0">
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(0,229,255,0.08),transparent_60%)]" />
           </div>
 
-          {/* ================= CENTER LAYOUT ================= */}
+          {/* 🌌 REAL PARTICLE ORBIT REACTOR */}
+          <ParticleOrbitCanvas progress={loading} />
+
+          {/* ================= CENTER UI ================= */}
           <div className="relative z-10 flex flex-col items-center justify-center h-full">
 
-            {/* ================= TOP WELCOME ================= */}
+            {/* ================= WELCOME ================= */}
             {stage >= 1 && (
               <motion.h1
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="text-xl sm:text-3xl font-semibold text-cyan-200 mb-3"
+                className="text-xl sm:text-3xl font-semibold text-cyan-200 mb-2 text-center"
               >
                 {welcome}
                 <span className="animate-pulse">|</span>
               </motion.h1>
             )}
 
-            {/* ================= ARC REACTOR ================= */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.6 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.8 }}
-              className="relative flex items-center justify-center"
-            >
-              {/* PULSE GLOW SYNC */}
+            {/* ================= ARC CORE ================= */}
+            <div className="relative flex items-center justify-center mt-2">
+
+              {/* glow sync */}
               <div
                 className="absolute inset-0 rounded-full bg-cyan-400/20 blur-3xl"
                 style={{
-                  transform: `scale(${1 + loading / 120})`
+                  transform: `scale(${1 + loading / 140})`
                 }}
               />
 
-              {/* CORE */}
-              <div className="relative w-[140px] h-[140px] flex items-center justify-center">
+              <div className="relative w-[150px] h-[150px] flex items-center justify-center">
 
                 <div className="absolute inset-0 rounded-full border border-cyan-400/30 animate-pulse" />
 
@@ -153,14 +134,14 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
                 </span>
 
               </div>
-            </motion.div>
+            </div>
 
             {/* ================= NAME ================= */}
             {stage >= 2 && (
               <motion.h2
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="mt-4 text-lg sm:text-2xl text-white font-medium"
+                className="mt-4 text-lg sm:text-2xl text-white font-medium text-center"
               >
                 {name}
                 <span className="animate-pulse">|</span>
@@ -201,13 +182,14 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
               <motion.p
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                className="mt-8 text-sm text-gray-300/70"
+                className="mt-8 text-sm text-gray-300/70 text-center"
               >
                 Building digital solutions with precision
               </motion.p>
             )}
 
           </div>
+
         </motion.main>
       )}
     </AnimatePresence>
