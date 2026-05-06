@@ -9,193 +9,168 @@ type Props = {
   onLoadingComplete: () => void
 }
 
+// ================= TYPEWRITER =================
+function useTypewriter(text: string, speed = 60, startDelay = 0) {
+  const [display, setDisplay] = useState("")
+
+  useEffect(() => {
+    let i = 0
+
+    const timeout = setTimeout(() => {
+      const interval = setInterval(() => {
+        setDisplay(text.slice(0, i))
+        i++
+        if (i > text.length) clearInterval(interval)
+      }, speed)
+    }, startDelay)
+
+    return () => clearTimeout(timeout)
+  }, [text, speed, startDelay])
+
+  return display
+}
+
 export default function SplashLoader({ onLoadingComplete }: Props) {
-  const [fadeOut, setFadeOut] = useState(false)
-  const [loadingPercentage, setLoadingPercentage] = useState(0)
+  const [loading, setLoading] = useState(0)
+  const [stage, setStage] = useState(0)
 
-  const animationFrameRef = useRef<number | null>(null)
-  const startTimeRef = useRef<number>(0)
+  const startRef = useRef<number>(0)
+  const totalDuration = 5000
 
-  // ⛔ dibuat lebih cepat biar arc reactor tidak terasa lama
-  const totalDuration = 4500
+  // TEXT SEQUENCE
+  const welcome = useTypewriter("WELCOME TO MY PORTFOLIO", 55, 300)
+  const name = useTypewriter("Jason Vianney Sugiarto", 70, 1800)
 
   const skills = [
-    {
-      title: "Front-end Development",
-      icon: Code,
-      color: "from-blue-500 to-cyan-400",
-      bgColor: "bg-gradient-to-br from-blue-900/30 to-cyan-900/20",
-      description: "Modern web interfaces"
-    },
-    {
-      title: "System Analyst",
-      icon: Cpu,
-      color: "from-purple-500 to-pink-400",
-      bgColor: "bg-gradient-to-br from-purple-900/30 to-pink-900/20",
-      description: "Architecture & solutions"
-    },
-    {
-      title: "UI/UX Design",
-      icon: Palette,
-      color: "from-amber-500 to-orange-400",
-      bgColor: "bg-gradient-to-br from-amber-900/30 to-orange-900/20",
-      description: "User-centered design"
-    },
-    {
-      title: "Data Analyst",
-      icon: BarChart3,
-      color: "from-emerald-500 to-teal-400",
-      bgColor: "bg-gradient-to-br from-emerald-900/30 to-teal-900/20",
-      description: "Insights & analytics"
-    }
+    { title: "Front-end Development", icon: Code },
+    { title: "System Analyst", icon: Cpu },
+    { title: "UI/UX Design", icon: Palette },
+    { title: "Data Analyst", icon: BarChart3 }
   ]
 
-  // ================= LOADING (SYNC CLEAN) =================
+  // ================= LOADING =================
   useEffect(() => {
-    const animate = (time: number) => {
-      if (!startTimeRef.current) startTimeRef.current = time
+    const animate = (t: number) => {
+      if (!startRef.current) startRef.current = t
 
-      const elapsed = time - startTimeRef.current
-      const progress = Math.min(elapsed / totalDuration, 1)
+      const progress = Math.min((t - startRef.current) / totalDuration, 1)
+      setLoading(Math.floor(progress * 100))
 
-      const eased = 1 - Math.pow(1 - progress, 3)
+      // stage control
+      if (progress > 0.2) setStage(1) // reactor appear
+      if (progress > 0.4) setStage(2) // skills appear
 
-      setLoadingPercentage(Math.floor(eased * 100))
-
-      if (progress < 1) {
-        animationFrameRef.current = requestAnimationFrame(animate)
-      }
+      if (progress < 1) requestAnimationFrame(animate)
     }
 
-    animationFrameRef.current = requestAnimationFrame(animate)
-
-    return () => {
-      if (animationFrameRef.current) {
-        cancelAnimationFrame(animationFrameRef.current)
-      }
-    }
+    requestAnimationFrame(animate)
   }, [])
 
-  // ================= COMPLETE =================
+  // ================= FINISH =================
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setFadeOut(true)
-
-      setTimeout(() => {
-        onLoadingComplete()
-      }, 500)
-
+    const t = setTimeout(() => {
+      onLoadingComplete()
     }, totalDuration)
 
-    return () => clearTimeout(timer)
-  }, [onLoadingComplete])
+    return () => clearTimeout(t)
+  }, [])
 
   return (
-    <main
-      className={`relative h-dvh w-full overflow-hidden bg-[oklch(0.15_0_0)] transition-all duration-700 ${
-        fadeOut ? "opacity-0" : "opacity-100"
-      }`}
-    >
+    <main className="relative h-dvh w-full overflow-hidden bg-[oklch(0.15_0_0)]">
 
-      {/* BACKGROUND CLEAN */}
-      <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(0,229,255,0.08),transparent_65%)]" />
-        <div className="absolute inset-0 opacity-[0.03] [background-image:linear-gradient(to_right,white_1px,transparent_1px),linear-gradient(to_bottom,white_1px,transparent_1px)] [background-size:48px_48px]" />
-      </div>
+      {/* BACKGROUND */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(0,229,255,0.08),transparent_60%)]" />
+      <div className="absolute inset-0 opacity-[0.04] [background-size:40px_40px] [background-image:linear-gradient(to_right,#fff1px,transparent_1px),linear-gradient(to_bottom,#fff1px,transparent_1px)]" />
 
       <ArcReactorCanvas className="absolute inset-0" />
 
-      <section className="relative z-10 h-full flex flex-col items-center justify-between py-16">
+      <section className="relative z-10 h-full flex flex-col items-center justify-center px-4">
 
-        {/* ================= TOP TEXT ================= */}
-        <div className="text-center px-4 mt-10">
-          <p className="text-[10px] sm:text-xs tracking-[0.35em] text-cyan-300/60 mb-2">
-            WELCOME TO MY PORTFOLIO
-          </p>
+        {/* ================= TEXT TOP ================= */}
+        <div className="text-center mb-8">
 
-          <h1 className="text-2xl sm:text-4xl md:text-5xl font-semibold text-transparent bg-gradient-to-r from-blue-300 via-cyan-200 to-purple-300 bg-clip-text">
-            Jason Vianney Sugiarto
+          {/* WELCOME */}
+          <h1 className="text-2xl sm:text-4xl md:text-5xl font-semibold text-cyan-200 tracking-wide">
+            {welcome}
+            <span className="animate-pulse">|</span>
           </h1>
+
+          {/* NAME */}
+          {welcome.length === "WELCOME TO MY PORTFOLIO".length && (
+            <motion.h2
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className="mt-3 text-lg sm:text-2xl md:text-3xl text-white font-medium"
+            >
+              {name}
+              <span className="animate-pulse">|</span>
+            </motion.h2>
+          )}
+
         </div>
 
-        {/* ================= CENTER LOADING ================= */}
-        <div className="flex flex-col items-center justify-center">
+        {/* ================= ARC REACTOR ================= */}
+        {stage >= 1 && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1 }}
+            className="relative flex flex-col items-center"
+          >
 
-          {/* ARC REACTOR + LOADING */}
-          <div className="relative h-[120px] w-[120px] sm:h-[140px] sm:w-[140px]">
+            {/* GLOW */}
+            <div className="absolute inset-0 rounded-full bg-cyan-400/20 blur-3xl scale-150" />
 
-            {/* soft glow */}
-            <div className="absolute inset-0 rounded-full bg-cyan-400/10 blur-2xl" />
+            {/* REACTOR CORE */}
+            <div className="h-[150px] w-[150px] relative flex items-center justify-center">
 
-            {/* progress ring (SYNC WITH LOADING) */}
-            <svg className="absolute inset-0 h-full w-full -rotate-90">
-              <circle
-                cx="50%"
-                cy="50%"
-                r="60"
-                stroke="url(#grad)"
-                strokeWidth="4"
-                fill="none"
-                strokeDasharray="377"
-                strokeDashoffset={377 - (377 * loadingPercentage) / 100}
-              />
+              <div className="absolute inset-0 rounded-full border border-cyan-400/20 animate-pulse" />
 
-              <defs>
-                <linearGradient id="grad">
-                  <stop offset="0%" stopColor="#00E5FF" />
-                  <stop offset="100%" stopColor="#19A0FF" />
-                </linearGradient>
-              </defs>
-            </svg>
+              <div className="text-3xl font-bold text-white">
+                {loading}%
+              </div>
 
-            {/* ONLY NUMBER (NO ANIMATION STYLE) */}
-            <div className="absolute inset-0 flex items-center justify-center">
-              <span className="text-3xl sm:text-4xl font-bold text-white">
-                {loadingPercentage}%
-              </span>
             </div>
 
-          </div>
-
-        </div>
+          </motion.div>
+        )}
 
         {/* ================= SKILLS ================= */}
-        <div className="w-full max-w-5xl px-4 grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+        {stage >= 2 && (
+          <div className="mt-10 w-full max-w-5xl grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
 
-          {skills.map((skill, i) => {
-            const Icon = skill.icon
-            return (
-              <div
-                key={skill.title}
-                className={`rounded-xl p-3 sm:p-4 border border-white/10 ${skill.bgColor}`}
-              >
+            {skills.map((skill, i) => {
+              const Icon = skill.icon
 
-                <div className={`h-10 w-10 mx-auto mb-2 flex items-center justify-center rounded-full bg-gradient-to-br ${skill.color}`}>
-                  <Icon className="w-5 h-5 text-white" />
-                </div>
+              return (
+                <motion.div
+                  key={skill.title}
+                  initial={{ opacity: 0, x: -40 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: i * 0.2 }}
+                  className="p-3 sm:p-4 rounded-xl border border-white/10 bg-white/5"
+                >
+                  <Icon className="text-cyan-300 w-6 h-6 mb-2" />
+                  <h3 className="text-white text-sm font-semibold">
+                    {skill.title}
+                  </h3>
+                </motion.div>
+              )
+            })}
 
-                <h3 className="text-xs sm:text-sm font-semibold text-white text-center">
-                  {skill.title}
-                </h3>
-
-                <p className="text-[10px] sm:text-xs text-gray-300/70 text-center mt-1">
-                  {skill.description}
-                </p>
-
-              </div>
-            )
-          })}
-
-        </div>
+          </div>
+        )}
 
         {/* ================= TAGLINE ================= */}
-        <div className="mb-6 text-center px-4">
-          <p className="text-xs sm:text-sm text-gray-300/60">
-            <span className="text-transparent bg-gradient-to-r from-blue-300 via-cyan-300 to-purple-300 bg-clip-text">
-              Building digital solutions with precision
-            </span>
-          </p>
-        </div>
+        {stage >= 2 && (
+          <motion.p
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="mt-8 text-center text-sm text-gray-300/70"
+          >
+            Building digital solutions with precision
+          </motion.p>
+        )}
 
       </section>
     </main>
