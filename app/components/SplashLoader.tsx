@@ -3,37 +3,10 @@
 import { useEffect, useState, useRef } from "react"
 import ArcReactorCanvas from "./arc-reactor-canvas"
 import { motion } from "framer-motion"
-import {
-  Code,
-  Cpu,
-  Palette,
-  BarChart3
-} from "lucide-react"
+import { Code, Cpu, Palette, BarChart3 } from "lucide-react"
 
 type Props = {
   onLoadingComplete: () => void
-}
-
-// ================= AI TYPEWRITER =================
-function useTypewriter(text: string, speed = 70) {
-  const [displayText, setDisplayText] = useState("")
-
-  useEffect(() => {
-    let i = 0
-
-    const interval = setInterval(() => {
-      setDisplayText(text.slice(0, i))
-      i++
-
-      if (i > text.length) {
-        clearInterval(interval)
-      }
-    }, speed)
-
-    return () => clearInterval(interval)
-  }, [text, speed])
-
-  return displayText
 }
 
 export default function SplashLoader({ onLoadingComplete }: Props) {
@@ -42,9 +15,9 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
 
   const animationFrameRef = useRef<number | null>(null)
   const startTimeRef = useRef<number>(0)
-  const totalDuration = 6500
 
-  const typedWelcome = useTypewriter("WELCOME TO MY PORTFOLIO", 65)
+  // ⛔ dibuat lebih cepat biar arc reactor tidak terasa lama
+  const totalDuration = 4500
 
   const skills = [
     {
@@ -77,27 +50,24 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
     }
   ]
 
-  // ================= LOADING =================
+  // ================= LOADING (SYNC CLEAN) =================
   useEffect(() => {
-    const animateLoading = (currentTime: number) => {
-      if (!startTimeRef.current) {
-        startTimeRef.current = currentTime
-      }
+    const animate = (time: number) => {
+      if (!startTimeRef.current) startTimeRef.current = time
 
-      const elapsed = currentTime - startTimeRef.current
+      const elapsed = time - startTimeRef.current
       const progress = Math.min(elapsed / totalDuration, 1)
 
-      const easeOutCubic = (t: number) => 1 - Math.pow(1 - t, 3)
-      const easedProgress = easeOutCubic(progress)
+      const eased = 1 - Math.pow(1 - progress, 3)
 
-      setLoadingPercentage(Math.floor(easedProgress * 100))
+      setLoadingPercentage(Math.floor(eased * 100))
 
       if (progress < 1) {
-        animationFrameRef.current = requestAnimationFrame(animateLoading)
+        animationFrameRef.current = requestAnimationFrame(animate)
       }
     }
 
-    animationFrameRef.current = requestAnimationFrame(animateLoading)
+    animationFrameRef.current = requestAnimationFrame(animate)
 
     return () => {
       if (animationFrameRef.current) {
@@ -106,14 +76,14 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
     }
   }, [])
 
-  // ================= TRANSITION =================
+  // ================= COMPLETE =================
   useEffect(() => {
     const timer = setTimeout(() => {
       setFadeOut(true)
 
       setTimeout(() => {
         onLoadingComplete()
-      }, 600)
+      }, 500)
 
     }, totalDuration)
 
@@ -123,85 +93,41 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
   return (
     <main
       className={`relative h-dvh w-full overflow-hidden bg-[oklch(0.15_0_0)] transition-all duration-700 ${
-        fadeOut ? "opacity-0 scale-105 blur-sm" : "opacity-100"
+        fadeOut ? "opacity-0" : "opacity-100"
       }`}
     >
 
-      {/* BACKGROUND */}
+      {/* BACKGROUND CLEAN */}
       <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(0,229,255,0.10),transparent_60%)]" />
-        <div className="absolute inset-0 opacity-[0.04] [background-image:linear-gradient(to_right,white_1px,transparent_1px),linear-gradient(to_bottom,white_1px,transparent_1px)] [background-size:42px_42px]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(0,229,255,0.08),transparent_65%)]" />
+        <div className="absolute inset-0 opacity-[0.03] [background-image:linear-gradient(to_right,white_1px,transparent_1px),linear-gradient(to_bottom,white_1px,transparent_1px)] [background-size:48px_48px]" />
       </div>
 
       <ArcReactorCanvas className="absolute inset-0" />
 
-      <section className="relative z-10 h-full flex flex-col items-center justify-center">
+      <section className="relative z-10 h-full flex flex-col items-center justify-between py-16">
 
-        {/* ================= HEADER ================= */}
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1 }}
-          className="absolute top-[12%] text-center px-4"
-        >
-
-          {/* AI SYSTEM TEXT */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.3 }}
-            className="text-[10px] tracking-[0.3em] text-cyan-400/40 mb-2"
-          >
-            AI SYSTEM INITIALIZING
-          </motion.div>
-
-          {/* TYPEWRITER WELCOME */}
-          <p className="text-xs tracking-[0.4em] text-cyan-300/70 mb-3">
-            <span className="relative">
-              {typedWelcome}
-              <span className="ml-1 animate-pulse">|</span>
-            </span>
+        {/* ================= TOP TEXT ================= */}
+        <div className="text-center px-4 mt-10">
+          <p className="text-[10px] sm:text-xs tracking-[0.35em] text-cyan-300/60 mb-2">
+            WELCOME TO MY PORTFOLIO
           </p>
 
-          {/* FLOATING NAME (ROUND MOTION) */}
-          <motion.h1
-            animate={{
-              rotate: [-0.6, 0.6, -0.6],
-              y: [0, -2, 0],
-              scale: [1, 1.01, 1]
-            }}
-            transition={{
-              duration: 6,
-              repeat: Infinity,
-              ease: "easeInOut"
-            }}
-            className="text-4xl md:text-6xl font-semibold bg-gradient-to-r from-blue-300 via-cyan-200 to-purple-300 bg-clip-text text-transparent"
-            style={{
-              borderRadius: "999px",
-              display: "inline-block"
-            }}
-          >
+          <h1 className="text-2xl sm:text-4xl md:text-5xl font-semibold text-transparent bg-gradient-to-r from-blue-300 via-cyan-200 to-purple-300 bg-clip-text">
             Jason Vianney Sugiarto
-          </motion.h1>
+          </h1>
+        </div>
 
-          {/* underline glow */}
-          <motion.div
-            initial={{ scaleX: 0 }}
-            animate={{ scaleX: 1 }}
-            transition={{ delay: 0.6, duration: 1 }}
-            className="mx-auto mt-4 h-[1px] w-44 bg-gradient-to-r from-transparent via-cyan-400/70 to-transparent"
-          />
-        </motion.div>
+        {/* ================= CENTER LOADING ================= */}
+        <div className="flex flex-col items-center justify-center">
 
-        {/* ================= ARC REACTOR ================= */}
-        <div className="relative flex items-center justify-center mt-10">
+          {/* ARC REACTOR + LOADING */}
+          <div className="relative h-[120px] w-[120px] sm:h-[140px] sm:w-[140px]">
 
-          <div className="relative h-[140px] w-[140px]">
-
-            {/* SOFT GLOW */}
+            {/* soft glow */}
             <div className="absolute inset-0 rounded-full bg-cyan-400/10 blur-2xl" />
 
-            {/* RING */}
+            {/* progress ring (SYNC WITH LOADING) */}
             <svg className="absolute inset-0 h-full w-full -rotate-90">
               <circle
                 cx="50%"
@@ -213,6 +139,7 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
                 strokeDasharray="377"
                 strokeDashoffset={377 - (377 * loadingPercentage) / 100}
               />
+
               <defs>
                 <linearGradient id="grad">
                   <stop offset="0%" stopColor="#00E5FF" />
@@ -221,59 +148,54 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
               </defs>
             </svg>
 
+            {/* ONLY NUMBER (NO ANIMATION STYLE) */}
             <div className="absolute inset-0 flex items-center justify-center">
-              <span className="text-3xl font-bold text-white">
+              <span className="text-3xl sm:text-4xl font-bold text-white">
                 {loadingPercentage}%
               </span>
             </div>
 
           </div>
+
         </div>
 
         {/* ================= SKILLS ================= */}
-        <div className="absolute bottom-16 grid grid-cols-2 lg:grid-cols-4 gap-4 px-4 max-w-5xl w-full">
+        <div className="w-full max-w-5xl px-4 grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
 
           {skills.map((skill, i) => {
             const Icon = skill.icon
             return (
-              <motion.div
+              <div
                 key={skill.title}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.5 + i * 0.1 }}
-                whileHover={{ scale: 1.05, y: -4 }}
-                className={`rounded-xl p-4 text-center border border-white/10 ${skill.bgColor}`}
+                className={`rounded-xl p-3 sm:p-4 border border-white/10 ${skill.bgColor}`}
               >
 
-                <div className={`mx-auto mb-2 h-10 w-10 flex items-center justify-center rounded-full bg-gradient-to-br ${skill.color}`}>
-                  <Icon className="text-white w-5 h-5"/>
+                <div className={`h-10 w-10 mx-auto mb-2 flex items-center justify-center rounded-full bg-gradient-to-br ${skill.color}`}>
+                  <Icon className="w-5 h-5 text-white" />
                 </div>
 
-                <h3 className="text-sm font-semibold text-white">
+                <h3 className="text-xs sm:text-sm font-semibold text-white text-center">
                   {skill.title}
                 </h3>
 
-                <p className="text-xs text-gray-300/70">
+                <p className="text-[10px] sm:text-xs text-gray-300/70 text-center mt-1">
                   {skill.description}
                 </p>
 
-              </motion.div>
+              </div>
             )
           })}
 
         </div>
 
-        {/* TAGLINE */}
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.5 }}
-          className="absolute bottom-6 text-sm text-gray-300/70"
-        >
-          <span className="bg-gradient-to-r from-blue-300 via-cyan-300 to-purple-300 bg-clip-text text-transparent">
-            Building digital solutions with precision
-          </span>
-        </motion.p>
+        {/* ================= TAGLINE ================= */}
+        <div className="mb-6 text-center px-4">
+          <p className="text-xs sm:text-sm text-gray-300/60">
+            <span className="text-transparent bg-gradient-to-r from-blue-300 via-cyan-300 to-purple-300 bg-clip-text">
+              Building digital solutions with precision
+            </span>
+          </p>
+        </div>
 
       </section>
     </main>
