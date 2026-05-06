@@ -9,7 +9,7 @@ import {
   BarChart3,
 } from "lucide-react"
 
-import ArcReactorCanvas from "./arc-reactor-canvas"
+import ArcReactorCanvas from "./ArcReactorCanvas"
 
 type Props = {
   onLoadingComplete: () => void
