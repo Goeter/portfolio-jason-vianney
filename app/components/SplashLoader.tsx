@@ -1,564 +1,367 @@
-import { useEffect, useMemo, useRef, useState } from "react"
+/**
+ * SplashLoader.tsx
+ *
+ * CINEMATIC PORTFOLIO SPLASH
+ * ==========================================
+ * FLOW:
+ * 1. Futuristic computer boot
+ * 2. Loading bar system initialization
+ * 3. 50% morph → Arc Reactor
+ * 4. Reactor loading 51–100%
+ * 5. Dust dissolve transition
+ * 6. Space welcome scene
+ * 7. Smooth transition → HomeSection.tsx
+ *
+ * REQUIREMENTS:
+ * npm i framer-motion
+ */
+
+import { motion, AnimatePresence } from "framer-motion"
+import { useEffect, useRef, useState } from "react"
 
 const SKILLS = [
-  {
-    label: "Front-end Dev",
-    icon: "💻",
-    grad: "rgba(0,212,255,0.22),rgba(59,130,246,0.22)",
-  },
-  {
-    label: "System Analyst",
-    icon: "⚙️",
-    grad: "rgba(168,85,247,0.22),rgba(236,72,153,0.22)",
-  },
-  {
-    label: "UI/UX Design",
-    icon: "🎨",
-    grad: "rgba(251,146,60,0.22),rgba(236,72,153,0.22)",
-  },
-  {
-    label: "Data Analyst",
-    icon: "📊",
-    grad: "rgba(52,211,153,0.22),rgba(16,185,129,0.22)",
-  },
-  {
-    label: "Math Tutor",
-    icon: "📐",
-    grad: "rgba(255,215,0,0.22),rgba(255,140,0,0.22)",
-  },
-  {
-    label: "English Tutor",
-    icon: "🗣️",
-    grad: "rgba(0,255,170,0.22),rgba(0,180,255,0.22)",
-  },
+  "Front-end Developer",
+  "System Analyst",
+  "UI/UX Designer",
+  "Data Analyst",
+  "Mathematics Tutor",
+  "English Tutor",
 ]
 
-const FULL_NAME = "Jason Vianney Sugiarto"
-
-const TOTAL_DURATION = 8500
-
-export default function SplashLoader({ onLoadingComplete }) {
-  const rootRef = useRef(null)
-  const bgCanvasRef = useRef(null)
-  const hudCanvasRef = useRef(null)
-  const reactorCanvasRef = useRef(null)
-
-  const pctRef = useRef(null)
-  const phaseRef = useRef("boot")
-  const rafRef = useRef(0)
-
-  const [showWelcome, setShowWelcome] = useState(false)
-
-  const stars = useRef([])
-  const dustParticles = useRef([])
-
-  const segRefs = useRef([])
-
-  const nameRef = useRef(null)
-  const skillsRef = useRef(null)
-  const taglineRef = useRef(null)
-
-  const bootTexts = useMemo(
-    () => [
-      "INITIALIZING QUANTUM CORE",
-      "CHECKING MEMORY MODULE",
-      "CONNECTING NEURAL GRID",
-      "SYSTEM STATUS : ONLINE",
-      "LOADING USER INTERFACE",
-    ],
-    []
-  )
-
-  function clamp(v, min, max) {
-    return Math.max(min, Math.min(max, v))
-  }
-
-  function easeOutExpo(x) {
-    return x === 1 ? 1 : 1 - Math.pow(2, -10 * x)
-  }
-
-  function lerp(a, b, t) {
-    return a + (b - a) * t
-  }
-
-  function initStars() {
-    const cv = bgCanvasRef.current
-    if (!cv) return
-
-    cv.width = window.innerWidth
-    cv.height = window.innerHeight
-
-    stars.current = Array.from({ length: 260 }, () => ({
-      x: Math.random() * cv.width,
-      y: Math.random() * cv.height,
-      r: Math.random() * 1.8 + 0.2,
-      alpha: Math.random(),
-      speed: Math.random() * 0.08 + 0.02,
-    }))
-  }
-
-  function drawSpace(time) {
-    const cv = bgCanvasRef.current
-    if (!cv) return
-
-    const ctx = cv.getContext("2d")
-    if (!ctx) return
-
-    const w = cv.width
-    const h = cv.height
-
-    ctx.clearRect(0, 0, w, h)
-
-    const bg = ctx.createRadialGradient(
-      w * 0.5,
-      h * 0.4,
-      0,
-      w * 0.5,
-      h * 0.5,
-      w
-    )
-
-    bg.addColorStop(0, "#12052f")
-    bg.addColorStop(0.45, "#050815")
-    bg.addColorStop(1, "#000000")
-
-    ctx.fillStyle = bg
-    ctx.fillRect(0, 0, w, h)
-
-    const nebula1 = ctx.createRadialGradient(
-      w * 0.2,
-      h * 0.2,
-      0,
-      w * 0.2,
-      h * 0.2,
-      w * 0.35
-    )
-
-    nebula1.addColorStop(0, "rgba(0,255,255,0.15)")
-    nebula1.addColorStop(1, "transparent")
-
-    ctx.fillStyle = nebula1
-    ctx.fillRect(0, 0, w, h)
-
-    const nebula2 = ctx.createRadialGradient(
-      w * 0.8,
-      h * 0.65,
-      0,
-      w * 0.8,
-      h * 0.65,
-      w * 0.32
-    )
-
-    nebula2.addColorStop(0, "rgba(255,0,180,0.12)")
-    nebula2.addColorStop(1, "transparent")
-
-    ctx.fillStyle = nebula2
-    ctx.fillRect(0, 0, w, h)
-
-    stars.current.forEach((s) => {
-      s.y += s.speed
-
-      if (s.y > h) {
-        s.y = -5
-      }
-
-      const pulse = 0.4 + Math.sin((time + s.x) * 0.001) * 0.6
-
-      ctx.beginPath()
-      ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2)
-      ctx.fillStyle = `rgba(255,255,255,${pulse})`
-      ctx.shadowBlur = 10
-      ctx.shadowColor = "rgba(255,255,255,0.8)"
-      ctx.fill()
-    })
-  }
-
-  function drawHUD(progress) {
-    const cv = hudCanvasRef.current
-    if (!cv) return
-
-    const ctx = cv.getContext("2d")
-    if (!ctx) return
-
-    const w = cv.width
-    const h = cv.height
-
-    ctx.clearRect(0, 0, w, h)
-
-    const cx = w / 2
-    const cy = h / 2
-
-    const radius = Math.min(w, h) * 0.34
-
-    ctx.beginPath()
-    ctx.arc(cx, cy, radius, 0, Math.PI * 2)
-    ctx.strokeStyle = "rgba(255,255,255,0.08)"
-    ctx.lineWidth = 8
-    ctx.stroke()
-
-    const grd = ctx.createLinearGradient(0, 0, w, 0)
-
-    grd.addColorStop(0, "#00e0ff")
-    grd.addColorStop(0.5, "#00ffff")
-    grd.addColorStop(1, "#ffffff")
-
-    ctx.beginPath()
-    ctx.arc(
-      cx,
-      cy,
-      radius,
-      -Math.PI / 2,
-      -Math.PI / 2 + Math.PI * 2 * progress
-    )
-
-    ctx.strokeStyle = grd
-    ctx.lineWidth = 10
-    ctx.lineCap = "round"
-
-    ctx.shadowBlur = 25
-    ctx.shadowColor = "#00e0ff"
-
-    ctx.stroke()
-
-    ctx.shadowBlur = 0
-
-    for (let i = 0; i < 72; i++) {
-      const ang = (Math.PI * 2 * i) / 72
-
-      const r1 = radius + 16
-      const r2 = radius + (i % 3 === 0 ? 30 : 22)
-
-      const x1 = cx + Math.cos(ang) * r1
-      const y1 = cy + Math.sin(ang) * r1
-
-      const x2 = cx + Math.cos(ang) * r2
-      const y2 = cy + Math.sin(ang) * r2
-
-      ctx.beginPath()
-      ctx.moveTo(x1, y1)
-      ctx.lineTo(x2, y2)
-
-      ctx.strokeStyle =
-        i / 72 <= progress
-          ? "rgba(0,255,255,0.9)"
-          : "rgba(255,255,255,0.1)"
-
-      ctx.lineWidth = i % 3 === 0 ? 2 : 1
-      ctx.stroke()
-    }
-  }
-
-  function drawArcReactor(progress, time) {
-    const cv = reactorCanvasRef.current
-    if (!cv) return
-
-    const ctx = cv.getContext("2d")
-    if (!ctx) return
-
-    const w = cv.width
-    const h = cv.height
-
-    ctx.clearRect(0, 0, w, h)
-
-    const cx = w / 2
-    const cy = h / 2
-
-    const rot = time * 0.001
-
-    const pulse = 1 + Math.sin(time * 0.004) * 0.06
-
-    ctx.save()
-    ctx.translate(cx, cy)
-    ctx.scale(pulse, pulse)
-    ctx.rotate(rot)
-
-    for (let i = 0; i < 3; i++) {
-      ctx.beginPath()
-      ctx.arc(0, 0, 90 + i * 18, 0, Math.PI * 2)
-
-      ctx.strokeStyle = `rgba(0,255,255,${0.2 - i * 0.04})`
-      ctx.lineWidth = 4
-
-      ctx.shadowBlur = 20
-      ctx.shadowColor = "#00ffff"
-
-      ctx.stroke()
-    }
-
-    for (let i = 0; i < 12; i++) {
-      ctx.save()
-
-      ctx.rotate((Math.PI * 2 * i) / 12)
-
-      ctx.beginPath()
-      ctx.moveTo(0, -50)
-      ctx.lineTo(0, -120)
-
-      ctx.strokeStyle = "rgba(255,255,255,0.8)"
-      ctx.lineWidth = 3
-      ctx.stroke()
-
-      ctx.restore()
-    }
-
-    ctx.beginPath()
-    ctx.arc(0, 0, 45, 0, Math.PI * 2)
-
-    const g = ctx.createRadialGradient(0, 0, 0, 0, 0, 45)
-
-    g.addColorStop(0, "#ffffff")
-    g.addColorStop(0.5, "#00f6ff")
-    g.addColorStop(1, "rgba(0,255,255,0.1)")
-
-    ctx.fillStyle = g
-
-    ctx.shadowBlur = 35
-    ctx.shadowColor = "#00ffff"
-
-    ctx.fill()
-
-    ctx.restore()
-
-    const p = Math.floor(progress * 100)
-
-    ctx.font = "700 28px Orbitron"
-    ctx.fillStyle = "#ffffff"
-    ctx.textAlign = "center"
-
-    ctx.fillText(`${p}%`, cx, cy + 10)
-
-    ctx.font = "600 12px Orbitron"
-
-    ctx.fillStyle = "rgba(255,255,255,0.7)"
-
-    ctx.fillText("ARC REACTOR INITIALIZING", cx, cy + 42)
-  }
-
-  function createDustExplosion() {
-    dustParticles.current = Array.from({ length: 180 }, () => ({
-      x: window.innerWidth / 2,
-      y: window.innerHeight / 2,
-      vx: (Math.random() - 0.5) * 12,
-      vy: (Math.random() - 0.5) * 12,
-      alpha: 1,
-      size: Math.random() * 4 + 1,
-    }))
-  }
-
-  function animateDust(ctx) {
-    dustParticles.current.forEach((p) => {
-      p.x += p.vx
-      p.y += p.vy
-      p.alpha -= 0.01
-
-      ctx.beginPath()
-      ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2)
-
-      ctx.fillStyle = `rgba(255,255,255,${p.alpha})`
-      ctx.fill()
-    })
-
-    dustParticles.current = dustParticles.current.filter((p) => p.alpha > 0)
-  }
-
-  function typeWriter(el, text, speed, cb) {
-    let i = 0
-
-    el.innerHTML = ""
-
-    const timer = setInterval(() => {
-      el.innerHTML += text[i]
-
-      i++
-
-      if (i >= text.length) {
-        clearInterval(timer)
-        cb?.()
-      }
-    }, speed)
-  }
-
-  function buildSkills() {
-    if (!skillsRef.current) return
-
-    skillsRef.current.innerHTML = ""
-
-    SKILLS.forEach((s, idx) => {
-      const card = document.createElement("div")
-
-      card.className = "sl-skill-card"
-
-      card.innerHTML = `
-        <div class="sl-skill-icon"
-             style="background:linear-gradient(135deg,${s.grad})">
-          ${s.icon}
-        </div>
-
-        <div class="sl-skill-name">${s.label}</div>
-      `
-
-      skillsRef.current.appendChild(card)
-
-      setTimeout(() => {
-        card.classList.add("show")
-      }, idx * 100)
-    })
-  }
+export default function SplashLoader({
+  onLoadingComplete,
+}: {
+  onLoadingComplete?: () => void
+}) {
+  const [phase, setPhase] = useState<
+    | "boot"
+    | "loading"
+    | "transition"
+    | "reactor"
+    | "dust"
+    | "welcome"
+    | "exit"
+  >("boot")
+
+  const [progress, setProgress] = useState(0)
+
+  const canvasRef = useRef<HTMLCanvasElement>(null)
+  const reactorCanvasRef = useRef<HTMLCanvasElement>(null)
+
+  /* =========================================================
+     SPACE BACKGROUND
+  ========================================================= */
 
   useEffect(() => {
-    initStars()
+    const canvas = canvasRef.current
+    if (!canvas) return
+
+    const ctx = canvas.getContext("2d")
+    if (!ctx) return
+
+    let w = (canvas.width = window.innerWidth)
+    let h = (canvas.height = window.innerHeight)
+
+    const stars = Array.from({ length: 260 }).map(() => ({
+      x: Math.random() * w,
+      y: Math.random() * h,
+      r: Math.random() * 2,
+      a: Math.random(),
+      speed: Math.random() * 0.15 + 0.05,
+    }))
 
     const resize = () => {
-      initStars()
+      w = canvas.width = window.innerWidth
+      h = canvas.height = window.innerHeight
     }
 
     window.addEventListener("resize", resize)
 
-    const start = performance.now()
+    let raf = 0
 
-    function animate(now) {
-      const elapsed = now - start
+    const render = (t: number) => {
+      ctx.clearRect(0, 0, w, h)
 
-      const globalProgress = clamp(elapsed / TOTAL_DURATION, 0, 1)
+      /* Deep space */
 
-      drawSpace(now)
+      const bg = ctx.createRadialGradient(
+        w / 2,
+        h / 2,
+        0,
+        w / 2,
+        h / 2,
+        w
+      )
 
-      const phase =
-        globalProgress < 0.15
-          ? "boot"
-          : globalProgress < 0.5
-          ? "loading"
-          : globalProgress < 0.9
-          ? "reactor"
-          : "finish"
+      bg.addColorStop(0, "#120026")
+      bg.addColorStop(0.45, "#050816")
+      bg.addColorStop(1, "#000")
 
-      phaseRef.current = phase
+      ctx.fillStyle = bg
+      ctx.fillRect(0, 0, w, h)
 
-      if (phase === "loading") {
-        const p = (globalProgress - 0.15) / 0.35
+      /* Nebula */
 
-        drawHUD(easeOutExpo(p))
+      const nebula = ctx.createRadialGradient(
+        w * 0.3,
+        h * 0.2,
+        0,
+        w * 0.3,
+        h * 0.2,
+        w * 0.4
+      )
 
-        const percent = Math.floor(p * 50)
+      nebula.addColorStop(0, "rgba(0,255,255,0.12)")
+      nebula.addColorStop(1, "transparent")
 
-        if (pctRef.current) {
-          pctRef.current.innerHTML = `${percent}%`
+      ctx.fillStyle = nebula
+      ctx.fillRect(0, 0, w, h)
+
+      /* Stars */
+
+      stars.forEach((s) => {
+        s.y += s.speed
+
+        if (s.y > h) {
+          s.y = -10
         }
 
-        segRefs.current.forEach((seg, i) => {
-          if (!seg) return
+        const pulse = 0.5 + Math.sin(t * 0.001 + s.x) * 0.5
 
-          if (i <= p * 12) {
-            seg.classList.add("active")
-          } else {
-            seg.classList.remove("active")
-          }
-        })
-      }
+        ctx.beginPath()
+        ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2)
 
-      if (phase === "reactor") {
-        const p = (globalProgress - 0.5) / 0.4
+        ctx.fillStyle = `rgba(255,255,255,${pulse})`
+        ctx.shadowBlur = 12
+        ctx.shadowColor = "#ffffff"
 
-        drawArcReactor(0.5 + p * 0.5, now)
+        ctx.fill()
+      })
 
-        if (pctRef.current) {
-          pctRef.current.innerHTML = `${Math.floor(50 + p * 50)}%`
-        }
-      }
-
-      if (phase === "finish") {
-        if (dustParticles.current.length === 0) {
-          createDustExplosion()
-        }
-
-        const cv = bgCanvasRef.current
-
-        if (cv) {
-          const ctx = cv.getContext("2d")
-
-          animateDust(ctx)
-        }
-
-        if (!showWelcome) {
-          setShowWelcome(true)
-
-          setTimeout(() => {
-            typeWriter(nameRef.current, FULL_NAME, 50, () => {
-              buildSkills()
-
-              setTimeout(() => {
-                taglineRef.current?.classList.add("show")
-              }, 500)
-            })
-          }, 600)
-
-          setTimeout(() => {
-            rootRef.current?.classList.add("page-out")
-
-            setTimeout(() => {
-              onLoadingComplete?.()
-            }, 1300)
-          }, 5200)
-        }
-      }
-
-      rafRef.current = requestAnimationFrame(animate)
+      raf = requestAnimationFrame(render)
     }
 
-    rafRef.current = requestAnimationFrame(animate)
+    raf = requestAnimationFrame(render)
 
     return () => {
-      cancelAnimationFrame(rafRef.current)
+      cancelAnimationFrame(raf)
       window.removeEventListener("resize", resize)
     }
-  }, [bootTexts, onLoadingComplete, showWelcome])
+  }, [])
+
+  /* =========================================================
+     BOOT SEQUENCE
+  ========================================================= */
+
+  useEffect(() => {
+    const bootTimer = setTimeout(() => {
+      setPhase("loading")
+    }, 2600)
+
+    return () => clearTimeout(bootTimer)
+  }, [])
+
+  /* =========================================================
+     LOADING PROGRESS
+  ========================================================= */
+
+  useEffect(() => {
+    if (phase !== "loading" && phase !== "reactor") return
+
+    let current = phase === "loading" ? 0 : 50
+
+    const interval = setInterval(() => {
+      current += Math.random() * 3 + 1
+
+      if (phase === "loading" && current >= 50) {
+        current = 50
+        setProgress(current)
+
+        clearInterval(interval)
+
+        setPhase("transition")
+
+        setTimeout(() => {
+          setPhase("reactor")
+        }, 1800)
+
+        return
+      }
+
+      if (phase === "reactor" && current >= 100) {
+        current = 100
+
+        setProgress(current)
+
+        clearInterval(interval)
+
+        setTimeout(() => {
+          setPhase("dust")
+        }, 1200)
+
+        setTimeout(() => {
+          setPhase("welcome")
+        }, 2600)
+
+        setTimeout(() => {
+          setPhase("exit")
+
+          setTimeout(() => {
+            onLoadingComplete?.()
+          }, 1400)
+        }, 7200)
+
+        return
+      }
+
+      setProgress(current)
+    }, 120)
+
+    return () => clearInterval(interval)
+  }, [phase, onLoadingComplete])
+
+  /* =========================================================
+     ARC REACTOR
+  ========================================================= */
+
+  useEffect(() => {
+    if (phase !== "reactor") return
+
+    const canvas = reactorCanvasRef.current
+    if (!canvas) return
+
+    const ctx = canvas.getContext("2d")
+    if (!ctx) return
+
+    let raf = 0
+
+    const render = (t: number) => {
+      const w = canvas.width
+      const h = canvas.height
+
+      ctx.clearRect(0, 0, w, h)
+
+      const cx = w / 2
+      const cy = h / 2
+
+      ctx.save()
+
+      ctx.translate(cx, cy)
+
+      ctx.rotate(t * 0.0006)
+
+      /* Outer Rings */
+
+      for (let i = 0; i < 3; i++) {
+        ctx.beginPath()
+
+        ctx.arc(0, 0, 110 + i * 20, 0, Math.PI * 2)
+
+        ctx.strokeStyle = `rgba(0,255,255,${0.2 - i * 0.05})`
+        ctx.lineWidth = 5
+
+        ctx.shadowBlur = 22
+        ctx.shadowColor = "#00ffff"
+
+        ctx.stroke()
+      }
+
+      /* Reactor Arms */
+
+      for (let i = 0; i < 12; i++) {
+        ctx.save()
+
+        ctx.rotate((Math.PI * 2 * i) / 12)
+
+        ctx.beginPath()
+        ctx.moveTo(0, -55)
+        ctx.lineTo(0, -135)
+
+        ctx.strokeStyle = "rgba(255,255,255,0.9)"
+        ctx.lineWidth = 4
+
+        ctx.stroke()
+
+        ctx.restore()
+      }
+
+      /* Core */
+
+      const core = ctx.createRadialGradient(0, 0, 0, 0, 0, 60)
+
+      core.addColorStop(0, "#ffffff")
+      core.addColorStop(0.4, "#00ffff")
+      core.addColorStop(1, "rgba(0,255,255,0.05)")
+
+      ctx.beginPath()
+      ctx.arc(0, 0, 60, 0, Math.PI * 2)
+
+      ctx.fillStyle = core
+
+      ctx.shadowBlur = 40
+      ctx.shadowColor = "#00ffff"
+
+      ctx.fill()
+
+      ctx.restore()
+
+      raf = requestAnimationFrame(render)
+    }
+
+    raf = requestAnimationFrame(render)
+
+    return () => cancelAnimationFrame(raf)
+  }, [phase])
 
   return (
     <>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;800;900&family=Rajdhani:wght@400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;800;900&family=Rajdhani:wght@400;500;600;700&display=swap');
 
         *{
           box-sizing:border-box;
         }
 
-        .sl-root{
+        .splash-root{
           position:fixed;
           inset:0;
-          overflow:hidden;
-          background:#000;
           z-index:9999;
+          overflow:hidden;
+          background:black;
 
           transition:
-            opacity 1.2s ease,
-            transform 1.2s ease,
-            filter 1.2s ease;
+            opacity 1.5s ease,
+            transform 1.5s ease,
+            filter 1.5s ease;
         }
 
-        .sl-root.page-out{
+        .splash-root.exit{
           opacity:0;
-          transform:scale(1.05);
+          transform:scale(1.08);
           filter:blur(20px);
           pointer-events:none;
         }
 
-        .sl-bg{
+        .space-canvas{
           position:absolute;
           inset:0;
           width:100%;
           height:100%;
         }
 
-        .sl-overlay{
+        .overlay{
           position:absolute;
           inset:0;
+
           background:
-            radial-gradient(circle at center,transparent 10%,rgba(0,0,0,0.7) 100%);
+            radial-gradient(circle at center,
+            transparent 10%,
+            rgba(0,0,0,0.72) 100%);
         }
 
-        .sl-center{
+        .center{
           position:relative;
-          z-index:3;
+          z-index:5;
 
           width:100%;
           height:100%;
@@ -570,193 +373,224 @@ export default function SplashLoader({ onLoadingComplete }) {
           padding:20px;
         }
 
-        .sl-panel{
-          width:min(100%,980px);
+        .boot-panel{
+          width:min(900px,100%);
+          padding:32px;
 
-          display:flex;
-          flex-direction:column;
-          align-items:center;
-          justify-content:center;
+          border-radius:24px;
 
-          gap:24px;
-        }
+          border:1px solid rgba(0,255,255,0.18);
 
-        .sl-boot{
-          width:min(100%,760px);
+          background:rgba(0,0,0,0.4);
 
-          border:1px solid rgba(0,255,255,0.2);
-
-          background:rgba(0,0,0,0.42);
-
-          backdrop-filter:blur(12px);
-
-          padding:20px;
-
-          border-radius:20px;
+          backdrop-filter:blur(16px);
 
           box-shadow:
             0 0 60px rgba(0,255,255,0.08),
-            inset 0 0 40px rgba(0,255,255,0.04);
+            inset 0 0 60px rgba(0,255,255,0.04);
         }
 
-        .sl-title{
+        .boot-title{
           font-family:'Orbitron',sans-serif;
-          color:#ffffff;
+
+          color:white;
 
           text-align:center;
 
-          font-size:clamp(13px,2vw,18px);
+          font-size:clamp(16px,2vw,22px);
 
-          letter-spacing:0.4em;
+          letter-spacing:0.45em;
 
-          margin-bottom:20px;
+          margin-bottom:28px;
 
-          text-shadow:0 0 16px rgba(0,255,255,0.8);
+          text-shadow:
+            0 0 18px rgba(0,255,255,1);
         }
 
-        .sl-boot-lines{
-          display:flex;
-          flex-direction:column;
-          gap:10px;
-        }
-
-        .sl-line{
+        .terminal-line{
           font-family:'Rajdhani',sans-serif;
 
-          color:rgba(255,255,255,0.8);
+          color:rgba(255,255,255,0.85);
 
-          font-size:clamp(12px,1.8vw,15px);
+          font-size:clamp(14px,1.5vw,18px);
+
+          margin-bottom:14px;
 
           letter-spacing:0.12em;
 
           animation:flicker 2s infinite;
         }
 
-        .sl-hud-wrap{
-          position:relative;
+        .loading-wrap{
+          width:min(900px,100%);
 
-          width:min(100%,760px);
+          display:flex;
+          flex-direction:column;
+          align-items:center;
+
+          gap:28px;
+        }
+
+        .hud-circle{
+          width:min(360px,70vw);
+          aspect-ratio:1;
+
+          border-radius:50%;
+
+          border:4px solid rgba(0,255,255,0.2);
 
           display:flex;
           align-items:center;
           justify-content:center;
 
-          flex-direction:column;
+          position:relative;
+
+          box-shadow:
+            0 0 50px rgba(0,255,255,0.15),
+            inset 0 0 50px rgba(0,255,255,0.08);
+
+          animation:rotate 18s linear infinite;
         }
 
-        .sl-hud-canvas{
-          width:min(70vw,360px);
-          height:min(70vw,360px);
-        }
+        .hud-circle::before{
+          content:'';
 
-        .sl-reactor{
-          width:min(80vw,420px);
-          height:min(80vw,420px);
-        }
-
-        .sl-percent{
           position:absolute;
 
-          font-family:'Orbitron',sans-serif;
-          font-size:clamp(28px,6vw,48px);
-          font-weight:800;
+          inset:20px;
 
-          color:#fff;
+          border-radius:50%;
 
-          text-shadow:
-            0 0 20px rgba(0,255,255,1),
-            0 0 50px rgba(0,255,255,0.6);
+          border:2px dashed rgba(255,255,255,0.18);
+
+          animation:rotateReverse 10s linear infinite;
         }
 
-        .sl-bar{
-          width:min(100%,680px);
+        .progress-text{
+          font-family:'Orbitron',sans-serif;
+
+          font-size:clamp(34px,7vw,62px);
+
+          color:white;
+
+          text-shadow:
+            0 0 25px rgba(0,255,255,1),
+            0 0 70px rgba(0,255,255,0.5);
+        }
+
+        .loading-bar{
+          width:100%;
+
+          border-radius:22px;
+
+          border:1px solid rgba(0,255,255,0.16);
 
           background:rgba(255,255,255,0.04);
 
-          border:1px solid rgba(0,255,255,0.18);
-
           padding:18px;
-
-          border-radius:20px;
 
           backdrop-filter:blur(10px);
         }
 
-        .sl-segs{
+        .loading-track{
+          width:100%;
+          height:38px;
+
           display:grid;
-          grid-template-columns:repeat(12,1fr);
-          gap:8px;
+          grid-template-columns:repeat(20,1fr);
+
+          gap:6px;
         }
 
-        .sl-seg{
-          height:32px;
-
-          border-radius:4px;
+        .segment{
+          border-radius:6px;
 
           background:rgba(255,255,255,0.05);
 
-          border:1px solid rgba(255,255,255,0.05);
-
-          transition:0.35s ease;
+          transition:0.4s ease;
         }
 
-        .sl-seg.active{
-          background:linear-gradient(180deg,#00ffff,#00aaff);
+        .segment.active{
+          background:
+            linear-gradient(180deg,
+            #00ffff,
+            #009dff);
 
           box-shadow:
-            0 0 12px rgba(0,255,255,1),
-            0 0 30px rgba(0,255,255,0.5);
-
-          border-color:rgba(255,255,255,0.5);
+            0 0 16px rgba(0,255,255,1),
+            0 0 32px rgba(0,255,255,0.45);
         }
 
-        .sl-footer{
+        .loading-footer{
           margin-top:14px;
 
           display:flex;
-          align-items:center;
           justify-content:space-between;
 
           gap:12px;
+
+          flex-wrap:wrap;
         }
 
-        .sl-loading{
+        .loading-label{
           font-family:'Orbitron',sans-serif;
 
           color:#00ffff;
 
-          font-size:11px;
-
           letter-spacing:0.3em;
+
+          font-size:11px;
         }
 
-        .sl-system{
-          color:rgba(255,255,255,0.45);
+        .system-label{
+          font-family:'Orbitron',sans-serif;
+
+          color:rgba(255,255,255,0.4);
 
           font-size:11px;
+        }
+
+        .reactor-wrap{
+          position:relative;
+
+          width:min(520px,85vw);
+          aspect-ratio:1;
+
+          display:flex;
+          align-items:center;
+          justify-content:center;
+        }
+
+        .reactor-canvas{
+          width:100%;
+          height:100%;
+        }
+
+        .reactor-percent{
+          position:absolute;
 
           font-family:'Orbitron',sans-serif;
+
+          font-size:clamp(34px,7vw,68px);
+
+          color:white;
+
+          text-shadow:
+            0 0 25px rgba(0,255,255,1),
+            0 0 80px rgba(0,255,255,0.5);
         }
 
-        .sl-welcome{
-          opacity:${showWelcome ? 1 : 0};
-
-          transform:${showWelcome ? "translateY(0px)" : "translateY(40px)"};
-
-          transition:
-            opacity 1.5s ease,
-            transform 1.5s ease;
-
-          width:min(100%,1100px);
+        .welcome-wrap{
+          width:min(1200px,100%);
 
           display:flex;
           flex-direction:column;
           align-items:center;
 
-          margin-top:40px;
+          text-align:center;
         }
 
-        .sl-welcome-small{
+        .welcome-small{
           color:#00ffff;
 
           font-family:'Orbitron',sans-serif;
@@ -767,160 +601,114 @@ export default function SplashLoader({ onLoadingComplete }) {
 
           margin-bottom:18px;
 
-          text-align:center;
+          text-shadow:0 0 18px rgba(0,255,255,0.8);
         }
 
-        .sl-name{
+        .name{
           font-family:'Orbitron',sans-serif;
 
-          font-size:clamp(26px,5vw,56px);
+          font-size:clamp(34px,7vw,72px);
 
           font-weight:900;
 
-          color:#fff;
-
-          text-align:center;
+          color:white;
 
           text-shadow:
-            0 0 24px rgba(0,255,255,0.9),
-            0 0 80px rgba(0,255,255,0.4);
-
-          min-height:1.4em;
+            0 0 35px rgba(0,255,255,1),
+            0 0 90px rgba(0,255,255,0.35);
         }
 
-        .sl-sub{
-          margin-top:10px;
-
-          color:rgba(255,255,255,0.7);
+        .subtitle{
+          margin-top:16px;
 
           font-family:'Rajdhani',sans-serif;
 
-          font-size:clamp(13px,2vw,20px);
+          color:rgba(255,255,255,0.72);
 
           letter-spacing:0.28em;
 
-          text-transform:uppercase;
+          font-size:clamp(14px,2vw,22px);
 
-          text-align:center;
+          text-transform:uppercase;
         }
 
-        .sl-line-divider{
-          width:min(60vw,260px);
+        .divider{
+          width:min(280px,70vw);
           height:1px;
+
+          margin:30px 0;
 
           background:
             linear-gradient(90deg,
             transparent,
             rgba(0,255,255,0.8),
             transparent);
-
-          margin:26px 0;
         }
 
-        .sl-skills{
+        .skills{
           width:100%;
 
           display:grid;
 
-          grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+          grid-template-columns:
+            repeat(auto-fit,minmax(180px,1fr));
 
-          gap:16px;
+          gap:18px;
+
+          margin-top:28px;
         }
 
-        .sl-skill-card{
-          opacity:0;
-
-          transform:translateY(20px);
-
+        .skill-card{
           background:rgba(255,255,255,0.04);
 
           border:1px solid rgba(0,255,255,0.14);
 
-          border-radius:20px;
+          border-radius:22px;
 
-          padding:20px 12px;
+          padding:24px;
 
-          display:flex;
-          flex-direction:column;
-          align-items:center;
-          justify-content:center;
+          backdrop-filter:blur(12px);
 
-          gap:12px;
-
-          transition:
-            transform 0.4s ease,
-            background 0.4s ease,
-            border-color 0.4s ease;
+          transition:0.45s ease;
         }
 
-        .sl-skill-card.show{
-          opacity:1;
-          transform:translateY(0px);
+        .skill-card:hover{
+          transform:translateY(-10px);
 
-          transition:
-            opacity 0.6s ease,
-            transform 0.6s ease;
+          border-color:rgba(0,255,255,0.4);
+
+          box-shadow:
+            0 0 35px rgba(0,255,255,0.15);
         }
 
-        .sl-skill-card:hover{
-          transform:translateY(-8px);
+        .skill-icon{
+          font-size:42px;
 
-          background:rgba(0,255,255,0.08);
-
-          border-color:rgba(0,255,255,0.35);
+          margin-bottom:16px;
         }
 
-        .sl-skill-icon{
-          width:62px;
-          height:62px;
-
-          border-radius:18px;
-
-          display:flex;
-          align-items:center;
-          justify-content:center;
-
-          font-size:28px;
-
-          backdrop-filter:blur(10px);
-        }
-
-        .sl-skill-name{
-          color:#fff;
+        .skill-text{
+          color:white;
 
           font-family:'Rajdhani',sans-serif;
 
-          font-size:14px;
-
           font-weight:700;
-
-          text-transform:uppercase;
 
           letter-spacing:0.08em;
 
-          text-align:center;
+          text-transform:uppercase;
         }
 
-        .sl-tagline{
-          margin-top:30px;
+        .tagline{
+          margin-top:40px;
 
-          color:rgba(0,255,255,0.55);
+          color:rgba(0,255,255,0.58);
 
           font-family:'Orbitron',sans-serif;
 
-          font-size:clamp(10px,1.8vw,14px);
+          letter-spacing:0.35em;
 
-          letter-spacing:0.38em;
-
-          opacity:0;
-
-          transition:opacity 1.5s ease;
-
-          text-align:center;
-        }
-
-        .sl-tagline.show{
-          opacity:1;
+          font-size:clamp(10px,2vw,14px);
         }
 
         @keyframes flicker{
@@ -928,150 +716,283 @@ export default function SplashLoader({ onLoadingComplete }) {
           50%{opacity:0.55}
         }
 
-        @media (max-width:768px){
+        @keyframes rotate{
+          from{transform:rotate(0deg)}
+          to{transform:rotate(360deg)}
+        }
 
-          .sl-boot{
-            padding:16px;
+        @keyframes rotateReverse{
+          from{transform:rotate(360deg)}
+          to{transform:rotate(0deg)}
+        }
+
+        @media(max-width:768px){
+
+          .boot-panel{
+            padding:22px;
           }
 
-          .sl-bar{
-            padding:14px;
+          .loading-track{
+            gap:4px;
           }
 
-          .sl-seg{
-            height:22px;
-          }
-
-          .sl-footer{
-            flex-direction:column;
-            align-items:flex-start;
-          }
-
-          .sl-skills{
+          .skills{
             grid-template-columns:repeat(2,1fr);
           }
         }
 
-        @media (max-width:480px){
+        @media(max-width:520px){
 
-          .sl-skills{
+          .skills{
             grid-template-columns:1fr;
           }
 
-          .sl-segs{
-            gap:4px;
+          .loading-track{
+            height:24px;
           }
         }
-
       `}</style>
 
-      <div ref={rootRef} className="sl-root">
+      <div className={`splash-root ${phase === "exit" ? "exit" : ""}`}>
+        <canvas ref={canvasRef} className="space-canvas" />
 
-        <canvas ref={bgCanvasRef} className="sl-bg" />
+        <div className="overlay" />
 
-        <div className="sl-overlay" />
+        <div className="center">
 
-        <div className="sl-center">
+          {/* =========================================================
+              BOOT
+          ========================================================= */}
 
-          <div className="sl-panel">
+          <AnimatePresence mode="wait">
 
-            {!showWelcome && (
-              <>
-                <div className="sl-boot">
-                  <div className="sl-title">
-                    QUANTUM OPERATING SYSTEM
-                  </div>
+            {phase === "boot" && (
+              <motion.div
+                key="boot"
+                className="boot-panel"
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{
+                  opacity: 0,
+                  y: -50,
+                  filter: "blur(10px)",
+                }}
+              >
+                <div className="boot-title">
+                  QUANTUM OPERATING SYSTEM
+                </div>
 
-                  <div className="sl-boot-lines">
-                    {bootTexts.map((txt, i) => (
-                      <div
-                        key={i}
-                        className="sl-line"
-                        style={{
-                          animationDelay: `${i * 0.2}s`,
-                        }}
-                      >
-                        ▶ {txt}
-                      </div>
-                    ))}
+                <div className="terminal-line">
+                  ▶ INITIALIZING NEURAL PROCESSOR...
+                </div>
+
+                <div className="terminal-line">
+                  ▶ LOADING ARC CORE DRIVER...
+                </div>
+
+                <div className="terminal-line">
+                  ▶ CHECKING MEMORY INTEGRITY...
+                </div>
+
+                <div className="terminal-line">
+                  ▶ CONNECTING USER INTERFACE...
+                </div>
+
+                <div className="terminal-line">
+                  ▶ SYSTEM STATUS : ONLINE
+                </div>
+              </motion.div>
+            )}
+
+            {/* =========================================================
+                LOADING BAR
+            ========================================================= */}
+
+            {phase === "loading" && (
+              <motion.div
+                key="loading"
+                className="loading-wrap"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{
+                  opacity: 0,
+                  scale: 0.85,
+                  filter: "blur(16px)",
+                }}
+              >
+                <div className="hud-circle">
+                  <div className="progress-text">
+                    {Math.floor(progress)}%
                   </div>
                 </div>
 
-                <div className="sl-hud-wrap">
+                <div className="loading-bar">
 
-                  {phaseRef.current !== "reactor" ? (
-                    <canvas
-                      ref={hudCanvasRef}
-                      width={420}
-                      height={420}
-                      className="sl-hud-canvas"
-                    />
-                  ) : (
-                    <canvas
-                      ref={reactorCanvasRef}
-                      width={520}
-                      height={520}
-                      className="sl-reactor"
-                    />
-                  )}
-
-                  <div ref={pctRef} className="sl-percent">
-                    0%
-                  </div>
-                </div>
-
-                <div className="sl-bar">
-
-                  <div className="sl-segs">
-                    {Array.from({ length: 12 }).map((_, i) => (
+                  <div className="loading-track">
+                    {Array.from({ length: 20 }).map((_, i) => (
                       <div
                         key={i}
-                        ref={(el) => (segRefs.current[i] = el)}
-                        className="sl-seg"
+                        className={`segment ${
+                          i <= progress / 5 ? "active" : ""
+                        }`}
                       />
                     ))}
                   </div>
 
-                  <div className="sl-footer">
-                    <div className="sl-loading">
-                      SYSTEM INITIALIZING...
+                  <div className="loading-footer">
+                    <div className="loading-label">
+                      INITIALIZING SYSTEM...
                     </div>
 
-                    <div className="sl-system">
-                      MK-VII ARC CORE
+                    <div className="system-label">
+                      MK-VII CORE
                     </div>
                   </div>
                 </div>
-              </>
+              </motion.div>
             )}
 
-            <div className="sl-welcome">
+            {/* =========================================================
+                TRANSITION
+            ========================================================= */}
 
-              <div className="sl-welcome-small">
-                ◈ WELCOME TO MY PORTFOLIO ◈
-              </div>
+            {phase === "transition" && (
+              <motion.div
+                key="transition"
+                initial={{ opacity: 0 }}
+                animate={{
+                  opacity: 1,
+                  scale: [1, 1.2, 0.9],
+                }}
+                transition={{ duration: 1.8 }}
+              >
+                <div
+                  style={{
+                    width: 260,
+                    height: 260,
+                    borderRadius: "50%",
+                    background:
+                      "radial-gradient(circle,#00ffff,#008cff,transparent)",
+                    boxShadow:
+                      "0 0 80px rgba(0,255,255,1)",
+                  }}
+                />
+              </motion.div>
+            )}
 
-              <div ref={nameRef} className="sl-name" />
+            {/* =========================================================
+                ARC REACTOR
+            ========================================================= */}
 
-              <div className="sl-sub">
-                Fullstack Developer • System Analyst • UI/UX Designer
-              </div>
+            {phase === "reactor" && (
+              <motion.div
+                key="reactor"
+                className="reactor-wrap"
+                initial={{ opacity: 0, scale: 0.5 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{
+                  opacity: 0,
+                  scale: 1.5,
+                  filter: "blur(18px)",
+                }}
+              >
+                <canvas
+                  ref={reactorCanvasRef}
+                  width={520}
+                  height={520}
+                  className="reactor-canvas"
+                />
 
-              <div className="sl-line-divider" />
+                <div className="reactor-percent">
+                  {Math.floor(progress)}%
+                </div>
+              </motion.div>
+            )}
 
-              <div className="sl-sub">
-                MY EXPERTISE
-              </div>
+            {/* =========================================================
+                WELCOME
+            ========================================================= */}
 
-              <div ref={skillsRef} className="sl-skills" />
+            {(phase === "welcome" || phase === "exit") && (
+              <motion.div
+                key="welcome"
+                className="welcome-wrap"
+                initial={{
+                  opacity: 0,
+                  y: 50,
+                }}
+                animate={{
+                  opacity: 1,
+                  y: 0,
+                }}
+                transition={{
+                  duration: 1.6,
+                  ease: "easeOut",
+                }}
+              >
+                <div className="welcome-small">
+                  ◈ WELCOME TO MY PORTFOLIO ◈
+                </div>
 
-              <div ref={taglineRef} className="sl-tagline">
-                BUILDING FUTURISTIC DIGITAL EXPERIENCES WITH PRECISION
-              </div>
+                <div className="name">
+                  Jason Vianney Sugiarto
+                </div>
 
-            </div>
+                <div className="subtitle">
+                  Fullstack Developer • System Analyst • UI/UX Designer
+                </div>
 
-          </div>
+                <div className="divider" />
+
+                <div className="subtitle">
+                  MY EXPERTISE
+                </div>
+
+                <div className="skills">
+
+                  {SKILLS.map((skill, i) => (
+                    <motion.div
+                      key={skill}
+                      className="skill-card"
+                      initial={{
+                        opacity: 0,
+                        y: 30,
+                      }}
+                      animate={{
+                        opacity: 1,
+                        y: 0,
+                      }}
+                      transition={{
+                        delay: i * 0.12,
+                      }}
+                    >
+                      <div className="skill-icon">
+                        {
+                          [
+                            "💻",
+                            "⚙️",
+                            "🎨",
+                            "📊",
+                            "📐",
+                            "🗣️",
+                          ][i]
+                        }
+                      </div>
+
+                      <div className="skill-text">
+                        {skill}
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+
+                <div className="tagline">
+                  BUILDING FUTURISTIC DIGITAL EXPERIENCES
+                </div>
+              </motion.div>
+            )}
+
+          </AnimatePresence>
         </div>
       </div>
     </>
