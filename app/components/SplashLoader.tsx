@@ -103,6 +103,7 @@ export default function SplashLoader({
   >([])
 
   const rafRef = useRef<number>(0)
+
   const starsRafRef =
     useRef<number>(0)
 
@@ -160,6 +161,7 @@ export default function SplashLoader({
     )
 
     ctx.beginPath()
+
     ctx.arc(
       cx,
       cy,
@@ -172,6 +174,7 @@ export default function SplashLoader({
     ctx.fill()
 
     ctx.beginPath()
+
     ctx.arc(
       cx,
       cy,
@@ -187,6 +190,7 @@ export default function SplashLoader({
     ctx.stroke()
 
     const start = -Math.PI / 2
+
     const end =
       start + Math.PI * 2 * progress
 
@@ -223,7 +227,9 @@ export default function SplashLoader({
     ctx.arc(cx, cy, r, start, end)
 
     ctx.strokeStyle = g
+
     ctx.lineWidth = 6
+
     ctx.lineCap = "round"
 
     ctx.shadowColor =
@@ -319,6 +325,7 @@ export default function SplashLoader({
     onDone: () => void
   ) {
     const cv = hyperCanRef.current
+
     const wrap = hyperRef.current
 
     if (!cv || !wrap) {
@@ -327,6 +334,7 @@ export default function SplashLoader({
     }
 
     cv.width = window.innerWidth
+
     cv.height = window.innerHeight
 
     wrap.style.opacity = "1"
@@ -339,7 +347,7 @@ export default function SplashLoader({
     const TOTAL = 2800
 
     const lines = Array.from(
-      { length: 360 },
+      { length: 220 },
       () => ({
         angle:
           Math.random() *
@@ -447,10 +455,12 @@ export default function SplashLoader({
         ctx.beginPath()
 
         ctx.moveTo(x1, y1)
+
         ctx.lineTo(x2, y2)
 
         ctx.strokeStyle = grad
-        ctx.lineWidth = 1.7
+
+        ctx.lineWidth = 1.5
 
         ctx.stroke()
       })
@@ -481,24 +491,31 @@ export default function SplashLoader({
 
     dust.innerHTML = ""
 
-    for (let i = 0; i < 320; i++) {
+    const TOTAL = 140
+
+    const frag =
+      document.createDocumentFragment()
+
+    for (let i = 0; i < TOTAL; i++) {
       const p =
         document.createElement("div")
 
       p.className = "sl-dust"
 
       const x =
-        (Math.random() - .5) * 1200
+        (Math.random() - 0.5) * 900
 
       const y =
-        (Math.random() - .5) * 800
+        (Math.random() - 0.5) * 600
 
       const size =
-        2 + Math.random() * 6
+        1 + Math.random() * 4
 
       const dur =
-        1.2 +
-        Math.random() * 1.6
+        0.9 + Math.random() * 0.8
+
+      const delay =
+        Math.random() * 0.15
 
       p.style.cssText = `
         --tx:${x}px;
@@ -508,10 +525,13 @@ export default function SplashLoader({
         left:50%;
         top:50%;
         animation-duration:${dur}s;
+        animation-delay:${delay}s;
       `
 
-      dust.appendChild(p)
+      frag.appendChild(p)
     }
+
+    dust.appendChild(frag)
   }
 
   function initStars() {
@@ -520,6 +540,7 @@ export default function SplashLoader({
     if (!cv) return
 
     cv.width = window.innerWidth
+
     cv.height = window.innerHeight
 
     const ctx = cv.getContext("2d")
@@ -531,8 +552,10 @@ export default function SplashLoader({
       () => ({
         x:
           Math.random() * cv.width,
+
         y:
           Math.random() * cv.height,
+
         r:
           Math.random() * 2,
       })
@@ -574,6 +597,7 @@ export default function SplashLoader({
     drawArc(0)
 
     let t0: number | null = null
+
     let hueShift = 0
 
     function phase1(ts: number) {
@@ -737,7 +761,7 @@ export default function SplashLoader({
 
                           setTimeout(() => {
                             onLoadingComplete()
-                          }, 1800)
+                          }, 1300)
                         }, 2400)
                       }, 500)
                     }
@@ -819,40 +843,40 @@ export default function SplashLoader({
           position:fixed;
           inset:0;
           z-index:10;
-        
+
           width:100%;
           height:100vh;
-        
+
           display:flex;
           align-items:center;
           justify-content:center;
-        
+
           padding:24px;
-        
+
           overflow:hidden;
         }
-        
+
         .sl-ph1,
         .sl-ph2,
         .sl-ph3{
           position:absolute;
-        
+
           top:50%;
           left:50%;
-        
+
           transform:
             translate(-50%, -50%);
-        
+
           width:min(92vw, 980px);
-        
+
           display:flex;
           flex-direction:column;
           align-items:center;
           justify-content:center;
-        
+
           text-align:center;
         }
-        
+
         .sl-ph3{
           width:min(92vw, 820px);
         }
@@ -912,6 +936,7 @@ export default function SplashLoader({
 
         .sl-ph1{
           gap:20px;
+
           transition:
             opacity .6s ease,
             transform .6s ease;
@@ -919,18 +944,18 @@ export default function SplashLoader({
 
         .sl-ph1.sl-out{
           opacity:0;
-        
+
           transform:
             translate(-50%, calc(-50% - 20px));
         }
 
         .sl-ph2{
           opacity:0;
-        
+
           transform:
             translate(-50%, calc(-50% + 20px))
             scale(.8);
-        
+
           transition:
             opacity .8s ease,
             transform .8s ease;
@@ -938,7 +963,7 @@ export default function SplashLoader({
 
         .sl-ph2.sl-in{
           opacity:1;
-        
+
           transform:
             translate(-50%, -50%)
             scale(1);
@@ -946,7 +971,7 @@ export default function SplashLoader({
 
         .sl-ph2.sl-out{
           opacity:0;
-        
+
           transform:
             translate(-50%, -50%)
             scale(1.12);
@@ -954,10 +979,10 @@ export default function SplashLoader({
 
         .sl-ph3{
           opacity:0;
-        
+
           transform:
             translate(-50%, calc(-50% + 20px));
-        
+
           transition:
             opacity .9s ease,
             transform .9s ease;
@@ -965,7 +990,7 @@ export default function SplashLoader({
 
         .sl-ph3.sl-in{
           opacity:1;
-        
+
           transform:
             translate(-50%, -50%);
         }
@@ -1099,9 +1124,72 @@ export default function SplashLoader({
           animation:spin2 18s linear infinite;
         }
 
+        .sl-atom{
+          position:absolute;
+
+          width:170px;
+          height:170px;
+
+          border:
+            1px solid rgba(0,212,255,.16);
+
+          border-radius:50%;
+
+          will-change:transform;
+        }
+
+        .sl-atom::before{
+          content:"";
+
+          position:absolute;
+
+          width:10px;
+          height:10px;
+
+          border-radius:50%;
+
+          background:#00d4ff;
+
+          box-shadow:
+            0 0 14px #00d4ff,
+            0 0 28px #00d4ff;
+
+          top:-5px;
+          left:50%;
+
+          transform:translateX(-50%);
+        }
+
+        .sl-atom-1{
+          animation:
+            atomSpin 5s linear infinite;
+        }
+
+        .sl-atom-2{
+          width:200px;
+          height:200px;
+
+          animation:
+            atomSpinReverse 7s linear infinite;
+        }
+
+        .sl-atom-3{
+          width:150px;
+          height:150px;
+
+          animation:
+            atomSpin 4s linear infinite;
+        }
+
         .sl-arc-canvas{
           width:140px;
           height:140px;
+
+          border-radius:50%;
+
+          background:transparent;
+
+          display:block;
         }
 
         .sl-reactor-label{
@@ -1271,20 +1359,30 @@ export default function SplashLoader({
           background:
             radial-gradient(
               circle,
-              rgba(255,255,255,.9),
-              rgba(168,85,247,.6),
-              transparent
+              rgba(255,255,255,.95),
+              rgba(168,85,247,.55),
+              transparent 70%
             );
 
+          will-change:
+            transform,
+            opacity;
+
+          transform:
+            translate3d(0,0,0);
+
+          backface-visibility:hidden;
+
           animation:
-            sl-dust-move forwards;
+            sl-dust-move linear forwards;
         }
 
         @keyframes sl-dust-move{
           0%{
             opacity:0;
+
             transform:
-              translate(0,0)
+              translate3d(0,0,0)
               scale(1);
           }
 
@@ -1296,47 +1394,66 @@ export default function SplashLoader({
             opacity:0;
 
             transform:
-              translate(var(--tx),var(--ty))
+              translate3d(
+                var(--tx),
+                var(--ty),
+                0
+              )
               scale(0);
 
-            filter:blur(6px);
+            filter:blur(2px);
           }
         }
 
         .sl-content-dust-out{
+          will-change:
+            transform,
+            opacity,
+            filter;
+
           animation:
             sl-content-dust-out
-            1.8s cubic-bezier(.2,.8,.2,1)
+            1.3s cubic-bezier(.22,.8,.2,1)
             forwards;
         }
 
         @keyframes sl-content-dust-out{
           0%{
             opacity:1;
-            transform:scale(1);
+
+            transform:
+              scale(1)
+              translateZ(0);
+
+            filter:
+              blur(0px)
+              brightness(1);
           }
 
           100%{
             opacity:0;
 
             transform:
-              scale(1.38);
+              scale(1.18)
+              translateZ(0);
 
             filter:
-              blur(22px)
-              brightness(2.2);
+              blur(10px)
+              brightness(1.6);
           }
         }
 
         @keyframes cardIn{
           from{
             opacity:0;
+
             transform:
               translateY(20px);
           }
 
           to{
             opacity:1;
+
             transform:
               translateY(0);
           }
@@ -1351,6 +1468,30 @@ export default function SplashLoader({
         @keyframes spin2{
           to{
             transform:rotate(-360deg);
+          }
+        }
+
+        @keyframes atomSpin{
+          from{
+            transform:
+              rotate(0deg);
+          }
+
+          to{
+            transform:
+              rotate(360deg);
+          }
+        }
+
+        @keyframes atomSpinReverse{
+          from{
+            transform:
+              rotate(360deg);
+          }
+
+          to{
+            transform:
+              rotate(0deg);
           }
         }
 
@@ -1480,6 +1621,10 @@ export default function SplashLoader({
               <div className="sl-ring sl-ring-1" />
               <div className="sl-ring sl-ring-2" />
               <div className="sl-ring sl-ring-3" />
+
+              <div className="sl-atom sl-atom-1" />
+              <div className="sl-atom sl-atom-2" />
+              <div className="sl-atom sl-atom-3" />
 
               <canvas
                 ref={canvasRef}
