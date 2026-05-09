@@ -40,7 +40,7 @@ const STATUS_MSGS = [
 const FULL_NAME = "Jason Vianney Sugiarto"
 
 const PH1_DUR = 2600
-const PH2_DUR = 2200
+const PH2_DUR = 2400
 
 export default function SplashLoader({
   onLoadingComplete,
@@ -102,13 +102,21 @@ export default function SplashLoader({
     const cx = w / 2
     const cy = h / 2
 
-    const r = w / 2 - 8
+    const r = w / 2 - 10
 
     ctx.clearRect(0, 0, w, h)
 
+    const now = performance.now()
+
     const pulse =
-      0.92 +
-      Math.sin(performance.now() * 0.004) * 0.08
+      0.94 +
+      Math.sin(now * 0.0045) * 0.08
+
+    const corePulse =
+      0.8 +
+      Math.sin(now * 0.0065) * 0.18
+
+    /* OUTER GLOW */
 
     const glow = ctx.createRadialGradient(
       cx,
@@ -116,28 +124,30 @@ export default function SplashLoader({
       10,
       cx,
       cy,
-      r + 25
+      r + 45
     )
 
     glow.addColorStop(
       0,
-      `rgba(255,255,255,${0.12 * pulse})`
+      `rgba(255,255,255,${0.16 * pulse})`
     )
 
     glow.addColorStop(
-      0.3,
+      0.4,
       `hsla(${200 + hueShift},100%,60%,${
-        0.18 * pulse
+        0.24 * pulse
       })`
     )
 
     glow.addColorStop(1, "transparent")
 
     ctx.beginPath()
-    ctx.arc(cx, cy, r + 18, 0, Math.PI * 2)
+    ctx.arc(cx, cy, r + 22, 0, Math.PI * 2)
 
     ctx.fillStyle = glow
     ctx.fill()
+
+    /* BASE RING */
 
     ctx.beginPath()
 
@@ -188,13 +198,15 @@ export default function SplashLoader({
       `hsl(${(280 + hueShift) % 360},100%,65%)`
     )
 
+    /* MAIN ARC */
+
     ctx.beginPath()
 
     ctx.arc(cx, cy, r, start, end)
 
     ctx.strokeStyle = g
 
-    ctx.lineWidth = 6
+    ctx.lineWidth = 7
 
     ctx.lineCap = "round"
 
@@ -202,32 +214,36 @@ export default function SplashLoader({
       (200 + hueShift) % 360
     },100%,65%)`
 
-    ctx.shadowBlur = 26
+    ctx.shadowBlur = 30
 
     ctx.stroke()
 
+    /* INNER ARC */
+
     ctx.beginPath()
 
-    ctx.arc(cx, cy, r - 10, start, end)
+    ctx.arc(cx, cy, r - 12, start, end)
 
     ctx.strokeStyle = `hsla(${
       (190 + hueShift) % 360
-    },100%,70%,0.45)`
+    },100%,70%,0.55)`
 
-    ctx.lineWidth = 2
+    ctx.lineWidth = 2.5
 
-    ctx.shadowBlur = 12
+    ctx.shadowBlur = 16
 
     ctx.stroke()
 
     ctx.shadowBlur = 0
+
+    /* ENERGY PARTICLE */
 
     const dx = cx + r * Math.cos(end)
     const dy = cy + r * Math.sin(end)
 
     ctx.beginPath()
 
-    ctx.arc(dx, dy, 7, 0, Math.PI * 2)
+    ctx.arc(dx, dy, 7.5, 0, Math.PI * 2)
 
     ctx.fillStyle = "#ffffff"
 
@@ -235,35 +251,33 @@ export default function SplashLoader({
       (200 + hueShift) % 360
     },100%,75%)`
 
-    ctx.shadowBlur = 30
+    ctx.shadowBlur = 28
 
     ctx.fill()
 
     ctx.shadowBlur = 0
 
-    const corePulse =
-      0.8 +
-      Math.sin(performance.now() * 0.006) * 0.2
+    /* CORE */
 
     ctx.beginPath()
 
     ctx.arc(
       cx,
       cy,
-      10 + corePulse * 2,
+      12 + corePulse * 2,
       0,
       Math.PI * 2
     )
 
     ctx.fillStyle = `hsla(${
       (190 + hueShift) % 360
-    },100%,75%,0.95)`
+    },100%,75%,0.96)`
 
     ctx.shadowColor = `hsl(${
       (190 + hueShift) % 360
     },100%,75%)`
 
-    ctx.shadowBlur = 25
+    ctx.shadowBlur = 35
 
     ctx.fill()
 
@@ -346,7 +360,7 @@ export default function SplashLoader({
     const cx = cv.width / 2
     const cy = cv.height / 2
 
-    const TOTAL = 2400
+    const TOTAL = 3000
 
     interface HLine {
       angle: number
@@ -356,15 +370,12 @@ export default function SplashLoader({
     }
 
     const lines: HLine[] = Array.from(
-      { length: 360 },
+      { length: 420 },
       () => ({
         angle: Math.random() * Math.PI * 2,
-
-        speed: 0.6 + Math.random() * 2.1,
-
+        speed: 0.8 + Math.random() * 2.4,
         hue: Math.random() * 360,
-
-        baseDist: 30 + Math.random() * 60,
+        baseDist: 20 + Math.random() * 70,
       })
     )
 
@@ -382,12 +393,7 @@ export default function SplashLoader({
 
       const ease = 1 - Math.pow(1 - prog, 3)
 
-      ctx.fillStyle =
-        prog < 0.1
-          ? `rgba(1,11,20,${
-              0.9 - prog * 4
-            })`
-          : "rgba(1,11,20,0.16)"
+      ctx.fillStyle = "rgba(1,11,20,0.18)"
 
       ctx.fillRect(
         0,
@@ -396,10 +402,10 @@ export default function SplashLoader({
         cv.height
       )
 
-      const stretch = 1 + ease * 34
+      const stretch = 1 + ease * 42
 
       const maxDist =
-        Math.max(cv.width, cv.height) * 0.85
+        Math.max(cv.width, cv.height) * 0.95
 
       lines.forEach((l) => {
         const dist =
@@ -418,7 +424,7 @@ export default function SplashLoader({
             (dist +
               l.speed *
                 stretch *
-                (20 + ease * 80))
+                (20 + ease * 120))
 
         const y2 =
           cy +
@@ -426,13 +432,13 @@ export default function SplashLoader({
             (dist +
               l.speed *
                 stretch *
-                (20 + ease * 80))
+                (20 + ease * 120))
 
         const lineAlpha =
-          prog > 0.78
-            ? (1 - (prog - 0.78) / 0.22) *
+          prog > 0.8
+            ? (1 - (prog - 0.8) / 0.2) *
               0.95
-            : 0.6 + ease * 0.35
+            : 0.55 + ease * 0.4
 
         const grad =
           ctx.createLinearGradient(
@@ -464,8 +470,8 @@ export default function SplashLoader({
         ctx.stroke()
       })
 
-      if (prog > 0.75) {
-        const f = (prog - 0.75) / 0.25
+      if (prog > 0.78) {
+        const f = (prog - 0.78) / 0.22
 
         ctx.fillStyle = `rgba(255,255,255,${
           f * 0.9
@@ -484,11 +490,11 @@ export default function SplashLoader({
           requestAnimationFrame(frame)
       } else {
         wrap.style.transition =
-          "opacity 0.4s ease"
+          "opacity .5s ease"
 
         wrap.style.opacity = "0"
 
-        setTimeout(onDone, 400)
+        setTimeout(onDone, 500)
       }
     }
 
@@ -505,20 +511,20 @@ export default function SplashLoader({
 
     dust.innerHTML = ""
 
-    for (let i = 0; i < 320; i++) {
+    for (let i = 0; i < 360; i++) {
       const p = document.createElement("div")
 
       p.className = "sl-dust"
 
       const x =
-        (Math.random() - 0.5) * 1200
+        (Math.random() - 0.5) * 1600
 
       const y =
-        (Math.random() - 0.5) * 800
+        (Math.random() - 0.5) * 1000
 
-      const size = 2 + Math.random() * 6
+      const size = 2 + Math.random() * 8
 
-      const dur = 1.2 + Math.random() * 1.6
+      const dur = 1.5 + Math.random() * 1.8
 
       p.style.cssText = `
         --tx:${x}px;
@@ -868,14 +874,14 @@ export default function SplashLoader({
                           setTimeout(() => {
                             onLoadingComplete()
                           }, 1800)
-                        }, 2400)
+                        }, 2600)
                       }, 500)
                     }
                   )
                 }
               })
             }, 150)
-          }, 900)
+          }, 1200)
         }
 
         rafRef.current =
@@ -906,8 +912,9 @@ export default function SplashLoader({
           box-sizing:border-box;
         }
 
-        .sl-root{
-          position:relative;
+        .sl-root {
+          position:fixed;
+          inset:0;
 
           width:100%;
           height:100vh;
@@ -919,8 +926,6 @@ export default function SplashLoader({
           justify-content:center;
 
           background:#010b14;
-
-          font-family:sans-serif;
         }
 
         .sl-bg-grid{
@@ -946,19 +951,20 @@ export default function SplashLoader({
             );
         }
 
-        .sl-content{
+        .sl-content {
           position:relative;
           z-index:5;
 
-          width:100%;
-          max-width:720px;
+          width:min(92vw,1100px);
 
-          padding:20px;
+          min-height:100vh;
 
           display:flex;
           flex-direction:column;
           align-items:center;
           justify-content:center;
+
+          padding:40px 20px;
 
           text-align:center;
         }
@@ -966,6 +972,8 @@ export default function SplashLoader({
         .sl-ph1,
         .sl-ph2,
         .sl-ph3{
+          width:100%;
+
           display:flex;
           flex-direction:column;
           align-items:center;
@@ -973,8 +981,9 @@ export default function SplashLoader({
         }
 
         .sl-ph1{
-          width:100%;
-          gap:20px;
+          max-width:min(92vw,760px);
+
+          gap:22px;
 
           transition:
             opacity .6s ease,
@@ -988,46 +997,213 @@ export default function SplashLoader({
 
         .sl-status-label{
           color:#00d4ff;
-          font-size:12px;
+          font-size:clamp(10px,1.4vw,12px);
           letter-spacing:.35em;
           text-transform:uppercase;
         }
 
         .sl-charge-pct{
-          font-size:70px;
+          font-size:clamp(54px,10vw,86px);
           font-weight:900;
           color:white;
         }
 
-        .sl-charge-wrap{
-          width:100%;
-          height:6px;
+        /* UPGRADED LOADING BAR */
 
-          border-radius:10px;
+        .sl-loader-frame{
+          position:relative;
+
+          width:min(92vw,860px);
+
+          padding:
+            clamp(18px,2vw,24px)
+            clamp(18px,2vw,30px);
+
+          border:
+            1px solid rgba(0,212,255,.28);
+
+          border-radius:18px;
+
+          background:
+            linear-gradient(
+              180deg,
+              rgba(4,18,32,.95),
+              rgba(1,8,18,.98)
+            );
+
+          box-shadow:
+            0 0 40px rgba(0,212,255,.08),
+            inset 0 0 40px rgba(0,212,255,.04);
 
           overflow:hidden;
-
-          background:rgba(255,255,255,.08);
         }
 
-        .sl-charge-fill{
-          width:0%;
-          height:100%;
+        .sl-loader-frame::before{
+          content:"";
+
+          position:absolute;
+          inset:0;
 
           background:
             linear-gradient(
               90deg,
-              #ff00ff,
-              #00d4ff,
-              #00ffcc,
-              #ff6b35
+              transparent,
+              rgba(255,255,255,.03),
+              transparent
             );
+
+          animation:
+            sl-panel-scan 3s linear infinite;
+        }
+
+        .sl-bars{
+          display:grid;
+
+          grid-template-columns:
+            repeat(12,1fr);
+
+          gap:clamp(6px,1vw,10px);
+
+          margin-bottom:20px;
+        }
+
+        .sl-bar{
+          position:relative;
+
+          height:clamp(42px,6vw,68px);
+
+          border-radius:8px;
+
+          background:
+            linear-gradient(
+              180deg,
+              rgba(255,255,255,.08),
+              rgba(255,255,255,.02)
+            );
+
+          border:
+            1px solid rgba(255,255,255,.06);
+
+          overflow:hidden;
+
+          transition:
+            all .45s ease;
+        }
+
+        .sl-bar::before{
+          content:"";
+
+          position:absolute;
+          inset:0;
+
+          opacity:0;
+
+          transition:opacity .35s ease;
+        }
+
+        .sl-bar.on{
+          transform:
+            translateY(-2px)
+            scale(1.02);
+
+          box-shadow:
+            0 0 16px currentColor,
+            0 0 32px currentColor;
+        }
+
+        .sl-bar.on::before{
+          opacity:1;
+
+          animation:
+            sl-energy-flow 1.4s linear infinite;
+        }
+
+        .sl-bar-0.on{
+          color:#ff3131;
+          background:linear-gradient(180deg,#ff6767,#7f0000);
+        }
+
+        .sl-bar-1.on{
+          color:#ff5c2b;
+          background:linear-gradient(180deg,#ff8b5b,#8b2500);
+        }
+
+        .sl-bar-2.on{
+          color:#ff8a00;
+          background:linear-gradient(180deg,#ffb84d,#8a4300);
+        }
+
+        .sl-bar-3.on{
+          color:#ffb100;
+          background:linear-gradient(180deg,#ffd45a,#7a5200);
+        }
+
+        .sl-bar-4.on{
+          color:#ffd000;
+          background:linear-gradient(180deg,#ffe36a,#8b6a00);
+        }
+
+        .sl-bar-5.on{
+          color:#ffe600;
+          background:linear-gradient(180deg,#fff066,#948600);
+        }
+
+        .sl-bar-6.on{
+          color:#fff000;
+          background:linear-gradient(180deg,#fff98b,#8f8a00);
+        }
+
+        .sl-bar-7.on{
+          color:#ffff55;
+          background:linear-gradient(180deg,#ffffaa,#858500);
+        }
+
+        .sl-bar-8.on{
+          color:#fff38a;
+          background:linear-gradient(180deg,#fff4b0,#8f7f00);
+        }
+
+        .sl-bar-9.on{
+          color:#f5f5f5;
+          background:linear-gradient(180deg,#ffffff,#787878);
+        }
+
+        .sl-loader-bottom{
+          display:flex;
+          align-items:center;
+          justify-content:space-between;
+          gap:16px;
+
+          flex-wrap:wrap;
+        }
+
+        .sl-loading-text{
+          color:#c8dcff;
+
+          font-size:clamp(12px,1.8vw,16px);
+
+          letter-spacing:.35em;
+
+          text-transform:uppercase;
+        }
+
+        .sl-system-text{
+          color:rgba(255,255,255,.42);
+
+          font-size:clamp(11px,1.5vw,14px);
+
+          letter-spacing:.18em;
+
+          text-transform:uppercase;
         }
 
         .sl-status-row{
           display:flex;
           align-items:center;
+          justify-content:center;
           gap:12px;
+
+          flex-wrap:wrap;
         }
 
         .sl-dot{
@@ -1037,6 +1213,9 @@ export default function SplashLoader({
           border-radius:50%;
 
           background:#00d4ff;
+
+          box-shadow:
+            0 0 12px #00d4ff;
         }
 
         .sl-status-text{
@@ -1092,8 +1271,8 @@ export default function SplashLoader({
         .sl-arc-wrap{
           position:relative;
 
-          width:260px;
-          height:260px;
+          width:min(70vw,320px);
+          height:min(70vw,320px);
 
           display:flex;
           align-items:center;
@@ -1143,8 +1322,8 @@ export default function SplashLoader({
         }
 
         .sl-arc-canvas{
-          width:120px;
-          height:120px;
+          width:min(34vw,150px);
+          height:min(34vw,150px);
         }
 
         .sl-reactor-label{
@@ -1167,7 +1346,7 @@ export default function SplashLoader({
         }
 
         .sl-reactor-status{
-          margin-top:18px;
+          margin-top:20px;
 
           color:#00d4ff;
 
@@ -1175,7 +1354,9 @@ export default function SplashLoader({
 
           text-transform:uppercase;
 
-          font-size:10px;
+          font-size:11px;
+
+          text-align:center;
         }
 
         .sl-ph3{
@@ -1195,7 +1376,7 @@ export default function SplashLoader({
         }
 
         .sl-welcome-line{
-          margin-bottom:14px;
+          margin-bottom:16px;
 
           color:#b388ff;
 
@@ -1203,16 +1384,18 @@ export default function SplashLoader({
 
           text-transform:uppercase;
 
-          font-size:11px;
+          font-size:clamp(10px,1.4vw,12px);
         }
 
         .sl-name{
-          font-size:42px;
+          font-size:clamp(32px,6vw,72px);
           font-weight:900;
+
+          line-height:1.05;
 
           color:white;
 
-          margin-bottom:10px;
+          margin-bottom:14px;
 
           text-shadow:
             0 0 20px rgba(168,85,247,1),
@@ -1220,20 +1403,22 @@ export default function SplashLoader({
         }
 
         .sl-name-sub{
-          margin-bottom:24px;
+          margin-bottom:28px;
 
           color:rgba(255,255,255,.7);
 
           letter-spacing:.22em;
 
           text-transform:uppercase;
+
+          font-size:clamp(11px,1.6vw,15px);
         }
 
         .sl-divline{
-          width:180px;
+          width:min(60vw,240px);
           height:1px;
 
-          margin-bottom:20px;
+          margin-bottom:24px;
 
           background:
             linear-gradient(
@@ -1245,7 +1430,7 @@ export default function SplashLoader({
         }
 
         .sl-expertise-label{
-          margin-bottom:18px;
+          margin-bottom:20px;
 
           color:#c084fc;
 
@@ -1257,14 +1442,14 @@ export default function SplashLoader({
         }
 
         .sl-skills-grid{
-          width:100%;
+          width:min(100%,900px);
 
           display:grid;
 
           grid-template-columns:
             repeat(4,1fr);
 
-          gap:12px;
+          gap:14px;
         }
 
         .sl-skill-card{
@@ -1276,9 +1461,9 @@ export default function SplashLoader({
           border:
             1px solid rgba(255,255,255,.08);
 
-          border-radius:16px;
+          border-radius:18px;
 
-          padding:16px 10px;
+          padding:18px 12px;
 
           backdrop-filter:blur(12px);
 
@@ -1294,16 +1479,16 @@ export default function SplashLoader({
         }
 
         .sl-skill-icon{
-          width:42px;
-          height:42px;
+          width:48px;
+          height:48px;
 
-          border-radius:12px;
+          border-radius:14px;
 
           display:flex;
           align-items:center;
           justify-content:center;
 
-          font-size:18px;
+          font-size:20px;
         }
 
         .sl-skill-name{
@@ -1317,7 +1502,7 @@ export default function SplashLoader({
         }
 
         .sl-tagline{
-          margin-top:24px;
+          margin-top:28px;
 
           opacity:0;
 
@@ -1326,6 +1511,8 @@ export default function SplashLoader({
           letter-spacing:.35em;
 
           text-transform:uppercase;
+
+          font-size:clamp(10px,1.4vw,13px);
 
           transition:opacity 1s ease;
         }
@@ -1399,8 +1586,8 @@ export default function SplashLoader({
           background:
             radial-gradient(
               circle,
-              rgba(255,255,255,.9),
-              rgba(168,85,247,.6),
+              rgba(255,255,255,.95),
+              rgba(168,85,247,.65),
               transparent
             );
 
@@ -1436,7 +1623,7 @@ export default function SplashLoader({
               scale(0)
               rotate(180deg);
 
-            filter:blur(6px);
+            filter:blur(8px);
           }
         }
 
@@ -1460,37 +1647,57 @@ export default function SplashLoader({
               brightness(1);
           }
 
-          25%{
+          30%{
             opacity:1;
 
             transform:
-              scale(1.03);
+              scale(1.04);
 
             filter:
               blur(1px)
-              brightness(1.1);
+              brightness(1.15);
           }
 
-          60%{
-            opacity:.9;
+          70%{
+            opacity:.85;
 
             transform:
-              scale(1.12);
+              scale(1.16);
 
             filter:
-              blur(4px)
-              brightness(1.35);
+              blur(8px)
+              brightness(1.5);
           }
 
           100%{
             opacity:0;
 
             transform:
-              scale(1.38);
+              scale(1.42);
 
             filter:
-              blur(22px)
-              brightness(2.2);
+              blur(24px)
+              brightness(2.4);
+          }
+        }
+
+        @keyframes sl-energy-flow{
+          0%{
+            transform:translateX(-120%);
+          }
+
+          100%{
+            transform:translateX(120%);
+          }
+        }
+
+        @keyframes sl-panel-scan{
+          0%{
+            transform:translateX(-120%);
+          }
+
+          100%{
+            transform:translateX(120%);
           }
         }
 
@@ -1520,14 +1727,28 @@ export default function SplashLoader({
           }
         }
 
-        @media(max-width:640px){
-          .sl-name{
-            font-size:28px;
-          }
-
+        @media(max-width:768px){
           .sl-skills-grid{
             grid-template-columns:
               repeat(2,1fr);
+          }
+
+          .sl-loader-bottom{
+            justify-content:center;
+          }
+        }
+
+        @media(max-width:520px){
+          .sl-bars{
+            gap:5px;
+          }
+
+          .sl-bar{
+            height:44px;
+          }
+
+          .sl-skills-grid{
+            gap:10px;
           }
         }
       `}</style>
@@ -1594,11 +1815,32 @@ export default function SplashLoader({
               0%
             </div>
 
-            <div className="sl-charge-wrap">
-              <div
-                ref={barRef}
-                className="sl-charge-fill"
-              />
+            {/* UPGRADED LOADER */}
+
+            <div className="sl-loader-frame">
+              <div className="sl-bars">
+                {Array.from({ length: 12 }).map(
+                  (_, i) => (
+                    <div
+                      key={i}
+                      className={`sl-bar sl-bar-${i}`}
+                      ref={(el) => {
+                        divRefs.current[i] = el
+                      }}
+                    />
+                  )
+                )}
+              </div>
+
+              <div className="sl-loader-bottom">
+                <div className="sl-loading-text">
+                  Loading.....
+                </div>
+
+                <div className="sl-system-text">
+                  MK-VII SYSTEM
+                </div>
+              </div>
             </div>
 
             <div className="sl-status-row">
@@ -1609,20 +1851,6 @@ export default function SplashLoader({
                 className="sl-status-text"
               >
                 Initializing power core...
-              </div>
-
-              <div className="sl-dividers">
-                {[0, 1, 2, 3, 4].map(
-                  (i) => (
-                    <div
-                      key={i}
-                      className="sl-divider"
-                      ref={(el) => {
-                        divRefs.current[i] = el
-                      }}
-                    />
-                  )
-                )}
               </div>
             </div>
           </div>
@@ -1643,8 +1871,8 @@ export default function SplashLoader({
               <canvas
                 ref={canvasRef}
                 className="sl-arc-canvas"
-                width={120}
-                height={120}
+                width={150}
+                height={150}
               />
 
               <div className="sl-reactor-label">
@@ -1659,8 +1887,7 @@ export default function SplashLoader({
             </div>
 
             <div className="sl-reactor-status">
-              Reactor Online — 3000%
-              Efficiency
+              Reactor Online
             </div>
           </div>
 
