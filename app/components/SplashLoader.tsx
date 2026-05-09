@@ -816,37 +816,45 @@ export default function SplashLoader({
         }
 
         .sl-content{
-          position:relative;
+          position:fixed;
+          inset:0;
           z-index:10;
-
+        
           width:100%;
-          min-height:100vh;
-
+          height:100vh;
+        
           display:flex;
           align-items:center;
           justify-content:center;
-
+        
           padding:24px;
+        
+          overflow:hidden;
         }
-
+        
         .sl-ph1,
         .sl-ph2,
         .sl-ph3{
-          width:100%;
-          max-width:980px;
-
-          margin:auto;
-
+          position:absolute;
+        
+          top:50%;
+          left:50%;
+        
+          transform:
+            translate(-50%, -50%);
+        
+          width:min(92vw, 980px);
+        
           display:flex;
           flex-direction:column;
           align-items:center;
           justify-content:center;
-
+        
           text-align:center;
         }
-
+        
         .sl-ph3{
-          max-width:820px;
+          width:min(92vw, 820px);
         }
 
         .sl-name{
@@ -911,16 +919,18 @@ export default function SplashLoader({
 
         .sl-ph1.sl-out{
           opacity:0;
-          transform:translateY(-20px);
+        
+          transform:
+            translate(-50%, calc(-50% - 20px));
         }
 
         .sl-ph2{
           opacity:0;
-
+        
           transform:
-            scale(.8)
-            translateY(20px);
-
+            translate(-50%, calc(-50% + 20px))
+            scale(.8);
+        
           transition:
             opacity .8s ease,
             transform .8s ease;
@@ -928,20 +938,26 @@ export default function SplashLoader({
 
         .sl-ph2.sl-in{
           opacity:1;
+        
           transform:
-            scale(1)
-            translateY(0);
+            translate(-50%, -50%)
+            scale(1);
         }
 
         .sl-ph2.sl-out{
           opacity:0;
-          transform:scale(1.12);
+        
+          transform:
+            translate(-50%, -50%)
+            scale(1.12);
         }
 
         .sl-ph3{
           opacity:0;
-          transform:translateY(20px);
-
+        
+          transform:
+            translate(-50%, calc(-50% + 20px));
+        
           transition:
             opacity .9s ease,
             transform .9s ease;
@@ -949,7 +965,9 @@ export default function SplashLoader({
 
         .sl-ph3.sl-in{
           opacity:1;
-          transform:translateY(0);
+        
+          transform:
+            translate(-50%, -50%);
         }
 
         .sl-status-label,
