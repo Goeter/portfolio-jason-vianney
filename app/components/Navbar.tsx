@@ -1,134 +1,146 @@
 "use client"
 
 import { useState } from "react"
-import { Home, FolderOpen, X, Wrench, Briefcase, Award } from "lucide-react"
+import {
+  Home,
+  FolderOpen,
+  X,
+  Wrench,
+  Briefcase,
+  Award,
+  Menu,
+} from "lucide-react"
+
 import { Button } from "@/components/ui/button"
 
 interface NavbarProps {
   activeSection: string
 }
 
+const navItems = [
+  { id: "home", label: "Home", icon: Home },
+  { id: "roles", label: "Professional Expertise", icon: Wrench },
+  { id: "projects", label: "Projects", icon: FolderOpen },
+  { id: "certificates", label: "Certificates", icon: Award },
+  { id: "experience", label: "Experience", icon: Briefcase },
+]
+
 export default function Navbar({ activeSection }: NavbarProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
-  const navItems = [
-    { id: "home", label: "Home", icon: Home },
-    { id: "roles", label: "Professional Expertise", icon: Wrench },
-    { id: "projects", label: "Projects", icon: FolderOpen },
-    { id: "certificates", label: "Certificates", icon: Award },
-    { id: "experience", label: "Experience", icon: Briefcase },
-  ]
-
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId)
-    if (element) {
-      const navbarHeight = 80
-      const windowHeight = window.innerHeight
-      const elementHeight = element.offsetHeight
-      const elementTop = element.offsetTop
 
-      let scrollPosition
-      if (elementHeight < windowHeight) {
-        scrollPosition = elementTop - (windowHeight - elementHeight) / 2 - navbarHeight / 2
-      } else {
-        scrollPosition = elementTop - navbarHeight
-      }
+    if (!element) return
 
-      window.scrollTo({
-        top: Math.max(0, scrollPosition),
-        behavior: "smooth",
-      })
-    }
+    const navbarHeight = 80
+    const targetPosition =
+      element.getBoundingClientRect().top + window.scrollY - navbarHeight
+
+    window.scrollTo({
+      top: targetPosition,
+      behavior: "smooth",
+    })
+
     setIsMobileMenuOpen(false)
   }
 
   return (
     <>
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-slate-900/90 via-blue-900/90 to-purple-900/90 backdrop-blur-md shadow-2xl border-b border-cyan-500/30">
-        <div className="container mx-auto px-4">
-          <div className="flex items-center justify-between h-20">
-            {/* Logo */}
-            <div className="flex items-center">
-              <div className="w-12 h-12 bg-gradient-to-r from-cyan-500 to-purple-500 rounded-full flex items-center justify-center shadow-lg shadow-cyan-500/30">
-                <span className="text-white font-bold text-lg">JV</span>
-              </div>
+      {/* Navbar */}
+      <nav className="fixed top-0 left-0 right-0 z-50 border-b border-cyan-500/20 bg-slate-950/80 backdrop-blur-xl">
+        <div className="mx-auto flex h-20 w-full max-w-6xl items-center justify-between px-4">
+          {/* Logo */}
+          <div className="flex items-center">
+            <div className="flex h-11 w-11 items-center justify-center rounded-full bg-gradient-to-br from-cyan-500 to-purple-500 shadow-lg shadow-cyan-500/20">
+              <span className="text-sm font-bold tracking-wide text-white">
+                JV
+              </span>
             </div>
-
-            {/* Desktop Navigation */}
-            <div className="hidden lg:flex items-center space-x-6">
-              {navItems.map((item) => {
-                const Icon = item.icon
-                const isActive = activeSection === item.id
-                return (
-                  <button
-                    key={item.id}
-                    onClick={() => scrollToSection(item.id)}
-                    className={`flex items-center space-x-2 px-3 py-2 rounded-lg transition-all duration-300 text-sm ${
-                      isActive
-                        ? "text-white font-bold shadow-lg bg-cyan-500/20 border border-cyan-400/50"
-                        : "text-white hover:text-cyan-300 hover:font-bold hover:shadow-md hover:bg-cyan-500/10"
-                    }`}
-                  >
-                    <Icon className="w-4 h-4" />
-                    <span>{item.label}</span>
-                  </button>
-                )
-              })}
-            </div>
-
-            {/* Mobile Menu Button */}
-            <Button
-              variant="ghost"
-              size="icon"
-              className="lg:hidden transition-transform duration-300 text-cyan-300 hover:text-cyan-200 hover:bg-cyan-500/20"
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            >
-              {isMobileMenuOpen ? (
-                <X className="w-6 h-6" />
-              ) : (
-                <div className="flex flex-col space-y-1">
-                  <div className="w-5 h-0.5 bg-cyan-300"></div>
-                  <div className="w-5 h-0.5 bg-cyan-300"></div>
-                  <div className="w-5 h-0.5 bg-cyan-300"></div>
-                </div>
-              )}
-            </Button>
           </div>
+
+          {/* Desktop Menu */}
+          <div className="hidden lg:flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-2 py-2 backdrop-blur-md">
+            {navItems.map((item) => {
+              const Icon = item.icon
+              const isActive = activeSection === item.id
+
+              return (
+                <button
+                  key={item.id}
+                  onClick={() => scrollToSection(item.id)}
+                  className={`flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium transition-all duration-300 ${
+                    isActive
+                      ? "bg-cyan-500 text-white shadow-lg shadow-cyan-500/20"
+                      : "text-slate-300 hover:bg-white/10 hover:text-cyan-300"
+                  }`}
+                >
+                  <Icon className="h-4 w-4" />
+                  <span className="whitespace-nowrap">{item.label}</span>
+                </button>
+              )
+            })}
+          </div>
+
+          {/* Mobile Button */}
+          <Button
+            variant="ghost"
+            size="icon"
+            className="lg:hidden text-cyan-300 hover:bg-cyan-500/10 hover:text-white"
+            onClick={() => setIsMobileMenuOpen((prev) => !prev)}
+          >
+            {isMobileMenuOpen ? (
+              <X className="h-6 w-6" />
+            ) : (
+              <Menu className="h-6 w-6" />
+            )}
+          </Button>
         </div>
       </nav>
 
       {/* Mobile Menu */}
       {isMobileMenuOpen && (
-        <div className="fixed inset-0 z-50 lg:hidden">
-          <div className="fixed inset-0 bg-black/70" onClick={() => setIsMobileMenuOpen(false)} />
-          <div className="fixed right-0 top-0 h-full w-80 bg-gradient-to-b from-slate-900/95 via-blue-900/95 to-purple-900/95 backdrop-blur-md shadow-2xl border-l border-cyan-500/30">
-            <div className="flex items-center justify-between p-4 border-b border-cyan-500/30">
-              <h2 className="text-lg font-semibold text-white">Menu</h2>
+        <div className="fixed inset-0 z-40 lg:hidden">
+          {/* Overlay */}
+          <div
+            className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+            onClick={() => setIsMobileMenuOpen(false)}
+          />
+
+          {/* Sidebar */}
+          <div className="absolute right-0 top-0 h-full w-[280px] border-l border-cyan-500/20 bg-slate-950/95 p-5 shadow-2xl backdrop-blur-xl">
+            <div className="mb-6 flex items-center justify-between">
+              <h2 className="text-lg font-semibold text-white">Navigation</h2>
+
               <Button
                 variant="ghost"
                 size="icon"
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="text-cyan-300 hover:text-cyan-200"
+                className="text-cyan-300 hover:bg-cyan-500/10 hover:text-white"
               >
-                <X className="w-6 h-6" />
+                <X className="h-5 w-5" />
               </Button>
             </div>
-            <div className="p-4 space-y-4">
+
+            <div className="space-y-3">
               {navItems.map((item) => {
                 const Icon = item.icon
                 const isActive = activeSection === item.id
+
                 return (
                   <button
                     key={item.id}
                     onClick={() => scrollToSection(item.id)}
-                    className={`flex items-center space-x-3 w-full px-4 py-3 rounded-lg transition-all duration-300 ${
+                    className={`flex w-full items-center gap-3 rounded-xl px-4 py-3 text-left transition-all duration-300 ${
                       isActive
-                        ? "text-white font-bold bg-cyan-500/20 border border-cyan-400/50"
-                        : "text-white hover:text-cyan-300 hover:bg-cyan-500/10"
+                        ? "bg-cyan-500 text-white shadow-lg shadow-cyan-500/20"
+                        : "text-slate-300 hover:bg-white/10 hover:text-cyan-300"
                     }`}
                   >
-                    <Icon className="w-5 h-5" />
-                    <span>{item.label}</span>
+                    <Icon className="h-5 w-5 shrink-0" />
+                    <span className="text-sm font-medium">
+                      {item.label}
+                    </span>
                   </button>
                 )
               })}
