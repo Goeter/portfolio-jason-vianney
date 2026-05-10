@@ -101,14 +101,38 @@ export default function Navbar({ activeSection }: NavbarProps) {
           <Button
             variant="ghost"
             size="icon"
-            className="lg:hidden rounded-xl text-cyan-300 transition-all duration-300 hover:bg-cyan-500/10 hover:text-white hover:scale-105"
+            className="lg:hidden relative flex h-10 w-10 items-center justify-center rounded-xl text-cyan-300 transition-all duration-300 hover:bg-cyan-500/10 hover:text-white hover:scale-105"
             onClick={() => setIsMobileMenuOpen((prev) => !prev)}
           >
-            {isMobileMenuOpen ? (
-              <X className="h-6 w-6" />
-            ) : (
-              <Menu className="h-6 w-6" />
-            )}
+            <div className="relative flex h-5 w-6 items-center justify-center">
+              
+              {/* Top Line */}
+              <span
+                className={`absolute h-[2px] w-6 rounded-full bg-current transition-all duration-300 ease-in-out ${
+                  isMobileMenuOpen
+                    ? "rotate-45 translate-y-0"
+                    : "-translate-y-2"
+                }`}
+              />
+          
+              {/* Middle Line */}
+              <span
+                className={`absolute h-[2px] w-6 rounded-full bg-current transition-all duration-300 ease-in-out ${
+                  isMobileMenuOpen
+                    ? "opacity-0 scale-0"
+                    : "opacity-100 scale-100"
+                }`}
+              />
+          
+              {/* Bottom Line */}
+              <span
+                className={`absolute h-[2px] w-6 rounded-full bg-current transition-all duration-300 ease-in-out ${
+                  isMobileMenuOpen
+                    ? "-rotate-45 translate-y-0"
+                    : "translate-y-2"
+                }`}
+              />
+            </div>
           </Button>
         </div>
       </nav>
