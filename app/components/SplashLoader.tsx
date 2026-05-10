@@ -62,9 +62,6 @@ export default function SplashLoader({
   const ph3Ref =
     useRef<HTMLDivElement>(null)
 
-  const barRef =
-    useRef<HTMLDivElement>(null)
-
   const pctRef =
     useRef<HTMLDivElement>(null)
 
@@ -79,9 +76,6 @@ export default function SplashLoader({
 
   const skillsRef =
     useRef<HTMLDivElement>(null)
-
-  const taglineRef =
-    useRef<HTMLParagraphElement>(null)
 
   const starsRef =
     useRef<HTMLCanvasElement>(null)
@@ -98,7 +92,7 @@ export default function SplashLoader({
   const dustRef =
     useRef<HTMLDivElement>(null)
 
-  const divRefs = useRef<
+  const batteryRefs = useRef<
     (HTMLDivElement | null)[]
   >([])
 
@@ -131,7 +125,7 @@ export default function SplashLoader({
 
     const cx = w / 2
     const cy = h / 2
-    const r = w / 2 - 8
+    const r = w / 2 - 10
 
     ctx.clearRect(0, 0, w, h)
 
@@ -142,17 +136,17 @@ export default function SplashLoader({
         10,
         cx,
         cy,
-        r + 25
+        r + 30
       )
 
     glow.addColorStop(
       0,
-      "rgba(255,255,255,.15)"
+      "rgba(255,255,255,.18)"
     )
 
     glow.addColorStop(
-      0.4,
-      `hsla(${200 + hueShift},100%,60%,.25)`
+      .4,
+      `hsla(${190 + hueShift},100%,60%,.28)`
     )
 
     glow.addColorStop(
@@ -165,7 +159,7 @@ export default function SplashLoader({
     ctx.arc(
       cx,
       cy,
-      r + 18,
+      r + 20,
       0,
       Math.PI * 2
     )
@@ -186,7 +180,8 @@ export default function SplashLoader({
     ctx.strokeStyle =
       "rgba(255,255,255,.08)"
 
-    ctx.lineWidth = 6
+    ctx.lineWidth = 5
+
     ctx.stroke()
 
     const start = -Math.PI / 2
@@ -204,22 +199,22 @@ export default function SplashLoader({
 
     g.addColorStop(
       0,
-      `hsl(${280 + hueShift},100%,65%)`
+      "#ff00ff"
     )
 
     g.addColorStop(
       .3,
-      `hsl(${190 + hueShift},100%,60%)`
+      "#00d4ff"
     )
 
     g.addColorStop(
       .6,
-      `hsl(${150 + hueShift},100%,55%)`
+      "#00ffcc"
     )
 
     g.addColorStop(
       1,
-      `hsl(${30 + hueShift},100%,60%)`
+      "#ffe066"
     )
 
     ctx.beginPath()
@@ -233,9 +228,9 @@ export default function SplashLoader({
     ctx.lineCap = "round"
 
     ctx.shadowColor =
-      `hsl(${200 + hueShift},100%,65%)`
+      "#00d4ff"
 
-    ctx.shadowBlur = 26
+    ctx.shadowBlur = 24
 
     ctx.stroke()
 
@@ -250,17 +245,12 @@ export default function SplashLoader({
     ctx.arc(
       dx,
       dy,
-      7,
+      6,
       0,
       Math.PI * 2
     )
 
     ctx.fillStyle = "#fff"
-
-    ctx.shadowColor =
-      `hsl(${200 + hueShift},100%,75%)`
-
-    ctx.shadowBlur = 28
 
     ctx.fill()
 
@@ -298,7 +288,8 @@ export default function SplashLoader({
       const card =
         document.createElement("div")
 
-      card.className = "sl-skill-card"
+      card.className =
+        "sl-skill-card"
 
       card.innerHTML = `
         <div class="sl-skill-icon"
@@ -317,7 +308,7 @@ export default function SplashLoader({
         card.classList.add(
           "sl-card-show"
         )
-      }, idx * 130)
+      }, idx * 120)
     })
   }
 
@@ -334,7 +325,6 @@ export default function SplashLoader({
     }
 
     cv.width = window.innerWidth
-
     cv.height = window.innerHeight
 
     wrap.style.opacity = "1"
@@ -344,10 +334,10 @@ export default function SplashLoader({
     const cx = cv.width / 2
     const cy = cv.height / 2
 
-    const TOTAL = 2800
+    const TOTAL = 2200
 
     const lines = Array.from(
-      { length: 220 },
+      { length: 180 },
       () => ({
         angle:
           Math.random() *
@@ -356,13 +346,13 @@ export default function SplashLoader({
 
         speed:
           0.6 +
-          Math.random() * 2.1,
+          Math.random() * 1.4,
 
         hue:
           Math.random() * 360,
 
         baseDist:
-          30 +
+          20 +
           Math.random() * 60,
       })
     )
@@ -383,7 +373,7 @@ export default function SplashLoader({
         1 - Math.pow(1 - prog, 3)
 
       ctx.fillStyle =
-        "rgba(1,11,20,.16)"
+        "rgba(1,11,20,.18)"
 
       ctx.fillRect(
         0,
@@ -392,14 +382,11 @@ export default function SplashLoader({
         cv.height
       )
 
-      const stretch =
-        1 + ease * 34
-
       const maxDist =
         Math.max(
           cv.width,
           cv.height
-        ) * .85
+        ) * .75
 
       lines.forEach((l) => {
         const dist =
@@ -421,36 +408,12 @@ export default function SplashLoader({
         const x2 =
           cx +
           Math.cos(l.angle) *
-            (dist +
-              l.speed *
-                stretch *
-                100)
+            (dist + 120)
 
         const y2 =
           cy +
           Math.sin(l.angle) *
-            (dist +
-              l.speed *
-                stretch *
-                100)
-
-        const grad =
-          ctx.createLinearGradient(
-            x1,
-            y1,
-            x2,
-            y2
-          )
-
-        grad.addColorStop(
-          0,
-          `hsla(${l.hue},100%,80%,0)`
-        )
-
-        grad.addColorStop(
-          1,
-          `hsla(${l.hue},100%,90%,.9)`
-        )
+            (dist + 120)
 
         ctx.beginPath()
 
@@ -458,9 +421,10 @@ export default function SplashLoader({
 
         ctx.lineTo(x2, y2)
 
-        ctx.strokeStyle = grad
+        ctx.strokeStyle =
+          `hsla(${l.hue},100%,75%,.8)`
 
-        ctx.lineWidth = 1.5
+        ctx.lineWidth = 1.4
 
         ctx.stroke()
       })
@@ -491,31 +455,27 @@ export default function SplashLoader({
 
     dust.innerHTML = ""
 
-    const TOTAL = 140
-
     const frag =
       document.createDocumentFragment()
 
-    for (let i = 0; i < TOTAL; i++) {
+    for (let i = 0; i < 180; i++) {
       const p =
         document.createElement("div")
 
       p.className = "sl-dust"
 
       const x =
-        (Math.random() - 0.5) * 900
+        (Math.random() - .5) * 1200
 
       const y =
-        (Math.random() - 0.5) * 600
+        (Math.random() - .5) * 800
 
       const size =
         1 + Math.random() * 4
 
       const dur =
-        0.9 + Math.random() * 0.8
-
-      const delay =
-        Math.random() * 0.15
+        1 +
+        Math.random() * .6
 
       p.style.cssText = `
         --tx:${x}px;
@@ -525,7 +485,6 @@ export default function SplashLoader({
         left:50%;
         top:50%;
         animation-duration:${dur}s;
-        animation-delay:${delay}s;
       `
 
       frag.appendChild(p)
@@ -540,7 +499,6 @@ export default function SplashLoader({
     if (!cv) return
 
     cv.width = window.innerWidth
-
     cv.height = window.innerHeight
 
     const ctx = cv.getContext("2d")
@@ -548,7 +506,7 @@ export default function SplashLoader({
     if (!ctx) return
 
     const stars = Array.from(
-      { length: 80 },
+      { length: 60 },
       () => ({
         x:
           Math.random() * cv.width,
@@ -581,7 +539,7 @@ export default function SplashLoader({
         )
 
         ctx.fillStyle =
-          "rgba(255,255,255,.9)"
+          "rgba(255,255,255,.8)"
 
         ctx.fill()
       })
@@ -619,10 +577,20 @@ export default function SplashLoader({
           `${pct}%`
       }
 
-      if (barRef.current) {
-        barRef.current.style.width =
-          `${pct}%`
-      }
+      const activeBars =
+        Math.floor(p * 10)
+
+      batteryRefs.current.forEach(
+        (b, i) => {
+          if (!b) return
+
+          if (i <= activeBars) {
+            b.classList.add("active")
+          } else {
+            b.classList.remove("active")
+          }
+        }
+      )
 
       const mi = Math.min(
         Math.floor(
@@ -635,20 +603,6 @@ export default function SplashLoader({
         msgRef.current.textContent =
           STATUS_MSGS[mi]
       }
-
-      const di = Math.floor(p * 5)
-
-      divRefs.current.forEach(
-        (d, i) => {
-          if (!d) return
-
-          if (i < di) {
-            d.classList.add("on")
-          } else {
-            d.classList.remove("on")
-          }
-        }
-      )
 
       if (raw < 1) {
         rafRef.current =
@@ -678,7 +632,8 @@ export default function SplashLoader({
             1
           )
 
-          hueShift = (ts2 / 8) % 360
+          hueShift =
+            (ts2 / 8) % 360
 
           drawArc(
             easeOut(r2),
@@ -743,27 +698,21 @@ export default function SplashLoader({
                   typeWriter(
                     nameEl,
                     FULL_NAME,
-                    50,
+                    48,
                     () => {
                       buildSkills()
 
                       setTimeout(() => {
-                        taglineRef.current?.classList.add(
-                          "sl-show"
+                        createDustExplosion()
+
+                        containerRef.current?.classList.add(
+                          "sl-content-dust-out"
                         )
 
                         setTimeout(() => {
-                          createDustExplosion()
-
-                          containerRef.current?.classList.add(
-                            "sl-content-dust-out"
-                          )
-
-                          setTimeout(() => {
-                            onLoadingComplete()
-                          }, 1300)
-                        }, 2400)
-                      }, 500)
+                          onLoadingComplete()
+                        }, 1500)
+                      }, 2500)
                     }
                   )
                 }
@@ -808,9 +757,7 @@ export default function SplashLoader({
           position:fixed;
           inset:0;
           overflow:hidden;
-
-          background:#010b14;
-
+          background:#020817;
           display:flex;
           align-items:center;
           justify-content:center;
@@ -821,8 +768,8 @@ export default function SplashLoader({
           inset:0;
 
           background-image:
-            linear-gradient(rgba(0,212,255,.04) 1px,transparent 1px),
-            linear-gradient(90deg,rgba(0,212,255,.04) 1px,transparent 1px);
+            linear-gradient(rgba(0,212,255,.03) 1px,transparent 1px),
+            linear-gradient(90deg,rgba(0,212,255,.03) 1px,transparent 1px);
 
           background-size:55px 55px;
         }
@@ -834,8 +781,8 @@ export default function SplashLoader({
           background:
             radial-gradient(
               ellipse at center,
-              transparent 30%,
-              #010b14 85%
+              transparent 20%,
+              #020817 90%
             );
         }
 
@@ -844,14 +791,9 @@ export default function SplashLoader({
           inset:0;
           z-index:10;
 
-          width:100%;
-          height:100vh;
-
           display:flex;
           align-items:center;
           justify-content:center;
-
-          padding:24px;
 
           overflow:hidden;
         }
@@ -867,7 +809,7 @@ export default function SplashLoader({
           transform:
             translate(-50%, -50%);
 
-          width:min(92vw, 980px);
+          width:min(92vw,980px);
 
           display:flex;
           flex-direction:column;
@@ -877,84 +819,25 @@ export default function SplashLoader({
           text-align:center;
         }
 
-        .sl-ph3{
-          width:min(92vw, 820px);
-        }
-
-        .sl-name{
-          font-size:clamp(32px,6vw,72px);
-          font-weight:900;
-
-          line-height:1.1;
-
-          text-align:center;
-
-          margin-bottom:12px;
-
-          color:white;
-
-          text-shadow:
-            0 0 20px rgba(168,85,247,1),
-            0 0 50px rgba(0,212,255,.7);
-        }
-
-        .sl-name-sub{
-          text-align:center;
-
-          margin-bottom:24px;
-
-          color:rgba(255,255,255,.7);
-
-          letter-spacing:.22em;
-
-          text-transform:uppercase;
-
-          font-size:clamp(10px,1.8vw,14px);
-        }
-
-        .sl-skills-grid{
-          width:100%;
-          max-width:760px;
-
-          display:grid;
-
-          grid-template-columns:
-            repeat(4,1fr);
-
-          gap:14px;
-
-          margin:auto;
-        }
-
-        .sl-tagline{
-          margin-top:28px;
-
-          text-align:center;
-
-          font-size:clamp(10px,1.7vw,14px);
-        }
-
         .sl-ph1{
-          gap:20px;
-
           transition:
-            opacity .6s ease,
-            transform .6s ease;
+            opacity .7s ease,
+            transform .7s ease;
         }
 
         .sl-ph1.sl-out{
           opacity:0;
 
           transform:
-            translate(-50%, calc(-50% - 20px));
+            translate(-50%,calc(-50% - 20px));
         }
 
         .sl-ph2{
           opacity:0;
 
           transform:
-            translate(-50%, calc(-50% + 20px))
-            scale(.8);
+            translate(-50%,calc(-50% + 20px))
+            scale(.85);
 
           transition:
             opacity .8s ease,
@@ -965,7 +848,7 @@ export default function SplashLoader({
           opacity:1;
 
           transform:
-            translate(-50%, -50%)
+            translate(-50%,-50%)
             scale(1);
         }
 
@@ -973,118 +856,224 @@ export default function SplashLoader({
           opacity:0;
 
           transform:
-            translate(-50%, -50%)
-            scale(1.12);
+            translate(-50%,-50%)
+            scale(1.1);
         }
 
         .sl-ph3{
           opacity:0;
 
           transform:
-            translate(-50%, calc(-50% + 20px));
+            translate(-50%,calc(-50% + 20px));
 
           transition:
-            opacity .9s ease,
-            transform .9s ease;
+            opacity .8s ease,
+            transform .8s ease;
         }
 
         .sl-ph3.sl-in{
           opacity:1;
 
           transform:
-            translate(-50%, -50%);
+            translate(-50%,-50%);
         }
 
-        .sl-status-label,
-        .sl-status-text,
-        .sl-welcome-line,
-        .sl-expertise-label,
-        .sl-tagline,
-        .sl-reactor-status{
-          text-align:center;
+        .sl-loader-shell{
+          width:min(860px,92vw);
+
+          border:
+            2px solid rgba(0,212,255,.55);
+
+          padding:
+            34px 50px;
+
+          position:relative;
+
+          background:
+            linear-gradient(
+              180deg,
+              rgba(0,10,30,.9),
+              rgba(0,0,0,.75)
+            );
+
+          box-shadow:
+            0 0 40px rgba(0,212,255,.14),
+            inset 0 0 30px rgba(0,212,255,.08);
         }
 
-        .sl-status-label{
-          color:#00d4ff;
-          font-size:12px;
-          letter-spacing:.35em;
+        .sl-loader-shell::before{
+          content:"";
+
+          position:absolute;
+
+          top:-2px;
+          left:-2px;
+
+          width:48px;
+          height:48px;
+
+          border-top:
+            4px solid #8cf6ff;
+
+          border-left:
+            4px solid #8cf6ff;
+        }
+
+        .sl-loader-shell::after{
+          content:"";
+
+          position:absolute;
+
+          right:-2px;
+          top:-2px;
+
+          width:48px;
+          height:48px;
+
+          border-top:
+            4px solid #8cf6ff;
+
+          border-right:
+            4px solid #8cf6ff;
+        }
+
+        .sl-bars{
+          display:flex;
+          gap:12px;
+
+          margin-bottom:28px;
+        }
+
+        .sl-battery-bar{
+          width:56px;
+          height:66px;
+
+          border-radius:6px;
+
+          background:
+            rgba(255,255,255,.04);
+
+          border:
+            1px solid rgba(255,255,255,.15);
+
+          transition:
+            background .3s ease,
+            box-shadow .3s ease,
+            transform .3s ease;
+        }
+
+        .sl-battery-bar.active{
+          transform:
+            translateY(-2px);
+
+          box-shadow:
+            0 0 20px currentColor,
+            inset 0 0 20px rgba(255,255,255,.25);
+        }
+
+        .sl-battery-bar:nth-child(1).active{
+          background:#ff2b2b;
+          color:#ff2b2b;
+        }
+
+        .sl-battery-bar:nth-child(2).active{
+          background:#ff5e00;
+          color:#ff5e00;
+        }
+
+        .sl-battery-bar:nth-child(3).active{
+          background:#ff8a00;
+          color:#ff8a00;
+        }
+
+        .sl-battery-bar:nth-child(4).active{
+          background:#ffb000;
+          color:#ffb000;
+        }
+
+        .sl-battery-bar:nth-child(5).active{
+          background:#ffc400;
+          color:#ffc400;
+        }
+
+        .sl-battery-bar:nth-child(6).active{
+          background:#ffd500;
+          color:#ffd500;
+        }
+
+        .sl-battery-bar:nth-child(7).active{
+          background:#ffe100;
+          color:#ffe100;
+        }
+
+        .sl-battery-bar:nth-child(8).active{
+          background:#fff000;
+          color:#fff000;
+        }
+
+        .sl-battery-bar:nth-child(9).active{
+          background:#fff48b;
+          color:#fff48b;
+        }
+
+        .sl-battery-bar:nth-child(10).active{
+          background:#ffffff;
+          color:#ffffff;
+        }
+
+        .sl-bottom-row{
+          display:flex;
+          justify-content:space-between;
+          align-items:center;
+
+          width:100%;
+        }
+
+        .sl-loading-text{
+          color:#8ea4c7;
+
+          font-size:24px;
+
+          letter-spacing:.45em;
+
+          text-transform:uppercase;
+        }
+
+        .sl-system-text{
+          color:#4e5875;
+
+          font-size:18px;
+
+          letter-spacing:.18em;
+        }
+
+        .sl-status-text{
+          margin-top:16px;
+
+          color:#77dfff;
+
+          font-size:11px;
+
+          letter-spacing:.25em;
+
           text-transform:uppercase;
         }
 
         .sl-charge-pct{
-          font-size:clamp(48px,8vw,78px);
-          font-weight:900;
+          margin-top:14px;
+
+          font-size:14px;
+
           color:white;
-        }
 
-        .sl-charge-wrap{
-          width:min(520px,90vw);
-          height:6px;
-
-          border-radius:10px;
-          overflow:hidden;
-
-          background:rgba(255,255,255,.08);
-        }
-
-        .sl-charge-fill{
-          width:0%;
-          height:100%;
-
-          background:
-            linear-gradient(
-              90deg,
-              #ff00ff,
-              #00d4ff,
-              #00ffcc,
-              #ff6b35
-            );
-        }
-
-        .sl-status-row{
-          display:flex;
-          align-items:center;
-          justify-content:center;
-          flex-wrap:wrap;
-          gap:12px;
-        }
-
-        .sl-dot{
-          width:8px;
-          height:8px;
-
-          border-radius:50%;
-          background:#00d4ff;
-        }
-
-        .sl-status-text{
-          color:#8fdfff;
-          font-size:12px;
-          letter-spacing:.2em;
-          text-transform:uppercase;
-        }
-
-        .sl-dividers{
-          display:flex;
-          gap:4px;
-        }
-
-        .sl-divider{
-          width:22px;
-          height:2px;
-
-          background:rgba(255,255,255,.15);
-        }
-
-        .sl-divider.on{
-          background:#00d4ff;
+          letter-spacing:.3em;
         }
 
         .sl-arc-wrap{
           position:relative;
 
-          width:clamp(220px,35vw,320px);
-          height:clamp(220px,35vw,320px);
+          width:320px;
+          height:320px;
 
           display:flex;
           align-items:center;
@@ -1099,43 +1088,40 @@ export default function SplashLoader({
         .sl-ring-1{
           width:90%;
           height:90%;
-          border:1px solid rgba(255,0,255,.3);
-          animation:spin 10s linear infinite;
+          border:1px solid rgba(0,212,255,.22);
+
+          animation:
+            spin 12s linear infinite;
         }
 
         .sl-ring-2{
           width:70%;
           height:70%;
-          border:1px solid rgba(0,212,255,.3);
-          animation:spin2 7s linear infinite;
+          border:1px solid rgba(255,255,255,.12);
+
+          animation:
+            spin2 8s linear infinite;
         }
 
         .sl-ring-3{
           width:50%;
           height:50%;
-          border:1px dashed rgba(0,255,200,.3);
-          animation:spin 5s linear infinite;
-        }
+          border:1px dashed rgba(0,255,200,.24);
 
-        .sl-ring-4{
-          width:108%;
-          height:108%;
-          border:1px solid rgba(255,255,255,.08);
-          animation:spin2 18s linear infinite;
+          animation:
+            spin 5s linear infinite;
         }
 
         .sl-atom{
           position:absolute;
 
-          width:170px;
-          height:170px;
+          width:180px;
+          height:180px;
 
           border:
-            1px solid rgba(0,212,255,.16);
+            1px solid rgba(0,212,255,.15);
 
           border-radius:50%;
-
-          will-change:transform;
         }
 
         .sl-atom::before{
@@ -1143,34 +1129,34 @@ export default function SplashLoader({
 
           position:absolute;
 
-          width:10px;
-          height:10px;
+          top:-4px;
+          left:50%;
+
+          transform:
+            translateX(-50%);
+
+          width:8px;
+          height:8px;
 
           border-radius:50%;
 
           background:#00d4ff;
 
           box-shadow:
-            0 0 14px #00d4ff,
-            0 0 28px #00d4ff;
-
-          top:-5px;
-          left:50%;
-
-          transform:translateX(-50%);
+            0 0 18px #00d4ff;
         }
 
         .sl-atom-1{
           animation:
-            atomSpin 5s linear infinite;
+            atomSpin 6s linear infinite;
         }
 
         .sl-atom-2{
-          width:200px;
-          height:200px;
+          width:220px;
+          height:220px;
 
           animation:
-            atomSpinReverse 7s linear infinite;
+            atomSpinReverse 8s linear infinite;
         }
 
         .sl-atom-3{
@@ -1188,8 +1174,6 @@ export default function SplashLoader({
           border-radius:50%;
 
           background:transparent;
-
-          display:block;
         }
 
         .sl-reactor-label{
@@ -1199,46 +1183,74 @@ export default function SplashLoader({
 
         .sl-reactor-title{
           color:white;
+
           font-size:12px;
-          letter-spacing:.3em;
+
+          letter-spacing:.35em;
+
           text-transform:uppercase;
         }
 
         .sl-reactor-sub{
-          color:rgba(255,255,255,.5);
+          color:rgba(255,255,255,.55);
+
+          margin-top:4px;
+
           font-size:10px;
+
           letter-spacing:.2em;
         }
 
         .sl-reactor-status{
-          margin-top:20px;
+          margin-top:18px;
 
           color:#00d4ff;
 
-          letter-spacing:.3em;
+          font-size:11px;
+
+          letter-spacing:.35em;
+
+          text-transform:uppercase;
+        }
+
+        .sl-welcome-line{
+          opacity:0;
+
+          animation:
+            fadeUp .9s ease forwards;
+
+          margin-bottom:16px;
+
+          color:#b388ff;
+
+          letter-spacing:.45em;
 
           text-transform:uppercase;
 
           font-size:11px;
         }
 
-        .sl-welcome-line{
-          margin-bottom:14px;
+        .sl-name{
+          font-size:
+            clamp(38px,6vw,74px);
 
-          color:#b388ff;
+          font-weight:900;
 
-          letter-spacing:.4em;
+          line-height:1.1;
 
-          text-transform:uppercase;
+          color:white;
 
-          font-size:11px;
+          text-shadow:
+            0 0 20px rgba(168,85,247,.9),
+            0 0 50px rgba(0,212,255,.5);
         }
 
         .sl-divline{
           width:180px;
           height:1px;
 
-          margin-bottom:22px;
+          margin:
+            24px 0;
 
           background:
             linear-gradient(
@@ -1250,15 +1262,32 @@ export default function SplashLoader({
         }
 
         .sl-expertise-label{
+          opacity:0;
+
+          animation:
+            fadeUp .9s ease .5s forwards;
+
           margin-bottom:18px;
 
           color:#c084fc;
 
-          letter-spacing:.4em;
+          letter-spacing:.45em;
 
           text-transform:uppercase;
 
           font-size:10px;
+        }
+
+        .sl-skills-grid{
+          width:100%;
+          max-width:760px;
+
+          display:grid;
+
+          grid-template-columns:
+            repeat(4,1fr);
+
+          gap:14px;
         }
 
         .sl-skill-card{
@@ -1304,8 +1333,11 @@ export default function SplashLoader({
 
         .sl-skill-name{
           color:white;
+
           font-size:12px;
+
           text-transform:uppercase;
+
           text-align:center;
         }
 
@@ -1315,7 +1347,8 @@ export default function SplashLoader({
 
           opacity:0;
 
-          transition:opacity 2s ease;
+          transition:
+            opacity 2s ease;
         }
 
         .sl-nebula.sl-nebula-in{
@@ -1360,7 +1393,7 @@ export default function SplashLoader({
             radial-gradient(
               circle,
               rgba(255,255,255,.95),
-              rgba(168,85,247,.55),
+              rgba(168,85,247,.5),
               transparent 70%
             );
 
@@ -1368,13 +1401,15 @@ export default function SplashLoader({
             transform,
             opacity;
 
-          transform:
-            translate3d(0,0,0);
-
-          backface-visibility:hidden;
-
           animation:
             sl-dust-move linear forwards;
+        }
+
+        .sl-content-dust-out{
+          animation:
+            sl-content-dust-out
+            1.5s cubic-bezier(.22,.8,.2,1)
+            forwards;
         }
 
         @keyframes sl-dust-move{
@@ -1400,21 +1435,7 @@ export default function SplashLoader({
                 0
               )
               scale(0);
-
-            filter:blur(2px);
           }
-        }
-
-        .sl-content-dust-out{
-          will-change:
-            transform,
-            opacity,
-            filter;
-
-          animation:
-            sl-content-dust-out
-            1.3s cubic-bezier(.22,.8,.2,1)
-            forwards;
         }
 
         @keyframes sl-content-dust-out{
@@ -1422,24 +1443,21 @@ export default function SplashLoader({
             opacity:1;
 
             transform:
-              scale(1)
-              translateZ(0);
+              scale(1);
 
             filter:
-              blur(0px)
-              brightness(1);
+              blur(0px);
           }
 
           100%{
             opacity:0;
 
             transform:
-              scale(1.18)
-              translateZ(0);
+              scale(1.14);
 
             filter:
               blur(10px)
-              brightness(1.6);
+              brightness(1.4);
           }
         }
 
@@ -1459,24 +1477,37 @@ export default function SplashLoader({
           }
         }
 
+        @keyframes fadeUp{
+          from{
+            opacity:0;
+
+            transform:
+              translateY(20px);
+          }
+
+          to{
+            opacity:1;
+
+            transform:
+              translateY(0);
+          }
+        }
+
         @keyframes spin{
           to{
-            transform:rotate(360deg);
+            transform:
+              rotate(360deg);
           }
         }
 
         @keyframes spin2{
           to{
-            transform:rotate(-360deg);
+            transform:
+              rotate(-360deg);
           }
         }
 
         @keyframes atomSpin{
-          from{
-            transform:
-              rotate(0deg);
-          }
-
           to{
             transform:
               rotate(360deg);
@@ -1484,42 +1515,70 @@ export default function SplashLoader({
         }
 
         @keyframes atomSpinReverse{
-          from{
-            transform:
-              rotate(360deg);
-          }
-
           to{
             transform:
-              rotate(0deg);
+              rotate(-360deg);
           }
         }
 
         @media(max-width:768px){
+          .sl-bars{
+            gap:8px;
+          }
+
+          .sl-battery-bar{
+            width:34px;
+            height:52px;
+          }
+
+          .sl-loading-text{
+            font-size:14px;
+          }
+
+          .sl-system-text{
+            font-size:12px;
+          }
+
           .sl-skills-grid{
             grid-template-columns:
               repeat(2,1fr);
-
-            max-width:420px;
           }
 
-          .sl-content{
-            padding:20px;
+          .sl-arc-wrap{
+            width:260px;
+            height:260px;
           }
         }
 
         @media(max-width:480px){
+          .sl-loader-shell{
+            padding:24px 18px;
+          }
+
+          .sl-bars{
+            gap:5px;
+          }
+
+          .sl-battery-bar{
+            width:22px;
+            height:40px;
+          }
+
+          .sl-loading-text{
+            font-size:10px;
+            letter-spacing:.25em;
+          }
+
+          .sl-system-text{
+            display:none;
+          }
+
+          .sl-name{
+            font-size:32px;
+          }
+
           .sl-skills-grid{
             gap:10px;
-          }
-
-          .sl-skill-card{
-            padding:14px 10px;
-          }
-
-          .sl-arc-canvas{
-            width:110px;
-            height:110px;
           }
         }
       `}</style>
@@ -1567,26 +1626,31 @@ export default function SplashLoader({
             ref={ph1Ref}
             className="sl-ph1"
           >
-            <div className="sl-status-label">
-              ◈ Charging Status
-            </div>
+            <div className="sl-loader-shell">
+              <div className="sl-bars">
+                {Array.from({
+                  length: 10,
+                }).map((_, i) => (
+                  <div
+                    key={i}
+                    ref={(el) => {
+                      batteryRefs.current[i] =
+                        el
+                    }}
+                    className="sl-battery-bar"
+                  />
+                ))}
+              </div>
 
-            <div
-              ref={pctRef}
-              className="sl-charge-pct"
-            >
-              0%
-            </div>
+              <div className="sl-bottom-row">
+                <div className="sl-loading-text">
+                  LOADING....
+                </div>
 
-            <div className="sl-charge-wrap">
-              <div
-                ref={barRef}
-                className="sl-charge-fill"
-              />
-            </div>
-
-            <div className="sl-status-row">
-              <div className="sl-dot" />
+                <div className="sl-system-text">
+                  MK-VII SYSTEM
+                </div>
+              </div>
 
               <div
                 ref={msgRef}
@@ -1595,19 +1659,11 @@ export default function SplashLoader({
                 Initializing power core...
               </div>
 
-              <div className="sl-dividers">
-                {[0, 1, 2, 3, 4].map(
-                  (i) => (
-                    <div
-                      key={i}
-                      className="sl-divider"
-                      ref={(el) => {
-                        divRefs.current[i] =
-                          el
-                      }}
-                    />
-                  )
-                )}
+              <div
+                ref={pctRef}
+                className="sl-charge-pct"
+              >
+                0%
               </div>
             </div>
           </div>
@@ -1617,7 +1673,6 @@ export default function SplashLoader({
             className="sl-ph2"
           >
             <div className="sl-arc-wrap">
-              <div className="sl-ring sl-ring-4" />
               <div className="sl-ring sl-ring-1" />
               <div className="sl-ring sl-ring-2" />
               <div className="sl-ring sl-ring-3" />
@@ -1663,11 +1718,6 @@ export default function SplashLoader({
               className="sl-name"
             />
 
-            <div className="sl-name-sub">
-              Full Stack Developer &
-              Designer
-            </div>
-
             <div className="sl-divline" />
 
             <div className="sl-expertise-label">
@@ -1678,14 +1728,6 @@ export default function SplashLoader({
               ref={skillsRef}
               className="sl-skills-grid"
             />
-
-            <p
-              ref={taglineRef}
-              className="sl-tagline"
-            >
-              Building Digital
-              Systems With Precision
-            </p>
           </div>
         </div>
       </div>
