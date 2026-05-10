@@ -33,7 +33,7 @@ export default function Navbar({ activeSection }: NavbarProps) {
 
     if (!element) return
 
-    const navbarHeight = 90
+    const navbarHeight = 70
 
     const targetPosition =
       element.getBoundingClientRect().top +
@@ -51,13 +51,13 @@ export default function Navbar({ activeSection }: NavbarProps) {
   return (
     <>
       {/* Navbar */}
-      <nav className="fixed top-4 left-1/2 z-50 w-[92%] sm:w-[90%] md:w-[88%] lg:w-[84%] xl:w-[80%] max-w-5xl -translate-x-1/2 rounded-2xl border border-cyan-400/20 bg-slate-950/70 shadow-[0_8px_30px_rgba(0,255,255,0.08)] backdrop-blur-xl transition-all duration-500">
+      <nav className="fixed top-0 left-0 right-0 z-50 border-b border-cyan-500/20 bg-slate-950/75 backdrop-blur-xl shadow-lg shadow-cyan-500/5">
         
-        <div className="flex h-[64px] md:h-[70px] items-center justify-between px-5 sm:px-6 lg:px-8">
+        <div className="mx-auto flex h-[64px] items-center justify-between px-5 sm:px-6 lg:px-10">
           
           {/* Logo */}
-          <div className="flex items-center pl-1 sm:pl-2">
-            <div className="group relative flex h-11 w-11 items-center justify-center rounded-full bg-gradient-to-br from-cyan-400 via-cyan-500 to-purple-500 shadow-lg shadow-cyan-500/30 transition-all duration-500 hover:scale-110 hover:rotate-6">
+          <div className="flex items-center pl-1">
+            <div className="group relative flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-cyan-400 via-cyan-500 to-purple-500 shadow-lg shadow-cyan-500/25 transition-all duration-500 hover:scale-110 hover:rotate-6">
               
               {/* Glow */}
               <div className="absolute inset-0 rounded-full bg-cyan-400/30 blur-md opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
@@ -69,7 +69,7 @@ export default function Navbar({ activeSection }: NavbarProps) {
           </div>
 
           {/* Desktop Menu */}
-          <div className="hidden lg:flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-2 backdrop-blur-md shadow-[0_0_25px_rgba(34,211,238,0.08)]">
+          <div className="hidden lg:flex items-center gap-2">
             {navItems.map((item) => {
               const Icon = item.icon
               const isActive = activeSection === item.id
@@ -78,14 +78,14 @@ export default function Navbar({ activeSection }: NavbarProps) {
                 <button
                   key={item.id}
                   onClick={() => scrollToSection(item.id)}
-                  className={`group relative flex items-center gap-2 overflow-hidden rounded-full px-4 py-2 text-sm font-medium transition-all duration-300 ${
+                  className={`group relative flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-medium transition-all duration-300 ${
                     isActive
                       ? "bg-gradient-to-r from-cyan-500 to-blue-500 text-white shadow-lg shadow-cyan-500/20"
                       : "text-slate-300 hover:bg-white/10 hover:text-cyan-300"
                   }`}
                 >
                   {/* Hover Glow */}
-                  <div className="absolute inset-0 bg-cyan-400/10 blur-lg opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                  <div className="absolute inset-0 bg-cyan-400/10 blur-lg opacity-0 transition-opacity duration-300 group-hover:opacity-100 rounded-xl" />
 
                   <Icon className="relative z-10 h-4 w-4 transition-transform duration-300 group-hover:scale-110" />
 
@@ -124,7 +124,7 @@ export default function Navbar({ activeSection }: NavbarProps) {
           />
 
           {/* Sidebar */}
-          <div className="absolute right-0 top-0 h-full w-[280px] border-l border-cyan-500/20 bg-slate-950/95 p-5 shadow-2xl backdrop-blur-xl transition-all duration-500">
+          <div className="absolute right-0 top-0 h-full w-[280px] border-l border-cyan-500/20 bg-slate-950/95 p-5 shadow-2xl backdrop-blur-xl">
             
             {/* Header */}
             <div className="mb-8 flex items-center justify-between">
@@ -152,14 +152,14 @@ export default function Navbar({ activeSection }: NavbarProps) {
                   <button
                     key={item.id}
                     onClick={() => scrollToSection(item.id)}
-                    className={`group relative flex w-full items-center gap-3 overflow-hidden rounded-2xl px-4 py-3 text-left transition-all duration-300 ${
+                    className={`group relative flex w-full items-center gap-3 overflow-hidden rounded-xl px-4 py-3 text-left transition-all duration-300 ${
                       isActive
                         ? "bg-gradient-to-r from-cyan-500 to-blue-500 text-white shadow-lg shadow-cyan-500/20"
                         : "text-slate-300 hover:bg-white/10 hover:text-cyan-300"
                     }`}
                   >
                     {/* Hover Glow */}
-                    <div className="absolute inset-0 bg-cyan-400/10 blur-lg opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                    <div className="absolute inset-0 bg-cyan-400/10 blur-lg opacity-0 transition-opacity duration-300 group-hover:opacity-100 rounded-xl" />
 
                     <Icon className="relative z-10 h-5 w-5 shrink-0 transition-transform duration-300 group-hover:scale-110" />
 
