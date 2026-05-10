@@ -46,7 +46,7 @@ export default function HomeSection() {
   }
 
   return (
-    <section id="home" className="min-h-screen flex flex-col justify-center pt-16 relative overflow-hidden">
+    <section id="home" className="min-h-screen flex flex-col justify-center pt-6 relative overflow-hidden">
       {/* Animated Background Elements */}
       <div className="absolute inset-0 overflow-hidden">
         {/* Particle Effects */}
@@ -103,7 +103,7 @@ export default function HomeSection() {
 
               <motion.div 
                 // mt-20 atau mt-24 memberikan jarak dari atas (navbar) agar tidak tertutup
-                className="flex justify-start w-full mt-24 mb-4 md:mt-0" 
+                className="flex justify-start w-full mt-8 mb-4 md:mt-0"
               >
                 <span className="
                   inline-block 
