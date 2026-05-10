@@ -842,25 +842,60 @@ export default function SplashLoader({
         .sl-battery-shell{
           position:relative;
 
-          width:min(700px,88vw);
+          width:min(760px,90vw);
 
-          padding:24px;
+          padding:
+            34px 34px
+            26px 34px;
 
-          border:
-            2px solid rgba(0,212,255,.45);
+          border-radius:30px;
 
-          border-radius:24px;
+          overflow:hidden;
 
           background:
             linear-gradient(
               180deg,
-              rgba(0,0,0,.35),
-              rgba(0,0,0,.18)
+              rgba(10,20,35,.92),
+              rgba(5,10,18,.96)
             );
 
+          border:
+            1px solid rgba(0,212,255,.24);
+
           box-shadow:
-            0 0 40px rgba(0,212,255,.16),
-            inset 0 0 40px rgba(0,212,255,.06);
+            0 0 40px rgba(0,212,255,.14),
+            inset 0 0 40px rgba(0,212,255,.06),
+            inset 0 0 120px rgba(255,255,255,.03);
+
+          backdrop-filter:blur(18px);
+        }
+
+        .sl-battery-shell::before{
+          content:"";
+
+          position:absolute;
+          inset:0;
+
+          border-radius:30px;
+
+          padding:1px;
+
+          background:
+            linear-gradient(
+              135deg,
+              rgba(0,212,255,.8),
+              rgba(168,85,247,.5),
+              rgba(0,212,255,.15)
+            );
+
+          -webkit-mask:
+            linear-gradient(#fff 0 0)
+              content-box,
+            linear-gradient(#fff 0 0);
+
+          -webkit-mask-composite:xor;
+
+          pointer-events:none;
         }
 
         .sl-battery-shell::after{
@@ -874,79 +909,194 @@ export default function SplashLoader({
           transform:
             translateY(-50%);
 
-          width:12px;
-          height:90px;
+          width:14px;
+          height:110px;
 
-          border-radius:8px;
+          border-radius:10px;
 
           background:
             linear-gradient(
               180deg,
-              rgba(0,212,255,.9),
-              rgba(0,212,255,.2)
+              rgba(0,255,255,.95),
+              rgba(0,212,255,.18)
             );
 
           box-shadow:
-            0 0 18px rgba(0,212,255,.6);
+            0 0 24px rgba(0,212,255,.7),
+            0 0 50px rgba(0,212,255,.25);
+        }
+
+        .sl-battery-shell-glow{
+          position:absolute;
+          inset:-120px;
+
+          background:
+            radial-gradient(
+              circle at center,
+              rgba(0,212,255,.16),
+              transparent 70%
+            );
+
+          animation:
+            shellPulse 4s ease-in-out infinite;
+
+          pointer-events:none;
+        }
+
+        .sl-battery-topline{
+          display:flex;
+          align-items:center;
+          justify-content:space-between;
+
+          margin-bottom:26px;
+        }
+
+        .sl-battery-title{
+          color:rgba(255,255,255,.82);
+
+          font-size:11px;
+
+          letter-spacing:.38em;
+
+          text-transform:uppercase;
+        }
+
+        .sl-battery-mini{
+          display:flex;
+          gap:6px;
+        }
+
+        .sl-battery-mini span{
+          width:7px;
+          height:7px;
+
+          border-radius:50%;
+
+          background:rgba(255,255,255,.16);
+
+          animation:
+            miniBlink 1.8s infinite;
+        }
+
+        .sl-battery-mini span:nth-child(2){
+          animation-delay:.25s;
+        }
+
+        .sl-battery-mini span:nth-child(3){
+          animation-delay:.5s;
         }
 
         .sl-battery-cells{
+          position:relative;
+
           display:flex;
-          gap:10px;
+          gap:12px;
+
           justify-content:center;
+          align-items:center;
+
+          padding:
+            18px 18px;
+
+          border-radius:22px;
+
+          background:
+            linear-gradient(
+              180deg,
+              rgba(255,255,255,.03),
+              rgba(255,255,255,.015)
+            );
+
+          border:
+            1px solid rgba(255,255,255,.05);
+
+          box-shadow:
+            inset 0 0 24px rgba(0,212,255,.04);
         }
 
         .sl-battery-cell{
-          width:52px;
-          height:68px;
+          width:54px;
+          height:78px;
 
-          border-radius:10px;
+          border-radius:14px;
 
           border:
-            1px solid rgba(255,255,255,.14);
+            1px solid rgba(255,255,255,.12);
 
           background:
-            rgba(255,255,255,.04);
+            linear-gradient(
+              180deg,
+              rgba(255,255,255,.06),
+              rgba(255,255,255,.02)
+            );
 
           position:relative;
 
           overflow:hidden;
 
           transition:
-            background .5s ease,
-            box-shadow .5s ease,
-            transform .35s ease;
+            transform .45s ease,
+            box-shadow .45s ease,
+            border-color .45s ease;
+        }
+
+        .sl-battery-cell::after{
+          content:"";
+
+          position:absolute;
+
+          top:8px;
+          left:50%;
+
+          transform:
+            translateX(-50%);
+
+          width:48%;
+          height:4px;
+
+          border-radius:20px;
+
+          background:
+            rgba(255,255,255,.18);
         }
 
         .sl-battery-cell::before{
           content:"";
 
           position:absolute;
-          inset:0;
 
-          transform:
-            translateY(100%);
+          left:0;
+          right:0;
+          bottom:0;
+
+          height:0%;
 
           transition:
-            transform .9s ease;
+            height .9s cubic-bezier(.22,.8,.2,1);
+
+          box-shadow:
+            0 0 18px currentColor,
+            inset 0 0 14px rgba(255,255,255,.3);
         }
 
         .sl-battery-cell.active{
           transform:
-            translateY(-2px);
+            translateY(-3px);
+
+          border-color:
+            rgba(255,255,255,.28);
         }
 
         .sl-battery-cell.active::before{
-          transform:
-            translateY(0%);
+          height:100%;
         }
 
         .sl-battery-cell:nth-child(1)::before{
           background:
             linear-gradient(
               180deg,
-              #ff3b3b,
-              #ff0000
+              #ff4040,
+              #ff1010
             );
         }
 
@@ -955,8 +1105,8 @@ export default function SplashLoader({
           background:
             linear-gradient(
               180deg,
-              #ff7b00,
-              #ff5e00
+              #ff8c00,
+              #ff6200
             );
         }
 
@@ -966,8 +1116,8 @@ export default function SplashLoader({
           background:
             linear-gradient(
               180deg,
-              #ffc400,
-              #ffea00
+              #ffe600,
+              #ffc400
             );
         }
 
@@ -978,39 +1128,51 @@ export default function SplashLoader({
           background:
             linear-gradient(
               180deg,
-              #eaff6b,
-              #fff7b1
+              #8dff7a,
+              #00ffd0
             );
         }
 
-        .sl-battery-cell.active{
-          box-shadow:
-            0 0 18px currentColor;
+        .sl-battery-bottom{
+          margin-top:22px;
+
+          display:flex;
+          align-items:flex-end;
+          justify-content:space-between;
+
+          gap:20px;
         }
 
         .sl-charge-pct{
-          margin-top:28px;
-
           font-size:
-            clamp(42px,7vw,74px);
+            clamp(30px,4.2vw,52px);
 
           font-weight:900;
 
+          line-height:1;
+
           color:white;
+
+          text-shadow:
+            0 0 18px rgba(0,212,255,.4);
         }
 
         .sl-loading-text{
-          margin-top:12px;
-
           color:#8fdfff;
 
-          letter-spacing:.25em;
+          letter-spacing:.18em;
 
           text-transform:uppercase;
 
-          font-size:12px;
+          font-size:11px;
 
-          min-height:18px;
+          text-align:right;
+
+          min-height:16px;
+
+          opacity:.85;
+
+          max-width:260px;
         }
 
         .sl-arc-wrap{
@@ -1376,10 +1538,65 @@ export default function SplashLoader({
           }
         }
 
+        @keyframes shellPulse{
+          0%{
+            opacity:.35;
+            transform:scale(1);
+          }
+
+          50%{
+            opacity:.7;
+            transform:scale(1.04);
+          }
+
+          100%{
+            opacity:.35;
+            transform:scale(1);
+          }
+        }
+
+        @keyframes miniBlink{
+          0%{
+            opacity:.15;
+            transform:scale(.8);
+          }
+
+          50%{
+            opacity:1;
+            transform:scale(1.2);
+          }
+
+          100%{
+            opacity:.15;
+            transform:scale(.8);
+          }
+        }
+
         @media(max-width:768px){
+
+          .sl-battery-shell{
+            padding:
+              26px 20px
+              22px 20px;
+          }
+
+          .sl-battery-cells{
+            gap:8px;
+            padding:14px;
+          }
+
           .sl-battery-cell{
-            width:34px;
-            height:54px;
+            width:32px;
+            height:58px;
+          }
+
+          .sl-battery-bottom{
+            align-items:center;
+          }
+
+          .sl-loading-text{
+            font-size:9px;
+            max-width:150px;
           }
 
           .sl-skills-grid{
@@ -1431,6 +1648,21 @@ export default function SplashLoader({
             className="sl-ph1"
           >
             <div className="sl-battery-shell">
+
+              <div className="sl-battery-shell-glow" />
+
+              <div className="sl-battery-topline">
+                <div className="sl-battery-title">
+                  ARC ENERGY SYSTEM
+                </div>
+
+                <div className="sl-battery-mini">
+                  <span />
+                  <span />
+                  <span />
+                </div>
+              </div>
+
               <div className="sl-battery-cells">
                 {Array.from({
                   length: 10,
@@ -1447,18 +1679,22 @@ export default function SplashLoader({
                 ))}
               </div>
 
-              <div
-                ref={pctRef}
-                className="sl-charge-pct"
-              >
-                0%
-              </div>
+              <div className="sl-battery-bottom">
 
-              <div
-                ref={msgRef}
-                className="sl-loading-text"
-              >
-                Loading...
+                <div
+                  ref={pctRef}
+                  className="sl-charge-pct"
+                >
+                  0%
+                </div>
+
+                <div
+                  ref={msgRef}
+                  className="sl-loading-text"
+                >
+                  Loading...
+                </div>
+
               </div>
             </div>
           </div>
