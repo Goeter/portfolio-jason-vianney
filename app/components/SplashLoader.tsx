@@ -94,7 +94,7 @@ export default function SplashLoader({
     )
 
   const atomRefs =
-    useRef<(HTMLDivElement | null)[]>(([])
+    useRef<(HTMLDivElement | null)[]>([])
 
   const rafRef = useRef(0)
 
