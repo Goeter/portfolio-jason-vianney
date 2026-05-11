@@ -95,10 +95,11 @@ function PhotoFrame({ src }: { src?: string }) {
     <motion.div
       className="relative flex items-center justify-center w-full h-full"
       animate={{
-        y: [0, -8, 0],
+        y: [0, -10, 0],
+        rotate: [0, 0.6, 0, -0.6, 0],
       }}
       transition={{
-        duration: 5,
+        duration: 7,
         repeat: Infinity,
         ease: "easeInOut",
       }}
@@ -109,14 +110,14 @@ function PhotoFrame({ src }: { src?: string }) {
         style={{
           width: "88%",
           height: "88%",
-          background: "rgba(200,169,110,0.18)",
+          background: "rgba(200,169,110,0.16)",
         }}
         animate={{
-          opacity: [0.45, 0.8, 0.45],
-          scale: [1, 1.04, 1],
+          opacity: [0.4, 0.7, 0.4],
+          scale: [1, 1.03, 1],
         }}
         transition={{
-          duration: 4,
+          duration: 5,
           repeat: Infinity,
           ease: "easeInOut",
         }}
@@ -151,7 +152,8 @@ function PhotoFrame({ src }: { src?: string }) {
             <motion.div
               className="relative w-full h-full"
               animate={{
-                scale: [1.04, 1.08, 1.04],
+                scale: [1.03, 1.06, 1.03],
+                y: [0, -6, 0],
               }}
               transition={{
                 duration: 8,
@@ -169,24 +171,6 @@ function PhotoFrame({ src }: { src?: string }) {
               />
             </motion.div>
           )}
-
-          {/* Shine Effect */}
-          <motion.div
-            className="absolute inset-y-0 -left-[40%] w-[30%]"
-            style={{
-              background:
-                "linear-gradient(90deg, transparent, rgba(255,255,255,0.18), transparent)",
-              transform: "skewX(-18deg)",
-            }}
-            animate={{
-              left: ["-40%", "140%"],
-            }}
-            transition={{
-              duration: 4.5,
-              repeat: Infinity,
-              ease: "linear",
-            }}
-          />
         </div>
       </motion.div>
     </motion.div>
@@ -234,6 +218,39 @@ export default function HomeSection() {
     transition: { duration: 0.65, ease: "easeOut", delay: 0.35 },
   }
 
+  const expertise = [
+    {
+      label: "IT Fullstack",
+      bg: "rgba(55,138,221,0.12)",
+      color: "#8CC8FF",
+      border: "rgba(140,200,255,0.25)",
+    },
+    {
+      label: "System Analyst",
+      bg: "rgba(100,210,170,0.12)",
+      color: "#73E0B6",
+      border: "rgba(115,224,182,0.25)",
+    },
+    {
+      label: "UI/UX Designer",
+      bg: "rgba(255,170,80,0.12)",
+      color: "#FFBC72",
+      border: "rgba(255,188,114,0.25)",
+    },
+    {
+      label: "Data Analyst",
+      bg: "rgba(215,140,255,0.12)",
+      color: "#D99BFF",
+      border: "rgba(217,155,255,0.25)",
+    },
+    {
+      label: "Tutor",
+      bg: "rgba(255,220,120,0.12)",
+      color: "#FFE083",
+      border: "rgba(255,224,131,0.25)",
+    },
+  ]
+
   return (
     <section
       id="home"
@@ -253,12 +270,12 @@ export default function HomeSection() {
       />
 
       <div className="container mx-auto px-5 sm:px-6 lg:px-8 max-w-7xl relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 lg:gap-10 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-10 items-center">
 
           {/* LEFT */}
-          <div className="flex flex-col order-2 lg:order-1">
+          <div className="flex flex-col order-1 lg:order-1">
 
-            {/* Eyebrow */}
+            {/* 4a */}
             <motion.div
               className="flex items-center gap-3 mb-5 flex-wrap"
               {...fadeSlideLeft(0.3)}
@@ -281,7 +298,7 @@ export default function HomeSection() {
               <span className="w-7 h-[1px] bg-[#C8A96E] opacity-70" />
             </motion.div>
 
-            {/* Greeting */}
+            {/* 4b */}
             <motion.p
               className="mb-2"
               style={{
@@ -294,9 +311,9 @@ export default function HomeSection() {
               Hello, I'm
             </motion.p>
 
-            {/* Name */}
+            {/* 4c */}
             <motion.h1
-              className="leading-none mb-3"
+              className="leading-none mb-5"
               style={{
                 fontFamily: "'Cormorant Garamond', serif",
                 fontSize: "clamp(40px, 8vw, 68px)",
@@ -310,22 +327,71 @@ export default function HomeSection() {
               <span style={{ color: "#C8A96E" }}>Sugiarto</span>
             </motion.h1>
 
-            {/* Accent */}
+            {/* 4d MOBILE PHOTO */}
             <motion.div
-              style={{
-                height: 2,
-                width: 64,
-                background: "#C8A96E",
-                borderRadius: 999,
-                opacity: 0.55,
-                marginBottom: 26,
-              }}
-              initial={{ width: 0 }}
-              animate={{ width: 64 }}
-              transition={{ duration: 0.5, ease: "easeOut", delay: 0.8 }}
-            />
+              className="flex lg:hidden justify-center mb-8"
+              {...fadeSlideLeft(0.5)}
+            >
+              <div
+                className="relative"
+                style={{
+                  width: "min(88vw, 380px)",
+                  height: "min(88vw, 380px)",
+                }}
+              >
+                <PhotoFrame src="/assets/profile/photo.jpeg" />
+              </div>
+            </motion.div>
 
-            {/* Description */}
+            {/* 4e */}
+            <motion.div
+              className="mb-4"
+              {...fadeSlideLeft(0.55)}
+            >
+              <h2
+                style={{
+                  fontFamily: "DM Sans, sans-serif",
+                  fontSize: "clamp(18px, 2vw, 22px)",
+                  fontWeight: 700,
+                  color: "#F4EDD8",
+                  letterSpacing: "0.04em",
+                }}
+              >
+                My Expertise
+              </h2>
+            </motion.div>
+
+            {/* 4f */}
+            <motion.div
+              className="flex flex-wrap gap-3 mb-8"
+              {...fadeSlideLeft(0.6)}
+            >
+              {expertise.map((item, index) => (
+                <motion.div
+                  key={index}
+                  whileHover={{
+                    y: -3,
+                    scale: 1.03,
+                  }}
+                  style={{
+                    padding: "10px 16px",
+                    borderRadius: 14,
+                    background: item.bg,
+                    color: item.color,
+                    border: `1px solid ${item.border}`,
+                    backdropFilter: "blur(10px)",
+                    fontFamily: "DM Sans, sans-serif",
+                    fontSize: "clamp(11px, 1vw, 13px)",
+                    fontWeight: 600,
+                    letterSpacing: "0.04em",
+                  }}
+                >
+                  {item.label}
+                </motion.div>
+              ))}
+            </motion.div>
+
+            {/* 4g */}
             <motion.p
               className="max-w-[620px]"
               style={{
@@ -344,7 +410,7 @@ export default function HomeSection() {
               system analysis, and data-driven insights.
             </motion.p>
 
-            {/* Buttons */}
+            {/* 4h */}
             <motion.div
               className="flex flex-wrap gap-4"
               {...fadeSlideLeft(0.75)}
@@ -448,9 +514,9 @@ export default function HomeSection() {
             </motion.div>
           </div>
 
-          {/* RIGHT */}
+          {/* RIGHT DESKTOP PHOTO */}
           <motion.div
-            className="flex justify-center lg:justify-end order-1 lg:order-2"
+            className="hidden lg:flex justify-center lg:justify-end order-2"
             {...fadeSlideRight}
           >
             <div
