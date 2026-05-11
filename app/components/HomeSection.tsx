@@ -406,10 +406,9 @@ export default function HomeSection() {
               }}
               {...fadeSlideLeft(0.65)}
             >
-              IT Professional focused on creating innovative digital solutions —
-              transforming complex challenges into elegant, efficient, and
-              user-friendly experiences through fullstack development,
-              system analysis, and data-driven insights.
+              IT Professional with 4 years of experience in fullstack development, system analysis, and data
+              analytics, focused on delivering efficient, scalable, and user-centered digital solutions. Also
+              experienced as a Math and English Tutor with strong analytical thinking and communication skills.
             </motion.p>
 
             {/* 4h */}
