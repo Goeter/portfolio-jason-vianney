@@ -481,7 +481,7 @@ export default function HomeSection() {
           >
             <div className="relative flex items-center justify-center" style={{ width: 340, height: 340 }}>
 
-              <DiamondFrame src="/assets/profile/home.png" />
+              <DiamondFrame src="/assets/profile/photo.jpeg" />
 
               {/* Skill nodes */}
               <SkillNode
