@@ -93,7 +93,7 @@ function FloatingLights() {
 function PhotoFrame({ src }: { src?: string }) {
   return (
     <motion.div
-      className="relative flex items-center justify-center"
+      className="relative flex items-center justify-center w-full h-full"
       animate={{
         y: [0, -8, 0],
       }}
@@ -124,10 +124,8 @@ function PhotoFrame({ src }: { src?: string }) {
 
       {/* Gold Border */}
       <motion.div
-        className="relative overflow-hidden rounded-[38px]"
+        className="relative overflow-hidden rounded-[38px] w-full h-full"
         style={{
-          width: "100%",
-          height: "100%",
           padding: "3px",
           background:
             "linear-gradient(145deg, rgba(255,220,150,0.9), rgba(200,169,110,0.25))",
@@ -151,7 +149,7 @@ function PhotoFrame({ src }: { src?: string }) {
         >
           {src && (
             <motion.div
-              className="w-full h-full"
+              className="relative w-full h-full"
               animate={{
                 scale: [1.04, 1.08, 1.04],
               }}
@@ -327,42 +325,6 @@ export default function HomeSection() {
               transition={{ duration: 0.5, ease: "easeOut", delay: 0.8 }}
             />
 
-            {/* Tags */}
-            <motion.div
-              className="flex flex-wrap gap-3 mb-7"
-              {...fadeSlideLeft(0.55)}
-            >
-              {[
-                { label: "Fullstack Dev", bg: "rgba(55,138,221,0.1)", color: "#85B7EB", border: "rgba(133,183,235,0.3)" },
-                { label: "System Analysis", bg: "rgba(29,158,117,0.1)", color: "#5DCAA5", border: "rgba(93,202,165,0.3)" },
-                { label: "UI / UX Design", bg: "rgba(99,153,34,0.1)", color: "#97C459", border: "rgba(151,196,89,0.3)" },
-                { label: "Data Analyst", bg: "rgba(200,169,110,0.1)", color: "#FAC775", border: "rgba(250,199,117,0.3)" },
-              ].map(({ label, bg, color, border }) => (
-                <motion.span
-                  key={label}
-                  whileHover={{
-                    y: -2,
-                    scale: 1.03,
-                  }}
-                  style={{
-                    padding: "7px 14px",
-                    borderRadius: 10,
-                    fontSize: "clamp(10px, 1vw, 12px)",
-                    fontWeight: 500,
-                    letterSpacing: "0.05em",
-                    textTransform: "uppercase",
-                    fontFamily: "DM Sans, sans-serif",
-                    background: bg,
-                    color,
-                    border: `0.5px solid ${border}`,
-                    backdropFilter: "blur(8px)",
-                  }}
-                >
-                  {label}
-                </motion.span>
-              ))}
-            </motion.div>
-
             {/* Description */}
             <motion.p
               className="max-w-[620px]"
@@ -412,7 +374,6 @@ export default function HomeSection() {
                 }}
                 whileTap={{ scale: 0.97 }}
               >
-                {/* Glow */}
                 <motion.div
                   className="absolute inset-0"
                   style={{
@@ -493,7 +454,7 @@ export default function HomeSection() {
             {...fadeSlideRight}
           >
             <div
-              className="relative flex items-center justify-center"
+              className="relative"
               style={{
                 width: "min(92vw, 520px)",
                 height: "min(92vw, 520px)",
@@ -504,34 +465,6 @@ export default function HomeSection() {
           </motion.div>
         </div>
       </div>
-
-      {/* Scroll */}
-      <motion.div
-        className="absolute bottom-5 left-1/2 hidden md:flex"
-        style={{
-          transform: "translateX(-50%)",
-          flexDirection: "column",
-          alignItems: "center",
-          gap: 5,
-          opacity: 0.3,
-        }}
-        animate={{ y: [0, 7, 0] }}
-        transition={{
-          duration: 2.2,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
-      >
-        <div style={{ width: 1, height: 26, background: "#C8A96E" }} />
-        <div
-          style={{
-            width: 3,
-            height: 3,
-            borderRadius: "50%",
-            background: "#C8A96E",
-          }}
-        />
-      </motion.div>
     </section>
   )
 }
