@@ -29,12 +29,14 @@ function BatikBackground() {
           <circle cx="44" cy="0" r="1.8" fill="#C8A96E" opacity="0.12" />
           <circle cx="0" cy="44" r="1.8" fill="#C8A96E" opacity="0.12" />
         </pattern>
+
         {/* Truntum motif */}
         <pattern id="truntum" x="0" y="0" width="56" height="56" patternUnits="userSpaceOnUse">
           <path d="M28 14 L31 22 L39 22 L33 27 L35 35 L28 30 L21 35 L23 27 L17 22 L25 22 Z" fill="none" stroke="#C8A96E" strokeWidth="0.4" opacity="0.13" />
           <circle cx="28" cy="28" r="2.5" fill="none" stroke="#C8A96E" strokeWidth="0.35" opacity="0.11" />
         </pattern>
-        {/* Circuit / tech grid — right half only */}
+
+        {/* Circuit */}
         <pattern id="circuit" x="0" y="0" width="48" height="48" patternUnits="userSpaceOnUse" patternTransform="translate(720,0)">
           <line x1="0" y1="24" x2="48" y2="24" stroke="#7DA5C8" strokeWidth="0.3" opacity="0.14" />
           <line x1="24" y1="0" x2="24" y2="48" stroke="#7DA5C8" strokeWidth="0.3" opacity="0.14" />
@@ -45,24 +47,29 @@ function BatikBackground() {
           <circle cx="24" cy="48" r="1.2" fill="#7DA5C8" opacity="0.12" />
           <rect x="20" y="20" width="8" height="8" fill="none" stroke="#7DA5C8" strokeWidth="0.3" opacity="0.1" />
         </pattern>
-        {/* Parang diagonal lines */}
+
+        {/* Parang */}
         <pattern id="parang" x="0" y="0" width="32" height="32" patternUnits="userSpaceOnUse" patternTransform="rotate(18)">
           <path d="M0 16 Q8 2 16 16 Q24 30 32 16" fill="none" stroke="#7DA5C8" strokeWidth="0.35" opacity="0.14" />
           <path d="M0 26 Q8 12 16 26 Q24 40 32 26" fill="none" stroke="#7DA5C8" strokeWidth="0.25" opacity="0.09" />
         </pattern>
+
         <radialGradient id="gLeft" cx="25%" cy="45%" r="55%">
           <stop offset="0%" stopColor="#C8A96E" stopOpacity="0.09" />
           <stop offset="100%" stopColor="#C8A96E" stopOpacity="0" />
         </radialGradient>
+
         <radialGradient id="gRight" cx="78%" cy="58%" r="48%">
           <stop offset="0%" stopColor="#378ADD" stopOpacity="0.06" />
           <stop offset="100%" stopColor="#378ADD" stopOpacity="0" />
         </radialGradient>
+
         <radialGradient id="gVignette" cx="50%" cy="50%" r="70%">
           <stop offset="0%" stopColor="#0B1724" stopOpacity="0" />
           <stop offset="100%" stopColor="#0B1724" stopOpacity="0.4" />
         </radialGradient>
       </defs>
+
       <rect width="1440" height="900" fill="url(#kawung)" />
       <rect width="1440" height="900" fill="url(#truntum)" />
       <rect x="680" y="0" width="760" height="900" fill="url(#circuit)" />
@@ -70,106 +77,135 @@ function BatikBackground() {
       <rect width="1440" height="900" fill="url(#gLeft)" />
       <rect width="1440" height="900" fill="url(#gRight)" />
       <rect width="1440" height="900" fill="url(#gVignette)" />
-      {/* edge darken top/bottom */}
       <rect width="1440" height="120" fill="#0B1724" opacity="0.55" />
       <rect y="780" width="1440" height="120" fill="#0B1724" opacity="0.6" />
     </svg>
   )
 }
 
-/* ─── Diamond photo frame ─── */
+/* ─── Upgraded Photo Frame ─── */
 function DiamondFrame({ src }: { src?: string }) {
   return (
     <div className="relative flex items-center justify-center">
-      {/* Orbit rings */}
+
+      {/* Glow */}
+      <motion.div
+        className="absolute rounded-full blur-3xl"
+        style={{
+          width: 250,
+          height: 250,
+          background: "rgba(200,169,110,0.12)",
+        }}
+        animate={{
+          scale: [1, 1.08, 1],
+          opacity: [0.4, 0.7, 0.4],
+        }}
+        transition={{
+          duration: 5,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+      />
+
+      {/* Orbit Rings */}
       <motion.div
         className="absolute rounded-full"
         style={{
-          width: 290, height: 290,
-          border: "0.5px dashed rgba(200,169,110,0.15)",
+          width: 320,
+          height: 320,
+          border: "0.5px dashed rgba(200,169,110,0.18)",
         }}
         animate={{ rotate: 360 }}
         transition={{ duration: 28, repeat: Infinity, ease: "linear" }}
       />
+
       <motion.div
         className="absolute rounded-full"
         style={{
-          width: 330, height: 330,
-          border: "0.5px dashed rgba(125,165,200,0.1)",
+          width: 360,
+          height: 360,
+          border: "0.5px dashed rgba(125,165,200,0.12)",
         }}
         animate={{ rotate: -360 }}
         transition={{ duration: 36, repeat: Infinity, ease: "linear" }}
       />
 
-      {/* Outer dashed diamond */}
-      <motion.svg
+      {/* Outer Shape */}
+      <motion.div
         className="absolute"
-        width={240} height={240}
-        viewBox="0 0 240 240"
-        fill="none"
-        animate={{ opacity: [0.2, 0.1, 0.2], scale: [1, 1.06, 1] }}
-        transition={{ duration: 5.5, repeat: Infinity, ease: "easeInOut", delay: 1.2 }}
-        aria-hidden="true"
-      >
-        <polygon points="120,3 237,120 120,237 3,120" stroke="#C8A96E" strokeWidth="0.5" strokeDasharray="4,6" />
-      </motion.svg>
-
-      {/* Inner solid diamond with corner dots */}
-      <motion.svg
-        className="absolute"
-        width={220} height={220}
-        viewBox="0 0 220 220"
-        fill="none"
-        animate={{ opacity: [0.35, 0.2, 0.35], scale: [1, 1.04, 1] }}
-        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-        aria-hidden="true"
-      >
-        <polygon points="110,4 216,110 110,216 4,110" stroke="#C8A96E" strokeWidth="1" />
-        <circle cx="110" cy="4" r="3" fill="#C8A96E" opacity="0.6" />
-        <circle cx="216" cy="110" r="3" fill="#C8A96E" opacity="0.6" />
-        <circle cx="110" cy="216" r="3" fill="#C8A96E" opacity="0.6" />
-        <circle cx="4" cy="110" r="3" fill="#C8A96E" opacity="0.6" />
-      </motion.svg>
-
-      {/* Photo clipped to diamond */}
-      <div
-        className="relative z-10 flex items-center justify-center overflow-hidden"
         style={{
-          width: 190,
-          height: 190,
-          clipPath: "polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)",
+          width: 265,
+          height: 265,
+          borderRadius: "28% 72% 58% 42% / 42% 38% 62% 58%",
+          border: "1px solid rgba(200,169,110,0.35)",
+          backdropFilter: "blur(6px)",
+          background: "rgba(255,255,255,0.015)",
+        }}
+        animate={{
+          rotate: [0, 4, 0, -4, 0],
+        }}
+        transition={{
+          duration: 12,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+      />
+
+      {/* Photo */}
+      <motion.div
+        className="relative z-10 overflow-hidden"
+        style={{
+          width: 220,
+          height: 220,
+          borderRadius: "30% 70% 65% 35% / 35% 35% 65% 65%",
+          border: "1.5px solid rgba(200,169,110,0.5)",
           background: "rgba(25,40,58,0.92)",
-          border: "none",
+          boxShadow:
+            "0 0 30px rgba(200,169,110,0.12), inset 0 0 24px rgba(255,255,255,0.04)",
+        }}
+        animate={{
+          borderRadius: [
+            "30% 70% 65% 35% / 35% 35% 65% 65%",
+            "38% 62% 48% 52% / 52% 32% 68% 48%",
+            "30% 70% 65% 35% / 35% 35% 65% 65%",
+          ],
+        }}
+        transition={{
+          duration: 10,
+          repeat: Infinity,
+          ease: "easeInOut",
         }}
       >
         {src ? (
           <Image
             src={src}
             alt="Jason Vianney Sugiarto"
-            width={190}
-            height={190}
-            className="w-full h-full object-cover"
+            width={240}
+            height={240}
+            className="w-full h-full object-cover scale-[1.08]"
             priority
           />
         ) : (
-          <span
-            style={{
-              fontFamily: "'Cormorant Garamond', serif",
-              fontSize: 42,
-              fontWeight: 600,
-              color: "#C8A96E",
-              letterSpacing: "-1px",
-            }}
-          >
-            JVS
-          </span>
+          <div className="w-full h-full flex items-center justify-center">
+            <span
+              style={{
+                fontFamily: "'Cormorant Garamond', serif",
+                fontSize: 48,
+                fontWeight: 600,
+                color: "#C8A96E",
+                letterSpacing: "-1px",
+              }}
+            >
+              JVS
+            </span>
+          </div>
         )}
-      </div>
+      </motion.div>
     </div>
   )
 }
 
-/* ─── Skill node around the frame ─── */
+/* ─── Skill node ─── */
 type SkillNodeProps = {
   icon: React.ReactNode
   label: string
@@ -192,24 +228,27 @@ function SkillNode({ icon, label, color, bg, border, style, delay, floatDir }: S
       <div
         className="flex items-center justify-center"
         style={{
-          width: 40, height: 40,
-          borderRadius: 4,
+          width: 44,
+          height: 44,
+          borderRadius: 8,
           background: bg,
           border: `0.5px solid ${border}`,
           color,
-          fontSize: 17,
+          fontSize: 18,
+          backdropFilter: "blur(8px)",
         }}
       >
         {icon}
       </div>
+
       <span
         style={{
-          fontSize: 9.5,
+          fontSize: 10.5,
           fontWeight: 500,
           letterSpacing: "0.07em",
           textTransform: "uppercase",
           color,
-          opacity: 0.75,
+          opacity: 0.78,
           whiteSpace: "nowrap",
           fontFamily: "DM Sans, sans-serif",
         }}
@@ -220,7 +259,7 @@ function SkillNode({ icon, label, color, bg, border, style, delay, floatDir }: S
   )
 }
 
-/* ─── Main component ─── */
+/* ─── Main ─── */
 export default function HomeSection() {
   const projectsRef = useRef<HTMLElement | null>(null)
 
@@ -231,6 +270,7 @@ export default function HomeSection() {
   const handleDownloadPDF = () => {
     const fileId = "10Nllp8ydFAMENKFA0089aGdT5hCijCNd95oKo_DI3NU"
     const pdfUrl = `https://docs.google.com/document/d/${fileId}/export?format=pdf`
+
     const link = document.createElement("a")
     link.href = pdfUrl
     link.download = "Jason_Vianney_Sugiarto_Resume.pdf"
@@ -241,6 +281,7 @@ export default function HomeSection() {
 
   const handleViewProjects = () => {
     const el = document.querySelector("#projects") as HTMLElement | null
+
     if (el) {
       el.scrollIntoView({ behavior: "smooth" })
     } else {
@@ -248,7 +289,6 @@ export default function HomeSection() {
     }
   }
 
-  /* Stagger variants */
   const fadeSlideLeft = (delay: number) => ({
     initial: { opacity: 0, x: -28 },
     animate: { opacity: 1, x: 0 },
@@ -264,13 +304,11 @@ export default function HomeSection() {
   return (
     <section
       id="home"
-      className="relative min-h-screen flex flex-col justify-center pt-16 md:pt-20 pb-8 overflow-hidden"
+      className="relative min-h-screen flex flex-col justify-center pt-20 md:pt-24 pb-10 overflow-hidden"
       style={{ background: "#0B1724" }}
     >
-      {/* Batik background */}
       <BatikBackground />
 
-      {/* Dark overlay for text legibility */}
       <div
         className="absolute inset-0 z-[1]"
         style={{
@@ -279,10 +317,10 @@ export default function HomeSection() {
         }}
       />
 
-      <div className="container mx-auto px-6 max-w-7xl relative z-10">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
+      <div className="container mx-auto px-6 lg:px-8 max-w-7xl relative z-10">
+        <div className="grid lg:grid-cols-2 gap-16 lg:gap-10 items-center">
 
-          {/* ── LEFT CONTENT ── */}
+          {/* LEFT */}
           <div className="flex flex-col">
 
             {/* Eyebrow */}
@@ -290,13 +328,14 @@ export default function HomeSection() {
               className="flex items-center gap-3 mb-5"
               {...fadeSlideLeft(0.3)}
             >
-              <span style={{ display: "block", width: 28, height: 1, background: "#C8A96E", opacity: 0.7 }} />
+              <span style={{ display: "block", width: 30, height: 1, background: "#C8A96E", opacity: 0.7 }} />
+
               <span
                 style={{
                   fontFamily: "DM Sans, sans-serif",
-                  fontSize: 10.5,
+                  fontSize: "clamp(11px, 1vw, 12px)",
                   fontWeight: 500,
-                  letterSpacing: "0.2em",
+                  letterSpacing: "0.22em",
                   textTransform: "uppercase",
                   color: "#C8A96E",
                   opacity: 0.9,
@@ -304,17 +343,18 @@ export default function HomeSection() {
               >
                 IT Professional
               </span>
-              <span style={{ display: "block", width: 28, height: 1, background: "#C8A96E", opacity: 0.7 }} />
+
+              <span style={{ display: "block", width: 30, height: 1, background: "#C8A96E", opacity: 0.7 }} />
             </motion.div>
 
             {/* Greeting */}
             <motion.p
               style={{
                 fontFamily: "DM Sans, sans-serif",
-                fontSize: 13,
+                fontSize: "clamp(14px, 1.4vw, 16px)",
                 fontWeight: 300,
-                color: "rgba(220,210,190,0.6)",
-                marginBottom: 4,
+                color: "rgba(220,210,190,0.68)",
+                marginBottom: 6,
               }}
               {...fadeSlideLeft(0.4)}
             >
@@ -325,11 +365,11 @@ export default function HomeSection() {
             <motion.h1
               style={{
                 fontFamily: "'Cormorant Garamond', serif",
-                fontSize: "clamp(32px, 5vw, 44px)",
+                fontSize: "clamp(42px, 7vw, 64px)",
                 fontWeight: 600,
-                lineHeight: 1.12,
+                lineHeight: 1.05,
                 color: "#F4EDD8",
-                marginBottom: 6,
+                marginBottom: 10,
               }}
               {...fadeSlideLeft(0.45)}
             >
@@ -338,16 +378,25 @@ export default function HomeSection() {
               <span style={{ color: "#C8A96E" }}>Sugiarto</span>
             </motion.h1>
 
-            {/* Gold accent bar */}
+            {/* Accent */}
             <motion.div
-              style={{ height: 2, background: "#C8A96E", borderRadius: 1, opacity: 0.55, marginBottom: 18 }}
+              style={{
+                height: 2,
+                background: "#C8A96E",
+                borderRadius: 1,
+                opacity: 0.55,
+                marginBottom: 24,
+              }}
               initial={{ width: 0 }}
-              animate={{ width: 48 }}
+              animate={{ width: 60 }}
               transition={{ duration: 0.5, ease: "easeOut", delay: 0.85 }}
             />
 
-            {/* Role tags */}
-            <motion.div className="flex flex-wrap gap-2 mb-5" {...fadeSlideLeft(0.55)}>
+            {/* Tags */}
+            <motion.div
+              className="flex flex-wrap gap-3 mb-6"
+              {...fadeSlideLeft(0.55)}
+            >
               {[
                 { label: "Fullstack Dev", bg: "rgba(55,138,221,0.1)", color: "#85B7EB", border: "rgba(133,183,235,0.3)" },
                 { label: "System Analysis", bg: "rgba(29,158,117,0.1)", color: "#5DCAA5", border: "rgba(93,202,165,0.3)" },
@@ -357,9 +406,9 @@ export default function HomeSection() {
                 <span
                   key={label}
                   style={{
-                    padding: "4px 12px",
-                    borderRadius: 3,
-                    fontSize: 11,
+                    padding: "6px 14px",
+                    borderRadius: 6,
+                    fontSize: "clamp(10px, 1vw, 12px)",
                     fontWeight: 500,
                     letterSpacing: "0.05em",
                     textTransform: "uppercase",
@@ -367,6 +416,7 @@ export default function HomeSection() {
                     background: bg,
                     color,
                     border: `0.5px solid ${border}`,
+                    backdropFilter: "blur(8px)",
                   }}
                 >
                   {label}
@@ -378,26 +428,30 @@ export default function HomeSection() {
             <motion.p
               style={{
                 fontFamily: "DM Sans, sans-serif",
-                fontSize: 13.5,
+                fontSize: "clamp(15px, 1.6vw, 18px)",
                 fontWeight: 300,
-                lineHeight: 1.85,
-                color: "rgba(210,200,182,0.88)",
-                marginBottom: 28,
+                lineHeight: 1.9,
+                color: "rgba(210,200,182,0.9)",
+                marginBottom: 32,
                 textAlign: "justify",
                 textShadow: "0 1px 4px rgba(0,0,0,0.55)",
-                maxWidth: 480,
+                maxWidth: 580,
               }}
               {...fadeSlideLeft(0.65)}
             >
-              IT Professional focused on creating innovative digital solutions — transforming complex
-              challenges into elegant, efficient, and user‑friendly experiences through fullstack
-              development, system analysis, and data‑driven insights.
+              IT Professional focused on creating innovative digital solutions —
+              transforming complex challenges into elegant, efficient, and
+              user-friendly experiences through fullstack development,
+              system analysis, and data-driven insights.
             </motion.p>
 
             {/* Buttons */}
-            <motion.div className="flex items-center gap-3" {...fadeSlideLeft(0.75)}>
+            <motion.div
+              className="flex flex-wrap items-center gap-4"
+              {...fadeSlideLeft(0.75)}
+            >
 
-              {/* Download Resume */}
+              {/* Download */}
               <motion.button
                 onClick={handleDownloadPDF}
                 style={{
@@ -405,55 +459,87 @@ export default function HomeSection() {
                   overflow: "hidden",
                   display: "inline-flex",
                   alignItems: "center",
-                  gap: 8,
-                  padding: "11px 26px",
+                  gap: 10,
+                  padding: "13px 28px",
                   background: "#C8A96E",
                   color: "#0B1724",
                   fontFamily: "DM Sans, sans-serif",
-                  fontSize: 12.5,
-                  fontWeight: 500,
+                  fontSize: "clamp(12px, 1vw, 13px)",
+                  fontWeight: 600,
                   letterSpacing: "0.06em",
                   textTransform: "uppercase",
-                  borderRadius: 3,
+                  borderRadius: 8,
                   border: "none",
                   cursor: "pointer",
+                  boxShadow: "0 10px 24px rgba(200,169,110,0.18)",
                 }}
-                whileHover={{ y: -2, backgroundColor: "#D9BB7A" }}
+                whileHover={{ y: -3, backgroundColor: "#D9BB7A" }}
                 whileTap={{ scale: 0.97 }}
                 transition={{ type: "spring", stiffness: 400, damping: 20 }}
               >
-                <motion.span
-                  whileHover={{ y: 3 }}
-                  transition={{ type: "spring", stiffness: 300 }}
-                  style={{ display: "flex", alignItems: "center" }}
+                {/* Download animation */}
+                <motion.div
+                  animate={{ y: [0, 3, 0] }}
+                  transition={{
+                    duration: 1,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
                 >
-                  <Download size={14} />
-                </motion.span>
+                  <Download size={16} />
+                </motion.div>
+
                 Download Resume
+
+                {/* Shine */}
+                <motion.div
+                  style={{
+                    position: "absolute",
+                    top: 0,
+                    left: "-40%",
+                    width: "30%",
+                    height: "100%",
+                    background:
+                      "linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent)",
+                    transform: "skewX(-20deg)",
+                  }}
+                  animate={{ left: ["-40%", "140%"] }}
+                  transition={{
+                    duration: 2.8,
+                    repeat: Infinity,
+                    ease: "linear",
+                  }}
+                />
               </motion.button>
 
-              {/* View Projects */}
+              {/* Projects */}
               <motion.button
                 onClick={handleViewProjects}
                 style={{
                   position: "relative",
                   display: "inline-flex",
                   alignItems: "center",
-                  gap: 7,
-                  padding: "10px 22px",
+                  gap: 8,
+                  padding: "12px 24px",
                   background: "transparent",
-                  color: "rgba(181,212,244,0.85)",
+                  color: "rgba(181,212,244,0.9)",
                   fontFamily: "DM Sans, sans-serif",
-                  fontSize: 12.5,
-                  fontWeight: 400,
+                  fontSize: "clamp(12px, 1vw, 13px)",
+                  fontWeight: 500,
                   letterSpacing: "0.06em",
                   textTransform: "uppercase",
-                  borderRadius: 3,
+                  borderRadius: 8,
                   border: "0.5px solid rgba(133,183,235,0.35)",
                   cursor: "pointer",
+                  backdropFilter: "blur(8px)",
                 }}
                 whileHover={{
-                  y: -2,
+                  y: -3,
                   color: "#B5D4F4",
                   borderColor: "rgba(181,212,244,0.55)",
                   backgroundColor: "rgba(133,183,235,0.07)",
@@ -462,78 +548,90 @@ export default function HomeSection() {
                 transition={{ type: "spring", stiffness: 400, damping: 20 }}
               >
                 View Projects
+
                 <motion.span
                   animate={{ x: [0, 5, 0] }}
                   transition={{ duration: 1.2, repeat: Infinity, ease: "easeInOut" }}
                   style={{ display: "flex", alignItems: "center" }}
                 >
-                  <ArrowRight size={14} />
+                  <ArrowRight size={15} />
                 </motion.span>
               </motion.button>
             </motion.div>
           </div>
 
-          {/* ── RIGHT CONTENT ── */}
+          {/* RIGHT */}
           <motion.div
-            className="flex justify-center lg:justify-end relative"
-            style={{ height: 340 }}
+            className="flex justify-center lg:justify-end relative mt-6 lg:mt-0"
+            style={{ height: 400 }}
             {...fadeSlideRight}
           >
-            <div className="relative flex items-center justify-center" style={{ width: 340, height: 340 }}>
+            <div
+              className="relative flex items-center justify-center"
+              style={{ width: 390, height: 390 }}
+            >
 
               <DiamondFrame src="/assets/profile/photo.jpeg" />
 
-              {/* Skill nodes */}
               <SkillNode
-                icon={<Code size={16} />}
+                icon={<Code size={17} />}
                 label="Fullstack"
                 color="#85B7EB"
                 bg="rgba(55,138,221,0.15)"
                 border="rgba(133,183,235,0.35)"
-                style={{ top: 32, left: 10 }}
+                style={{ top: 34, left: 12 }}
                 delay={0}
                 floatDir="up"
               />
+
               <SkillNode
-                icon={<Network size={16} />}
+                icon={<Network size={17} />}
                 label="Systems"
                 color="#AFA9EC"
                 bg="rgba(127,119,221,0.15)"
                 border="rgba(175,169,236,0.35)"
-                style={{ top: 18, right: 8 }}
+                style={{ top: 18, right: 10 }}
                 delay={0.5}
                 floatDir="down"
               />
+
               <SkillNode
-                icon={<PenTool size={16} />}
+                icon={<PenTool size={17} />}
                 label="UI / UX"
                 color="#5DCAA5"
                 bg="rgba(29,158,117,0.15)"
                 border="rgba(93,202,165,0.35)"
-                style={{ bottom: 40, right: 4 }}
+                style={{ bottom: 46, right: 4 }}
                 delay={1}
                 floatDir="up"
               />
+
               <SkillNode
-                icon={<Database size={16} />}
+                icon={<Database size={17} />}
                 label="Data"
                 color="#FAC775"
                 bg="rgba(200,169,110,0.15)"
                 border="rgba(250,199,117,0.35)"
-                style={{ bottom: 22, left: 16 }}
+                style={{ bottom: 28, left: 18 }}
                 delay={1.5}
                 floatDir="down"
               />
             </div>
           </motion.div>
-
         </div>
       </div>
 
-      {/* Scroll indicator */}
+      {/* Scroll */}
       <motion.div
         className="absolute bottom-6 left-1/2"
-        style={{ transform: "translateX(-50%)", display: "flex", flexDirection: "column", alignItems: "center", gap: 5, opacity: 0.3 }}
+        style={{
+          transform: "translateX(-50%)",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          gap: 5,
+          opacity: 0.32,
+        }}
         animate={{ y: [0, 7, 0] }}
         transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }}
       >
