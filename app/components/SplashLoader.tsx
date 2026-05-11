@@ -39,42 +39,33 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
   const nameRef = useRef<HTMLDivElement>(null)
   const skillsRef = useRef<HTMLDivElement>(null)
 
-  const starsRef = useRef<HTMLCanvasElement>(null)
-
-  const hyperRef = useRef<HTMLDivElement>(null)
-  const hyperCanvasRef = useRef<HTMLCanvasElement>(null)
-
-  const rafRef = useRef<number>(0)
-  const starsRafRef = useRef<number>(0)
-  const hyperRafRef = useRef<number>(0)
-  const arcRafRef = useRef<number>(0)
-
-  const msgCrossRef = useRef<{ msg: string }>({ msg: "" })
-
   const batteryCellsRef = useRef<(HTMLDivElement | null)[]>([])
   const atomRefs = useRef<(HTMLDivElement | null)[]>([])
 
-  function easeOut(t: number) {
-    return 1 - Math.pow(1 - t, 3)
-  }
+  const rafRef = useRef<number>(0)
+  const arcRafRef = useRef<number>(0)
+
+  const msgState = useRef("")
+
+  const easeOut = (t: number) => 1 - Math.pow(1 - t, 3)
 
   /* =========================
-     TEXT CROSSFADE (PHASE 1)
+     SMOOTH STATUS CROSSFADE
   ========================== */
   function setStatus(msg: string) {
     const el = msgRef.current
-    if (!el || msgCrossRef.current.msg === msg) return
+    if (!el || msgState.current === msg) return
 
-    msgCrossRef.current.msg = msg
+    msgState.current = msg
 
     el.style.opacity = "0"
-    el.style.transform = "translateY(-4px)"
+    el.style.transform = "translateY(-6px)"
 
     setTimeout(() => {
       el.textContent = msg
       el.style.opacity = "1"
-      el.style.transform = "translateY(0px)"
-    }, 180)
+      el.style.transform = "translateY(0)"
+    }, 160)
   }
 
   /* =========================
@@ -92,19 +83,17 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
     const cx = w / 2
     const cy = h / 2
 
-    const pulse = (Math.sin(ts / 420) + 1) / 2
-    const hue = (ts / 12) % 360
-
     ctx.clearRect(0, 0, w, h)
+
+    const hue = (ts / 10) % 360
 
     const start = -Math.PI / 2
     const end = start + Math.PI * 2 * progress
 
     const grad = ctx.createLinearGradient(0, 0, w, h)
-
     grad.addColorStop(0, `hsl(${280 + hue},100%,70%)`)
-    grad.addColorStop(0.4, `hsl(${190 + hue},100%,65%)`)
-    grad.addColorStop(1, `hsl(${50 + hue},100%,65%)`)
+    grad.addColorStop(0.5, `hsl(${180 + hue},100%,65%)`)
+    grad.addColorStop(1, `hsl(${60 + hue},100%,65%)`)
 
     ctx.beginPath()
     ctx.arc(cx, cy, 110, start, end)
@@ -112,23 +101,20 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
     ctx.strokeStyle = grad
     ctx.lineWidth = 10
     ctx.lineCap = "round"
-
-    ctx.shadowColor = `hsl(${190 + hue},100%,75%)`
-    ctx.shadowBlur = 30 + pulse * 16
+    ctx.shadowBlur = 30
+    ctx.shadowColor = "#00d4ff"
 
     ctx.stroke()
   }
 
-  function startArcAnimation() {
+  function startArc() {
     let start: number | null = null
 
-    function animate(ts: number) {
+    const animate = (ts: number) => {
       if (!start) start = ts
 
-      const raw = Math.min((ts - start) / PH2_DUR, 1)
-      const progress = easeOut(raw)
-
-      drawArc(progress, ts)
+      const p = easeOut(Math.min((ts - start) / PH2_DUR, 1))
+      drawArc(p, ts)
 
       arcRafRef.current = requestAnimationFrame(animate)
     }
@@ -136,27 +122,20 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
     arcRafRef.current = requestAnimationFrame(animate)
   }
 
-  function activateAtom(index: number) {
-    const atom = atomRefs.current[index]
-    if (atom) atom.classList.add("active")
-  }
-
   /* =========================
-     PHASE 3 NEW TRANSITION
-     (PIXEL + RADIAL DISSOLVE)
+     PIXEL DISSOLVE TRANSITION
   ========================== */
-  function runDissolve(onDone: () => void) {
+  function dissolve(onDone: () => void) {
     const el = containerRef.current
     if (!el) return onDone()
 
     const canvas = document.createElement("canvas")
     const ctx = canvas.getContext("2d")!
 
-    canvas.width = window.innerWidth
-    canvas.height = window.innerHeight
-    canvas.style.position = "absolute"
-    canvas.style.inset = "0"
-    canvas.style.zIndex = "50"
+    canvas.width = innerWidth
+    canvas.height = innerHeight
+    canvas.className = "dissolveCanvas"
+
     el.appendChild(canvas)
 
     const cols = 60
@@ -167,15 +146,12 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
 
     let t0: number | null = null
 
-    function frame(ts: number) {
+    const frame = (ts: number) => {
       if (!t0) t0 = ts
 
       const p = Math.min((ts - t0) / 1400, 1)
 
       ctx.clearRect(0, 0, canvas.width, canvas.height)
-
-      ctx.fillStyle = `rgba(2,8,23,${p})`
-      ctx.fillRect(0, 0, canvas.width, canvas.height)
 
       for (let y = 0; y < rows; y++) {
         for (let x = 0; x < cols; x++) {
@@ -183,22 +159,18 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
           const dy = y * ch
 
           const dist = Math.hypot(x - cols / 2, y - rows / 2)
-          const offset = dist * 0.02 + p * 8
-
-          const alpha = Math.max(1 - p - offset * 0.1, 0)
+          const alpha = Math.max(1 - p - dist * 0.02, 0)
 
           ctx.fillStyle = `rgba(255,255,255,${alpha})`
           ctx.fillRect(dx, dy, cw, ch)
         }
       }
 
-      const blur = p * 12
-      el.style.filter = `blur(${blur}px)`
+      el.style.filter = `blur(${p * 12}px)`
 
-      if (p < 1) {
-        requestAnimationFrame(frame)
-      } else {
-        el.removeChild(canvas)
+      if (p < 1) requestAnimationFrame(frame)
+      else {
+        canvas.remove()
         onDone()
       }
     }
@@ -207,131 +179,64 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
   }
 
   /* =========================
-     INIT STARS
-  ========================== */
-  function initStars() {
-    const cv = starsRef.current
-    if (!cv) return
-
-    cv.width = window.innerWidth
-    cv.height = window.innerHeight
-
-    const ctx = cv.getContext("2d")!
-
-    const stars = Array.from({ length: 90 }, () => ({
-      x: Math.random() * cv.width,
-      y: Math.random() * cv.height,
-      r: Math.random() * 2,
-    }))
-
-    function loop() {
-      ctx.clearRect(0, 0, cv.width, cv.height)
-      stars.forEach((s) => {
-        ctx.beginPath()
-        ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2)
-        ctx.fillStyle = "rgba(255,255,255,.8)"
-        ctx.fill()
-      })
-      starsRafRef.current = requestAnimationFrame(loop)
-    }
-
-    loop()
-  }
-
-  /* =========================
-     EFFECTS
+     INIT
   ========================== */
   useEffect(() => {
     let t0: number | null = null
 
-    function phase1(ts: number) {
+    const phase1 = (ts: number) => {
       if (!t0) t0 = ts
 
-      const raw = Math.min((ts - t0) / PH1_DUR, 1)
-      const p = easeOut(raw)
+      const p = easeOut(Math.min((ts - t0) / PH1_DUR, 1))
 
       pctRef.current!.textContent = `${Math.floor(p * 100)}%`
 
-      const active = Math.floor(p * 10)
       batteryCellsRef.current.forEach((c, i) => {
-        if (i < active) c?.classList.add("active")
+        if (i < Math.floor(p * 10)) c?.classList.add("active")
       })
 
-      const idx = Math.min(
-        Math.floor(p * STATUS_MSGS.length),
-        STATUS_MSGS.length - 1
-      )
+      setStatus(STATUS_MSGS[Math.min(1, Math.floor(p * 2))])
 
-      setStatus(STATUS_MSGS[idx])
+      if (p < 1) return (rafRef.current = requestAnimationFrame(phase1))
 
-      if (raw < 1) {
-        rafRef.current = requestAnimationFrame(phase1)
-        return
-      }
-
-      ph1Ref.current?.classList.add("sl-out")
+      ph1Ref.current?.classList.add("out")
 
       setTimeout(() => {
-        ph2Ref.current?.classList.add("sl-in")
-        startArcAnimation()
-
-        setTimeout(() => activateAtom(0), 300)
-        setTimeout(() => activateAtom(1), 1000)
-        setTimeout(() => activateAtom(2), 1700)
+        ph2Ref.current?.classList.add("in")
+        startArc()
 
         let t1: number | null = null
 
-        function phase2(ts2: number) {
+        const phase2 = (ts2: number) => {
           if (!t1) t1 = ts2
 
-          const r2 = Math.min((ts2 - t1) / PH2_DUR, 1)
+          const p2 = Math.min((ts2 - t1) / PH2_DUR, 1)
 
-          if (r2 < 1) {
-            rafRef.current = requestAnimationFrame(phase2)
-            return
-          }
+          if (p2 < 1) return requestAnimationFrame(phase2)
 
           cancelAnimationFrame(arcRafRef.current)
 
           setTimeout(() => {
-            ph2Ref.current?.classList.add("sl-out")
+            ph2Ref.current?.classList.add("out")
 
-            runDissolve(() => {
-              initStars()
-              ph3Ref.current?.classList.add("sl-in")
+            dissolve(() => {
+              ph3Ref.current?.classList.add("in")
 
-              const welcome = document.querySelector(".sl-welcome-line") as HTMLDivElement
-              const expert = document.querySelector(".sl-expertise-label") as HTMLDivElement
+              let i = 0
+              const type = setInterval(() => {
+                if (!nameRef.current) return
 
-              welcome?.classList.add("show")
+                nameRef.current.textContent = FULL_NAME.slice(0, i++)
+                if (i > FULL_NAME.length) {
+                  clearInterval(type)
 
-              setTimeout(() => {
-                typeWriterName()
-              }, 500)
-
-              function typeWriterName() {
-                let i = 0
-                const speed = 60
-
-                const interval = setInterval(() => {
-                  if (!nameRef.current) return
-
-                  nameRef.current.textContent = FULL_NAME.slice(0, i++)
-                  if (i > FULL_NAME.length) {
-                    clearInterval(interval)
-                    expert?.classList.add("show")
-
-                    buildSkills()
-
-                    setTimeout(() => {
-                      containerRef.current?.classList.add("sl-content-dust-out")
-                      setTimeout(() => onLoadingComplete(), 1200)
-                    }, 2000)
-                  }
-                }, speed)
-              }
+                  setTimeout(() => {
+                    onLoadingComplete()
+                  }, 1500)
+                }
+              }, 50)
             })
-          }, 600)
+          }, 500)
         }
 
         requestAnimationFrame(phase2)
@@ -340,83 +245,149 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
 
     requestAnimationFrame(phase1)
 
-    return () => {
-      cancelAnimationFrame(rafRef.current)
-      cancelAnimationFrame(starsRafRef.current)
-      cancelAnimationFrame(hyperRafRef.current)
-      cancelAnimationFrame(arcRafRef.current)
-    }
-  }, [onLoadingComplete])
+    return () => cancelAnimationFrame(rafRef.current)
+  }, [])
 
   /* =========================
      UI
   ========================== */
   return (
     <>
-      <style>{`
-        .sl-loading-text{
-          transition:.25s ease;
-        }
+      <style>{css}</style>
 
-        .sl-ph1{
-          position:absolute;
-        }
+      <div ref={containerRef} className="root">
 
-        .sl-ph1.sl-out{
-          opacity:0;
-          transform:translateY(-20px);
-        }
-      `}</style>
+        {/* PHASE 1 */}
+        <div ref={ph1Ref} className="ph1">
+          <div className="battery">
+            <div className="top">ARC ENERGY SYSTEM</div>
 
-      <div ref={containerRef} className="sl-root">
-
-        {/* PHASE 1 (HUD ENHANCED VIA CSS ONLY) */}
-        <div ref={ph1Ref} className="sl-ph1">
-          <div className="sl-battery-shell">
-
-            <div className="sl-battery-topline">
-              <div className="sl-battery-title">ARC ENERGY SYSTEM</div>
-              <div className="sl-battery-mini"><span /><span /><span /></div>
-            </div>
-
-            <div className="sl-battery-cells">
+            <div className="cells">
               {Array.from({ length: 10 }).map((_, i) => (
-                <div
-                  key={i}
-                  ref={(el) => (batteryCellsRef.current[i] = el)}
-                  className="sl-battery-cell"
-                />
+                <div key={i} ref={el => batteryCellsRef.current[i] = el} />
               ))}
             </div>
 
-            <div className="sl-battery-bottom">
-              <div ref={pctRef} className="sl-charge-pct">0%</div>
-              <div ref={msgRef} className="sl-loading-text">Initializing...</div>
+            <div className="bottom">
+              <div ref={pctRef} className="pct">0%</div>
+              <div ref={msgRef} className="msg">Initializing...</div>
             </div>
-
           </div>
         </div>
 
-        {/* PHASE 2 (UNCHANGED) */}
-        <div ref={ph2Ref} className="sl-ph2">
-          <div className="sl-arc-wrap">
-            <div className="sl-ring sl-ring-1" />
-            <div className="sl-ring sl-ring-2" />
-
-            <canvas ref={canvasRef} className="sl-arc-canvas" width={300} height={300} />
-          </div>
+        {/* PHASE 2 */}
+        <div ref={ph2Ref} className="ph2">
+          <canvas ref={canvasRef} width={300} height={300} />
         </div>
 
         {/* PHASE 3 */}
-        <div ref={ph3Ref} className="sl-ph3">
-          <div className="sl-welcome-line">◈ Welcome To My Portfolio ◈</div>
-          <div ref={nameRef} className="sl-name" />
-          <div className="sl-divline" />
-          <div className="sl-expertise-label">My Expertise</div>
-          <div ref={skillsRef} className="sl-skills-grid" />
+        <div ref={ph3Ref} className="ph3">
+          <div className="name" ref={nameRef} />
         </div>
 
       </div>
     </>
   )
 }
+
+/* =========================
+   CSS (FULL)
+========================= */
+const css = `
+.root{
+  position:fixed;
+  inset:0;
+  background:#020817;
+  overflow:hidden;
+  font-family:system-ui;
+}
+
+/* PHASE STATES */
+.ph1,.ph2,.ph3{
+  position:absolute;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  transition:1s ease;
+}
+
+.ph1.out{ opacity:0; transform:translateY(-20px); }
+.ph2{ opacity:0; }
+.ph2.in{ opacity:1; }
+.ph2.out{ opacity:0; }
+.ph3{ opacity:0; }
+.ph3.in{ opacity:1; }
+
+/* PHASE 1 HUD */
+.battery{
+  width:700px;
+  padding:24px;
+  border:1px solid #00d4ff44;
+  border-radius:20px;
+  background:rgba(10,20,35,.9);
+  backdrop-filter:blur(20px);
+}
+
+.top{
+  font-size:12px;
+  letter-spacing:4px;
+  color:#fff;
+  margin-bottom:18px;
+}
+
+.cells{
+  display:flex;
+  gap:8px;
+}
+
+.cells div{
+  width:40px;
+  height:70px;
+  border:1px solid #fff2;
+  position:relative;
+  overflow:hidden;
+}
+
+.cells div.active::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(red,orange,yellow,green);
+}
+
+/* TEXT */
+.bottom{
+  display:flex;
+  justify-content:space-between;
+  margin-top:18px;
+}
+
+.pct{
+  font-size:28px;
+  color:#fff;
+}
+
+.msg{
+  color:#9adfff;
+  transition:.2s ease;
+}
+
+/* PHASE 2 */
+canvas{
+  filter:drop-shadow(0 0 20px #00d4ff);
+}
+
+/* PHASE 3 */
+.name{
+  font-size:64px;
+  color:white;
+}
+
+/* DISSOLVE */
+.dissolveCanvas{
+  position:absolute;
+  inset:0;
+  z-index:999;
+}
+`
