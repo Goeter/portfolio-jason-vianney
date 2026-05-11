@@ -3,7 +3,7 @@
 import Image from "next/image"
 import { useEffect, useRef } from "react"
 import { motion } from "framer-motion"
-import { Download, ArrowRight, Code, Network, PenTool, Database } from "lucide-react"
+import { Download, ArrowRight } from "lucide-react"
 
 /* ─── Batik + Tech SVG background ─── */
 function BatikBackground() {
@@ -32,12 +32,12 @@ function BatikBackground() {
         </pattern>
 
         <radialGradient id="gLeft" cx="25%" cy="45%" r="55%">
-          <stop offset="0%" stopColor="#C8A96E" stopOpacity="0.09" />
+          <stop offset="0%" stopColor="#C8A96E" stopOpacity="0.11" />
           <stop offset="100%" stopColor="#C8A96E" stopOpacity="0" />
         </radialGradient>
 
         <radialGradient id="gRight" cx="78%" cy="58%" r="48%">
-          <stop offset="0%" stopColor="#378ADD" stopOpacity="0.06" />
+          <stop offset="0%" stopColor="#378ADD" stopOpacity="0.08" />
           <stop offset="100%" stopColor="#378ADD" stopOpacity="0" />
         </radialGradient>
       </defs>
@@ -50,42 +50,34 @@ function BatikBackground() {
   )
 }
 
-/* ─── Rounded Photo Frame ─── */
-function PhotoFrame({ src }: { src?: string }) {
+/* ─── Animated Floating Lights ─── */
+function FloatingLights() {
   return (
-    <div className="relative flex items-center justify-center w-full h-full">
-
-      {/* Glow */}
+    <>
       <motion.div
-        className="absolute rounded-full blur-3xl"
+        className="absolute top-[10%] left-[8%] w-32 h-32 rounded-full blur-3xl"
         style={{
-          width: "72%",
-          height: "72%",
-          background: "rgba(200,169,110,0.14)",
+          background: "rgba(200,169,110,0.10)",
         }}
         animate={{
-          scale: [1, 1.06, 1],
-          opacity: [0.45, 0.7, 0.45],
+          y: [0, -20, 0],
+          x: [0, 15, 0],
         }}
         transition={{
-          duration: 5,
+          duration: 8,
           repeat: Infinity,
           ease: "easeInOut",
         }}
       />
 
-      {/* Outer Rounded Square */}
       <motion.div
-        className="absolute rounded-[42px]"
+        className="absolute bottom-[12%] right-[8%] w-44 h-44 rounded-full blur-3xl"
         style={{
-          width: "100%",
-          height: "100%",
-          border: "1px solid rgba(200,169,110,0.22)",
-          background: "rgba(255,255,255,0.015)",
-          backdropFilter: "blur(8px)",
+          background: "rgba(55,138,221,0.10)",
         }}
         animate={{
-          rotate: [0, 1.2, 0, -1.2, 0],
+          y: [0, 20, 0],
+          x: [0, -15, 0],
         }}
         transition={{
           duration: 10,
@@ -93,128 +85,112 @@ function PhotoFrame({ src }: { src?: string }) {
           ease: "easeInOut",
         }}
       />
+    </>
+  )
+}
 
-      {/* Inner Rounded Frame */}
-      <div
-        className="absolute rounded-[34px]"
+/* ─── Premium Photo Frame ─── */
+function PhotoFrame({ src }: { src?: string }) {
+  return (
+    <motion.div
+      className="relative flex items-center justify-center"
+      animate={{
+        y: [0, -8, 0],
+      }}
+      transition={{
+        duration: 5,
+        repeat: Infinity,
+        ease: "easeInOut",
+      }}
+    >
+      {/* Soft Glow */}
+      <motion.div
+        className="absolute rounded-[42px] blur-3xl"
         style={{
-          width: "90%",
-          height: "90%",
-          border: "1px solid rgba(200,169,110,0.18)",
+          width: "88%",
+          height: "88%",
+          background: "rgba(200,169,110,0.18)",
+        }}
+        animate={{
+          opacity: [0.45, 0.8, 0.45],
+          scale: [1, 1.04, 1],
+        }}
+        transition={{
+          duration: 4,
+          repeat: Infinity,
+          ease: "easeInOut",
         }}
       />
 
-      {/* Photo */}
+      {/* Gold Border */}
       <motion.div
-        className="relative z-10 overflow-hidden rounded-[28px]"
+        className="relative overflow-hidden rounded-[38px]"
         style={{
-          width: "82%",
-          height: "82%",
-          border: "1.5px solid rgba(200,169,110,0.45)",
-          background: "rgba(25,40,58,0.92)",
+          width: "100%",
+          height: "100%",
+          padding: "3px",
+          background:
+            "linear-gradient(145deg, rgba(255,220,150,0.9), rgba(200,169,110,0.25))",
           boxShadow:
-            "0 0 30px rgba(200,169,110,0.14), inset 0 0 24px rgba(255,255,255,0.04)",
+            "0 0 40px rgba(200,169,110,0.18), 0 0 80px rgba(200,169,110,0.08)",
         }}
         whileHover={{
-          y: -4,
+          scale: 1.02,
         }}
         transition={{
           type: "spring",
           stiffness: 220,
         }}
       >
-        {src ? (
-          <Image
-            src={src}
-            alt="Jason Vianney Sugiarto"
-            fill
-            priority
-            sizes="(max-width: 768px) 80vw, 420px"
-            className="object-cover scale-[1.04]"
-          />
-        ) : (
-          <div className="w-full h-full flex items-center justify-center">
-            <span
-              style={{
-                fontFamily: "'Cormorant Garamond', serif",
-                fontSize: 48,
-                fontWeight: 600,
-                color: "#C8A96E",
+        {/* Photo */}
+        <div
+          className="relative w-full h-full overflow-hidden rounded-[34px]"
+          style={{
+            background: "#142434",
+          }}
+        >
+          {src && (
+            <motion.div
+              className="w-full h-full"
+              animate={{
+                scale: [1.04, 1.08, 1.04],
+              }}
+              transition={{
+                duration: 8,
+                repeat: Infinity,
+                ease: "easeInOut",
               }}
             >
-              JVS
-            </span>
-          </div>
-        )}
+              <Image
+                src={src}
+                alt="Jason Vianney Sugiarto"
+                fill
+                priority
+                sizes="(max-width: 768px) 88vw, 520px"
+                className="object-cover"
+              />
+            </motion.div>
+          )}
+
+          {/* Shine Effect */}
+          <motion.div
+            className="absolute inset-y-0 -left-[40%] w-[30%]"
+            style={{
+              background:
+                "linear-gradient(90deg, transparent, rgba(255,255,255,0.18), transparent)",
+              transform: "skewX(-18deg)",
+            }}
+            animate={{
+              left: ["-40%", "140%"],
+            }}
+            transition={{
+              duration: 4.5,
+              repeat: Infinity,
+              ease: "linear",
+            }}
+          />
+        </div>
       </motion.div>
-    </div>
-  )
-}
-
-/* ─── Skill node ─── */
-type SkillNodeProps = {
-  icon: React.ReactNode
-  label: string
-  color: string
-  bg: string
-  border: string
-  style?: React.CSSProperties
-  delay: number
-  floatDir: "up" | "down"
-}
-
-function SkillNode({
-  icon,
-  label,
-  color,
-  bg,
-  border,
-  style,
-  delay,
-  floatDir,
-}: SkillNodeProps) {
-  return (
-    <motion.div
-      className="absolute z-20 flex flex-col items-center gap-1"
-      style={style}
-      animate={{
-        y: floatDir === "up" ? [0, -10, 0] : [0, 10, 0],
-      }}
-      transition={{
-        duration: 4,
-        repeat: Infinity,
-        ease: "easeInOut",
-        delay,
-      }}
-    >
-      <div
-        className="flex items-center justify-center backdrop-blur-md"
-        style={{
-          width: 44,
-          height: 44,
-          borderRadius: 12,
-          background: bg,
-          border: `0.5px solid ${border}`,
-          color,
-        }}
-      >
-        {icon}
-      </div>
-
-      <span
-        style={{
-          fontSize: 10,
-          fontWeight: 500,
-          letterSpacing: "0.06em",
-          textTransform: "uppercase",
-          color,
-          opacity: 0.8,
-          whiteSpace: "nowrap",
-          fontFamily: "DM Sans, sans-serif",
-        }}
-      >
-        {label}
-      </span>
     </motion.div>
   )
 }
@@ -267,22 +243,21 @@ export default function HomeSection() {
       style={{ background: "#0B1724" }}
     >
       <BatikBackground />
+      <FloatingLights />
 
       {/* Overlay */}
       <div
         className="absolute inset-0 z-[1]"
         style={{
           background:
-            "linear-gradient(135deg, rgba(11,23,36,0.84) 0%, rgba(11,23,36,0.56) 50%, rgba(11,23,36,0.74) 100%)",
+            "linear-gradient(135deg, rgba(11,23,36,0.86) 0%, rgba(11,23,36,0.58) 50%, rgba(11,23,36,0.78) 100%)",
         }}
       />
 
       <div className="container mx-auto px-5 sm:px-6 lg:px-8 max-w-7xl relative z-10">
-
-        {/* Responsive Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 lg:gap-10 items-center">
 
-          {/* LEFT CONTENT */}
+          {/* LEFT */}
           <div className="flex flex-col order-2 lg:order-1">
 
             {/* Eyebrow */}
@@ -363,8 +338,12 @@ export default function HomeSection() {
                 { label: "UI / UX Design", bg: "rgba(99,153,34,0.1)", color: "#97C459", border: "rgba(151,196,89,0.3)" },
                 { label: "Data Analyst", bg: "rgba(200,169,110,0.1)", color: "#FAC775", border: "rgba(250,199,117,0.3)" },
               ].map(({ label, bg, color, border }) => (
-                <span
+                <motion.span
                   key={label}
+                  whileHover={{
+                    y: -2,
+                    scale: 1.03,
+                  }}
                   style={{
                     padding: "7px 14px",
                     borderRadius: 10,
@@ -380,7 +359,7 @@ export default function HomeSection() {
                   }}
                 >
                   {label}
-                </span>
+                </motion.span>
               ))}
             </motion.div>
 
@@ -408,38 +387,65 @@ export default function HomeSection() {
               className="flex flex-wrap gap-4"
               {...fadeSlideLeft(0.75)}
             >
-
               {/* Download */}
               <motion.button
                 onClick={handleDownloadPDF}
                 className="relative overflow-hidden inline-flex items-center justify-center gap-2"
                 style={{
-                  padding: "13px 28px",
+                  padding: "14px 30px",
                   background: "#C8A96E",
                   color: "#0B1724",
                   fontFamily: "DM Sans, sans-serif",
                   fontSize: "clamp(12px, 1vw, 13px)",
-                  fontWeight: 600,
+                  fontWeight: 700,
                   letterSpacing: "0.06em",
                   textTransform: "uppercase",
-                  borderRadius: 12,
-                  boxShadow: "0 10px 24px rgba(200,169,110,0.18)",
+                  borderRadius: 14,
+                  boxShadow:
+                    "0 10px 30px rgba(200,169,110,0.22)",
                 }}
-                whileHover={{ y: -3 }}
+                whileHover={{
+                  y: -4,
+                  scale: 1.02,
+                  boxShadow:
+                    "0 16px 38px rgba(200,169,110,0.30)",
+                }}
                 whileTap={{ scale: 0.97 }}
               >
+                {/* Glow */}
                 <motion.div
-                  animate={{ y: [0, 3, 0] }}
+                  className="absolute inset-0"
+                  style={{
+                    background:
+                      "linear-gradient(90deg, transparent, rgba(255,255,255,0.18), transparent)",
+                  }}
+                  animate={{
+                    x: ["-120%", "140%"],
+                  }}
+                  transition={{
+                    duration: 2.6,
+                    repeat: Infinity,
+                    ease: "linear",
+                  }}
+                />
+
+                <motion.div
+                  animate={{
+                    y: [0, 3, 0],
+                  }}
                   transition={{
                     duration: 1,
                     repeat: Infinity,
                     ease: "easeInOut",
                   }}
+                  className="relative z-10"
                 >
-                  <Download size={16} />
+                  <Download size={17} />
                 </motion.div>
 
-                Download Resume
+                <span className="relative z-10">
+                  Download Resume
+                </span>
               </motion.button>
 
               {/* Projects */}
@@ -447,15 +453,15 @@ export default function HomeSection() {
                 onClick={handleViewProjects}
                 className="inline-flex items-center justify-center gap-2"
                 style={{
-                  padding: "12px 24px",
-                  background: "transparent",
-                  color: "rgba(181,212,244,0.9)",
+                  padding: "13px 24px",
+                  background: "rgba(255,255,255,0.03)",
+                  color: "rgba(181,212,244,0.92)",
                   fontFamily: "DM Sans, sans-serif",
                   fontSize: "clamp(12px, 1vw, 13px)",
                   fontWeight: 500,
                   letterSpacing: "0.06em",
                   textTransform: "uppercase",
-                  borderRadius: 12,
+                  borderRadius: 14,
                   border: "0.5px solid rgba(133,183,235,0.35)",
                   backdropFilter: "blur(8px)",
                 }}
@@ -481,7 +487,7 @@ export default function HomeSection() {
             </motion.div>
           </div>
 
-          {/* RIGHT CONTENT */}
+          {/* RIGHT */}
           <motion.div
             className="flex justify-center lg:justify-end order-1 lg:order-2"
             {...fadeSlideRight}
@@ -489,57 +495,11 @@ export default function HomeSection() {
             <div
               className="relative flex items-center justify-center"
               style={{
-                width: "min(90vw, 420px)",
-                height: "min(90vw, 420px)",
+                width: "min(92vw, 520px)",
+                height: "min(92vw, 520px)",
               }}
             >
-
               <PhotoFrame src="/assets/profile/photo.jpeg" />
-
-              {/* Skill Nodes */}
-              <SkillNode
-                icon={<Code size={16} />}
-                label="Fullstack"
-                color="#85B7EB"
-                bg="rgba(55,138,221,0.15)"
-                border="rgba(133,183,235,0.35)"
-                style={{ top: "8%", left: "2%" }}
-                delay={0}
-                floatDir="up"
-              />
-
-              <SkillNode
-                icon={<Network size={16} />}
-                label="Systems"
-                color="#AFA9EC"
-                bg="rgba(127,119,221,0.15)"
-                border="rgba(175,169,236,0.35)"
-                style={{ top: "5%", right: "2%" }}
-                delay={0.5}
-                floatDir="down"
-              />
-
-              <SkillNode
-                icon={<PenTool size={16} />}
-                label="UI / UX"
-                color="#5DCAA5"
-                bg="rgba(29,158,117,0.15)"
-                border="rgba(93,202,165,0.35)"
-                style={{ bottom: "10%", right: "1%" }}
-                delay={1}
-                floatDir="up"
-              />
-
-              <SkillNode
-                icon={<Database size={16} />}
-                label="Data"
-                color="#FAC775"
-                bg="rgba(200,169,110,0.15)"
-                border="rgba(250,199,117,0.35)"
-                style={{ bottom: "7%", left: "3%" }}
-                delay={1.5}
-                floatDir="down"
-              />
             </div>
           </motion.div>
         </div>
