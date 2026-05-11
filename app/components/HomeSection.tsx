@@ -1,14 +1,13 @@
 "use client"
 
-import { useEffect, useState } from "react"
 import Image from "next/image"
 import { motion } from "framer-motion"
-import { 
-  Code, 
-  BarChart3, 
-  Palette, 
+import {
+  Code,
+  BarChart3,
+  Palette,
   Cpu
-} from 'lucide-react'
+} from "lucide-react"
 
 function Button({ children, ...props }: React.ButtonHTMLAttributes<HTMLButtonElement>) {
   return (
@@ -27,11 +26,6 @@ function Button({ children, ...props }: React.ButtonHTMLAttributes<HTMLButtonEle
 }
 
 export default function HomeSection() {
-  const [isClient, setIsClient] = useState(false)
-
-  useEffect(() => {
-    setIsClient(true)
-  }, [])
 
   const handleDownloadPDF = () => {
     const fileId = "10Nllp8ydFAMENKFA0089aGdT5hCijCNd95oKo_DI3NU"
@@ -46,9 +40,13 @@ export default function HomeSection() {
   }
 
   return (
-    <section id="home" className="min-h-screen flex flex-col justify-center pt-6 relative overflow-hidden">
+    <section
+      id="home"
+      className="min-h-screen flex flex-col justify-center pt-16 md:pt-20 pb-8 relative overflow-hidden"
+    >
       {/* Animated Background Elements */}
       <div className="absolute inset-0 overflow-hidden">
+
         {/* Particle Effects */}
         <div className="absolute inset-0">
           {[...Array(12)].map((_, i) => (
@@ -84,56 +82,52 @@ export default function HomeSection() {
 
       <div className="container mx-auto px-4 max-w-7xl relative z-10">
         <div className="grid lg:grid-cols-2 gap-10 items-center">
+
           {/* Left Content */}
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
-            className="space-y-7"
+            className="space-y-5"
           >
-            {/* <motion.div 
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.2, duration: 0.6 }}
-            > */}
-              {/* <span className="px-4 py-2 bg-gradient-to-r from-cyan-500/10 to-blue-500/10 rounded-full border border-cyan-500/20 backdrop-blur-sm text-cyan-300 text-sm font-medium">
+
+            {/* Badge */}
+            <motion.div className="flex justify-start w-full mb-2">
+              <span
+                className="
+                  inline-block
+                  w-max
+                  whitespace-nowrap
+                  px-4 py-2
+                  bg-gradient-to-r from-cyan-500/10 to-blue-500/10
+                  rounded-full border border-cyan-500/20
+                  backdrop-blur-sm
+                  text-cyan-300 text-xs md:text-sm font-medium
+                "
+              >
                 IT Professional
               </span>
-            </motion.div> */}
+            </motion.div>
 
-              <motion.div 
-                // mt-20 atau mt-24 memberikan jarak dari atas (navbar) agar tidak tertutup
-                className="flex justify-start w-full mt-8 mb-4 md:mt-0"
-              >
-                <span className="
-                  inline-block 
-                  w-max 
-                  whitespace-nowrap 
-                  px-4 py-2 
-                  bg-gradient-to-r from-cyan-500/10 to-blue-500/10 
-                  rounded-full border border-cyan-500/20 
-                  backdrop-blur-sm 
-                  text-cyan-300 text-xs md:text-sm font-medium
-                ">
-                  IT Professional
-                </span>
-              </motion.div>
-            
-            <div className="space-y-5">
-              <motion.h1 
-                className="text-white text-4xl lg:text-5xl font-bold"
+            {/* Main Content */}
+            <div className="space-y-4">
+
+              {/* Title */}
+              <motion.h1
+                className="text-white text-4xl lg:text-5xl font-bold leading-tight"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3, duration: 0.8 }}
               >
                 Hello, I'm{" "}
-                <span className="bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent block mt-1 leading-[1.15] pb-[0.1em]">
+                <span className="bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent block mt-1 leading-tight pb-1">
                   Jason Vianney Sugiarto
                 </span>
               </motion.h1>
 
-              <motion.div 
-                className="pt-2"
+              {/* Expertise */}
+              <motion.div
+                className="pt-1"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.5, duration: 0.8 }}
@@ -149,27 +143,30 @@ export default function HomeSection() {
                 </div>
               </motion.div>
 
-              <motion.p 
-                className="text-white text-lg leading-relaxed font-light pt-4"
+              {/* Description */}
+              <motion.p
+                className="text-white text-base lg:text-lg leading-relaxed font-light pt-2"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.7, duration: 0.8 }}
               >
-                IT Professional focused on creating innovative digital solutions through fullstack development, 
-                system analysis, user-centered design, and data driven insights. I transform complex challenges 
+                IT Professional focused on creating innovative digital solutions through fullstack development,
+                system analysis, user-centered design, and data driven insights. I transform complex challenges
                 into elegant, efficient, and user friendly experiences.
               </motion.p>
             </div>
 
+            {/* Button */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.9, duration: 0.6 }}
-              className="pt-2"
+              className="pt-1"
             >
               <Button onClick={handleDownloadPDF}>
                 <span className="flex items-center gap-2">
                   <span>Download Resume</span>
+
                   <motion.span
                     animate={{ y: [0, 2, 0] }}
                     transition={{ repeat: Infinity, duration: 1.5 }}
@@ -182,13 +179,14 @@ export default function HomeSection() {
           </motion.div>
 
           {/* Right Content - Profile Image */}
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1, ease: "easeOut" }}
-            className="flex justify-center lg:justify-end relative mt-10 lg:mt-0"
+            className="flex justify-center lg:justify-end relative mt-8 lg:mt-0"
           >
             <div className="relative scale-75 sm:scale-90 lg:scale-100 transition-transform duration-500">
+
               {/* Profile Image Container */}
               <div className="relative w-64 h-64 sm:w-80 sm:h-80 lg:w-88 lg:h-88 rounded-full overflow-hidden border border-cyan-400/5 shadow-xl shadow-cyan-500/3 group">
                 <Image
@@ -199,11 +197,12 @@ export default function HomeSection() {
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                   priority
                 />
+
                 <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/0 via-transparent to-blue-500/0 opacity-0 group-hover:opacity-10 transition-opacity duration-500" />
               </div>
-              
-              {/* Floating Tech Bubbles - Skala disesuaikan agar tidak menabrak pinggir */}
-              <motion.div 
+
+              {/* Floating Tech Bubbles */}
+              <motion.div
                 className="absolute top-2 -left-4 sm:top-6 sm:-left-5 w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-br from-cyan-500 to-blue-500 rounded-full flex items-center justify-center shadow-lg shadow-cyan-500/30 cursor-pointer"
                 animate={{ y: [0, -12, 0] }}
                 transition={{ repeat: Infinity, duration: 3.8, ease: "easeInOut" }}
@@ -211,8 +210,8 @@ export default function HomeSection() {
               >
                 <Code className="w-5 h-5 sm:w-7 sm:h-7 text-white" />
               </motion.div>
-              
-              <motion.div 
+
+              <motion.div
                 className="absolute -top-4 right-10 sm:-top-2 sm:right-14 w-10 h-10 sm:w-14 sm:h-14 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center shadow-lg shadow-purple-500/30 cursor-pointer"
                 animate={{ y: [0, -16, 0] }}
                 transition={{ repeat: Infinity, duration: 4.2, ease: "easeInOut", delay: 0.6 }}
@@ -220,8 +219,8 @@ export default function HomeSection() {
               >
                 <Cpu className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
               </motion.div>
-              
-              <motion.div 
+
+              <motion.div
                 className="absolute bottom-6 -right-2 sm:bottom-8 sm:-right-4 w-10 h-10 sm:w-14 sm:h-14 bg-gradient-to-br from-green-500 to-emerald-500 rounded-full flex items-center justify-center shadow-lg shadow-green-500/30 cursor-pointer"
                 animate={{ y: [0, 8, 0] }}
                 transition={{ repeat: Infinity, duration: 3.5, ease: "easeInOut", delay: 1.2 }}
@@ -229,8 +228,8 @@ export default function HomeSection() {
               >
                 <Palette className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
               </motion.div>
-              
-              <motion.div 
+
+              <motion.div
                 className="absolute -bottom-4 left-16 sm:-bottom-3 sm:left-20 w-8 h-8 sm:w-12 sm:h-12 bg-gradient-to-br from-orange-500 to-red-500 rounded-full flex items-center justify-center shadow-lg shadow-orange-500/30 cursor-pointer"
                 animate={{ y: [0, 12, 0] }}
                 transition={{ repeat: Infinity, duration: 4.5, ease: "easeInOut", delay: 1.8 }}
@@ -242,15 +241,15 @@ export default function HomeSection() {
           </motion.div>
         </div>
       </div>
-      
+
       {/* Scroll indicator */}
-      <motion.div 
-        className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
+      <motion.div
+        className="absolute bottom-6 left-1/2 transform -translate-x-1/2"
         animate={{ y: [0, 6, 0] }}
         transition={{ repeat: Infinity, duration: 2 }}
       >
         <div className="w-5 h-8 flex justify-center">
-          <motion.div 
+          <motion.div
             className="w-0.5 h-3 bg-gradient-to-b from-cyan-400 to-blue-400 rounded-full"
             animate={{ height: ["12px", "20px", "12px"] }}
             transition={{ repeat: Infinity, duration: 1.5 }}
