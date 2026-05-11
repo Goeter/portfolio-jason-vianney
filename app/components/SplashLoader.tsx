@@ -38,34 +38,35 @@ const SKILLS = [
 ]
 
 const PH1_DUR = 5200
-const PH2_DUR = 2600
+const PH2_DUR = 2800
 
 export default function SplashLoader({ onLoadingComplete }: Props) {
   const containerRef = useRef<HTMLDivElement>(null)
+
   const ph1Ref = useRef<HTMLDivElement>(null)
   const ph2Ref = useRef<HTMLDivElement>(null)
   const ph3Ref = useRef<HTMLDivElement>(null)
 
   const canvasRef = useRef<HTMLCanvasElement>(null)
+  const starsRef = useRef<HTMLCanvasElement>(null)
+  const hyperCanRef = useRef<HTMLCanvasElement>(null)
+
+  const hyperRef = useRef<HTMLDivElement>(null)
+  const dustRef = useRef<HTMLDivElement>(null)
+
   const pctRef = useRef<HTMLDivElement>(null)
   const msgRef = useRef<HTMLDivElement>(null)
   const nameRef = useRef<HTMLDivElement>(null)
   const skillsRef = useRef<HTMLDivElement>(null)
 
-  const starsRef = useRef<HTMLCanvasElement>(null)
-  const hyperRef = useRef<HTMLDivElement>(null)
-  const hyperCanRef = useRef<HTMLCanvasElement>(null)
-
-  const dustRef = useRef<HTMLDivElement>(null)
-
   const batteryCellsRef = useRef<(HTMLDivElement | null)[]>([])
   const atomRefs = useRef<(HTMLDivElement | null)[]>([])
 
-  const rafRef = useRef(0)
-  const hyperRafRef = useRef<number>(0)
+  const rafRef = useRef<number>(0)
   const starsRafRef = useRef<number>(0)
-
+  const hyperRafRef = useRef<number>(0)
   const arcRafRef = useRef<number>(0)
+
   const arcActiveRef = useRef(false)
 
   function easeOut(t: number) {
@@ -79,6 +80,7 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
     cb?: () => void
   ) {
     el.textContent = ""
+
     let i = 0
 
     const timer = setInterval(() => {
@@ -104,47 +106,46 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
 
     const cx = w / 2
     const cy = h / 2
+
     const r = w / 2 - 18
 
     ctx.clearRect(0, 0, w, h)
 
-    // OUTER GLOW
-    const bgGlow = ctx.createRadialGradient(cx, cy, 0, cx, cy, r + 60)
+    // Outer glow
+    const bgGlow = ctx.createRadialGradient(cx, cy, 0, cx, cy, r + 70)
 
     bgGlow.addColorStop(
       0,
-      `hsla(${190 + hueShift},100%,70%,${0.16 + pulse * 0.12})`
+      `hsla(${190 + hueShift},100%,70%,${0.14 + pulse * 0.08})`
     )
-
     bgGlow.addColorStop(
       0.5,
-      `hsla(${210 + hueShift},100%,60%,${0.08 + pulse * 0.08})`
+      `hsla(${220 + hueShift},100%,60%,${0.06 + pulse * 0.05})`
     )
-
     bgGlow.addColorStop(1, "transparent")
 
     ctx.beginPath()
-    ctx.arc(cx, cy, r + 60, 0, Math.PI * 2)
+    ctx.arc(cx, cy, r + 70, 0, Math.PI * 2)
     ctx.fillStyle = bgGlow
     ctx.fill()
 
-    // TRACK
+    // Track
     ctx.beginPath()
     ctx.arc(cx, cy, r, 0, Math.PI * 2)
     ctx.strokeStyle = "rgba(255,255,255,.08)"
     ctx.lineWidth = 8
     ctx.stroke()
 
-    // PROGRESS ARC
+    // Main progress
     const start = -Math.PI / 2
     const end = start + Math.PI * 2 * progress
 
     const g = ctx.createLinearGradient(0, 0, w, h)
 
     g.addColorStop(0, `hsl(${280 + hueShift},100%,70%)`)
-    g.addColorStop(0.3, `hsl(${200 + hueShift},100%,65%)`)
-    g.addColorStop(0.6, `hsl(${160 + hueShift},100%,60%)`)
-    g.addColorStop(1, `hsl(${50 + hueShift},100%,65%)`)
+    g.addColorStop(0.4, `hsl(${200 + hueShift},100%,65%)`)
+    g.addColorStop(0.7, `hsl(${160 + hueShift},100%,60%)`)
+    g.addColorStop(1, `hsl(${60 + hueShift},100%,65%)`)
 
     ctx.beginPath()
     ctx.arc(cx, cy, r, start, end)
@@ -154,13 +155,14 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
     ctx.lineCap = "round"
 
     ctx.shadowColor = `hsl(${190 + hueShift},100%,75%)`
-    ctx.shadowBlur = 34 + pulse * 20
+    ctx.shadowBlur = 34 + pulse * 18
 
     ctx.stroke()
+
     ctx.shadowBlur = 0
 
-    // INNER CORE
-    const orbR = 30 + pulse * 4
+    // Inner reactor glow
+    const orbR = 28 + pulse * 4
 
     const orbGlow = ctx.createRadialGradient(
       cx,
@@ -168,62 +170,63 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
       0,
       cx,
       cy,
-      orbR + 26
+      orbR + 30
     )
 
-    orbGlow.addColorStop(0, "rgba(255,255,255,.98)")
+    orbGlow.addColorStop(0, "rgba(255,255,255,1)")
     orbGlow.addColorStop(
-      0.35,
-      `hsla(${190 + hueShift},100%,75%,0.95)`
+      0.4,
+      `hsla(${190 + hueShift},100%,72%,0.95)`
     )
     orbGlow.addColorStop(
-      0.7,
-      `hsla(${190 + hueShift},100%,60%,0.45)`
+      0.8,
+      `hsla(${190 + hueShift},100%,55%,0.35)`
     )
     orbGlow.addColorStop(1, "transparent")
 
     ctx.beginPath()
-    ctx.arc(cx, cy, orbR + 24, 0, Math.PI * 2)
+    ctx.arc(cx, cy, orbR + 30, 0, Math.PI * 2)
 
     ctx.fillStyle = orbGlow
     ctx.fill()
 
     ctx.beginPath()
-    ctx.arc(cx, cy, orbR * 0.75, 0, Math.PI * 2)
+    ctx.arc(cx, cy, orbR, 0, Math.PI * 2)
 
-    ctx.fillStyle = "rgba(255,255,255,.98)"
-    ctx.shadowColor = `hsla(${190 + hueShift},100%,75%,1)`
-    ctx.shadowBlur = 36 + pulse * 18
+    ctx.fillStyle = "rgba(255,255,255,.96)"
+    ctx.shadowColor = "#00d4ff"
+    ctx.shadowBlur = 30
 
     ctx.fill()
+
     ctx.shadowBlur = 0
 
-    // POWER ICON
+    // ON/OFF ICON
     ctx.save()
 
     ctx.translate(cx, cy)
 
-    const iconR = 16
+    const iconR = orbR * 0.42
 
     ctx.beginPath()
     ctx.arc(
       0,
       0,
       iconR,
-      (-Math.PI / 2) + 0.5,
-      (-Math.PI / 2) - 0.5 + Math.PI * 2
+      (-Math.PI / 2) + 0.55,
+      (-Math.PI / 2) - 0.55 + Math.PI * 2
     )
 
-    ctx.strokeStyle = `hsl(${200 + hueShift},100%,35%)`
+    ctx.strokeStyle = `hsl(${200 + hueShift},100%,28%)`
     ctx.lineWidth = 3
     ctx.lineCap = "round"
     ctx.stroke()
 
     ctx.beginPath()
     ctx.moveTo(0, -iconR - 2)
-    ctx.lineTo(0, -3)
+    ctx.lineTo(0, -iconR * 0.25)
 
-    ctx.strokeStyle = `hsl(${200 + hueShift},100%,35%)`
+    ctx.strokeStyle = `hsl(${200 + hueShift},100%,28%)`
     ctx.lineWidth = 3
     ctx.lineCap = "round"
     ctx.stroke()
@@ -234,25 +237,26 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
   function startArcAnimation() {
     arcActiveRef.current = true
 
-    let startTime: number | null = null
+    let t0: number | null = null
 
-    function animate(ts: number) {
+    function loop(ts: number) {
       if (!arcActiveRef.current) return
 
-      if (!startTime) startTime = ts
+      if (!t0) t0 = ts
 
-      const raw = Math.min((ts - startTime) / PH2_DUR, 1)
+      const raw = Math.min((ts - t0) / PH2_DUR, 1)
+
       const progress = easeOut(raw)
 
       const hueShift = (ts / 10) % 360
-      const pulse = (Math.sin(ts / 420) + 1) / 2
+      const pulse = (Math.sin(ts / 450) + 1) / 2
 
       drawArc(progress, hueShift, pulse)
 
-      arcRafRef.current = requestAnimationFrame(animate)
+      arcRafRef.current = requestAnimationFrame(loop)
     }
 
-    arcRafRef.current = requestAnimationFrame(animate)
+    arcRafRef.current = requestAnimationFrame(loop)
   }
 
   function stopArcAnimation() {
@@ -260,18 +264,17 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
     cancelAnimationFrame(arcRafRef.current)
   }
 
-  function activateAtoms(count: number) {
-    atomRefs.current.forEach((atom, idx) => {
-      if (!atom) return
+  function activateAtom(index: number) {
+    const atom = atomRefs.current[index]
 
-      if (idx < count) {
-        atom.classList.add("active")
-      }
-    })
+    if (!atom) return
+
+    atom.classList.add("active")
   }
 
   function buildSkills() {
     const grid = skillsRef.current
+
     if (!grid) return
 
     grid.innerHTML = ""
@@ -282,9 +285,7 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
       card.className = "sl-skill-card"
 
       card.innerHTML = `
-        <div class="sl-skill-name">
-          ${s.label}
-        </div>
+        <div class="sl-skill-name">${s.label}</div>
       `
 
       card.style.background = `linear-gradient(135deg,${s.grad})`
@@ -299,6 +300,7 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
 
   function createDustExplosion() {
     const dust = dustRef.current
+
     if (!dust) return
 
     dust.innerHTML = ""
@@ -354,7 +356,6 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
       stars.forEach((s) => {
         ctx.beginPath()
         ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2)
-
         ctx.fillStyle = "rgba(255,255,255,.9)"
         ctx.fill()
       })
@@ -431,13 +432,11 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
 
         ctx.strokeStyle = grad
         ctx.lineWidth = 1.5
-
         ctx.stroke()
       })
 
       if (prog < 1) {
-        hyperRafRef.current =
-          requestAnimationFrame(frame)
+        hyperRafRef.current = requestAnimationFrame(frame)
       } else {
         wrap.style.transition = "opacity .6s ease"
         wrap.style.opacity = "0"
@@ -446,24 +445,21 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
       }
     }
 
-    hyperRafRef.current =
-      requestAnimationFrame(frame)
+    hyperRafRef.current = requestAnimationFrame(frame)
   }
 
   useEffect(() => {
-    drawArc(0, 0, 0)
+    drawArc(0)
 
     let t0: number | null = null
 
     function phase1(ts: number) {
       if (!t0) t0 = ts
 
-      const raw = Math.min(
-        (ts - t0) / PH1_DUR,
-        1
-      )
+      const raw = Math.min((ts - t0) / PH1_DUR, 1)
 
       const p = easeOut(raw)
+
       const pct = Math.floor(p * 100)
 
       if (pctRef.current) {
@@ -483,28 +479,24 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
         }
       })
 
-      const mi = Math.min(
+      const msgIndex = Math.min(
         Math.floor(p * STATUS_MSGS.length),
         STATUS_MSGS.length - 1
       )
 
+      const currentMsg = STATUS_MSGS[msgIndex]
+
       if (
         msgRef.current &&
-        msgRef.current.dataset.msg !== STATUS_MSGS[mi]
+        msgRef.current.dataset.msg !== currentMsg
       ) {
-        msgRef.current.dataset.msg = STATUS_MSGS[mi]
+        msgRef.current.dataset.msg = currentMsg
 
-        typeWriter(
-          msgRef.current,
-          STATUS_MSGS[mi],
-          38
-        )
+        typeWriter(msgRef.current, currentMsg, 42)
       }
 
       if (raw < 1) {
-        rafRef.current =
-          requestAnimationFrame(phase1)
-
+        rafRef.current = requestAnimationFrame(phase1)
         return
       }
 
@@ -513,11 +505,11 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
       setTimeout(() => {
         ph2Ref.current?.classList.add("sl-in")
 
-        setTimeout(() => activateAtoms(1), 200)
-        setTimeout(() => activateAtoms(2), 850)
-        setTimeout(() => activateAtoms(3), 1450)
-
         startArcAnimation()
+
+        setTimeout(() => activateAtom(0), 200)
+        setTimeout(() => activateAtom(1), 900)
+        setTimeout(() => activateAtom(2), 1600)
 
         let t1: number | null = null
 
@@ -530,9 +522,7 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
           )
 
           if (r2 < 1) {
-            rafRef.current =
-              requestAnimationFrame(phase2)
-
+            rafRef.current = requestAnimationFrame(phase2)
             return
           }
 
@@ -588,21 +578,17 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
           }, 900)
         }
 
-        rafRef.current =
-          requestAnimationFrame(phase2)
+        rafRef.current = requestAnimationFrame(phase2)
       }, 400)
     }
 
-    rafRef.current =
-      requestAnimationFrame(phase1)
+    rafRef.current = requestAnimationFrame(phase1)
 
     return () => {
       cancelAnimationFrame(rafRef.current)
-      cancelAnimationFrame(hyperRafRef.current)
       cancelAnimationFrame(starsRafRef.current)
+      cancelAnimationFrame(hyperRafRef.current)
       cancelAnimationFrame(arcRafRef.current)
-
-      arcActiveRef.current = false
     }
   }, [onLoadingComplete])
 
@@ -668,7 +654,7 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
 
         .sl-ph2.sl-out{
           opacity:0;
-          transform:translate(-50%,-50%) scale(1.12);
+          transform:translate(-50%,-50%) scale(1.1);
         }
 
         .sl-ph3{
@@ -683,10 +669,222 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
           transform:translate(-50%,-50%);
         }
 
+        /* PHASE 1 */
+
+        .sl-battery-shell{
+          position:relative;
+          width:min(760px,90vw);
+          padding:34px 34px 26px 34px;
+          border-radius:30px;
+          overflow:hidden;
+
+          background:
+            linear-gradient(
+              180deg,
+              rgba(10,20,35,.92),
+              rgba(5,10,18,.96)
+            );
+
+          border:1px solid rgba(0,212,255,.24);
+
+          box-shadow:
+            0 0 40px rgba(0,212,255,.14),
+            inset 0 0 40px rgba(0,212,255,.06),
+            inset 0 0 120px rgba(255,255,255,.03);
+
+          backdrop-filter:blur(18px);
+        }
+
+        .sl-battery-shell-glow{
+          position:absolute;
+          inset:-120px;
+
+          background:
+            radial-gradient(
+              circle at center,
+              rgba(0,212,255,.16),
+              transparent 70%
+            );
+
+          animation:shellPulse 4s ease-in-out infinite;
+        }
+
+        .sl-battery-topline{
+          display:flex;
+          align-items:center;
+          justify-content:space-between;
+          margin-bottom:26px;
+        }
+
+        .sl-battery-title{
+          color:rgba(255,255,255,.9);
+          font-size:12px;
+          font-weight:700;
+          letter-spacing:.32em;
+          text-transform:uppercase;
+        }
+
+        .sl-battery-mini{
+          display:flex;
+          gap:6px;
+        }
+
+        .sl-battery-mini span{
+          width:7px;
+          height:7px;
+          border-radius:50%;
+          background:rgba(255,255,255,.16);
+          animation:miniBlink 1.8s infinite;
+        }
+
+        .sl-battery-mini span:nth-child(2){
+          animation-delay:.3s;
+        }
+
+        .sl-battery-mini span:nth-child(3){
+          animation-delay:.6s;
+        }
+
+        .sl-battery-cells{
+          display:flex;
+          gap:12px;
+          justify-content:center;
+          align-items:center;
+
+          padding:18px;
+
+          border-radius:22px;
+
+          background:
+            linear-gradient(
+              180deg,
+              rgba(255,255,255,.03),
+              rgba(255,255,255,.015)
+            );
+
+          border:1px solid rgba(255,255,255,.05);
+
+          box-shadow:
+            inset 0 0 24px rgba(0,212,255,.04);
+        }
+
+        .sl-battery-cell{
+          width:54px;
+          height:78px;
+          border-radius:14px;
+
+          border:1px solid rgba(255,255,255,.12);
+
+          background:
+            linear-gradient(
+              180deg,
+              rgba(255,255,255,.06),
+              rgba(255,255,255,.02)
+            );
+
+          position:relative;
+          overflow:hidden;
+        }
+
+        .sl-battery-cell::before{
+          content:"";
+
+          position:absolute;
+          left:0;
+          right:0;
+          bottom:0;
+
+          height:0%;
+
+          transition:
+            height 1s cubic-bezier(.22,.8,.2,1);
+
+          box-shadow:
+            0 0 18px currentColor,
+            inset 0 0 12px rgba(255,255,255,.25);
+        }
+
+        .sl-battery-cell.active::before{
+          height:100%;
+        }
+
+        .sl-battery-cell:nth-child(1)::before{
+          background:linear-gradient(180deg,#ff2b2b,#d70000);
+        }
+
+        .sl-battery-cell:nth-child(2)::before{
+          background:linear-gradient(180deg,#ff5b1f,#ff7a00);
+        }
+
+        .sl-battery-cell:nth-child(3)::before{
+          background:linear-gradient(180deg,#ff7f11,#ff9f1c);
+        }
+
+        .sl-battery-cell:nth-child(4)::before,
+        .sl-battery-cell:nth-child(5)::before{
+          background:linear-gradient(180deg,#ffb703,#ffd60a);
+        }
+
+        .sl-battery-cell:nth-child(6)::before,
+        .sl-battery-cell:nth-child(7)::before{
+          background:linear-gradient(180deg,#f4ff52,#b9ff66);
+        }
+
+        .sl-battery-cell:nth-child(8)::before,
+        .sl-battery-cell:nth-child(9)::before{
+          background:linear-gradient(180deg,#3dff91,#00e676);
+        }
+
+        .sl-battery-cell:nth-child(10)::before{
+          background:linear-gradient(180deg,#00ff99,#00c853);
+        }
+
+        .sl-battery-bottom{
+          margin-top:24px;
+
+          display:flex;
+          align-items:flex-end;
+          justify-content:space-between;
+
+          gap:20px;
+        }
+
+        .sl-charge-pct{
+          font-size:clamp(34px,4.4vw,56px);
+          font-weight:900;
+          line-height:1;
+          color:white;
+
+          text-shadow:
+            0 0 18px rgba(0,212,255,.4);
+        }
+
+        .sl-loading-text{
+          color:#e8f9ff;
+
+          letter-spacing:.10em;
+          text-transform:uppercase;
+
+          font-size:12px;
+          font-weight:700;
+          line-height:1.8;
+
+          text-align:right;
+
+          min-height:24px;
+          min-width:240px;
+
+          text-shadow:
+            0 0 10px rgba(0,212,255,.25);
+        }
+
+        /* PHASE 2 */
+
         .sl-arc-wrap{
           position:relative;
           width:360px;
           height:360px;
+
           display:flex;
           align-items:center;
           justify-content:center;
@@ -700,34 +898,37 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
         .sl-ring-1{
           width:96%;
           height:96%;
-          border:1px solid rgba(0,212,255,.45);
-          box-shadow:
-            0 0 30px rgba(0,212,255,.25),
-            inset 0 0 18px rgba(0,212,255,.10);
 
-          animation:spin 10s linear infinite;
+          border:1px solid rgba(0,212,255,.35);
+
+          box-shadow:
+            0 0 34px rgba(0,212,255,.25),
+            inset 0 0 14px rgba(0,212,255,.08);
+
+          animation:spin 9s linear infinite;
         }
 
         .sl-ring-2{
           width:78%;
           height:78%;
-          border:1px solid rgba(168,85,247,.45);
+
+          border:1px solid rgba(168,85,247,.4);
 
           box-shadow:
-            0 0 24px rgba(168,85,247,.20),
-            inset 0 0 14px rgba(168,85,247,.08);
+            0 0 28px rgba(168,85,247,.22),
+            inset 0 0 12px rgba(168,85,247,.08);
 
           animation:spinReverse 7s linear infinite;
         }
 
         .sl-arc-canvas{
-          width:190px;
-          height:190px;
+          width:180px;
+          height:180px;
           border-radius:50%;
 
           filter:
-            drop-shadow(0 0 34px rgba(0,212,255,.75))
-            drop-shadow(0 0 18px rgba(168,85,247,.45));
+            drop-shadow(0 0 32px rgba(0,212,255,.75))
+            drop-shadow(0 0 14px rgba(168,85,247,.4));
         }
 
         /* ORBIT */
@@ -735,29 +936,29 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
         .sl-atom{
           position:absolute;
           border-radius:50%;
+
           opacity:0;
 
           transition:
-            opacity .9s cubic-bezier(.2,.8,.2,1),
-            transform .9s cubic-bezier(.2,.8,.2,1);
-
-          transform:scale(.5) rotate(-90deg);
+            opacity .9s ease,
+            transform .9s ease;
         }
 
         .sl-atom.active{
           opacity:1;
-          transform:scale(1) rotate(0deg);
+          transform:scale(1);
         }
 
         .sl-atom::before{
           content:"";
+
           position:absolute;
+          top:-6px;
           left:50%;
+
           transform:translateX(-50%);
+
           border-radius:50%;
-          box-shadow:
-            0 0 20px currentColor,
-            0 0 40px currentColor;
         }
 
         .sl-atom-1{
@@ -765,66 +966,188 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
           height:170px;
 
           border:
-            2px solid rgba(0,212,255,.32);
+            1px solid rgba(0,212,255,.28);
 
-          box-shadow:
-            0 0 20px rgba(0,212,255,.16);
-
-          animation:spin 5s linear infinite;
+          animation:
+            spin 4s linear infinite;
         }
 
         .sl-atom-1::before{
           width:12px;
           height:12px;
-          top:-6px;
 
           background:#00d4ff;
-          color:#00d4ff;
+
+          box-shadow:
+            0 0 18px #00d4ff,
+            0 0 40px #00d4ff;
         }
 
         .sl-atom-2{
-          width:235px;
-          height:235px;
+          width:230px;
+          height:230px;
 
           border:
-            2px solid rgba(168,85,247,.32);
+            1px solid rgba(168,85,247,.28);
 
-          box-shadow:
-            0 0 20px rgba(168,85,247,.16);
-
-          animation:spinReverse 7s linear infinite;
+          animation:
+            spinReverse 6s linear infinite;
         }
 
         .sl-atom-2::before{
           width:11px;
           height:11px;
-          top:-6px;
 
           background:#a855f7;
-          color:#a855f7;
+
+          box-shadow:
+            0 0 18px #a855f7,
+            0 0 40px #a855f7;
         }
 
         .sl-atom-3{
-          width:300px;
-          height:300px;
+          width:290px;
+          height:290px;
 
           border:
-            2px solid rgba(52,211,153,.32);
+            1px solid rgba(52,211,153,.28);
 
-          box-shadow:
-            0 0 20px rgba(52,211,153,.16);
-
-          animation:spin 9s linear infinite;
+          animation:
+            spin 8s linear infinite;
         }
 
         .sl-atom-3::before{
           width:11px;
           height:11px;
-          top:-6px;
 
           background:#34d399;
-          color:#34d399;
+
+          box-shadow:
+            0 0 18px #34d399,
+            0 0 40px #34d399;
         }
+
+        /* PHASE 3 */
+
+        .sl-welcome-line,
+        .sl-expertise-label{
+          opacity:0;
+          transform:translateY(20px);
+
+          transition:all .9s ease;
+        }
+
+        .sl-welcome-line.show,
+        .sl-expertise-label.show{
+          opacity:1;
+          transform:translateY(0);
+        }
+
+        .sl-welcome-line{
+          color:#d8b4fe;
+
+          margin-bottom:20px;
+
+          letter-spacing:.28em;
+          text-transform:uppercase;
+
+          font-size:12px;
+          font-weight:700;
+
+          line-height:1.8;
+        }
+
+        .sl-name{
+          font-size:clamp(34px,6vw,76px);
+          font-weight:900;
+          line-height:1.1;
+          color:white;
+
+          text-shadow:
+            0 0 20px rgba(168,85,247,1),
+            0 0 40px rgba(0,212,255,.5);
+
+          min-height:90px;
+        }
+
+        .sl-divline{
+          width:180px;
+          height:1px;
+
+          margin:22px 0 26px;
+
+          background:
+            linear-gradient(
+              90deg,
+              transparent,
+              #00d4ff,
+              transparent
+            );
+        }
+
+        .sl-expertise-label{
+          margin-bottom:24px;
+
+          color:#7dd3fc;
+
+          letter-spacing:.24em;
+          font-size:13px;
+          font-weight:700;
+          text-transform:uppercase;
+        }
+
+        .sl-skills-grid{
+          display:grid;
+          grid-template-columns:repeat(5,1fr);
+          gap:14px;
+
+          width:min(900px,92vw);
+        }
+
+        .sl-skill-card{
+          opacity:0;
+
+          min-height:62px;
+
+          padding:16px 14px;
+
+          border-radius:16px;
+
+          border:1px solid rgba(255,255,255,.08);
+
+          backdrop-filter:blur(12px);
+
+          display:flex;
+          align-items:center;
+          justify-content:center;
+
+          transition:
+            transform .35s ease,
+            border-color .35s ease;
+        }
+
+        .sl-skill-card:hover{
+          transform:translateY(-3px);
+
+          border-color:
+            rgba(255,255,255,.2);
+        }
+
+        .sl-card-show{
+          animation:cardIn .7s ease forwards;
+        }
+
+        .sl-skill-name{
+          color:white;
+
+          font-size:13px;
+          font-weight:700;
+
+          letter-spacing:.04em;
+          text-transform:uppercase;
+        }
+
+        /* UTIL */
 
         .sl-stars-canvas,
         .sl-hyper-wrap,
@@ -846,7 +1169,9 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
 
         .sl-dust{
           position:absolute;
+
           border-radius:50%;
+
           background:
             radial-gradient(
               circle,
@@ -855,7 +1180,86 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
               transparent
             );
 
-          animation:sl-dust-move linear forwards;
+          animation:
+            sl-dust-move linear forwards;
+        }
+
+        .sl-content-dust-out{
+          animation:
+            sl-content-dust-out 1.4s
+            cubic-bezier(.2,.8,.2,1)
+            forwards;
+        }
+
+        @keyframes spin{
+          to{
+            transform:rotate(360deg);
+          }
+        }
+
+        @keyframes spinReverse{
+          to{
+            transform:rotate(-360deg);
+          }
+        }
+
+        @keyframes shellPulse{
+          0%{
+            opacity:.35;
+            transform:scale(1);
+          }
+
+          50%{
+            opacity:.7;
+            transform:scale(1.04);
+          }
+
+          100%{
+            opacity:.35;
+            transform:scale(1);
+          }
+        }
+
+        @keyframes miniBlink{
+          0%{
+            opacity:.15;
+            transform:scale(.8);
+          }
+
+          50%{
+            opacity:1;
+            transform:scale(1.2);
+          }
+
+          100%{
+            opacity:.15;
+            transform:scale(.8);
+          }
+        }
+
+        @keyframes cardIn{
+          from{
+            opacity:0;
+            transform:translateY(24px);
+          }
+
+          to{
+            opacity:1;
+            transform:translateY(0);
+          }
+        }
+
+        @keyframes sl-content-dust-out{
+          0%{
+            opacity:1;
+            transform:scale(1);
+          }
+
+          100%{
+            opacity:0;
+            transform:scale(1.18);
+            filter:blur(12px) brightness(1.8);
+          }
         }
 
         @keyframes sl-dust-move{
@@ -878,19 +1282,49 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
           }
         }
 
-        @keyframes spin{
-          to{
-            transform:rotate(360deg);
-          }
-        }
-
-        @keyframes spinReverse{
-          to{
-            transform:rotate(-360deg);
-          }
-        }
-
         @media(max-width:768px){
+
+          .sl-battery-shell{
+            padding:24px 18px 20px 18px;
+          }
+
+          .sl-battery-cells{
+            gap:8px;
+            padding:14px;
+          }
+
+          .sl-battery-cell{
+            width:32px;
+            height:58px;
+          }
+
+          .sl-battery-bottom{
+            align-items:center;
+            gap:14px;
+          }
+
+          .sl-charge-pct{
+            font-size:36px;
+          }
+
+          .sl-loading-text{
+            font-size:10px;
+            min-width:160px;
+          }
+
+          .sl-skills-grid{
+            grid-template-columns:repeat(2,1fr);
+            gap:12px;
+          }
+
+          .sl-skill-card{
+            min-height:56px;
+            padding:14px 10px;
+          }
+
+          .sl-skill-name{
+            font-size:11px;
+          }
 
           .sl-arc-wrap{
             width:280px;
@@ -898,23 +1332,23 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
           }
 
           .sl-arc-canvas{
-            width:150px;
-            height:150px;
+            width:140px;
+            height:140px;
           }
 
           .sl-atom-1{
-            width:145px;
-            height:145px;
+            width:140px;
+            height:140px;
           }
 
           .sl-atom-2{
-            width:195px;
-            height:195px;
+            width:190px;
+            height:190px;
           }
 
           .sl-atom-3{
-            width:245px;
-            height:245px;
+            width:240px;
+            height:240px;
           }
         }
       `}</style>
@@ -933,14 +1367,75 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
               position:"absolute",
               inset:0,
               width:"100%",
-              height:"100%"
+              height:"100%",
             }}
           />
         </div>
 
-        <div ref={dustRef} className="sl-dust-wrap" />
+        <div
+          ref={dustRef}
+          className="sl-dust-wrap"
+        />
 
         <div className="sl-content">
+
+          {/* PHASE 1 */}
+
+          <div ref={ph1Ref} className="sl-ph1">
+
+            <div className="sl-battery-shell">
+
+              <div className="sl-battery-shell-glow" />
+
+              <div className="sl-battery-topline">
+
+                <div className="sl-battery-title">
+                  ARC ENERGY SYSTEM
+                </div>
+
+                <div className="sl-battery-mini">
+                  <span />
+                  <span />
+                  <span />
+                </div>
+
+              </div>
+
+              <div className="sl-battery-cells">
+
+                {Array.from({ length: 10 }).map((_, i) => (
+                  <div
+                    key={i}
+                    className="sl-battery-cell"
+                    ref={(el) => {
+                      batteryCellsRef.current[i] = el
+                    }}
+                  />
+                ))}
+
+              </div>
+
+              <div className="sl-battery-bottom">
+
+                <div
+                  ref={pctRef}
+                  className="sl-charge-pct"
+                >
+                  0%
+                </div>
+
+                <div
+                  ref={msgRef}
+                  className="sl-loading-text"
+                >
+                  Initializing...
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
 
           {/* PHASE 2 */}
 
@@ -952,17 +1447,23 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
               <div className="sl-ring sl-ring-2" />
 
               <div
-                ref={(el) => (atomRefs.current[0] = el)}
+                ref={(el) => {
+                  atomRefs.current[0] = el
+                }}
                 className="sl-atom sl-atom-1"
               />
 
               <div
-                ref={(el) => (atomRefs.current[1] = el)}
+                ref={(el) => {
+                  atomRefs.current[1] = el
+                }}
                 className="sl-atom sl-atom-2"
               />
 
               <div
-                ref={(el) => (atomRefs.current[2] = el)}
+                ref={(el) => {
+                  atomRefs.current[2] = el
+                }}
                 className="sl-atom sl-atom-3"
               />
 
@@ -974,6 +1475,32 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
               />
 
             </div>
+
+          </div>
+
+          {/* PHASE 3 */}
+
+          <div ref={ph3Ref} className="sl-ph3">
+
+            <div className="sl-welcome-line">
+              ◈ Welcome To My Portfolio ◈
+            </div>
+
+            <div
+              ref={nameRef}
+              className="sl-name"
+            />
+
+            <div className="sl-divline" />
+
+            <div className="sl-expertise-label">
+              My Expertise
+            </div>
+
+            <div
+              ref={skillsRef}
+              className="sl-skills-grid"
+            />
 
           </div>
 
