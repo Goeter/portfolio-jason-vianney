@@ -17,28 +17,29 @@ const STATUS_MSGS = [
 
 const SKILLS = [
   {
-    label: "Front-end Dev",
-    icon: "💻",
+    label: "IT Fullstack",
     grad:
       "rgba(0,212,255,0.22),rgba(59,130,246,0.22)",
   },
   {
     label: "System Analyst",
-    icon: "⚙️",
     grad:
       "rgba(168,85,247,0.22),rgba(236,72,153,0.22)",
   },
   {
-    label: "UI/UX Design",
-    icon: "🎨",
+    label: "UI/UX Designer",
     grad:
       "rgba(251,146,60,0.22),rgba(236,72,153,0.22)",
   },
   {
     label: "Data Analyst",
-    icon: "📊",
     grad:
       "rgba(52,211,153,0.22),rgba(16,185,129,0.22)",
+  },
+  {
+    label: "Tutor",
+    grad:
+      "rgba(255,215,0,0.20),rgba(255,140,0,0.20)",
   },
 ]
 
@@ -93,7 +94,7 @@ export default function SplashLoader({
     )
 
   const atomRefs =
-    useRef<(HTMLDivElement | null)[]>([])
+    useRef<(HTMLDivElement | null)[]>(([])
 
   const rafRef = useRef(0)
 
@@ -285,14 +286,16 @@ export default function SplashLoader({
       card.className = "sl-skill-card"
 
       card.innerHTML = `
-        <div class="sl-skill-icon"
-          style="background:linear-gradient(135deg,${s.grad})">
-          ${s.icon}
-        </div>
-
         <div class="sl-skill-name">
           ${s.label}
         </div>
+      `
+
+      card.style.background = `
+        linear-gradient(
+          135deg,
+          ${s.grad}
+        )
       `
 
       grid.appendChild(card)
@@ -600,7 +603,7 @@ export default function SplashLoader({
         typeWriter(
           msgRef.current,
           STATUS_MSGS[mi],
-          35
+          55,
         )
       }
 
@@ -782,8 +785,8 @@ export default function SplashLoader({
 
         .sl-ph1{
           transition:
-            opacity .8s ease,
-            transform .8s ease;
+            opacity 1s ease,
+            transform 1s ease;
         }
 
         .sl-ph1.sl-out{
@@ -801,8 +804,8 @@ export default function SplashLoader({
             scale(.85);
 
           transition:
-            opacity .9s ease,
-            transform .9s ease;
+            opacity 1s ease,
+            transform 1s ease;
         }
 
         .sl-ph2.sl-in{
@@ -823,6 +826,8 @@ export default function SplashLoader({
 
         .sl-ph3{
           opacity:0;
+
+          width:min(900px,92vw);
 
           transform:
             translate(-50%,-45%);
@@ -870,62 +875,6 @@ export default function SplashLoader({
           backdrop-filter:blur(18px);
         }
 
-        .sl-battery-shell::before{
-          content:"";
-
-          position:absolute;
-          inset:0;
-
-          border-radius:30px;
-
-          padding:1px;
-
-          background:
-            linear-gradient(
-              135deg,
-              rgba(0,212,255,.8),
-              rgba(168,85,247,.5),
-              rgba(0,212,255,.15)
-            );
-
-          -webkit-mask:
-            linear-gradient(#fff 0 0)
-              content-box,
-            linear-gradient(#fff 0 0);
-
-          -webkit-mask-composite:xor;
-
-          pointer-events:none;
-        }
-
-        .sl-battery-shell::after{
-          content:"";
-
-          position:absolute;
-
-          right:-18px;
-          top:50%;
-
-          transform:
-            translateY(-50%);
-
-          width:14px;
-          height:110px;
-
-          border-radius:10px;
-
-          background:
-            linear-gradient(
-              180deg,
-              rgba(0,255,255,.95),
-              rgba(0,212,255,.18)
-            );
-
-          box-shadow:
-            0 0 24px rgba(0,212,255,.7),
-            0 0 50px rgba(0,212,255,.25);
-        }
-
         .sl-battery-shell-glow{
           position:absolute;
           inset:-120px;
@@ -952,11 +901,13 @@ export default function SplashLoader({
         }
 
         .sl-battery-title{
-          color:rgba(255,255,255,.82);
+          color:rgba(255,255,255,.9);
 
-          font-size:11px;
+          font-size:12px;
 
-          letter-spacing:.38em;
+          font-weight:700;
+
+          letter-spacing:.32em;
 
           text-transform:uppercase;
         }
@@ -976,14 +927,6 @@ export default function SplashLoader({
 
           animation:
             miniBlink 1.8s infinite;
-        }
-
-        .sl-battery-mini span:nth-child(2){
-          animation-delay:.25s;
-        }
-
-        .sl-battery-mini span:nth-child(3){
-          animation-delay:.5s;
         }
 
         .sl-battery-cells{
@@ -1033,31 +976,6 @@ export default function SplashLoader({
           position:relative;
 
           overflow:hidden;
-
-          transition:
-            transform .45s ease,
-            box-shadow .45s ease,
-            border-color .45s ease;
-        }
-
-        .sl-battery-cell::after{
-          content:"";
-
-          position:absolute;
-
-          top:8px;
-          left:50%;
-
-          transform:
-            translateX(-50%);
-
-          width:48%;
-          height:4px;
-
-          border-radius:20px;
-
-          background:
-            rgba(255,255,255,.18);
         }
 
         .sl-battery-cell::before{
@@ -1072,19 +990,7 @@ export default function SplashLoader({
           height:0%;
 
           transition:
-            height .9s cubic-bezier(.22,.8,.2,1);
-
-          box-shadow:
-            0 0 18px currentColor,
-            inset 0 0 14px rgba(255,255,255,.3);
-        }
-
-        .sl-battery-cell.active{
-          transform:
-            translateY(-3px);
-
-          border-color:
-            rgba(255,255,255,.28);
+            height 1s cubic-bezier(.22,.8,.2,1);
         }
 
         .sl-battery-cell.active::before{
@@ -1134,7 +1040,7 @@ export default function SplashLoader({
         }
 
         .sl-battery-bottom{
-          margin-top:22px;
+          margin-top:24px;
 
           display:flex;
           align-items:flex-end;
@@ -1145,7 +1051,7 @@ export default function SplashLoader({
 
         .sl-charge-pct{
           font-size:
-            clamp(30px,4.2vw,52px);
+            clamp(34px,4.4vw,56px);
 
           font-weight:900;
 
@@ -1153,26 +1059,32 @@ export default function SplashLoader({
 
           color:white;
 
+          letter-spacing:.02em;
+
           text-shadow:
             0 0 18px rgba(0,212,255,.4);
         }
 
         .sl-loading-text{
-          color:#8fdfff;
+          color:#d7f3ff;
 
-          letter-spacing:.18em;
+          letter-spacing:.16em;
 
           text-transform:uppercase;
 
-          font-size:11px;
+          font-size:12px;
+
+          font-weight:600;
+
+          line-height:1.7;
 
           text-align:right;
 
-          min-height:16px;
+          min-height:22px;
 
-          opacity:.85;
+          opacity:.95;
 
-          max-width:260px;
+          max-width:300px;
         }
 
         .sl-arc-wrap{
@@ -1241,28 +1153,6 @@ export default function SplashLoader({
           opacity:1;
         }
 
-        .sl-atom::before{
-          content:"";
-
-          position:absolute;
-
-          width:10px;
-          height:10px;
-
-          border-radius:50%;
-
-          background:#00d4ff;
-
-          top:-5px;
-          left:50%;
-
-          transform:
-            translateX(-50%);
-
-          box-shadow:
-            0 0 20px #00d4ff;
-        }
-
         .sl-atom-1{
           animation:
             spin 5s linear infinite;
@@ -1289,9 +1179,11 @@ export default function SplashLoader({
 
           color:white;
 
-          letter-spacing:.3em;
+          letter-spacing:.28em;
 
           font-size:12px;
+
+          font-weight:700;
 
           text-transform:uppercase;
         }
@@ -1304,7 +1196,7 @@ export default function SplashLoader({
             translateY(20px);
 
           transition:
-            all .8s ease;
+            all .9s ease;
         }
 
         .sl-welcome-line.show,
@@ -1316,15 +1208,21 @@ export default function SplashLoader({
         }
 
         .sl-welcome-line{
-          color:#c084fc;
+          color:#d8b4fe;
 
-          margin-bottom:18px;
+          margin-bottom:20px;
 
-          letter-spacing:.35em;
+          letter-spacing:.28em;
 
           text-transform:uppercase;
 
-          font-size:11px;
+          font-size:12px;
+
+          font-weight:700;
+
+          text-align:center;
+
+          line-height:1.8;
         }
 
         .sl-name{
@@ -1333,7 +1231,11 @@ export default function SplashLoader({
 
           font-weight:900;
 
+          line-height:1.1;
+
           color:white;
+
+          text-align:center;
 
           text-shadow:
             0 0 20px rgba(168,85,247,1),
@@ -1346,7 +1248,7 @@ export default function SplashLoader({
           width:180px;
           height:1px;
 
-          margin:18px 0 24px;
+          margin:22px 0 26px;
 
           background:
             linear-gradient(
@@ -1358,13 +1260,15 @@ export default function SplashLoader({
         }
 
         .sl-expertise-label{
-          margin-bottom:20px;
+          margin-bottom:24px;
 
-          color:#00d4ff;
+          color:#7dd3fc;
 
-          letter-spacing:.35em;
+          letter-spacing:.24em;
 
-          font-size:11px;
+          font-size:13px;
+
+          font-weight:700;
 
           text-transform:uppercase;
         }
@@ -1373,22 +1277,21 @@ export default function SplashLoader({
           display:grid;
 
           grid-template-columns:
-            repeat(4,1fr);
+            repeat(5,1fr);
 
           gap:14px;
 
-          width:min(760px,90vw);
+          width:min(900px,92vw);
         }
 
         .sl-skill-card{
           opacity:0;
 
-          padding:18px 12px;
+          min-height:62px;
 
-          border-radius:18px;
+          padding:16px 14px;
 
-          background:
-            rgba(255,255,255,.05);
+          border-radius:16px;
 
           border:
             1px solid rgba(255,255,255,.08);
@@ -1396,9 +1299,22 @@ export default function SplashLoader({
           backdrop-filter:blur(12px);
 
           display:flex;
-          flex-direction:column;
           align-items:center;
-          gap:10px;
+          justify-content:center;
+
+          text-align:center;
+
+          transition:
+            transform .35s ease,
+            border-color .35s ease;
+        }
+
+        .sl-skill-card:hover{
+          transform:
+            translateY(-3px);
+
+          border-color:
+            rgba(255,255,255,.2);
         }
 
         .sl-card-show{
@@ -1406,23 +1322,16 @@ export default function SplashLoader({
             cardIn .7s ease forwards;
         }
 
-        .sl-skill-icon{
-          width:48px;
-          height:48px;
-
-          border-radius:14px;
-
-          display:flex;
-          align-items:center;
-          justify-content:center;
-
-          font-size:20px;
-        }
-
         .sl-skill-name{
           color:white;
 
-          font-size:12px;
+          font-size:13px;
+
+          font-weight:700;
+
+          letter-spacing:.04em;
+
+          line-height:1.5;
 
           text-transform:uppercase;
         }
@@ -1576,8 +1485,8 @@ export default function SplashLoader({
 
           .sl-battery-shell{
             padding:
-              26px 20px
-              22px 20px;
+              24px 18px
+              20px 18px;
           }
 
           .sl-battery-cells{
@@ -1592,21 +1501,48 @@ export default function SplashLoader({
 
           .sl-battery-bottom{
             align-items:center;
+            gap:14px;
+          }
+
+          .sl-charge-pct{
+            font-size:36px;
           }
 
           .sl-loading-text{
-            font-size:9px;
-            max-width:150px;
+            font-size:10px;
+            max-width:170px;
           }
 
           .sl-skills-grid{
             grid-template-columns:
               repeat(2,1fr);
+
+            gap:12px;
+          }
+
+          .sl-skill-card{
+            min-height:56px;
+            padding:14px 10px;
+          }
+
+          .sl-skill-name{
+            font-size:11px;
           }
 
           .sl-arc-wrap{
             width:260px;
             height:260px;
+          }
+
+          .sl-welcome-line{
+            font-size:10px;
+            letter-spacing:.22em;
+            line-height:1.7;
+          }
+
+          .sl-expertise-label{
+            font-size:11px;
+            letter-spacing:.18em;
           }
         }
       `}</style>
