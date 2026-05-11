@@ -9,9 +9,9 @@ type Props = {
 const FULL_NAME = "Jason Vianney Sugiarto"
 
 const STATUS_MSGS = [
-  "Initializing Arc Core",
-  "Charging Energy Matrix",
-  "Arc Reactor Fully Charged",
+  "Initializing System...",
+  "Loading Power Core...",
+  "Arc Reactor Online — 100%",
 ]
 
 const SKILLS = [
@@ -47,15 +47,18 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
   const ph3Ref = useRef<HTMLDivElement>(null)
 
   const canvasRef = useRef<HTMLCanvasElement>(null)
-  const starsRef = useRef<HTMLCanvasElement>(null)
-  const hyperCanRef = useRef<HTMLCanvasElement>(null)
 
   const pctRef = useRef<HTMLDivElement>(null)
   const msgRef = useRef<HTMLDivElement>(null)
   const nameRef = useRef<HTMLDivElement>(null)
+
   const skillsRef = useRef<HTMLDivElement>(null)
 
+  const starsRef = useRef<HTMLCanvasElement>(null)
+
   const hyperRef = useRef<HTMLDivElement>(null)
+  const hyperCanRef = useRef<HTMLCanvasElement>(null)
+
   const dustRef = useRef<HTMLDivElement>(null)
 
   const batteryCellsRef = useRef<(HTMLDivElement | null)[]>([])
@@ -64,50 +67,36 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
   const rafRef = useRef(0)
   const hyperRafRef = useRef<number>(0)
   const starsRafRef = useRef<number>(0)
-  const typingTimeoutRef = useRef<NodeJS.Timeout | null>(null)
 
   const arcRafRef = useRef<number>(0)
+  const arcProgressRef = useRef<number>(0)
   const arcActiveRef = useRef<boolean>(false)
 
   function easeOut(t: number) {
     return 1 - Math.pow(1 - t, 3)
   }
 
-  // ─────────────────────────────────────────────
-  // SMOOTH TYPEWRITER
-  // ─────────────────────────────────────────────
-  function smoothTypeWriter(
+  function typeWriter(
     el: HTMLElement,
     text: string,
-    speed = 42,
+    speed: number,
     cb?: () => void
   ) {
-    if (typingTimeoutRef.current) {
-      clearTimeout(typingTimeoutRef.current)
-    }
+    el.textContent = ""
 
     let i = 0
-    el.textContent = ""
-    el.classList.add("typing-active")
 
-    function type() {
-      el.textContent = text.slice(0, i)
+    const timer = setInterval(() => {
+      el.textContent += text.charAt(i)
       i++
 
-      if (i <= text.length) {
-        typingTimeoutRef.current = setTimeout(type, speed)
-      } else {
-        el.classList.remove("typing-active")
+      if (i >= text.length) {
+        clearInterval(timer)
         cb?.()
       }
-    }
-
-    type()
+    }, speed)
   }
 
-  // ─────────────────────────────────────────────
-  // ARC REACTOR
-  // ─────────────────────────────────────────────
   function drawArc(progress: number, hueShift = 0, pulse = 0) {
     const cv = canvasRef.current
     if (!cv) return
@@ -117,21 +106,24 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
 
     const w = cv.width
     const h = cv.height
+
     const cx = w / 2
     const cy = h / 2
+
     const r = w / 2 - 14
 
     ctx.clearRect(0, 0, w, h)
 
+    // Background glow
     const bgGlow = ctx.createRadialGradient(cx, cy, 0, cx, cy, r + 50)
 
     bgGlow.addColorStop(
       0,
-      `hsla(${190 + hueShift},100%,70%,${0.14 + pulse * 0.1})`
+      `hsla(${190 + hueShift},100%,70%,${0.12 + pulse * 0.10})`
     )
     bgGlow.addColorStop(
       0.5,
-      `hsla(${210 + hueShift},100%,60%,${0.08 + pulse * 0.08})`
+      `hsla(${210 + hueShift},100%,60%,${0.08 + pulse * 0.06})`
     )
     bgGlow.addColorStop(1, "transparent")
 
@@ -140,12 +132,14 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
     ctx.fillStyle = bgGlow
     ctx.fill()
 
+    // Track ring
     ctx.beginPath()
     ctx.arc(cx, cy, r, 0, Math.PI * 2)
-    ctx.strokeStyle = `rgba(255,255,255,${0.08 + pulse * 0.04})`
+    ctx.strokeStyle = `rgba(255,255,255,${0.06 + pulse * 0.04})`
     ctx.lineWidth = 7
     ctx.stroke()
 
+    // Progress arc
     const start = -Math.PI / 2
     const end = start + Math.PI * 2 * progress
 
@@ -158,19 +152,31 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
 
     ctx.beginPath()
     ctx.arc(cx, cy, r, start, end)
+
     ctx.strokeStyle = g
     ctx.lineWidth = 9
     ctx.lineCap = "round"
+
     ctx.shadowColor = `hsl(${190 + hueShift},100%,75%)`
-    ctx.shadowBlur = 30 + pulse * 14
+    ctx.shadowBlur = 28 + pulse * 16
+
     ctx.stroke()
+
     ctx.shadowBlur = 0
 
+    // Center glow
     const orbR = 22 + pulse * 5
 
-    const orbGlow = ctx.createRadialGradient(cx, cy, 0, cx, cy, orbR + 20)
+    const orbGlow = ctx.createRadialGradient(
+      cx,
+      cy,
+      0,
+      cx,
+      cy,
+      orbR + 20
+    )
 
-    orbGlow.addColorStop(0, "rgba(255,255,255,.98)")
+    orbGlow.addColorStop(0, `rgba(255,255,255,0.97)`)
     orbGlow.addColorStop(
       0.35,
       `hsla(${190 + hueShift},100%,75%,0.9)`
@@ -183,15 +189,20 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
 
     ctx.beginPath()
     ctx.arc(cx, cy, orbR + 20, 0, Math.PI * 2)
+
     ctx.fillStyle = orbGlow
     ctx.fill()
 
     ctx.beginPath()
     ctx.arc(cx, cy, orbR * 0.55, 0, Math.PI * 2)
-    ctx.fillStyle = "rgba(255,255,255,.98)"
+
+    ctx.fillStyle = "rgba(255,255,255,0.97)"
+
     ctx.shadowColor = `hsla(${190 + hueShift},100%,75%,1)`
-    ctx.shadowBlur = 30 + pulse * 16
+    ctx.shadowBlur = 30 + pulse * 20
+
     ctx.fill()
+
     ctx.shadowBlur = 0
   }
 
@@ -206,12 +217,15 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
       if (!t0) t0 = ts
 
       const raw = Math.min((ts - t0) / PH2_DUR, 1)
+
       const p = easeOut(raw)
 
-      const hueShift = (ts / 8) % 360
-      const pulse = (Math.sin(ts / 420) + 1) / 2
+      arcProgressRef.current = p * targetProgress
 
-      drawArc(p * targetProgress, hueShift, pulse)
+      const hueShift = (ts / 8) % 360
+      const pulse = (Math.sin(ts / 400) + 1) / 2
+
+      drawArc(arcProgressRef.current, hueShift, pulse)
 
       arcRafRef.current = requestAnimationFrame(loop)
     }
@@ -224,9 +238,7 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
     cancelAnimationFrame(arcRafRef.current)
   }
 
-  // ─────────────────────────────────────────────
-  // ATOMS
-  // ─────────────────────────────────────────────
+  // FIX: atom benar-benar muter mengitari reactor
   function activateAtoms(count: number) {
     atomRefs.current.forEach((atom, idx) => {
       if (!atom) return
@@ -237,9 +249,6 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
     })
   }
 
-  // ─────────────────────────────────────────────
-  // SKILLS
-  // ─────────────────────────────────────────────
   function buildSkills() {
     const grid = skillsRef.current
     if (!grid) return
@@ -251,7 +260,9 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
 
       card.className = "sl-skill-card"
 
-      card.innerHTML = `<div class="sl-skill-name">${s.label}</div>`
+      card.innerHTML = `
+        <div class="sl-skill-name">${s.label}</div>
+      `
 
       card.style.background = `linear-gradient(135deg,${s.grad})`
 
@@ -263,9 +274,6 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
     })
   }
 
-  // ─────────────────────────────────────────────
-  // DUST
-  // ─────────────────────────────────────────────
   function createDustExplosion() {
     const dust = dustRef.current
     if (!dust) return
@@ -281,6 +289,7 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
 
       const x = (Math.random() - 0.5) * 900
       const y = (Math.random() - 0.5) * 700
+
       const size = 1 + Math.random() * 5
       const dur = 1.1 + Math.random() * 0.8
 
@@ -300,9 +309,6 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
     dust.appendChild(frag)
   }
 
-  // ─────────────────────────────────────────────
-  // STARS
-  // ─────────────────────────────────────────────
   function initStars() {
     const cv = starsRef.current
     if (!cv) return
@@ -317,22 +323,15 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
       x: Math.random() * cv.width,
       y: Math.random() * cv.height,
       r: Math.random() * 2,
-      speed: 0.1 + Math.random() * 0.4,
     }))
 
     function loop() {
       ctx.clearRect(0, 0, cv.width, cv.height)
 
       stars.forEach((s) => {
-        s.y += s.speed
-
-        if (s.y > cv.height) {
-          s.y = -5
-          s.x = Math.random() * cv.width
-        }
-
         ctx.beginPath()
         ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2)
+
         ctx.fillStyle = "rgba(255,255,255,.9)"
         ctx.fill()
       })
@@ -343,9 +342,6 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
     loop()
   }
 
-  // ─────────────────────────────────────────────
-  // HYPERSPACE
-  // ─────────────────────────────────────────────
   function runHyperspace(onDone: () => void) {
     const cv = hyperCanRef.current
     const wrap = hyperRef.current
@@ -385,7 +381,8 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
       ctx.fillRect(0, 0, cv.width, cv.height)
 
       lines.forEach((l) => {
-        const dist = ease * Math.max(cv.width, cv.height) * l.speed
+        const dist =
+          ease * Math.max(cv.width, cv.height) * l.speed
 
         const x1 = cx + Math.cos(l.angle) * dist
         const y1 = cy + Math.sin(l.angle) * dist
@@ -395,14 +392,22 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
 
         const grad = ctx.createLinearGradient(x1, y1, x2, y2)
 
-        grad.addColorStop(0, `hsla(${l.hue},100%,80%,0)`)
-        grad.addColorStop(1, `hsla(${l.hue},100%,90%,.9)`)
+        grad.addColorStop(
+          0,
+          `hsla(${l.hue},100%,80%,0)`
+        )
+        grad.addColorStop(
+          1,
+          `hsla(${l.hue},100%,90%,.9)`
+        )
 
         ctx.beginPath()
         ctx.moveTo(x1, y1)
         ctx.lineTo(x2, y2)
+
         ctx.strokeStyle = grad
         ctx.lineWidth = 1.5
+
         ctx.stroke()
       })
 
@@ -419,9 +424,6 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
     hyperRafRef.current = requestAnimationFrame(frame)
   }
 
-  // ─────────────────────────────────────────────
-  // MAIN
-  // ─────────────────────────────────────────────
   useEffect(() => {
     drawArc(0, 0, 0)
 
@@ -431,6 +433,7 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
       if (!t0) t0 = ts
 
       const raw = Math.min((ts - t0) / PH1_DUR, 1)
+
       const p = easeOut(raw)
 
       const pct = Math.floor(p * 100)
@@ -460,7 +463,7 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
       ) {
         msgRef.current.dataset.msg = STATUS_MSGS[mi]
 
-        smoothTypeWriter(msgRef.current, STATUS_MSGS[mi], 40)
+        typeWriter(msgRef.current, STATUS_MSGS[mi], 38)
       }
 
       if (raw < 1) {
@@ -474,8 +477,8 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
         ph2Ref.current?.classList.add("sl-in")
 
         setTimeout(() => activateAtoms(1), 200)
-        setTimeout(() => activateAtoms(2), 800)
-        setTimeout(() => activateAtoms(3), 1400)
+        setTimeout(() => activateAtoms(2), 700)
+        setTimeout(() => activateAtoms(3), 1200)
 
         startArcLiveAnimation(1)
 
@@ -513,7 +516,7 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
 
               setTimeout(() => {
                 if (nameRef.current) {
-                  smoothTypeWriter(
+                  typeWriter(
                     nameRef.current,
                     FULL_NAME,
                     60,
@@ -554,10 +557,6 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
       cancelAnimationFrame(arcRafRef.current)
 
       arcActiveRef.current = false
-
-      if (typingTimeoutRef.current) {
-        clearTimeout(typingTimeoutRef.current)
-      }
     }
   }, [onLoadingComplete])
 
@@ -644,7 +643,11 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
           padding:34px 34px 26px 34px;
           border-radius:30px;
           overflow:hidden;
-          background:linear-gradient(180deg,rgba(10,20,35,.92),rgba(5,10,18,.96));
+          background:linear-gradient(
+            180deg,
+            rgba(10,20,35,.92),
+            rgba(5,10,18,.96)
+          );
           border:1px solid rgba(0,212,255,.24);
           box-shadow:
             0 0 40px rgba(0,212,255,.14),
@@ -656,7 +659,11 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
         .sl-battery-shell-glow{
           position:absolute;
           inset:-120px;
-          background:radial-gradient(circle at center,rgba(0,212,255,.16),transparent 70%);
+          background:radial-gradient(
+            circle at center,
+            rgba(0,212,255,.16),
+            transparent 70%
+          );
           animation:shellPulse 4s ease-in-out infinite;
           pointer-events:none;
         }
@@ -705,8 +712,13 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
           align-items:center;
           padding:18px;
           border-radius:22px;
-          background:linear-gradient(180deg,rgba(255,255,255,.03),rgba(255,255,255,.015));
+          background:linear-gradient(
+            180deg,
+            rgba(255,255,255,.03),
+            rgba(255,255,255,.015)
+          );
           border:1px solid rgba(255,255,255,.05);
+          box-shadow:inset 0 0 24px rgba(0,212,255,.04);
         }
 
         .sl-battery-cell{
@@ -714,7 +726,11 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
           height:78px;
           border-radius:14px;
           border:1px solid rgba(255,255,255,.12);
-          background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02));
+          background:linear-gradient(
+            180deg,
+            rgba(255,255,255,.06),
+            rgba(255,255,255,.02)
+          );
           position:relative;
           overflow:hidden;
         }
@@ -727,6 +743,9 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
           bottom:0;
           height:0%;
           transition:height 1s cubic-bezier(.22,.8,.2,1);
+          box-shadow:
+            0 0 18px currentColor,
+            inset 0 0 12px rgba(255,255,255,.25);
         }
 
         .sl-battery-cell.active::before{
@@ -772,47 +791,32 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
           gap:20px;
         }
 
-        /* FONT PERSEN DIPERKECIL */
         .sl-charge-pct{
-          font-size:clamp(24px,3vw,42px);
-          font-weight:800;
+          font-size:clamp(34px,4.4vw,56px);
+          font-weight:900;
           line-height:1;
           color:white;
           letter-spacing:.02em;
           text-shadow:0 0 18px rgba(0,212,255,.4);
         }
 
-        /* TEXT LEBIH HALUS */
         .sl-loading-text{
-          color:#eafcff;
-          letter-spacing:.06em;
+          color:#e8f9ff;
+          letter-spacing:.10em;
           text-transform:uppercase;
           font-size:12px;
-          font-weight:600;
+          font-weight:700;
           line-height:1.8;
           text-align:right;
           min-height:24px;
-          min-width:260px;
+          min-width:220px;
+          opacity:1;
           max-width:320px;
-          font-family:
-            Inter,
-            "Segoe UI",
-            sans-serif;
-          text-shadow:0 0 10px rgba(0,212,255,.18);
-        }
-
-        .typing-active::after{
-          content:"";
-          display:inline-block;
-          width:1px;
-          height:13px;
-          margin-left:4px;
-          background:#7dd3fc;
-          animation:typingBlink .8s infinite;
-          vertical-align:middle;
+          text-shadow:0 0 10px rgba(0,212,255,.25);
         }
 
         /* PHASE 2 */
+
         .sl-arc-wrap{
           position:relative;
           width:340px;
@@ -856,134 +860,78 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
             drop-shadow(0 0 12px rgba(168,85,247,.4));
         }
 
-        /* ATOM LEBIH HIDUP */
+        /* FIX TERBARU — atom muter orbital */
+
         .sl-atom{
           position:absolute;
+          top:50%;
+          left:50%;
           border-radius:50%;
           opacity:0;
           transition:
-            opacity .9s cubic-bezier(.2,.8,.2,1),
-            transform .9s cubic-bezier(.2,.8,.2,1);
-          transform:scale(.5) rotate(-90deg);
+            opacity .9s ease,
+            transform .9s ease;
         }
 
         .sl-atom.active{
           opacity:1;
-          transform:scale(1) rotate(0deg);
         }
 
         .sl-atom::before{
           content:"";
           position:absolute;
+          top:50%;
+          left:100%;
+          transform:translate(-50%,-50%);
           border-radius:50%;
-          left:50%;
-          transform:translateX(-50%);
-          box-shadow:
-            0 0 20px currentColor,
-            0 0 38px currentColor;
         }
 
         .sl-atom-1{
           width:170px;
           height:170px;
           border:1px solid rgba(0,212,255,.22);
-          animation:
-            atomFloat1 4s ease-in-out infinite,
-            spin 5s linear infinite;
+          animation:orbit1 4s linear infinite;
         }
 
         .sl-atom-1::before{
           width:11px;
           height:11px;
           background:#00d4ff;
-          color:#00d4ff;
-          top:-5px;
+          box-shadow:
+            0 0 20px #00d4ff,
+            0 0 40px #00d4ff;
         }
 
         .sl-atom-2{
-          width:218px;
-          height:218px;
+          width:220px;
+          height:220px;
           border:1px solid rgba(168,85,247,.22);
-          animation:
-            atomFloat2 5s ease-in-out infinite,
-            spinReverse 7s linear infinite;
+          animation:orbit2 6s linear infinite;
         }
 
         .sl-atom-2::before{
           width:10px;
           height:10px;
           background:#a855f7;
-          color:#a855f7;
-          top:-5px;
+          box-shadow:
+            0 0 20px #a855f7,
+            0 0 40px #a855f7;
         }
 
         .sl-atom-3{
-          width:266px;
-          height:266px;
+          width:270px;
+          height:270px;
           border:1px solid rgba(52,211,153,.22);
-          animation:
-            atomFloat3 6s ease-in-out infinite,
-            spin 9s linear infinite;
+          animation:orbit3 8s linear infinite;
         }
 
         .sl-atom-3::before{
           width:10px;
           height:10px;
           background:#34d399;
-          color:#34d399;
-          top:-5px;
-        }
-
-        .sl-reactor-badge{
-          position:absolute;
-          bottom:-54px;
-          left:50%;
-          transform:translateX(-50%);
-          display:flex;
-          flex-direction:column;
-          align-items:center;
-          gap:8px;
-        }
-
-        .sl-reactor-label{
-          display:flex;
-          align-items:center;
-          gap:10px;
-          padding:8px 22px;
-          border-radius:40px;
-          background:rgba(0,20,40,.7);
-          border:1px solid rgba(0,212,255,.3);
-          box-shadow:0 0 18px rgba(0,212,255,.18);
-          backdrop-filter:blur(8px);
-        }
-
-        .sl-reactor-label-text{
-          color:white;
-          letter-spacing:.22em;
-          font-size:11px;
-          font-weight:800;
-          text-transform:uppercase;
-          text-shadow:0 0 12px rgba(0,212,255,.5);
-        }
-
-        .sl-power-icon{
-          width:20px;
-          height:20px;
-          display:flex;
-          align-items:center;
-          justify-content:center;
-          animation:powerPulse 2s ease-in-out infinite;
-        }
-
-        .sl-reactor-status-dot{
-          width:6px;
-          height:6px;
-          border-radius:50%;
-          background:#00d4ff;
           box-shadow:
-            0 0 10px #00d4ff,
-            0 0 20px rgba(0,212,255,.5);
-          animation:miniBlink 1.2s ease-in-out infinite;
+            0 0 20px #34d399,
+            0 0 40px #34d399;
         }
 
         .sl-welcome-line,
@@ -1026,7 +974,12 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
           width:180px;
           height:1px;
           margin:22px 0 26px;
-          background:linear-gradient(90deg,transparent,#00d4ff,transparent);
+          background:linear-gradient(
+            90deg,
+            transparent,
+            #00d4ff,
+            transparent
+          );
         }
 
         .sl-expertise-label{
@@ -1100,18 +1053,63 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
         .sl-dust{
           position:absolute;
           border-radius:50%;
-          background:
-            radial-gradient(
-              circle,
-              rgba(255,255,255,.95),
-              rgba(168,85,247,.55),
-              transparent
-            );
+          background:radial-gradient(
+            circle,
+            rgba(255,255,255,.95),
+            rgba(168,85,247,.55),
+            transparent
+          );
           animation:sl-dust-move linear forwards;
         }
 
         .sl-content-dust-out{
-          animation:sl-content-dust-out 1.4s cubic-bezier(.2,.8,.2,1) forwards;
+          animation:
+            sl-content-dust-out 1.4s
+            cubic-bezier(.2,.8,.2,1)
+            forwards;
+        }
+
+        @keyframes orbit1{
+          from{
+            transform:
+              translate(-50%,-50%)
+              rotate(0deg);
+          }
+          to{
+            transform:
+              translate(-50%,-50%)
+              rotate(360deg);
+          }
+        }
+
+        @keyframes orbit2{
+          from{
+            transform:
+              translate(-50%,-50%)
+              rotate(0deg)
+              rotateX(68deg);
+          }
+          to{
+            transform:
+              translate(-50%,-50%)
+              rotate(-360deg)
+              rotateX(68deg);
+          }
+        }
+
+        @keyframes orbit3{
+          from{
+            transform:
+              translate(-50%,-50%)
+              rotate(0deg)
+              rotateY(70deg);
+          }
+          to{
+            transform:
+              translate(-50%,-50%)
+              rotate(360deg)
+              rotateY(70deg);
+          }
         }
 
         @keyframes sl-content-dust-out{
@@ -1139,7 +1137,9 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
 
           100%{
             opacity:0;
-            transform:translate(var(--tx),var(--ty)) scale(0);
+            transform:
+              translate(var(--tx),var(--ty))
+              scale(0);
             filter:blur(3px);
           }
         }
@@ -1153,36 +1153,6 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
         @keyframes spinReverse{
           to{
             transform:rotate(-360deg);
-          }
-        }
-
-        @keyframes atomFloat1{
-          0%,100%{
-            transform:translateY(0px);
-          }
-
-          50%{
-            transform:translateY(-8px);
-          }
-        }
-
-        @keyframes atomFloat2{
-          0%,100%{
-            transform:translateX(0px);
-          }
-
-          50%{
-            transform:translateX(10px);
-          }
-        }
-
-        @keyframes atomFloat3{
-          0%,100%{
-            transform:translateY(0px) scale(1);
-          }
-
-          50%{
-            transform:translateY(6px) scale(1.03);
           }
         }
 
@@ -1232,28 +1202,6 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
           }
         }
 
-        @keyframes typingBlink{
-          0%,100%{
-            opacity:0;
-          }
-
-          50%{
-            opacity:1;
-          }
-        }
-
-        @keyframes powerPulse{
-          0%,100%{
-            filter:drop-shadow(0 0 4px rgba(0,212,255,.6));
-            opacity:.85;
-          }
-
-          50%{
-            filter:drop-shadow(0 0 10px rgba(0,212,255,1));
-            opacity:1;
-          }
-        }
-
         @media(max-width:768px){
 
           .sl-battery-shell{
@@ -1276,7 +1224,7 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
           }
 
           .sl-charge-pct{
-            font-size:30px;
+            font-size:36px;
           }
 
           .sl-loading-text{
@@ -1323,25 +1271,43 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
             width:220px;
             height:220px;
           }
+
+          .sl-welcome-line{
+            font-size:10px;
+            letter-spacing:.22em;
+            line-height:1.7;
+          }
+
+          .sl-expertise-label{
+            font-size:11px;
+            letter-spacing:.18em;
+          }
         }
       `}</style>
 
       <div ref={containerRef} className="sl-root">
-        <canvas ref={starsRef} className="sl-stars-canvas" />
+
+        <canvas
+          ref={starsRef}
+          className="sl-stars-canvas"
+        />
 
         <div ref={hyperRef} className="sl-hyper-wrap">
           <canvas
             ref={hyperCanRef}
             style={{
-              position: "absolute",
-              inset: 0,
-              width: "100%",
-              height: "100%",
+              position:"absolute",
+              inset:0,
+              width:"100%",
+              height:"100%"
             }}
           />
         </div>
 
-        <div ref={dustRef} className="sl-dust-wrap" />
+        <div
+          ref={dustRef}
+          className="sl-dust-wrap"
+        />
 
         <div className="sl-content">
 
@@ -1426,46 +1392,6 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
                 height={300}
               />
 
-              <div className="sl-reactor-badge">
-
-                <div className="sl-reactor-label">
-
-                  <div className="sl-power-icon">
-                    <svg
-                      width="18"
-                      height="18"
-                      viewBox="0 0 18 18"
-                      fill="none"
-                    >
-                      <path
-                        d="M6.2 3.6A6.5 6.5 0 1 0 11.8 3.6"
-                        stroke="#00d4ff"
-                        strokeWidth="1.8"
-                        strokeLinecap="round"
-                      />
-
-                      <line
-                        x1="9"
-                        y1="1.5"
-                        x2="9"
-                        y2="7"
-                        stroke="#00d4ff"
-                        strokeWidth="1.8"
-                        strokeLinecap="round"
-                      />
-                    </svg>
-                  </div>
-
-                  <span className="sl-reactor-label-text">
-                    POWER ON
-                  </span>
-
-                  <div className="sl-reactor-status-dot" />
-
-                </div>
-
-              </div>
-
             </div>
 
           </div>
@@ -1496,6 +1422,7 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
           </div>
 
         </div>
+
       </div>
     </>
   )
