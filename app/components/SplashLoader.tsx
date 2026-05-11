@@ -9,7 +9,6 @@ type Props = {
 const FULL_NAME = "Jason Vianney Sugiarto"
 
 const STATUS_MSGS = [
-  "Initializing System...",
   "Loading Power Core...",
   "Arc Reactor Online — 100%",
 ]
