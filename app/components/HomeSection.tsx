@@ -53,14 +53,14 @@ function BatikBackground() {
 /* ─── Rounded Photo Frame ─── */
 function PhotoFrame({ src }: { src?: string }) {
   return (
-    <div className="relative flex items-center justify-center">
+    <div className="relative flex items-center justify-center w-full h-full">
 
       {/* Glow */}
       <motion.div
         className="absolute rounded-full blur-3xl"
         style={{
-          width: "70%",
-          height: "70%",
+          width: "72%",
+          height: "72%",
           background: "rgba(200,169,110,0.14)",
         }}
         animate={{
@@ -74,15 +74,18 @@ function PhotoFrame({ src }: { src?: string }) {
         }}
       />
 
-      {/* Outer Ring */}
+      {/* Outer Rounded Square */}
       <motion.div
-        className="absolute rounded-[38px] border border-[rgba(200,169,110,0.25)]"
+        className="absolute rounded-[42px]"
         style={{
           width: "100%",
           height: "100%",
+          border: "1px solid rgba(200,169,110,0.22)",
+          background: "rgba(255,255,255,0.015)",
+          backdropFilter: "blur(8px)",
         }}
         animate={{
-          rotate: [0, 1.5, 0, -1.5, 0],
+          rotate: [0, 1.2, 0, -1.2, 0],
         }}
         transition={{
           duration: 10,
@@ -91,9 +94,19 @@ function PhotoFrame({ src }: { src?: string }) {
         }}
       />
 
+      {/* Inner Rounded Frame */}
+      <div
+        className="absolute rounded-[34px]"
+        style={{
+          width: "90%",
+          height: "90%",
+          border: "1px solid rgba(200,169,110,0.18)",
+        }}
+      />
+
       {/* Photo */}
       <motion.div
-        className="relative z-10 overflow-hidden rounded-[30px]"
+        className="relative z-10 overflow-hidden rounded-[28px]"
         style={{
           width: "82%",
           height: "82%",
@@ -107,7 +120,7 @@ function PhotoFrame({ src }: { src?: string }) {
         }}
         transition={{
           type: "spring",
-          stiffness: 200,
+          stiffness: 220,
         }}
       >
         {src ? (
@@ -115,8 +128,9 @@ function PhotoFrame({ src }: { src?: string }) {
             src={src}
             alt="Jason Vianney Sugiarto"
             fill
-            className="object-cover scale-[1.04]"
             priority
+            sizes="(max-width: 768px) 80vw, 420px"
+            className="object-cover scale-[1.04]"
           />
         ) : (
           <div className="w-full h-full flex items-center justify-center">
