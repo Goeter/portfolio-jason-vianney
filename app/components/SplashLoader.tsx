@@ -10,7 +10,7 @@ const FULL_NAME =
   "Jason Vianney Sugiarto"
 
 const STATUS_MSGS = [
-  "Loading...",
+  "Loading System...",
   "Initializing Power Core...",
   "Arc Reactor Charging to Full Capacity...",
 ]
@@ -119,7 +119,7 @@ export default function SplashLoader({
     let i = 0
 
     const timer = setInterval(() => {
-      el.textContent += text[i]
+      el.textContent += text.charAt(i)
 
       i++
 
@@ -159,17 +159,17 @@ export default function SplashLoader({
         10,
         cx,
         cy,
-        r + 35
+        r + 40
       )
 
     glow.addColorStop(
       0,
-      "rgba(255,255,255,.18)"
+      "rgba(255,255,255,.22)"
     )
 
     glow.addColorStop(
-      0.5,
-      `hsla(${200 + hueShift},100%,60%,.3)`
+      0.45,
+      `hsla(${200 + hueShift},100%,60%,.35)`
     )
 
     glow.addColorStop(
@@ -246,16 +246,38 @@ export default function SplashLoader({
 
     ctx.strokeStyle = g
 
-    ctx.lineWidth = 7
+    ctx.lineWidth = 8
 
     ctx.lineCap = "round"
 
     ctx.shadowColor =
-      `hsl(${200 + hueShift},100%,70%)`
+      `hsl(${190 + hueShift},100%,70%)`
 
-    ctx.shadowBlur = 30
+    ctx.shadowBlur = 32
 
     ctx.stroke()
+
+    ctx.shadowBlur = 0
+
+    ctx.beginPath()
+
+    ctx.arc(
+      cx,
+      cy,
+      18,
+      0,
+      Math.PI * 2
+    )
+
+    ctx.fillStyle =
+      "rgba(255,255,255,.95)"
+
+    ctx.shadowColor =
+      "rgba(0,212,255,.9)"
+
+    ctx.shadowBlur = 28
+
+    ctx.fill()
 
     ctx.shadowBlur = 0
   }
@@ -603,7 +625,7 @@ export default function SplashLoader({
         typeWriter(
           msgRef.current,
           STATUS_MSGS[mi],
-          55,
+          80
         )
       }
 
@@ -991,6 +1013,10 @@ export default function SplashLoader({
 
           transition:
             height 1s cubic-bezier(.22,.8,.2,1);
+
+          box-shadow:
+            0 0 18px currentColor,
+            inset 0 0 12px rgba(255,255,255,.25);
         }
 
         .sl-battery-cell.active::before{
@@ -1001,41 +1027,65 @@ export default function SplashLoader({
           background:
             linear-gradient(
               180deg,
-              #ff4040,
-              #ff1010
+              #ff2b2b,
+              #d70000
             );
         }
 
-        .sl-battery-cell:nth-child(2)::before,
+        .sl-battery-cell:nth-child(2)::before{
+          background:
+            linear-gradient(
+              180deg,
+              #ff5b1f,
+              #ff7a00
+            );
+        }
+
         .sl-battery-cell:nth-child(3)::before{
           background:
             linear-gradient(
               180deg,
-              #ff8c00,
-              #ff6200
+              #ff7f11,
+              #ff9f1c
             );
         }
 
         .sl-battery-cell:nth-child(4)::before,
-        .sl-battery-cell:nth-child(5)::before,
-        .sl-battery-cell:nth-child(6)::before{
+        .sl-battery-cell:nth-child(5)::before{
           background:
             linear-gradient(
               180deg,
-              #ffe600,
-              #ffc400
+              #ffb703,
+              #ffd60a
             );
         }
 
-        .sl-battery-cell:nth-child(7)::before,
+        .sl-battery-cell:nth-child(6)::before,
+        .sl-battery-cell:nth-child(7)::before{
+          background:
+            linear-gradient(
+              180deg,
+              #f4ff52,
+              #b9ff66
+            );
+        }
+
         .sl-battery-cell:nth-child(8)::before,
-        .sl-battery-cell:nth-child(9)::before,
+        .sl-battery-cell:nth-child(9)::before{
+          background:
+            linear-gradient(
+              180deg,
+              #3dff91,
+              #00e676
+            );
+        }
+
         .sl-battery-cell:nth-child(10)::before{
           background:
             linear-gradient(
               180deg,
-              #8dff7a,
-              #00ffd0
+              #00ff99,
+              #00c853
             );
         }
 
@@ -1066,25 +1116,28 @@ export default function SplashLoader({
         }
 
         .sl-loading-text{
-          color:#d7f3ff;
+          color:#e8f9ff;
 
-          letter-spacing:.16em;
+          letter-spacing:.14em;
 
           text-transform:uppercase;
 
           font-size:12px;
 
-          font-weight:600;
+          font-weight:700;
 
-          line-height:1.7;
+          line-height:1.8;
 
           text-align:right;
 
-          min-height:22px;
+          min-height:24px;
 
-          opacity:.95;
+          opacity:1;
 
-          max-width:300px;
+          max-width:320px;
+
+          text-shadow:
+            0 0 10px rgba(0,212,255,.25);
         }
 
         .sl-arc-wrap{
@@ -1108,7 +1161,10 @@ export default function SplashLoader({
           height:92%;
 
           border:
-            1px solid rgba(0,212,255,.2);
+            1px solid rgba(0,212,255,.25);
+
+          box-shadow:
+            0 0 24px rgba(0,212,255,.18);
 
           animation:
             spin 8s linear infinite;
@@ -1119,7 +1175,10 @@ export default function SplashLoader({
           height:72%;
 
           border:
-            1px solid rgba(168,85,247,.22);
+            1px solid rgba(168,85,247,.3);
+
+          box-shadow:
+            0 0 24px rgba(168,85,247,.16);
 
           animation:
             spinReverse 6s linear infinite;
@@ -1130,6 +1189,11 @@ export default function SplashLoader({
           height:150px;
 
           border-radius:50%;
+
+          filter:
+            drop-shadow(
+              0 0 22px rgba(0,212,255,.55)
+            );
         }
 
         .sl-atom{
@@ -1146,11 +1210,38 @@ export default function SplashLoader({
           opacity:0;
 
           transition:
-            opacity .7s ease;
+            opacity .7s ease,
+            transform .7s ease;
+
+          transform:scale(.7);
         }
 
         .sl-atom.active{
           opacity:1;
+          transform:scale(1);
+        }
+
+        .sl-atom::before{
+          content:"";
+
+          position:absolute;
+
+          width:10px;
+          height:10px;
+
+          border-radius:50%;
+
+          background:#00d4ff;
+
+          top:-5px;
+          left:50%;
+
+          transform:
+            translateX(-50%);
+
+          box-shadow:
+            0 0 18px #00d4ff,
+            0 0 34px #00d4ff;
         }
 
         .sl-atom-1{
@@ -1177,15 +1268,61 @@ export default function SplashLoader({
         .sl-reactor-title{
           position:absolute;
 
+          bottom:28px;
+
+          display:flex;
+          align-items:center;
+          gap:10px;
+
           color:white;
 
-          letter-spacing:.28em;
+          letter-spacing:.18em;
 
           font-size:12px;
 
-          font-weight:700;
+          font-weight:800;
 
           text-transform:uppercase;
+
+          text-shadow:
+            0 0 12px rgba(0,212,255,.5);
+        }
+
+        .sl-reactor-icon{
+          width:18px;
+          height:18px;
+
+          border-radius:50%;
+
+          border:
+            2px solid #00d4ff;
+
+          position:relative;
+
+          box-shadow:
+            0 0 14px rgba(0,212,255,.7);
+        }
+
+        .sl-reactor-icon::before{
+          content:"";
+
+          position:absolute;
+
+          width:2px;
+          height:8px;
+
+          background:#00d4ff;
+
+          top:-5px;
+          left:50%;
+
+          transform:
+            translateX(-50%);
+
+          border-radius:4px;
+
+          box-shadow:
+            0 0 10px rgba(0,212,255,.9);
         }
 
         .sl-welcome-line,
@@ -1676,7 +1813,8 @@ export default function SplashLoader({
               />
 
               <div className="sl-reactor-title">
-                ARC REACTOR
+                <div className="sl-reactor-icon" />
+                POWER ON
               </div>
             </div>
           </div>
