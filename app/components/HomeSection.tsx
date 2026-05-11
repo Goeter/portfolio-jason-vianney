@@ -298,13 +298,15 @@ export default function HomeSection() {
               <span className="w-7 h-[1px] bg-[#C8A96E] opacity-70" />
             </motion.div>
 
-            {/* 4b */}
+            {/* Greeting */}
             <motion.p
               className="mb-2"
               style={{
                 fontFamily: "DM Sans, sans-serif",
-                fontSize: "clamp(14px, 1.5vw, 16px)",
-                color: "rgba(220,210,190,0.7)",
+                fontSize: "clamp(16px, 1.8vw, 18px)",
+                fontWeight: 500,
+                letterSpacing: "0.02em",
+                color: "rgba(255,255,255,0.88)",
               }}
               {...fadeSlideLeft(0.4)}
             >
@@ -343,7 +345,7 @@ export default function HomeSection() {
               </div>
             </motion.div>
 
-            {/* 4e */}
+            {/* My Expertise */}
             <motion.div
               className="mb-4"
               {...fadeSlideLeft(0.55)}
@@ -351,10 +353,10 @@ export default function HomeSection() {
               <h2
                 style={{
                   fontFamily: "DM Sans, sans-serif",
-                  fontSize: "clamp(18px, 2vw, 22px)",
-                  fontWeight: 700,
+                  fontSize: "clamp(16px, 1.8vw, 19px)",
+                  fontWeight: 600,
                   color: "#F4EDD8",
-                  letterSpacing: "0.04em",
+                  letterSpacing: "0.03em",
                 }}
               >
                 My Expertise
@@ -391,14 +393,14 @@ export default function HomeSection() {
               ))}
             </motion.div>
 
-            {/* 4g */}
+            {/* Description */}
             <motion.p
               className="max-w-[620px]"
               style={{
                 fontFamily: "DM Sans, sans-serif",
                 fontSize: "clamp(15px, 1.7vw, 18px)",
                 lineHeight: 1.9,
-                color: "rgba(210,200,182,0.9)",
+                color: "rgba(255,255,255,0.92)",
                 marginBottom: 34,
                 textAlign: "justify",
               }}
@@ -481,25 +483,25 @@ export default function HomeSection() {
                 className="inline-flex items-center justify-center gap-2"
                 style={{
                   padding: "13px 24px",
-                  background: "rgba(255,255,255,0.03)",
-                  color: "rgba(181,212,244,0.92)",
+                  background: "rgba(255,255,255,0.04)",
+                  color: "#FFFFFF",
                   fontFamily: "DM Sans, sans-serif",
                   fontSize: "clamp(12px, 1vw, 13px)",
-                  fontWeight: 500,
+                  fontWeight: 600,
                   letterSpacing: "0.06em",
                   textTransform: "uppercase",
                   borderRadius: 14,
-                  border: "0.5px solid rgba(133,183,235,0.35)",
+                  border: "0.5px solid rgba(255,255,255,0.22)",
                   backdropFilter: "blur(8px)",
                 }}
                 whileHover={{
                   y: -3,
-                  backgroundColor: "rgba(133,183,235,0.08)",
+                  backgroundColor: "rgba(255,255,255,0.08)",
                 }}
                 whileTap={{ scale: 0.97 }}
               >
                 View Projects
-
+              
                 <motion.span
                   animate={{ x: [0, 5, 0] }}
                   transition={{
