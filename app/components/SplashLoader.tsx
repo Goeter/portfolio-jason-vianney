@@ -80,15 +80,19 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
     speed: number,
     cb?: () => void
   ) {
-    el.textContent = ""
     let i = 0
-
-    const timer = setInterval(() => {
-      el.textContent += text.charAt(i)
+  
+    clearInterval((el as any)._typingTimer)
+  
+    el.textContent = ""
+  
+    ;(el as any)._typingTimer = setInterval(() => {
+      el.textContent = text.slice(0, i + 1)
+  
       i++
-
+  
       if (i >= text.length) {
-        clearInterval(timer)
+        clearInterval((el as any)._typingTimer)
         cb?.()
       }
     }, speed)
@@ -761,26 +765,36 @@ export default function SplashLoader({ onLoadingComplete }: Props) {
         .sl-battery-cell:nth-child(10)::before{ background:#00c853; }
 
         .sl-battery-bottom{
-          margin-top:24px;
+          margin-top:22px;
           display:flex;
           justify-content:space-between;
-          align-items:flex-end;
+          align-items:center;
+          gap:18px;
         }
 
         .sl-charge-pct{
-          font-size:56px;
-          font-weight:900;
+          font-size:clamp(30px,4vw,44px);
+          font-weight:800;
           color:white;
+          line-height:1;
+          letter-spacing:.02em;
+          text-shadow:0 0 14px rgba(0,212,255,.35);
         }
-
+        
         .sl-loading-text{
           color:#e8f9ff;
-          font-size:12px;
+          font-size:11px;
           font-weight:700;
-          min-width:220px;
+          min-width:240px;
+          max-width:260px;
           text-align:right;
-          letter-spacing:.12em;
-          line-height:1.8;
+          letter-spacing:.10em;
+          line-height:1.7;
+          text-transform:uppercase;
+          font-variant-numeric:tabular-nums;
+          text-shadow:0 0 10px rgba(0,212,255,.22);
+          white-space:nowrap;
+          overflow:hidden;
         }
 
         /* ARC REACTOR */
