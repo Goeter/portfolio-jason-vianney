@@ -129,8 +129,13 @@ function FloatingLights() {
     <>
       <motion.div
         className="absolute left-[8%] top-[10%] h-32 w-32 rounded-full blur-3xl"
-        style={{ background: "rgba(200,169,110,0.10)" }}
-        animate={{ y: [0, -20, 0], x: [0, 15, 0] }}
+        style={{
+          background: "rgba(200,169,110,0.10)",
+        }}
+        animate={{
+          y: [0, -20, 0],
+          x: [0, 15, 0],
+        }}
         transition={{
           duration: 8,
           repeat: Infinity,
@@ -140,8 +145,13 @@ function FloatingLights() {
 
       <motion.div
         className="absolute bottom-[12%] right-[8%] h-44 w-44 rounded-full blur-3xl"
-        style={{ background: "rgba(55,138,221,0.10)" }}
-        animate={{ y: [0, 20, 0], x: [0, -15, 0] }}
+        style={{
+          background: "rgba(55,138,221,0.10)",
+        }}
+        animate={{
+          y: [0, 20, 0],
+          x: [0, -15, 0],
+        }}
         transition={{
           duration: 10,
           repeat: Infinity,
@@ -153,7 +163,7 @@ function FloatingLights() {
 }
 
 /* ─────────────────────────────────────────────
-   Photo Frame
+   Premium Photo Frame
 ───────────────────────────────────────────── */
 function PhotoFrame({ src }: { src?: string }) {
   return (
@@ -169,7 +179,7 @@ function PhotoFrame({ src }: { src?: string }) {
         ease: "easeInOut",
       }}
     >
-      {/* Glow */}
+      {/* Soft Glow */}
       <motion.div
         className="absolute h-[88%] w-[88%] rounded-[42px] blur-3xl"
         style={{
@@ -196,7 +206,9 @@ function PhotoFrame({ src }: { src?: string }) {
           boxShadow:
             "0 0 40px rgba(200,169,110,0.18), 0 0 80px rgba(200,169,110,0.08)",
         }}
-        whileHover={{ scale: 1.02 }}
+        whileHover={{
+          scale: 1.02,
+        }}
         transition={{
           type: "spring",
           stiffness: 220,
@@ -204,7 +216,9 @@ function PhotoFrame({ src }: { src?: string }) {
       >
         <div
           className="relative h-full w-full overflow-hidden rounded-[34px]"
-          style={{ background: "#142434" }}
+          style={{
+            background: "#142434",
+          }}
         >
           {src && (
             <motion.div
@@ -259,7 +273,7 @@ const fadeSlideRight = {
 }
 
 /* ─────────────────────────────────────────────
-   Data
+   Expertise Data
 ───────────────────────────────────────────── */
 const expertise = [
   {
@@ -295,7 +309,7 @@ const expertise = [
 ]
 
 /* ─────────────────────────────────────────────
-   Main
+   Home Section
 ───────────────────────────────────────────── */
 export default function HomeSection() {
   const handleDownloadPDF = () => {
@@ -316,7 +330,8 @@ export default function HomeSection() {
   return (
     <section
       id="home"
-      className="relative flex min-h-screen flex-col justify-center overflow-hidden bg-[#0B1724] pb-12 pt-20 md:pt-24"
+      aria-label="Home Section"
+      className="relative flex min-h-screen flex-col justify-center overflow-hidden bg-[#0B1724] py-[88px] md:py-[110px]"
     >
       <BatikBackground />
       <FloatingLights />
@@ -333,7 +348,7 @@ export default function HomeSection() {
       <div className="relative z-10 mx-auto w-full max-w-7xl px-5 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-2">
 
-          {/* LEFT */}
+          {/* LEFT CONTENT */}
           <div className="order-1 flex flex-col">
 
             {/* Header */}
@@ -370,7 +385,7 @@ export default function HomeSection() {
               }}
               {...fadeSlideLeft(0.4)}
             >
-              Hello, I'm
+              Hello, I&apos;m
             </motion.p>
 
             {/* Name */}
@@ -386,7 +401,9 @@ export default function HomeSection() {
             >
               Jason Vianney
               <br />
-              <span style={{ color: "#C8A96E" }}>Sugiarto</span>
+              <span style={{ color: "#C8A96E" }}>
+                Sugiarto
+              </span>
             </motion.h1>
 
             {/* Mobile Photo */}
@@ -423,7 +440,7 @@ export default function HomeSection() {
               </h2>
             </motion.div>
 
-            {/* Expertise Items */}
+            {/* Expertise */}
             <motion.div
               className="mb-8 flex flex-wrap gap-3"
               {...fadeSlideLeft(0.6)}
@@ -464,11 +481,13 @@ export default function HomeSection() {
               }}
               {...fadeSlideLeft(0.65)}
             >
-              IT Professional with 4 years of experience in fullstack
-              development, system analysis, and data analytics, focused on
-              delivering efficient, scalable, and user-centered digital
-              solutions. Also experienced as a Math and English Tutor with
-              strong analytical thinking and communication skills.
+              IT Professional with 4 years of experience in
+              fullstack development, system analysis, and
+              data analytics, focused on delivering efficient,
+              scalable, and user-centered digital solutions.
+              Also experienced as a Math and English Tutor
+              with strong analytical thinking and communication
+              skills.
             </motion.p>
 
             {/* Buttons */}
@@ -476,7 +495,7 @@ export default function HomeSection() {
               className="flex flex-wrap gap-4"
               {...fadeSlideLeft(0.75)}
             >
-              {/* Download */}
+              {/* Download Resume */}
               <motion.button
                 onClick={handleDownloadPDF}
                 className="relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-[14px]"
@@ -498,7 +517,9 @@ export default function HomeSection() {
                   boxShadow:
                     "0 16px 38px rgba(200,169,110,0.30)",
                 }}
-                whileTap={{ scale: 0.97 }}
+                whileTap={{
+                  scale: 0.97,
+                }}
               >
                 <motion.div
                   className="absolute inset-0"
@@ -506,7 +527,9 @@ export default function HomeSection() {
                     background:
                       "linear-gradient(90deg, transparent, rgba(255,255,255,0.18), transparent)",
                   }}
-                  animate={{ x: ["-120%", "140%"] }}
+                  animate={{
+                    x: ["-120%", "140%"],
+                  }}
                   transition={{
                     duration: 2.6,
                     repeat: Infinity,
@@ -516,7 +539,9 @@ export default function HomeSection() {
 
                 <motion.div
                   className="relative z-10"
-                  animate={{ y: [0, 3, 0] }}
+                  animate={{
+                    y: [0, 3, 0],
+                  }}
                   transition={{
                     duration: 1,
                     repeat: Infinity,
@@ -531,7 +556,7 @@ export default function HomeSection() {
                 </span>
               </motion.button>
 
-              {/* Projects */}
+              {/* View Projects */}
               <motion.button
                 onClick={handleViewProjects}
                 className="inline-flex items-center justify-center gap-2 rounded-[14px]"
@@ -551,12 +576,16 @@ export default function HomeSection() {
                   y: -3,
                   backgroundColor: "rgba(255,255,255,0.08)",
                 }}
-                whileTap={{ scale: 0.97 }}
+                whileTap={{
+                  scale: 0.97,
+                }}
               >
                 View Projects
 
                 <motion.span
-                  animate={{ x: [0, 5, 0] }}
+                  animate={{
+                    x: [0, 5, 0],
+                  }}
                   transition={{
                     duration: 1.2,
                     repeat: Infinity,
@@ -569,7 +598,7 @@ export default function HomeSection() {
             </motion.div>
           </div>
 
-          {/* RIGHT */}
+          {/* RIGHT PHOTO */}
           <motion.div
             className="order-2 hidden justify-center lg:flex lg:justify-end"
             {...fadeSlideRight}
