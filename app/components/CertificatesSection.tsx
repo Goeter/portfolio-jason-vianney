@@ -1,7 +1,7 @@
 "use client"
 
-import { useState, useEffect } from "react"
-import { ChevronLeft, ChevronRight, Award, X } from "lucide-react"
+import { useEffect, useMemo, useState } from "react"
+import { ChevronLeft, ChevronRight, Award, X, ExternalLink } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import Link from "next/link"
@@ -20,8 +20,7 @@ const certificates = [
   {
     id: 2,
     title: "Teaching Certification",
-    description:
-      "Teaching Mathematic, English and Physics",
+    description: "Teaching Mathematic, English and Physics",
     image: "/assets/certificates/Teaching Certification.png",
     issuer: "British Council",
     date: "09 October 2025",
@@ -53,162 +52,256 @@ const certificates = [
     issuer: "Universitas Surabaya (UBAYA)",
     date: "24 May 2025",
   },
-  
-  
 ]
 
 export default function CertificatesSection() {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [cardsPerView, setCardsPerView] = useState(3)
-  const [isClient, setIsClient] = useState(false)
   const [selectedImage, setSelectedImage] = useState<string | null>(null)
+  const [touchStart, setTouchStart] = useState<number | null>(null)
+  const [touchEnd, setTouchEnd] = useState<number | null>(null)
 
   useEffect(() => {
-    setIsClient(true)
-
     const updateCardsPerView = () => {
-      if (typeof window !== "undefined") {
-        if (window.innerWidth < 768) {
-          setCardsPerView(1)
-        } else if (window.innerWidth < 1024) {
-          setCardsPerView(2)
-        } else {
-          setCardsPerView(3)
-        }
+      if (window.innerWidth < 768) {
+        setCardsPerView(1)
+      } else if (window.innerWidth < 1024) {
+        setCardsPerView(2)
+      } else {
+        setCardsPerView(3)
       }
     }
 
     updateCardsPerView()
-    if (typeof window !== "undefined") {
-      window.addEventListener("resize", updateCardsPerView)
-      return () => window.removeEventListener("resize", updateCardsPerView)
-    }
+    window.addEventListener("resize", updateCardsPerView)
+
+    return () => window.removeEventListener("resize", updateCardsPerView)
   }, [])
 
-  const maxIndex = Math.max(1, certificates.length - cardsPerView + 1)
+  const maxIndex = useMemo(() => {
+    return Math.max(0, certificates.length - cardsPerView)
+  }, [cardsPerView])
+
+  useEffect(() => {
+    if (currentIndex > maxIndex) {
+      setCurrentIndex(maxIndex)
+    }
+  }, [currentIndex, maxIndex])
 
   const nextSlide = () => {
-    setCurrentIndex((prev) => (prev + 1) % maxIndex)
+    setCurrentIndex((prev) => (prev >= maxIndex ? 0 : prev + 1))
   }
 
   const prevSlide = () => {
-    setCurrentIndex((prev) => (prev - 1 + maxIndex) % maxIndex)
+    setCurrentIndex((prev) => (prev <= 0 ? maxIndex : prev - 1))
   }
 
-  const getTransformValue = () => {
-    if (!isClient) return 0
-    const percentage = 100 / cardsPerView
-    return currentIndex * percentage
+  const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
+    setTouchEnd(null)
+    setTouchStart(e.targetTouches[0].clientX)
+  }
+
+  const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
+    setTouchEnd(e.targetTouches[0].clientX)
+  }
+
+  const handleTouchEnd = () => {
+    if (!touchStart || !touchEnd) return
+
+    const distance = touchStart - touchEnd
+    const minSwipeDistance = 50
+
+    if (distance > minSwipeDistance) {
+      nextSlide()
+    }
+
+    if (distance < -minSwipeDistance) {
+      prevSlide()
+    }
   }
 
   return (
-    <section id="certificates" className="min-h-screen flex items-center py-20 relative">
-      <div className="absolute inset-0 bg-gradient-to-br from-slate-900/60 via-green-900/60 to-emerald-900/60 backdrop-blur-sm">
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width=%2260%22 height=%2260%22 viewBox=%220 0 60 60%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cg fill=%22none%22 fillRule=%22evenodd%22%3E%3Cg stroke=%22%2300ff00%22 strokeWidth=%221%22%3E%3Cpath d=%22M0 0h60v60H0z%22/%3E%3Cpath d=%22M15 0v60M30 0v60M45 0v60M0 15h60M0 30h60M0 45h60%22/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')]" />
-        </div>
+    <section
+      id="certificates"
+      className="relative flex min-h-screen items-center overflow-hidden py-20"
+    >
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(34,197,94,0.20),transparent_32%),radial-gradient(circle_at_80%_15%,rgba(20,184,166,0.16),transparent_30%),radial-gradient(circle_at_50%_90%,rgba(16,185,129,0.18),transparent_35%),linear-gradient(135deg,#020617_0%,#031c16_45%,#042f2e_100%)]" />
+
+      <div className="absolute inset-0 opacity-[0.12]">
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(34,197,94,0.28)_1px,transparent_1px),linear-gradient(to_bottom,rgba(45,212,191,0.22)_1px,transparent_1px)] bg-[size:72px_72px]" />
       </div>
 
-      {/* Modal Image Viewer */}
+      <div className="absolute inset-0 opacity-[0.18]">
+        <div className="absolute left-0 top-0 h-full w-full bg-[radial-gradient(circle_at_center,rgba(34,197,94,0.18)_1px,transparent_1.5px)] bg-[size:28px_28px]" />
+      </div>
+
+      <div className="absolute left-[8%] top-[18%] h-56 w-56 rounded-full bg-green-500/20 blur-[110px]" />
+      <div className="absolute right-[10%] bottom-[15%] h-72 w-72 rounded-full bg-teal-400/20 blur-[130px]" />
+      <div className="absolute left-1/2 top-1/2 h-96 w-96 -translate-x-1/2 -translate-y-1/2 rounded-full bg-emerald-500/10 blur-[150px]" />
+
+      <div className="absolute inset-0 bg-[linear-gradient(120deg,transparent_0%,rgba(34,197,94,0.06)_45%,transparent_70%)]" />
+
       {selectedImage && (
         <div
-          className="fixed inset-0 z-50 bg-black bg-opacity-80 flex items-center justify-center"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 px-4 backdrop-blur-sm"
           onClick={() => setSelectedImage(null)}
         >
-          <div className="relative max-w-4xl max-h-[90vh] mx-auto">
+          <div className="relative max-h-[90vh] w-full max-w-5xl">
             <button
-              className="absolute top-2 right-2 bg-slate-800 hover:bg-slate-700 text-white p-1 rounded-full z-10"
+              type="button"
+              className="absolute right-3 top-3 z-10 rounded-full border border-white/20 bg-slate-950/80 p-2 text-white transition hover:bg-slate-800"
               onClick={(e) => {
                 e.stopPropagation()
                 setSelectedImage(null)
               }}
+              aria-label="Close certificate preview"
             >
-              <X className="w-5 h-5" />
+              <X className="h-5 w-5" />
             </button>
+
             <Image
               src={selectedImage}
               alt="Certificate Detail"
               width={1200}
               height={800}
-              className="w-full h-auto max-h-[90vh] object-contain rounded-lg"
+              className="max-h-[90vh] w-full rounded-2xl object-contain shadow-2xl"
             />
           </div>
         </div>
       )}
 
-      <div className="container mx-auto px-4 max-w-6xl relative z-10">
-        <div className="flex items-center justify-between mb-8">
-          <h2 className="text-white text-3xl lg:text-4xl xl:text-5xl font-bold bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent flex items-center gap-3">
-            Certificates
-          </h2>
+      <div className="container relative z-10 mx-auto max-w-6xl px-4">
+        <div className="mb-10 flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
+          <div>
+            <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-green-400/30 bg-green-400/10 px-4 py-2 text-sm font-medium text-green-300">
+              <Award className="h-4 w-4" />
+              Certificate Collection
+            </div>
+
+            <h2 className="bg-gradient-to-r from-white via-green-100 to-emerald-300 bg-clip-text text-4xl font-bold tracking-tight text-transparent md:text-5xl">
+              Certificates
+            </h2>
+
+            <p className="mt-3 max-w-2xl text-sm leading-relaxed text-slate-300 md:text-base">
+              A curated list of certifications and learning achievements that
+              support my professional growth.
+            </p>
+          </div>
+
           <Link href="/certificates">
-            <Button className="bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-400 hover:to-emerald-400 text-white font-semibold px-6 py-2 rounded-lg shadow-lg shadow-green-500/30 hover:shadow-xl hover:shadow-green-500/40 transform hover:scale-105 transition-all duration-300">
-              All Certificates{" "}
-              <span className="bg-green-600 text-white px-2 py-1 rounded-md border border-green-700 ml-2">
+            <Button className="group w-fit rounded-full bg-gradient-to-r from-green-500 to-emerald-500 px-5 py-5 font-semibold text-white shadow-lg shadow-green-500/25 transition-all duration-300 hover:scale-[1.03] hover:from-green-400 hover:to-emerald-400 hover:shadow-green-500/40">
+              View All Certificates
+              <span className="ml-2 rounded-full border border-white/20 bg-white/15 px-2.5 py-1 text-xs">
                 {certificates.length}
-              </span>{" "}
-              {">"}
+              </span>
+              <ExternalLink className="ml-2 h-4 w-4 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </Button>
           </Link>
         </div>
 
         <div className="relative">
           <Button
+            type="button"
             variant="outline"
             size="icon"
-            className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-slate-800/80 border-green-500/50 hover:bg-slate-700/80 shadow-lg text-green-300 hover:text-green-200"
             onClick={prevSlide}
             aria-label="Previous certificates"
+            className="absolute -left-2 top-1/2 z-20 h-10 w-10 -translate-y-1/2 rounded-full border-green-400/30 bg-slate-950/80 text-green-300 shadow-xl backdrop-blur-md transition hover:bg-green-500 hover:text-white md:-left-5"
           >
-            <ChevronLeft className="w-6 h-6" />
+            <ChevronLeft className="h-5 w-5" />
           </Button>
 
           <Button
+            type="button"
             variant="outline"
             size="icon"
-            className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-slate-800/80 border-green-500/50 hover:bg-slate-700/80 shadow-lg text-green-300 hover:text-green-200"
             onClick={nextSlide}
             aria-label="Next certificates"
+            className="absolute -right-2 top-1/2 z-20 h-10 w-10 -translate-y-1/2 rounded-full border-green-400/30 bg-slate-950/80 text-green-300 shadow-xl backdrop-blur-md transition hover:bg-green-500 hover:text-white md:-right-5"
           >
-            <ChevronRight className="w-6 h-6" />
+            <ChevronRight className="h-5 w-5" />
           </Button>
 
-          <div className="overflow-hidden mx-8">
+          <div
+            className="overflow-hidden px-4 md:px-6"
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
+          >
             <div
-              className="flex transition-transform duration-500 ease-in-out"
-              style={{ transform: `translateX(-${getTransformValue()}%)` }}
+              className="flex transition-transform duration-500 ease-out"
+              style={{
+                transform: `translateX(-${currentIndex * (100 / cardsPerView)}%)`,
+              }}
             >
               {certificates.map((certificate) => (
-                <div key={certificate.id} className="w-full md:w-1/2 lg:w-1/3 flex-shrink-0 px-2">
-                  <Card className="bg-gradient-to-br from-slate-800/90 to-green-900/90 backdrop-blur-sm border-green-500/30 hover:border-green-400/50 transition-all duration-300 transform hover:scale-105 h-full shadow-lg shadow-green-500/20">
-                    <CardContent className="p-0 flex flex-col h-full">
-                      <div
-                        className="aspect-video bg-gray-800 rounded-t-lg flex-shrink-0 overflow-hidden cursor-pointer"
+                <div
+                  key={certificate.id}
+                  className="w-full flex-shrink-0 px-2 md:w-1/2 lg:w-1/3"
+                >
+                  <Card className="group h-full overflow-hidden rounded-3xl border border-green-400/20 bg-slate-950/60 shadow-xl shadow-black/30 backdrop-blur-md transition-all duration-300 hover:-translate-y-2 hover:border-green-300/50 hover:shadow-green-500/20">
+                    <CardContent className="flex h-full flex-col p-0">
+                      <button
+                        type="button"
                         onClick={() => setSelectedImage(certificate.image)}
+                        className="relative aspect-video w-full overflow-hidden bg-slate-900 text-left"
                       >
                         <Image
                           src={certificate.image || "/placeholder.svg"}
                           alt={`${certificate.title} certificate`}
-                          width={300}
-                          height={200}
-                          className="w-full h-full object-cover transition-transform duration-200 hover:scale-105"
+                          width={500}
+                          height={320}
+                          className="h-full w-full object-cover transition duration-500 group-hover:scale-110"
                         />
-                      </div>
-                      <div className="bg-gradient-to-br from-green-900/80 to-emerald-900/80 p-4 rounded-b-lg flex-grow">
-                        <div className="flex items-center gap-2 mb-2">
-                          <Award className="w-4 h-4 text-green-400" />
-                          <span className="text-green-300 text-xs font-medium">{certificate.issuer}</span>
-                          <span className="text-gray-400 text-xs">•</span>
-                          <span className="text-gray-400 text-xs">{certificate.date}</span>
+
+                        <div className="absolute inset-0 bg-gradient-to-t from-slate-950/75 via-transparent to-transparent opacity-80" />
+
+                        <div className="absolute bottom-3 left-3 rounded-full border border-white/20 bg-black/40 px-3 py-1 text-xs font-medium text-white backdrop-blur-md">
+                          Click to preview
                         </div>
-                        <h3 className="text-white font-bold text-lg mb-2">{certificate.title}</h3>
-                        <p className="text-gray-300 text-sm">{certificate.description}</p>
+                      </button>
+
+                      <div className="flex flex-1 flex-col p-5">
+                        <div className="mb-4 flex flex-wrap items-center gap-2 text-xs">
+                          <span className="inline-flex items-center gap-1 rounded-full border border-green-400/25 bg-green-400/10 px-3 py-1 font-medium text-green-300">
+                            <Award className="h-3.5 w-3.5" />
+                            {certificate.issuer}
+                          </span>
+
+                          <span className="rounded-full border border-slate-500/30 bg-white/5 px-3 py-1 text-slate-300">
+                            {certificate.date}
+                          </span>
+                        </div>
+
+                        <h3 className="mb-3 text-lg font-bold leading-snug text-white transition group-hover:text-green-200">
+                          {certificate.title}
+                        </h3>
+
+                        <p className="flex-1 text-sm leading-relaxed text-slate-300">
+                          {certificate.description}
+                        </p>
                       </div>
                     </CardContent>
                   </Card>
                 </div>
               ))}
             </div>
+          </div>
+
+          <div className="mt-8 flex justify-center gap-2">
+            {Array.from({ length: maxIndex + 1 }).map((_, index) => (
+              <button
+                key={index}
+                type="button"
+                onClick={() => setCurrentIndex(index)}
+                aria-label={`Go to certificate slide ${index + 1}`}
+                className={`h-2.5 rounded-full transition-all duration-300 ${
+                  currentIndex === index
+                    ? "w-8 bg-green-400"
+                    : "w-2.5 bg-slate-500 hover:bg-slate-300"
+                }`}
+              />
+            ))}
           </div>
         </div>
       </div>
