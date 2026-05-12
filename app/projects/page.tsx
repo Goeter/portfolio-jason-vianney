@@ -13,6 +13,7 @@ interface Project {
   title: string
   description: string
   image: string
+  link?: string | null
 }
 
 // ============================================================
@@ -24,63 +25,65 @@ const projects: Project[] = [
     id: 1,
     title: "PT Topas Multi Finance Website",
     description:
-      "Public-facing corporate website that sells Topas Multi Finance products and builds brand awareness and customer trust through professional digital presence",
+      "Public-facing corporate website that sells Topas Multi Finance products and builds brand awareness and customer trust through professional digital presence.",
     image: "/assets/projects/topas-website.png",
+    link: "https://frontend.topasmultifinance.co.id",
   },
   {
     id: 2,
     title: "PT. Alfa Berkat Sigma",
     description:
-      "Public-facing corporate website that sells Topas Multi Finance products and builds brand awareness and customer trust through professional digital presence",
+      "Professional plumbing supply store website showcasing products, company profile, and modern digital branding.",
     image: "/assets/projects/sigma-picture.png",
+    link: "https://sigma-andrew-ten.vercel.app",
   },
   {
     id: 3,
     title: "Topas Multi Finance Mobile Application",
     description:
-      "Mobile application for Topas Multi Finance customers and internal staff with features for loan management, disbursement tracking, customer monitoring, and comprehensive financial services",
+      "Mobile application for customers and internal staff with loan management, monitoring, and financial service features.",
     image: "/assets/projects/mobile-app/combined",
   },
   {
     id: 4,
     title: "HR Topas Application",
     description:
-      "A project to develop an HRD application for tracking employee attendance, recording absences, tracking salaries, workforce planning with KPIs, and comprehensive recruitment process management",
+      "Integrated HR platform for attendance, payroll, KPI workforce planning, and recruitment management.",
     image: "/assets/projects/hr-topas-application.png",
   },
   {
     id: 5,
     title: "Monitoring & Feedback Prospect",
     description:
-      "Developing an internal application for recording motorcycle sales from dealers, order confirmation, delivery scheduling, and document completeness checks.",
+      "Internal monitoring system for dealer motorcycle sales, order confirmation, scheduling, and document tracking.",
     image: "/assets/projects/monitoring-server.png",
   },
   {
     id: 6,
     title: "Vehicle Registration Certificate System",
     description:
-      "A new menu for printing the disbursement note, which was previously written manually by hand. It can now be printed more neatly and quickly using the system, and is stored securely in the system",
+      "Systemized disbursement note printing workflow replacing manual handwriting with secure digital processing.",
     image: "/assets/projects/vehicle-registration-certificate-system.png",
   },
   {
     id: 7,
     title: "Mobile Mata Elang & Subscribe",
     description:
-      "Create a mobile application to track credit vehicles and help field users or third parties use the application by subscribing to our application.",
+      "Vehicle tracking application for field users and third parties with integrated subscription management.",
     image: "/assets/projects/mobile-mata-elang/combined",
   },
   {
     id: 8,
     title: "Mobile Loan Flow Survey",
     description:
-      "Create a survey application to be used when visiting debtors' homes, so that the data is centralized and neatly stored in the company database, and can be followed up properly.",
+      "Survey application for debtor field visits with centralized database storage and operational follow-up support.",
     image: "/assets/projects/flow-survey-pinjaman.jpg",
   },
   {
     id: 9,
     title: "Dashboard Admin Ticketing",
     description:
-      "Create a website dashboard monitoring ticketing.",
+      "Real-time web dashboard monitoring system for managing operational ticketing workflows efficiently.",
     image: "/assets/projects/dashboard_ticketing.png",
   },
 ]
@@ -152,13 +155,19 @@ function BatikBackground() {
         </pattern>
 
         <linearGradient id="overlay" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#07091a" stopOpacity="0.3" />
+          <stop offset="0%" stopColor="#07091a" stopOpacity="0.2" />
           <stop offset="50%" stopColor="#07091a" stopOpacity="0" />
-          <stop offset="100%" stopColor="#07091a" stopOpacity="0.65" />
+          <stop offset="100%" stopColor="#07091a" stopOpacity="0.7" />
         </linearGradient>
       </defs>
 
-      <rect width="100%" height="100%" fill="url(#kraton-tech)" opacity="0.12" />
+      <rect
+        width="100%"
+        height="100%"
+        fill="url(#kraton-tech)"
+        opacity="0.12"
+      />
+
       <rect width="100%" height="100%" fill="url(#overlay)" />
     </svg>
   )
@@ -171,7 +180,7 @@ function BatikBackground() {
 function ProjectImage({ project }: { project: Project }) {
   if (project.image.includes("mobile-app/combined")) {
     return (
-      <div className="flex h-full gap-[2px] bg-[#050816] p-[6px]">
+      <div className="flex h-full gap-[3px] bg-[#050816] p-[6px]">
         <Image
           src="/assets/projects/mobile-app/topas-mobile-dashboard.jpeg"
           alt="Dashboard"
@@ -179,6 +188,7 @@ function ProjectImage({ project }: { project: Project }) {
           height={240}
           className="h-full w-1/3 rounded-lg object-cover"
         />
+
         <Image
           src="/assets/projects/mobile-app/topas-mobile-menu.jpeg"
           alt="Menu"
@@ -186,6 +196,7 @@ function ProjectImage({ project }: { project: Project }) {
           height={240}
           className="h-full w-1/3 rounded-lg object-cover"
         />
+
         <Image
           src="/assets/projects/mobile-app/topas-mobile-profile.jpeg"
           alt="Profile"
@@ -199,7 +210,7 @@ function ProjectImage({ project }: { project: Project }) {
 
   if (project.image.includes("mobile-mata-elang/combined")) {
     return (
-      <div className="flex h-full gap-[2px] bg-[#050816] p-[6px]">
+      <div className="flex h-full gap-[3px] bg-[#050816] p-[6px]">
         <Image
           src="/assets/projects/mobile-mata-elang/foto-1.png"
           alt="Foto 1"
@@ -207,6 +218,7 @@ function ProjectImage({ project }: { project: Project }) {
           height={240}
           className="h-full w-1/3 rounded-lg object-cover"
         />
+
         <Image
           src="/assets/projects/mobile-mata-elang/foto-2.png"
           alt="Foto 2"
@@ -214,6 +226,7 @@ function ProjectImage({ project }: { project: Project }) {
           height={240}
           className="h-full w-1/3 rounded-lg object-cover"
         />
+
         <Image
           src="/assets/projects/mobile-mata-elang/foto-3.png"
           alt="Foto 3"
@@ -229,8 +242,8 @@ function ProjectImage({ project }: { project: Project }) {
     <Image
       src={project.image}
       alt={project.title}
-      width={600}
-      height={400}
+      width={800}
+      height={500}
       className="
         h-full w-full object-cover
         transition-transform duration-700
@@ -248,14 +261,14 @@ function ProjectCard({ project }: { project: Project }) {
   return (
     <div
       className="
-        group relative overflow-hidden rounded-3xl
-        border border-[#1e2a46]
+        group relative flex h-full flex-col overflow-hidden rounded-[28px]
+        border border-[#1d2945]
         bg-[#0b1020]/95
         backdrop-blur-xl
         transition-all duration-500
-        hover:-translate-y-1
-        hover:border-[#d4a84345]
-        hover:shadow-[0_18px_50px_rgba(0,0,0,0.55)]
+        hover:-translate-y-1.5
+        hover:border-[#d4a84340]
+        hover:shadow-[0_22px_55px_rgba(0,0,0,0.55)]
       "
     >
       {/* Glow */}
@@ -275,8 +288,8 @@ function ProjectCard({ project }: { project: Project }) {
       <div
         className="
           relative aspect-video overflow-hidden
-          border-b border-[#1b2742]
-          bg-[#060c18]
+          border-b border-[#18243d]
+          bg-[#050816]
         "
       >
         <ProjectImage project={project} />
@@ -285,7 +298,7 @@ function ProjectCard({ project }: { project: Project }) {
           className="
             absolute inset-0
             bg-gradient-to-t
-            from-[#060816]
+            from-[#050816]
             via-transparent
             to-transparent
           "
@@ -293,7 +306,7 @@ function ProjectCard({ project }: { project: Project }) {
 
         <div
           className="
-            absolute left-4 top-4
+            absolute left-4 top-4 z-10
             rounded-md border border-[#d4a84325]
             bg-[#07091ab8]
             px-3 py-[5px]
@@ -308,40 +321,57 @@ function ProjectCard({ project }: { project: Project }) {
       </div>
 
       {/* Content */}
-      <div className="relative flex flex-col p-6">
+      <div className="relative flex flex-1 flex-col p-6">
+        {/* Title */}
         <h3
           className="
-            mb-3 text-[18px]
-            font-medium leading-[1.45]
+            min-h-[58px]
+            text-[18px]
+            font-medium
+            leading-[1.5]
             text-[#d7ccb0]
           "
         >
           {project.title}
         </h3>
 
+        {/* Description */}
         <p
           className="
-            flex-1 text-[14px]
-            leading-[1.85]
+            mt-3 flex-1
+            text-[14px]
+            leading-[1.9]
             text-[#6d7f9f]
           "
         >
           {project.description}
         </p>
 
-        <div className="mt-5 flex items-center justify-between">
-          <div className="h-px flex-1 bg-[#1c2945]" />
+        {/* Bottom */}
+        <div className="mt-6">
+          <div className="mb-4 h-px bg-[#1a2540]" />
 
-          <div
-            className="
-              ml-4 flex items-center gap-1
-              text-[12px]
-              tracking-[0.14em]
-              text-[#4a8fd4]
-            "
-          >
-            VIEW
-            <ArrowUpRight size={14} />
+          <div className="flex min-h-[24px] items-center">
+            {project.link ? (
+              <a
+                href={project.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="
+                  inline-flex items-center gap-2
+                  text-[12px]
+                  tracking-[0.12em]
+                  text-[#4a8fd4]
+                  transition-colors duration-300
+                  hover:text-[#7cb6f5]
+                "
+              >
+                VIEW WEBSITE
+                <ArrowUpRight size={14} />
+              </a>
+            ) : (
+              <span className="inline-block h-[20px]" />
+            )}
           </div>
         </div>
       </div>
@@ -364,11 +394,11 @@ export default function AllProjects() {
       {/* Background */}
       <BatikBackground />
 
-      {/* Top Glow */}
+      {/* Glow */}
       <div
         className="
-          absolute left-1/2 top-[-200px]
-          h-[500px] w-[500px]
+          absolute left-1/2 top-[-220px]
+          h-[520px] w-[520px]
           -translate-x-1/2
           rounded-full blur-3xl
         "
@@ -378,37 +408,35 @@ export default function AllProjects() {
         }}
       />
 
-      {/* Content */}
-      <div
+      {/* NAVBAR */}
+      <header
         className="
-          relative z-10 mx-auto
-          w-full max-w-7xl
-          px-5 py-14
-          sm:px-8 lg:px-12
+          sticky top-0 z-50
+          border-b border-[#18243d]
+          bg-[#07091ad9]
+          backdrop-blur-xl
         "
       >
-        {/* HEADER */}
         <div
           className="
-            mb-14 flex flex-col gap-8
-            md:flex-row md:items-center md:justify-between
+            relative mx-auto flex h-[72px]
+            w-full max-w-7xl
+            items-center justify-between
+            px-5 sm:px-8 lg:px-12
           "
         >
-          {/* Back Button */}
+          {/* Back */}
           <Link href="/#projects">
             <button
               className="
-                group inline-flex items-center gap-3
+                group flex items-center gap-3
                 rounded-2xl border border-[#d4a84330]
-                bg-[#0c1224]
-                px-5 py-3
-                text-[14px]
-                tracking-[0.04em]
+                bg-[#0d1226]
+                px-3 py-2.5
                 text-[#d4a843]
                 transition-all duration-300
-                hover:border-[#d4a84370]
-                hover:bg-[#121933]
-                hover:shadow-[0_0_30px_rgba(212,168,67,0.08)]
+                hover:border-[#d4a84360]
+                hover:bg-[#131936]
               "
             >
               <div
@@ -423,24 +451,29 @@ export default function AllProjects() {
                 <ChevronLeft size={18} />
               </div>
 
-              <div className="flex flex-col items-start leading-none">
-                <span className="text-[11px] uppercase tracking-[0.18em] text-[#5c7092]">
-                  Navigation
-                </span>
-
-                <span className="mt-[5px] font-medium">
-                  Back to Home
-                </span>
-              </div>
+              <span
+                className="
+                  hidden text-[13px]
+                  tracking-[0.08em]
+                  sm:inline
+                "
+              >
+                Back
+              </span>
             </button>
           </Link>
 
           {/* Title */}
-          <div className="text-left md:text-right">
+          <div
+            className="
+              absolute left-1/2
+              -translate-x-1/2
+              text-center
+            "
+          >
             <span
               className="
-                mb-3 inline-block
-                text-[11px]
+                block text-[10px]
                 uppercase tracking-[0.28em]
                 text-[#4a7cbf]
               "
@@ -450,32 +483,49 @@ export default function AllProjects() {
 
             <h1
               className="
-                font-serif text-[clamp(38px,6vw,68px)]
-                font-medium leading-none
+                mt-[3px]
+                font-serif text-[22px]
+                font-medium tracking-[0.03em]
                 text-[#d4a843]
+                sm:text-[26px]
               "
             >
               Project Archive
             </h1>
-
-            <p
-              className="
-                mt-4 max-w-[620px]
-                text-[15px] leading-[1.9]
-                text-[#6d7f9f]
-                md:ml-auto
-              "
-            >
-              A curated collection of enterprise systems, mobile applications,
-              digital platforms, and internal solutions crafted with a focus on
-              performance, usability, and modern technology architecture.
-            </p>
           </div>
+
+          {/* Spacer */}
+          <div className="w-[52px] sm:w-[95px]" />
+        </div>
+      </header>
+
+      {/* CONTENT */}
+      <section
+        className="
+          relative z-10 mx-auto
+          w-full max-w-7xl
+          px-5 pt-10 pb-16
+          sm:px-8 lg:px-12
+        "
+      >
+        {/* Description */}
+        <div className="mb-10 max-w-3xl">
+          <p
+            className="
+              text-[15px]
+              leading-[1.9]
+              text-[#6d7f9f]
+            "
+          >
+            A curated collection of enterprise systems, mobile applications,
+            digital platforms, and internal solutions crafted with a focus on
+            modern technology, usability, and scalable architecture.
+          </p>
         </div>
 
         {/* Divider */}
         <div
-          className="relative mb-14 h-px"
+          className="relative mb-10 h-px"
           style={{ background: "#d4a84318" }}
         >
           <span
@@ -499,7 +549,7 @@ export default function AllProjects() {
             />
           ))}
         </div>
-      </div>
+      </section>
     </main>
   )
 }
