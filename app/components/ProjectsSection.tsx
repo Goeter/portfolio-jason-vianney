@@ -89,10 +89,10 @@ const projects = [
 ]
 
 // ============================================================
-// BATIK + TECHNOLOGY BACKGROUND
+// LIGHTWEIGHT SPACE BACKGROUND
 // ============================================================
 
-function BatikBackground() {
+function SpaceBackground() {
   return (
     <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
       <svg
@@ -101,133 +101,97 @@ function BatikBackground() {
         preserveAspectRatio="xMidYMid slice"
       >
         <defs>
-          {/* Batik kawung-inspired pattern */}
+          {/* Small star pattern - light and smooth */}
           <pattern
-            id="batikTechPattern"
+            id="starsSmall"
             x="0"
             y="0"
-            width="96"
-            height="96"
+            width="120"
+            height="120"
             patternUnits="userSpaceOnUse"
           >
-            {/* Batik dots */}
-            <circle cx="48" cy="48" r="1.5" fill="#d4a843" opacity="0.7" />
-            <circle cx="0" cy="0" r="1.2" fill="#d4a843" opacity="0.45" />
-            <circle cx="96" cy="0" r="1.2" fill="#d4a843" opacity="0.45" />
-            <circle cx="0" cy="96" r="1.2" fill="#d4a843" opacity="0.45" />
-            <circle cx="96" cy="96" r="1.2" fill="#d4a843" opacity="0.45" />
-
-            {/* Batik orbital/kawung shape */}
-            <ellipse
-              cx="48"
-              cy="28"
-              rx="13"
-              ry="25"
-              fill="none"
-              stroke="#d4a843"
-              strokeWidth="0.45"
-              opacity="0.45"
-            />
-            <ellipse
-              cx="48"
-              cy="68"
-              rx="13"
-              ry="25"
-              fill="none"
-              stroke="#d4a843"
-              strokeWidth="0.45"
-              opacity="0.45"
-            />
-            <ellipse
-              cx="28"
-              cy="48"
-              rx="25"
-              ry="13"
-              fill="none"
-              stroke="#d4a843"
-              strokeWidth="0.45"
-              opacity="0.45"
-            />
-            <ellipse
-              cx="68"
-              cy="48"
-              rx="25"
-              ry="13"
-              fill="none"
-              stroke="#d4a843"
-              strokeWidth="0.45"
-              opacity="0.45"
-            />
-
-            {/* Tech circuit lines */}
-            <path
-              d="M12 48 H27 M69 48 H84 M48 12 V27 M48 69 V84"
-              stroke="#4a7cbf"
-              strokeWidth="0.45"
-              opacity="0.35"
-            />
-            <path
-              d="M20 20 H34 V31 M76 20 H62 V31 M20 76 H34 V65 M76 76 H62 V65"
-              stroke="#5ea4ea"
-              strokeWidth="0.35"
-              opacity="0.25"
-              fill="none"
-            />
-
-            {/* Small circuit nodes */}
-            <circle cx="20" cy="20" r="1.5" fill="#5ea4ea" opacity="0.35" />
-            <circle cx="76" cy="20" r="1.5" fill="#5ea4ea" opacity="0.35" />
-            <circle cx="20" cy="76" r="1.5" fill="#5ea4ea" opacity="0.35" />
-            <circle cx="76" cy="76" r="1.5" fill="#5ea4ea" opacity="0.35" />
-
-            {/* Outer elegant ring */}
-            <circle
-              cx="48"
-              cy="48"
-              r="34"
-              fill="none"
-              stroke="#d4a843"
-              strokeWidth="0.25"
-              opacity="0.35"
-            />
+            <circle cx="18" cy="24" r="0.7" fill="#ffffff" opacity="0.45" />
+            <circle cx="72" cy="18" r="0.6" fill="#dbeafe" opacity="0.35" />
+            <circle cx="104" cy="68" r="0.8" fill="#ffffff" opacity="0.35" />
+            <circle cx="35" cy="86" r="0.5" fill="#93c5fd" opacity="0.45" />
+            <circle cx="92" cy="105" r="0.6" fill="#ffffff" opacity="0.3" />
           </pattern>
 
-          <radialGradient id="goldGlow" cx="50%" cy="45%" r="65%">
-            <stop offset="0%" stopColor="#d4a843" stopOpacity="0.12" />
-            <stop offset="40%" stopColor="#4a7cbf" stopOpacity="0.08" />
+          {/* Bigger sparse stars */}
+          <pattern
+            id="starsLarge"
+            x="0"
+            y="0"
+            width="260"
+            height="260"
+            patternUnits="userSpaceOnUse"
+          >
+            <circle cx="42" cy="58" r="1.1" fill="#ffffff" opacity="0.5" />
+            <circle cx="184" cy="36" r="1" fill="#bfdbfe" opacity="0.4" />
+            <circle cx="218" cy="190" r="1.2" fill="#ffffff" opacity="0.35" />
+            <circle cx="95" cy="218" r="0.9" fill="#d4a843" opacity="0.35" />
+          </pattern>
+
+          {/* Soft nebula glow */}
+          <radialGradient id="nebulaBlue" cx="68%" cy="28%" r="58%">
+            <stop offset="0%" stopColor="#2563eb" stopOpacity="0.22" />
+            <stop offset="40%" stopColor="#1e40af" stopOpacity="0.11" />
             <stop offset="100%" stopColor="#07091a" stopOpacity="0" />
           </radialGradient>
 
-          <linearGradient id="sectionFade" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stopColor="#07091a" stopOpacity="0.96" />
-            <stop offset="48%" stopColor="#0b1024" stopOpacity="0.9" />
-            <stop offset="100%" stopColor="#050711" stopOpacity="0.98" />
+          <radialGradient id="nebulaGold" cx="20%" cy="72%" r="55%">
+            <stop offset="0%" stopColor="#d4a843" stopOpacity="0.16" />
+            <stop offset="42%" stopColor="#a16207" stopOpacity="0.08" />
+            <stop offset="100%" stopColor="#07091a" stopOpacity="0" />
+          </radialGradient>
+
+          <radialGradient id="centerDepth" cx="50%" cy="48%" r="68%">
+            <stop offset="0%" stopColor="#111a3a" stopOpacity="0.52" />
+            <stop offset="58%" stopColor="#07091a" stopOpacity="0.88" />
+            <stop offset="100%" stopColor="#030510" stopOpacity="1" />
+          </radialGradient>
+
+          <linearGradient id="spaceBase" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stopColor="#030510" />
+            <stop offset="45%" stopColor="#07091a" />
+            <stop offset="100%" stopColor="#02040d" />
           </linearGradient>
 
-          <linearGradient id="verticalFade" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="#07091a" stopOpacity="0.35" />
-            <stop offset="22%" stopColor="#07091a" stopOpacity="0" />
-            <stop offset="72%" stopColor="#07091a" stopOpacity="0" />
-            <stop offset="100%" stopColor="#07091a" stopOpacity="0.55" />
-          </linearGradient>
+          {/* Soft vignette to keep content readable */}
+          <radialGradient id="vignette" cx="50%" cy="45%" r="75%">
+            <stop offset="0%" stopColor="#000000" stopOpacity="0" />
+            <stop offset="70%" stopColor="#000000" stopOpacity="0.18" />
+            <stop offset="100%" stopColor="#000000" stopOpacity="0.62" />
+          </radialGradient>
         </defs>
 
-        <rect width="100%" height="100%" fill="url(#sectionFade)" />
-        <rect width="100%" height="100%" fill="url(#batikTechPattern)" opacity="0.18" />
-        <rect width="100%" height="100%" fill="url(#goldGlow)" />
-        <rect width="100%" height="100%" fill="url(#verticalFade)" />
+        <rect width="100%" height="100%" fill="url(#spaceBase)" />
+        <rect width="100%" height="100%" fill="url(#centerDepth)" />
+        <rect width="100%" height="100%" fill="url(#nebulaBlue)" />
+        <rect width="100%" height="100%" fill="url(#nebulaGold)" />
+        <rect width="100%" height="100%" fill="url(#starsSmall)" opacity="0.72" />
+        <rect width="100%" height="100%" fill="url(#starsLarge)" opacity="0.65" />
+        <rect width="100%" height="100%" fill="url(#vignette)" />
       </svg>
 
-      {/* Elegant blurred accents */}
-      <div className="absolute left-[-160px] top-[12%] h-[360px] w-[360px] rounded-full bg-[#d4a84314] blur-[90px]" />
-      <div className="absolute right-[-180px] bottom-[10%] h-[420px] w-[420px] rounded-full bg-[#4a7cbf18] blur-[100px]" />
+      {/* Elegant glow accents - CSS only, still lightweight */}
+      <div className="absolute left-[-180px] top-[18%] h-[360px] w-[360px] rounded-full bg-[#1d4ed814] blur-[95px]" />
+      <div className="absolute right-[-190px] bottom-[8%] h-[420px] w-[420px] rounded-full bg-[#d4a84312] blur-[105px]" />
 
-      {/* Subtle tech grid */}
+      {/* Subtle orbital line */}
       <div
         className="
-          absolute inset-0 opacity-[0.06]
-          [background-image:linear-gradient(to_right,#5ea4ea_1px,transparent_1px),linear-gradient(to_bottom,#5ea4ea_1px,transparent_1px)]
-          [background-size:56px_56px]
+          absolute left-1/2 top-1/2 h-[720px] w-[720px]
+          -translate-x-1/2 -translate-y-1/2
+          rounded-full border border-[#d4a8430f]
+        "
+      />
+
+      <div
+        className="
+          absolute left-1/2 top-1/2 h-[520px] w-[520px]
+          -translate-x-1/2 -translate-y-1/2
+          rounded-full border border-[#5ea4ea0f]
         "
       />
     </div>
@@ -244,15 +208,13 @@ function ProjectCard({
   project: (typeof projects)[0]
 }) {
   return (
-    <div className="flex flex-1">
+    <div className="flex flex-1 pt-4">
       <div
         className="
           group flex h-full min-w-0 flex-1 flex-col overflow-hidden
           rounded-[24px]
           border border-[#1f2b46]
-          bg-[#0b1020]/95
-          shadow-[0_18px_45px_rgba(0,0,0,0.28)]
-          backdrop-blur-sm
+          bg-[#0b1020]
           transition-all duration-500
           ease-[cubic-bezier(0.22,1,0.36,1)]
           hover:-translate-y-[6px]
@@ -335,7 +297,7 @@ function ProjectCard({
                 "
               />
 
-              <div className="absolute inset-0 bg-gradient-to-t from-[#07091ad9] via-transparent to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#07091ac9] via-transparent to-transparent" />
             </>
           )}
 
@@ -447,7 +409,8 @@ export default function ProjectsSection() {
 
     window.addEventListener("resize", handleResize)
 
-    return () => window.removeEventListener("resize", handleResize)
+    return () =>
+      window.removeEventListener("resize", handleResize)
   }, [])
 
   useEffect(() => {
@@ -461,7 +424,10 @@ export default function ProjectsSection() {
   const slide = useCallback(
     (direction: number) => {
       setCurrentPage((prev) =>
-        Math.max(0, Math.min(totalPages - 1, prev + direction))
+        Math.max(
+          0,
+          Math.min(totalPages - 1, prev + direction)
+        )
       )
     },
     [totalPages]
@@ -480,22 +446,22 @@ export default function ProjectsSection() {
     <section
       id="projects"
       className="
-        relative flex min-h-screen scroll-mt-20 items-center overflow-hidden
-        py-20 md:py-24 lg:py-16
+        relative flex min-h-screen scroll-mt-16 items-center overflow-hidden
+        py-10 sm:py-12 md:py-14 lg:py-10
       "
       style={{ background: "#07091a" }}
     >
-      <BatikBackground />
+      <SpaceBackground />
 
       <div
         className="
-          relative z-10 mx-auto flex min-h-[calc(100vh-8rem)] w-full max-w-7xl
+          relative z-10 mx-auto flex min-h-[calc(100vh-5rem)] w-full max-w-7xl
           flex-col justify-center
           px-5 sm:px-8 lg:px-12
         "
       >
         {/* HEADER */}
-        <div className="mb-8 flex flex-wrap items-center justify-between gap-6 md:mb-9">
+        <div className="mb-5 flex flex-wrap items-center justify-between gap-4 md:mb-6">
           <h2
             className="
               font-serif font-medium leading-none
@@ -509,7 +475,10 @@ export default function ProjectsSection() {
             Projects
           </h2>
 
-          <Link href="/projects" className="flex-shrink-0 no-underline">
+          <Link
+            href="/projects"
+            className="flex-shrink-0 no-underline"
+          >
             <div
               className="
                 flex overflow-hidden rounded-[12px]
@@ -574,7 +543,7 @@ export default function ProjectsSection() {
 
         {/* DIVIDER */}
         <div
-          className="relative mb-8 h-px md:mb-9"
+          className="relative mb-6 h-px md:mb-7"
           style={{ background: "#d4a84318" }}
         >
           <span
@@ -641,7 +610,9 @@ export default function ProjectsSection() {
               }}
             >
               {isClient &&
-                Array.from({ length: totalPages }).map((_, pageIdx) => {
+                Array.from({
+                  length: totalPages,
+                }).map((_, pageIdx) => {
                   const visibleProjects = pageProjects(pageIdx)
 
                   return (
@@ -655,14 +626,22 @@ export default function ProjectsSection() {
                       "
                     >
                       {visibleProjects.map((project) => (
-                        <ProjectCard key={project.id} project={project} />
+                        <ProjectCard
+                          key={project.id}
+                          project={project}
+                        />
                       ))}
 
                       {visibleProjects.length < cardsPerPage &&
                         Array.from({
-                          length: cardsPerPage - visibleProjects.length,
+                          length:
+                            cardsPerPage -
+                            visibleProjects.length,
                         }).map((_, i) => (
-                          <div key={i} className="min-w-0 flex-1" />
+                          <div
+                            key={i}
+                            className="min-w-0 flex-1"
+                          />
                         ))}
                     </div>
                   )
@@ -671,8 +650,8 @@ export default function ProjectsSection() {
           </div>
         </div>
 
-        {/* DOTS + PAGE NUMBER */}
-        <div className="mt-7 flex items-center justify-center gap-[7px] md:mt-8">
+        {/* DOTS */}
+        <div className="mt-5 flex items-center justify-center gap-[7px] md:mt-6">
           {Array.from({ length: totalPages }).map((_, i) => {
             const active = i === currentPage
 
@@ -688,8 +667,12 @@ export default function ProjectsSection() {
                 "
                 style={{
                   width: active ? "30px" : "8px",
-                  borderRadius: active ? "999px" : "50%",
-                  background: active ? "#d4a843" : "#1e2a46",
+                  borderRadius: active
+                    ? "999px"
+                    : "50%",
+                  background: active
+                    ? "#d4a843"
+                    : "#1e2a46",
                 }}
               />
             )
@@ -699,7 +682,8 @@ export default function ProjectsSection() {
             className="ml-[7px] min-w-[30px] text-[11px]"
             style={{
               color: "#59709a",
-              fontFamily: "var(--font-mono, monospace)",
+              fontFamily:
+                "var(--font-mono, monospace)",
             }}
           >
             {currentPage + 1}/{totalPages}
