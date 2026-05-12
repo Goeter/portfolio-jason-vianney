@@ -89,19 +89,18 @@ const projects = [
 ]
 
 // ============================================================
-// LIGHTWEIGHT SPACE BACKGROUND
+// ANIMATED SPACE BACKGROUND
 // ============================================================
 
 function SpaceBackground() {
   return (
     <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
       <svg
-        className="absolute inset-0 h-full w-full"
+        className="space-bg absolute inset-0 h-full w-full"
         xmlns="http://www.w3.org/2000/svg"
         preserveAspectRatio="xMidYMid slice"
       >
         <defs>
-          {/* Small star pattern - light and smooth */}
           <pattern
             id="starsSmall"
             x="0"
@@ -117,7 +116,6 @@ function SpaceBackground() {
             <circle cx="92" cy="105" r="0.6" fill="#ffffff" opacity="0.3" />
           </pattern>
 
-          {/* Bigger sparse stars */}
           <pattern
             id="starsLarge"
             x="0"
@@ -132,10 +130,9 @@ function SpaceBackground() {
             <circle cx="95" cy="218" r="0.9" fill="#d4a843" opacity="0.35" />
           </pattern>
 
-          {/* Soft nebula glow */}
           <radialGradient id="nebulaBlue" cx="68%" cy="28%" r="58%">
-            <stop offset="0%" stopColor="#2563eb" stopOpacity="0.22" />
-            <stop offset="40%" stopColor="#1e40af" stopOpacity="0.11" />
+            <stop offset="0%" stopColor="#2563eb" stopOpacity="0.24" />
+            <stop offset="40%" stopColor="#1e40af" stopOpacity="0.12" />
             <stop offset="100%" stopColor="#07091a" stopOpacity="0" />
           </radialGradient>
 
@@ -157,7 +154,6 @@ function SpaceBackground() {
             <stop offset="100%" stopColor="#02040d" />
           </linearGradient>
 
-          {/* Soft vignette to keep content readable */}
           <radialGradient id="vignette" cx="50%" cy="45%" r="75%">
             <stop offset="0%" stopColor="#000000" stopOpacity="0" />
             <stop offset="70%" stopColor="#000000" stopOpacity="0.18" />
@@ -167,33 +163,158 @@ function SpaceBackground() {
 
         <rect width="100%" height="100%" fill="url(#spaceBase)" />
         <rect width="100%" height="100%" fill="url(#centerDepth)" />
-        <rect width="100%" height="100%" fill="url(#nebulaBlue)" />
-        <rect width="100%" height="100%" fill="url(#nebulaGold)" />
-        <rect width="100%" height="100%" fill="url(#starsSmall)" opacity="0.72" />
-        <rect width="100%" height="100%" fill="url(#starsLarge)" opacity="0.65" />
+        <rect className="nebula-blue" width="100%" height="100%" fill="url(#nebulaBlue)" />
+        <rect className="nebula-gold" width="100%" height="100%" fill="url(#nebulaGold)" />
+        <rect className="stars-small" width="100%" height="100%" fill="url(#starsSmall)" opacity="0.72" />
+        <rect className="stars-large" width="100%" height="100%" fill="url(#starsLarge)" opacity="0.65" />
         <rect width="100%" height="100%" fill="url(#vignette)" />
       </svg>
 
-      {/* Elegant glow accents - CSS only, still lightweight */}
-      <div className="absolute left-[-180px] top-[18%] h-[360px] w-[360px] rounded-full bg-[#1d4ed814] blur-[95px]" />
-      <div className="absolute right-[-190px] bottom-[8%] h-[420px] w-[420px] rounded-full bg-[#d4a84312] blur-[105px]" />
+      <div className="glow-blue absolute left-[-180px] top-[18%] h-[360px] w-[360px] rounded-full bg-[#1d4ed814] blur-[95px]" />
+      <div className="glow-gold absolute right-[-190px] bottom-[8%] h-[420px] w-[420px] rounded-full bg-[#d4a84312] blur-[105px]" />
 
-      {/* Subtle orbital line */}
       <div
         className="
-          absolute left-1/2 top-1/2 h-[720px] w-[720px]
+          orbit-slow absolute left-1/2 top-1/2 h-[720px] w-[720px]
           -translate-x-1/2 -translate-y-1/2
-          rounded-full border border-[#d4a8430f]
+          rounded-full border border-[#d4a84312]
         "
       />
 
       <div
         className="
-          absolute left-1/2 top-1/2 h-[520px] w-[520px]
+          orbit-reverse absolute left-1/2 top-1/2 h-[520px] w-[520px]
           -translate-x-1/2 -translate-y-1/2
-          rounded-full border border-[#5ea4ea0f]
+          rounded-full border border-[#5ea4ea12]
         "
       />
+
+      <style jsx>{`
+        .stars-small {
+          animation: driftStarsSmall 36s linear infinite;
+        }
+
+        .stars-large {
+          animation: driftStarsLarge 52s linear infinite;
+        }
+
+        .nebula-blue {
+          animation: nebulaPulse 8s ease-in-out infinite;
+        }
+
+        .nebula-gold {
+          animation: nebulaPulseGold 10s ease-in-out infinite;
+        }
+
+        .glow-blue {
+          animation: floatGlowBlue 11s ease-in-out infinite;
+        }
+
+        .glow-gold {
+          animation: floatGlowGold 13s ease-in-out infinite;
+        }
+
+        .orbit-slow {
+          animation: rotateOrbit 42s linear infinite;
+        }
+
+        .orbit-reverse {
+          animation: rotateOrbitReverse 55s linear infinite;
+        }
+
+        @keyframes driftStarsSmall {
+          0% {
+            transform: translate3d(0, 0, 0);
+          }
+          100% {
+            transform: translate3d(-120px, 120px, 0);
+          }
+        }
+
+        @keyframes driftStarsLarge {
+          0% {
+            transform: translate3d(0, 0, 0);
+          }
+          100% {
+            transform: translate3d(260px, -260px, 0);
+          }
+        }
+
+        @keyframes nebulaPulse {
+          0%,
+          100% {
+            opacity: 0.8;
+            transform: scale(1);
+          }
+          50% {
+            opacity: 1;
+            transform: scale(1.03);
+          }
+        }
+
+        @keyframes nebulaPulseGold {
+          0%,
+          100% {
+            opacity: 0.75;
+            transform: scale(1);
+          }
+          50% {
+            opacity: 1;
+            transform: scale(1.04);
+          }
+        }
+
+        @keyframes floatGlowBlue {
+          0%,
+          100% {
+            transform: translate3d(0, 0, 0);
+          }
+          50% {
+            transform: translate3d(32px, 24px, 0);
+          }
+        }
+
+        @keyframes floatGlowGold {
+          0%,
+          100% {
+            transform: translate3d(0, 0, 0);
+          }
+          50% {
+            transform: translate3d(-28px, -22px, 0);
+          }
+        }
+
+        @keyframes rotateOrbit {
+          0% {
+            transform: translate(-50%, -50%) rotate(0deg);
+          }
+          100% {
+            transform: translate(-50%, -50%) rotate(360deg);
+          }
+        }
+
+        @keyframes rotateOrbitReverse {
+          0% {
+            transform: translate(-50%, -50%) rotate(360deg);
+          }
+          100% {
+            transform: translate(-50%, -50%) rotate(0deg);
+          }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .stars-small,
+          .stars-large,
+          .nebula-blue,
+          .nebula-gold,
+          .glow-blue,
+          .glow-gold,
+          .orbit-slow,
+          .orbit-reverse {
+            animation: none;
+          }
+        }
+      `}</style>
     </div>
   )
 }
@@ -391,6 +512,8 @@ export default function ProjectsSection() {
   const [currentPage, setCurrentPage] = useState(0)
   const [cardsPerPage, setCardsPerPage] = useState(3)
   const [isClient, setIsClient] = useState(false)
+  const [touchStartX, setTouchStartX] = useState<number | null>(null)
+  const [touchEndX, setTouchEndX] = useState<number | null>(null)
 
   useEffect(() => {
     setIsClient(true)
@@ -442,12 +565,39 @@ export default function ProjectsSection() {
     [cardsPerPage]
   )
 
+  const handleTouchStart = (event: React.TouchEvent<HTMLDivElement>) => {
+    setTouchEndX(null)
+    setTouchStartX(event.targetTouches[0].clientX)
+  }
+
+  const handleTouchMove = (event: React.TouchEvent<HTMLDivElement>) => {
+    setTouchEndX(event.targetTouches[0].clientX)
+  }
+
+  const handleTouchEnd = () => {
+    if (touchStartX === null || touchEndX === null) return
+
+    const swipeDistance = touchStartX - touchEndX
+    const minSwipeDistance = 50
+
+    if (swipeDistance > minSwipeDistance) {
+      slide(1)
+    }
+
+    if (swipeDistance < -minSwipeDistance) {
+      slide(-1)
+    }
+
+    setTouchStartX(null)
+    setTouchEndX(null)
+  }
+
   return (
     <section
       id="projects"
       className="
         relative flex min-h-screen scroll-mt-16 items-center overflow-hidden
-        py-10 sm:py-12 md:py-14 lg:py-10
+        py-8 sm:py-10 md:py-12 lg:py-8
       "
       style={{ background: "#07091a" }}
     >
@@ -455,7 +605,7 @@ export default function ProjectsSection() {
 
       <div
         className="
-          relative z-10 mx-auto flex min-h-[calc(100vh-5rem)] w-full max-w-7xl
+          relative z-10 mx-auto flex min-h-[calc(100vh-4rem)] w-full max-w-7xl
           flex-col justify-center
           px-5 sm:px-8 lg:px-12
         "
@@ -543,7 +693,7 @@ export default function ProjectsSection() {
 
         {/* DIVIDER */}
         <div
-          className="relative mb-6 h-px md:mb-7"
+          className="relative mb-5 h-px md:mb-6"
           style={{ background: "#d4a84318" }}
         >
           <span
@@ -560,17 +710,18 @@ export default function ProjectsSection() {
             disabled={currentPage === 0}
             aria-label="Sebelumnya"
             className="
-              absolute left-[-10px] top-1/2 z-10 hidden
-              h-[44px] w-[44px] -translate-y-1/2
+              absolute left-1 top-1/2 z-20 flex
+              h-[40px] w-[40px] -translate-y-1/2
               items-center justify-center rounded-full
-              border border-[#d4a84335]
+              border border-[#d4a84340]
               bg-[#0d1226]/90
               text-[#d4a843]
-              backdrop-blur-sm
+              shadow-[0_10px_30px_rgba(0,0,0,0.35)]
+              backdrop-blur-md
               transition-all duration-300
               hover:bg-[#14193a]
-              disabled:cursor-default disabled:opacity-15
-              sm:flex
+              disabled:cursor-default disabled:opacity-20
+              sm:left-[-10px] sm:h-[44px] sm:w-[44px]
             "
           >
             <ChevronLeft size={20} />
@@ -582,27 +733,33 @@ export default function ProjectsSection() {
             disabled={currentPage === totalPages - 1}
             aria-label="Berikutnya"
             className="
-              absolute right-[-10px] top-1/2 z-10 hidden
-              h-[44px] w-[44px] -translate-y-1/2
+              absolute right-1 top-1/2 z-20 flex
+              h-[40px] w-[40px] -translate-y-1/2
               items-center justify-center rounded-full
-              border border-[#d4a84335]
+              border border-[#d4a84340]
               bg-[#0d1226]/90
               text-[#d4a843]
-              backdrop-blur-sm
+              shadow-[0_10px_30px_rgba(0,0,0,0.35)]
+              backdrop-blur-md
               transition-all duration-300
               hover:bg-[#14193a]
-              disabled:cursor-default disabled:opacity-15
-              sm:flex
+              disabled:cursor-default disabled:opacity-20
+              sm:right-[-10px] sm:h-[44px] sm:w-[44px]
             "
           >
             <ChevronRight size={20} />
           </button>
 
           {/* TRACK */}
-          <div className="overflow-x-hidden overflow-y-visible sm:mx-[34px]">
+          <div
+            className="overflow-x-hidden overflow-y-visible sm:mx-[34px]"
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
+          >
             <div
               className="
-                flex transition-transform duration-700
+                flex touch-pan-y select-none transition-transform duration-700
                 ease-[cubic-bezier(0.22,1,0.36,1)]
               "
               style={{
@@ -651,7 +808,7 @@ export default function ProjectsSection() {
         </div>
 
         {/* DOTS */}
-        <div className="mt-5 flex items-center justify-center gap-[7px] md:mt-6">
+        <div className="mt-4 flex items-center justify-center gap-[7px] md:mt-5">
           {Array.from({ length: totalPages }).map((_, i) => {
             const active = i === currentPage
 
