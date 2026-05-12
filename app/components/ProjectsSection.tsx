@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect, useCallback, useMemo } from "react"
+import type { TouchEvent } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import {
@@ -96,11 +97,12 @@ function SpaceBackground() {
   return (
     <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
       <svg
-        className="space-bg absolute inset-0 h-full w-full"
+        className="absolute inset-0 h-full w-full"
         xmlns="http://www.w3.org/2000/svg"
         preserveAspectRatio="xMidYMid slice"
       >
         <defs>
+          {/* Lightweight small stars */}
           <pattern
             id="starsSmall"
             x="0"
@@ -114,8 +116,11 @@ function SpaceBackground() {
             <circle cx="104" cy="68" r="0.8" fill="#ffffff" opacity="0.35" />
             <circle cx="35" cy="86" r="0.5" fill="#93c5fd" opacity="0.45" />
             <circle cx="92" cy="105" r="0.6" fill="#ffffff" opacity="0.3" />
+            <circle cx="53" cy="42" r="0.45" fill="#ffffff" opacity="0.25" />
+            <circle cx="112" cy="18" r="0.45" fill="#bfdbfe" opacity="0.3" />
           </pattern>
 
+          {/* Sparse larger stars */}
           <pattern
             id="starsLarge"
             x="0"
@@ -128,17 +133,39 @@ function SpaceBackground() {
             <circle cx="184" cy="36" r="1" fill="#bfdbfe" opacity="0.4" />
             <circle cx="218" cy="190" r="1.2" fill="#ffffff" opacity="0.35" />
             <circle cx="95" cy="218" r="0.9" fill="#d4a843" opacity="0.35" />
+            <circle cx="148" cy="142" r="0.75" fill="#93c5fd" opacity="0.32" />
+          </pattern>
+
+          {/* Tiny blinking stars */}
+          <pattern
+            id="starsTwinkle"
+            x="0"
+            y="0"
+            width="180"
+            height="180"
+            patternUnits="userSpaceOnUse"
+          >
+            <circle cx="32" cy="36" r="0.9" fill="#ffffff" opacity="0.65" />
+            <circle cx="128" cy="72" r="0.7" fill="#dbeafe" opacity="0.5" />
+            <circle cx="78" cy="150" r="0.8" fill="#ffffff" opacity="0.48" />
+            <circle cx="160" cy="132" r="0.65" fill="#d4a843" opacity="0.42" />
           </pattern>
 
           <radialGradient id="nebulaBlue" cx="68%" cy="28%" r="58%">
-            <stop offset="0%" stopColor="#2563eb" stopOpacity="0.24" />
-            <stop offset="40%" stopColor="#1e40af" stopOpacity="0.12" />
+            <stop offset="0%" stopColor="#2563eb" stopOpacity="0.25" />
+            <stop offset="42%" stopColor="#1e40af" stopOpacity="0.13" />
             <stop offset="100%" stopColor="#07091a" stopOpacity="0" />
           </radialGradient>
 
           <radialGradient id="nebulaGold" cx="20%" cy="72%" r="55%">
-            <stop offset="0%" stopColor="#d4a843" stopOpacity="0.16" />
-            <stop offset="42%" stopColor="#a16207" stopOpacity="0.08" />
+            <stop offset="0%" stopColor="#d4a843" stopOpacity="0.17" />
+            <stop offset="44%" stopColor="#a16207" stopOpacity="0.08" />
+            <stop offset="100%" stopColor="#07091a" stopOpacity="0" />
+          </radialGradient>
+
+          <radialGradient id="nebulaPurple" cx="46%" cy="38%" r="60%">
+            <stop offset="0%" stopColor="#7c3aed" stopOpacity="0.12" />
+            <stop offset="46%" stopColor="#312e81" stopOpacity="0.06" />
             <stop offset="100%" stopColor="#07091a" stopOpacity="0" />
           </radialGradient>
 
@@ -163,16 +190,57 @@ function SpaceBackground() {
 
         <rect width="100%" height="100%" fill="url(#spaceBase)" />
         <rect width="100%" height="100%" fill="url(#centerDepth)" />
-        <rect className="nebula-blue" width="100%" height="100%" fill="url(#nebulaBlue)" />
-        <rect className="nebula-gold" width="100%" height="100%" fill="url(#nebulaGold)" />
-        <rect className="stars-small" width="100%" height="100%" fill="url(#starsSmall)" opacity="0.72" />
-        <rect className="stars-large" width="100%" height="100%" fill="url(#starsLarge)" opacity="0.65" />
+
+        <rect
+          className="nebula-blue"
+          width="100%"
+          height="100%"
+          fill="url(#nebulaBlue)"
+        />
+        <rect
+          className="nebula-gold"
+          width="100%"
+          height="100%"
+          fill="url(#nebulaGold)"
+        />
+        <rect
+          className="nebula-purple"
+          width="100%"
+          height="100%"
+          fill="url(#nebulaPurple)"
+        />
+
+        <rect
+          className="stars-small"
+          width="100%"
+          height="100%"
+          fill="url(#starsSmall)"
+          opacity="0.72"
+        />
+        <rect
+          className="stars-large"
+          width="100%"
+          height="100%"
+          fill="url(#starsLarge)"
+          opacity="0.62"
+        />
+        <rect
+          className="stars-twinkle"
+          width="100%"
+          height="100%"
+          fill="url(#starsTwinkle)"
+          opacity="0.55"
+        />
+
         <rect width="100%" height="100%" fill="url(#vignette)" />
       </svg>
 
-      <div className="glow-blue absolute left-[-180px] top-[18%] h-[360px] w-[360px] rounded-full bg-[#1d4ed814] blur-[95px]" />
-      <div className="glow-gold absolute right-[-190px] bottom-[8%] h-[420px] w-[420px] rounded-full bg-[#d4a84312] blur-[105px]" />
+      {/* Floating glow accents */}
+      <div className="glow-blue absolute left-[-180px] top-[18%] h-[360px] w-[360px] rounded-full bg-[#1d4ed817] blur-[95px]" />
+      <div className="glow-gold absolute right-[-190px] bottom-[8%] h-[420px] w-[420px] rounded-full bg-[#d4a84314] blur-[105px]" />
+      <div className="glow-purple absolute left-[38%] top-[-180px] h-[330px] w-[330px] rounded-full bg-[#7c3aed10] blur-[100px]" />
 
+      {/* Orbit lines */}
       <div
         className="
           orbit-slow absolute left-1/2 top-1/2 h-[720px] w-[720px]
@@ -189,37 +257,102 @@ function SpaceBackground() {
         "
       />
 
+      {/* Shooting stars */}
+      <span className="shooting-star shooting-star-1" />
+      <span className="shooting-star shooting-star-2" />
+      <span className="shooting-star shooting-star-3" />
+
       <style jsx>{`
         .stars-small {
-          animation: driftStarsSmall 36s linear infinite;
+          animation: driftStarsSmall 38s linear infinite;
+          will-change: transform;
         }
 
         .stars-large {
-          animation: driftStarsLarge 52s linear infinite;
+          animation: driftStarsLarge 58s linear infinite;
+          will-change: transform;
+        }
+
+        .stars-twinkle {
+          animation: twinkleLayer 4.8s ease-in-out infinite;
+          will-change: opacity;
         }
 
         .nebula-blue {
-          animation: nebulaPulse 8s ease-in-out infinite;
+          animation: nebulaPulseBlue 9s ease-in-out infinite;
+          transform-origin: 68% 28%;
+          will-change: transform, opacity;
         }
 
         .nebula-gold {
-          animation: nebulaPulseGold 10s ease-in-out infinite;
+          animation: nebulaPulseGold 11s ease-in-out infinite;
+          transform-origin: 20% 72%;
+          will-change: transform, opacity;
+        }
+
+        .nebula-purple {
+          animation: nebulaPulsePurple 13s ease-in-out infinite;
+          transform-origin: 46% 38%;
+          will-change: transform, opacity;
         }
 
         .glow-blue {
-          animation: floatGlowBlue 11s ease-in-out infinite;
+          animation: floatGlowBlue 12s ease-in-out infinite;
+          will-change: transform;
         }
 
         .glow-gold {
-          animation: floatGlowGold 13s ease-in-out infinite;
+          animation: floatGlowGold 14s ease-in-out infinite;
+          will-change: transform;
+        }
+
+        .glow-purple {
+          animation: floatGlowPurple 16s ease-in-out infinite;
+          will-change: transform;
         }
 
         .orbit-slow {
-          animation: rotateOrbit 42s linear infinite;
+          animation: rotateOrbit 46s linear infinite;
+          will-change: transform;
         }
 
         .orbit-reverse {
-          animation: rotateOrbitReverse 55s linear infinite;
+          animation: rotateOrbitReverse 62s linear infinite;
+          will-change: transform;
+        }
+
+        .shooting-star {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 120px;
+          height: 1px;
+          border-radius: 999px;
+          background: linear-gradient(
+            90deg,
+            transparent,
+            rgba(255, 255, 255, 0.85),
+            rgba(212, 168, 67, 0.55),
+            transparent
+          );
+          opacity: 0;
+          transform: translate3d(-180px, -80px, 0) rotate(-24deg);
+          filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.35));
+          will-change: transform, opacity;
+        }
+
+        .shooting-star-1 {
+          animation: shootingStarOne 8s ease-in-out infinite;
+        }
+
+        .shooting-star-2 {
+          animation: shootingStarTwo 12s ease-in-out infinite;
+          animation-delay: 3s;
+        }
+
+        .shooting-star-3 {
+          animation: shootingStarThree 15s ease-in-out infinite;
+          animation-delay: 6s;
         }
 
         @keyframes driftStarsSmall {
@@ -240,19 +373,17 @@ function SpaceBackground() {
           }
         }
 
-        @keyframes nebulaPulse {
+        @keyframes twinkleLayer {
           0%,
           100% {
-            opacity: 0.8;
-            transform: scale(1);
+            opacity: 0.35;
           }
           50% {
-            opacity: 1;
-            transform: scale(1.03);
+            opacity: 0.85;
           }
         }
 
-        @keyframes nebulaPulseGold {
+        @keyframes nebulaPulseBlue {
           0%,
           100% {
             opacity: 0.75;
@@ -260,7 +391,31 @@ function SpaceBackground() {
           }
           50% {
             opacity: 1;
-            transform: scale(1.04);
+            transform: scale(1.045);
+          }
+        }
+
+        @keyframes nebulaPulseGold {
+          0%,
+          100% {
+            opacity: 0.72;
+            transform: scale(1);
+          }
+          50% {
+            opacity: 1;
+            transform: scale(1.055);
+          }
+        }
+
+        @keyframes nebulaPulsePurple {
+          0%,
+          100% {
+            opacity: 0.5;
+            transform: scale(1);
+          }
+          50% {
+            opacity: 0.95;
+            transform: scale(1.06);
           }
         }
 
@@ -270,7 +425,7 @@ function SpaceBackground() {
             transform: translate3d(0, 0, 0);
           }
           50% {
-            transform: translate3d(32px, 24px, 0);
+            transform: translate3d(34px, 24px, 0);
           }
         }
 
@@ -280,7 +435,17 @@ function SpaceBackground() {
             transform: translate3d(0, 0, 0);
           }
           50% {
-            transform: translate3d(-28px, -22px, 0);
+            transform: translate3d(-30px, -24px, 0);
+          }
+        }
+
+        @keyframes floatGlowPurple {
+          0%,
+          100% {
+            transform: translate3d(0, 0, 0);
+          }
+          50% {
+            transform: translate3d(18px, 36px, 0);
           }
         }
 
@@ -302,15 +467,67 @@ function SpaceBackground() {
           }
         }
 
+        @keyframes shootingStarOne {
+          0%,
+          72%,
+          100% {
+            opacity: 0;
+            transform: translate3d(-180px, 80px, 0) rotate(-24deg);
+          }
+          78% {
+            opacity: 1;
+          }
+          88% {
+            opacity: 0;
+            transform: translate3d(120vw, 54vh, 0) rotate(-24deg);
+          }
+        }
+
+        @keyframes shootingStarTwo {
+          0%,
+          68%,
+          100% {
+            opacity: 0;
+            transform: translate3d(20vw, -120px, 0) rotate(-28deg);
+          }
+          74% {
+            opacity: 0.85;
+          }
+          86% {
+            opacity: 0;
+            transform: translate3d(110vw, 44vh, 0) rotate(-28deg);
+          }
+        }
+
+        @keyframes shootingStarThree {
+          0%,
+          76%,
+          100% {
+            opacity: 0;
+            transform: translate3d(-140px, 45vh, 0) rotate(-18deg);
+          }
+          82% {
+            opacity: 0.75;
+          }
+          91% {
+            opacity: 0;
+            transform: translate3d(100vw, 20vh, 0) rotate(-18deg);
+          }
+        }
+
         @media (prefers-reduced-motion: reduce) {
           .stars-small,
           .stars-large,
+          .stars-twinkle,
           .nebula-blue,
           .nebula-gold,
+          .nebula-purple,
           .glow-blue,
           .glow-gold,
+          .glow-purple,
           .orbit-slow,
-          .orbit-reverse {
+          .orbit-reverse,
+          .shooting-star {
             animation: none;
           }
         }
@@ -565,12 +782,12 @@ export default function ProjectsSection() {
     [cardsPerPage]
   )
 
-  const handleTouchStart = (event: React.TouchEvent<HTMLDivElement>) => {
+  const handleTouchStart = (event: TouchEvent<HTMLDivElement>) => {
     setTouchEndX(null)
     setTouchStartX(event.targetTouches[0].clientX)
   }
 
-  const handleTouchMove = (event: React.TouchEvent<HTMLDivElement>) => {
+  const handleTouchMove = (event: TouchEvent<HTMLDivElement>) => {
     setTouchEndX(event.targetTouches[0].clientX)
   }
 
@@ -704,16 +921,16 @@ export default function ProjectsSection() {
 
         {/* CAROUSEL */}
         <div className="relative">
-          {/* PREV */}
+          {/* DESKTOP / TABLET PREV */}
           <button
             onClick={() => slide(-1)}
             disabled={currentPage === 0}
             aria-label="Sebelumnya"
             className="
-              absolute left-1 top-1/2 z-20 flex
-              h-[40px] w-[40px] -translate-y-1/2
+              absolute left-[-10px] top-1/2 z-20 hidden
+              h-[44px] w-[44px] -translate-y-1/2
               items-center justify-center rounded-full
-              border border-[#d4a84340]
+              border border-[#d4a84335]
               bg-[#0d1226]/90
               text-[#d4a843]
               shadow-[0_10px_30px_rgba(0,0,0,0.35)]
@@ -721,22 +938,22 @@ export default function ProjectsSection() {
               transition-all duration-300
               hover:bg-[#14193a]
               disabled:cursor-default disabled:opacity-20
-              sm:left-[-10px] sm:h-[44px] sm:w-[44px]
+              sm:flex
             "
           >
             <ChevronLeft size={20} />
           </button>
 
-          {/* NEXT */}
+          {/* DESKTOP / TABLET NEXT */}
           <button
             onClick={() => slide(1)}
             disabled={currentPage === totalPages - 1}
             aria-label="Berikutnya"
             className="
-              absolute right-1 top-1/2 z-20 flex
-              h-[40px] w-[40px] -translate-y-1/2
+              absolute right-[-10px] top-1/2 z-20 hidden
+              h-[44px] w-[44px] -translate-y-1/2
               items-center justify-center rounded-full
-              border border-[#d4a84340]
+              border border-[#d4a84335]
               bg-[#0d1226]/90
               text-[#d4a843]
               shadow-[0_10px_30px_rgba(0,0,0,0.35)]
@@ -744,7 +961,7 @@ export default function ProjectsSection() {
               transition-all duration-300
               hover:bg-[#14193a]
               disabled:cursor-default disabled:opacity-20
-              sm:right-[-10px] sm:h-[44px] sm:w-[44px]
+              sm:flex
             "
           >
             <ChevronRight size={20} />
@@ -807,44 +1024,89 @@ export default function ProjectsSection() {
           </div>
         </div>
 
-        {/* DOTS */}
-        <div className="mt-4 flex items-center justify-center gap-[7px] md:mt-5">
-          {Array.from({ length: totalPages }).map((_, i) => {
-            const active = i === currentPage
-
-            return (
-              <button
-                key={i}
-                onClick={() => setCurrentPage(i)}
-                aria-label={`Halaman ${i + 1}`}
-                className="
-                  h-[8px]
-                  transition-all duration-500
-                  ease-[cubic-bezier(0.22,1,0.36,1)]
-                "
-                style={{
-                  width: active ? "30px" : "8px",
-                  borderRadius: active
-                    ? "999px"
-                    : "50%",
-                  background: active
-                    ? "#d4a843"
-                    : "#1e2a46",
-                }}
-              />
-            )
-          })}
-
-          <span
-            className="ml-[7px] min-w-[30px] text-[11px]"
-            style={{
-              color: "#59709a",
-              fontFamily:
-                "var(--font-mono, monospace)",
-            }}
+        {/* MOBILE NAVIGATION + DOTS */}
+        <div className="mt-4 flex items-center justify-center gap-4 md:mt-5">
+          {/* MOBILE PREV */}
+          <button
+            onClick={() => slide(-1)}
+            disabled={currentPage === 0}
+            aria-label="Sebelumnya"
+            className="
+              flex h-[38px] w-[38px] items-center justify-center rounded-full
+              border border-[#d4a84335]
+              bg-[#0d1226]/90
+              text-[#d4a843]
+              shadow-[0_10px_30px_rgba(0,0,0,0.28)]
+              backdrop-blur-md
+              transition-all duration-300
+              hover:bg-[#14193a]
+              disabled:cursor-default disabled:opacity-20
+              sm:hidden
+            "
           >
-            {currentPage + 1}/{totalPages}
-          </span>
+            <ChevronLeft size={18} />
+          </button>
+
+          {/* DOTS + PAGE NUMBER */}
+          <div className="flex items-center justify-center gap-[7px]">
+            {Array.from({ length: totalPages }).map((_, i) => {
+              const active = i === currentPage
+
+              return (
+                <button
+                  key={i}
+                  onClick={() => setCurrentPage(i)}
+                  aria-label={`Halaman ${i + 1}`}
+                  className="
+                    h-[8px]
+                    transition-all duration-500
+                    ease-[cubic-bezier(0.22,1,0.36,1)]
+                  "
+                  style={{
+                    width: active ? "30px" : "8px",
+                    borderRadius: active
+                      ? "999px"
+                      : "50%",
+                    background: active
+                      ? "#d4a843"
+                      : "#1e2a46",
+                  }}
+                />
+              )
+            })}
+
+            <span
+              className="ml-[7px] min-w-[30px] text-[11px]"
+              style={{
+                color: "#59709a",
+                fontFamily:
+                  "var(--font-mono, monospace)",
+              }}
+            >
+              {currentPage + 1}/{totalPages}
+            </span>
+          </div>
+
+          {/* MOBILE NEXT */}
+          <button
+            onClick={() => slide(1)}
+            disabled={currentPage === totalPages - 1}
+            aria-label="Berikutnya"
+            className="
+              flex h-[38px] w-[38px] items-center justify-center rounded-full
+              border border-[#d4a84335]
+              bg-[#0d1226]/90
+              text-[#d4a843]
+              shadow-[0_10px_30px_rgba(0,0,0,0.28)]
+              backdrop-blur-md
+              transition-all duration-300
+              hover:bg-[#14193a]
+              disabled:cursor-default disabled:opacity-20
+              sm:hidden
+            "
+          >
+            <ChevronRight size={18} />
+          </button>
         </div>
       </div>
     </section>
