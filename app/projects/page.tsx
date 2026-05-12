@@ -157,7 +157,7 @@ function BatikBackground() {
         <linearGradient id="overlay" x1="0" y1="0" x2="0" y2="1">
           <stop offset="0%" stopColor="#07091a" stopOpacity="0.2" />
           <stop offset="50%" stopColor="#07091a" stopOpacity="0" />
-          <stop offset="100%" stopColor="#07091a" stopOpacity="0.7" />
+          <stop offset="100%" stopColor="#07091a" stopOpacity="0.72" />
         </linearGradient>
       </defs>
 
@@ -322,7 +322,6 @@ function ProjectCard({ project }: { project: Project }) {
 
       {/* Content */}
       <div className="relative flex flex-1 flex-col p-6">
-        {/* Title */}
         <h3
           className="
             min-h-[58px]
@@ -335,7 +334,6 @@ function ProjectCard({ project }: { project: Project }) {
           {project.title}
         </h3>
 
-        {/* Description */}
         <p
           className="
             mt-3 flex-1
@@ -347,7 +345,6 @@ function ProjectCard({ project }: { project: Project }) {
           {project.description}
         </p>
 
-        {/* Bottom */}
         <div className="mt-6">
           <div className="mb-4 h-px bg-[#1a2540]" />
 
@@ -387,10 +384,45 @@ export default function AllProjects() {
   return (
     <main
       className="
+        custom-scrollbar
         relative min-h-screen overflow-hidden
         bg-[#07091a]
       "
     >
+      {/* Scrollbar Style */}
+      <style jsx global>{`
+        html {
+          scrollbar-width: thin;
+          scrollbar-color: transparent transparent;
+        }
+
+        html:hover {
+          scrollbar-color: rgba(212, 168, 67, 0.45) transparent;
+        }
+
+        ::-webkit-scrollbar {
+          width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+          background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+          background: transparent;
+          border-radius: 999px;
+          transition: background 0.3s ease;
+        }
+
+        body:hover ::-webkit-scrollbar-thumb {
+          background: rgba(212, 168, 67, 0.42);
+        }
+
+        body:hover ::-webkit-scrollbar-thumb:hover {
+          background: rgba(212, 168, 67, 0.68);
+        }
+      `}</style>
+
       {/* Background */}
       <BatikBackground />
 
@@ -413,13 +445,13 @@ export default function AllProjects() {
         className="
           sticky top-0 z-50
           border-b border-[#18243d]
-          bg-[#07091ad9]
+          bg-[#07091ae6]
           backdrop-blur-xl
         "
       >
         <div
           className="
-            relative mx-auto flex h-[72px]
+            relative mx-auto flex h-[60px]
             w-full max-w-7xl
             items-center justify-between
             px-5 sm:px-8 lg:px-12
@@ -429,10 +461,10 @@ export default function AllProjects() {
           <Link href="/#projects">
             <button
               className="
-                group flex items-center gap-3
-                rounded-2xl border border-[#d4a84330]
+                group flex items-center gap-2.5
+                rounded-xl border border-[#d4a84328]
                 bg-[#0d1226]
-                px-3 py-2.5
+                px-2.5 py-2
                 text-[#d4a843]
                 transition-all duration-300
                 hover:border-[#d4a84360]
@@ -441,19 +473,19 @@ export default function AllProjects() {
             >
               <div
                 className="
-                  flex h-9 w-9 items-center justify-center
+                  flex h-8 w-8 items-center justify-center
                   rounded-full border border-[#d4a84335]
                   bg-[#11172d]
                   transition-transform duration-300
                   group-hover:-translate-x-1
                 "
               >
-                <ChevronLeft size={18} />
+                <ChevronLeft size={16} />
               </div>
 
               <span
                 className="
-                  hidden text-[13px]
+                  hidden pr-1 text-[13px]
                   tracking-[0.08em]
                   sm:inline
                 "
@@ -471,23 +503,12 @@ export default function AllProjects() {
               text-center
             "
           >
-            <span
-              className="
-                block text-[10px]
-                uppercase tracking-[0.28em]
-                text-[#4a7cbf]
-              "
-            >
-              Portfolio Collection
-            </span>
-
             <h1
               className="
-                mt-[3px]
-                font-serif text-[22px]
-                font-medium tracking-[0.03em]
+                font-serif text-[20px]
+                font-medium tracking-[0.04em]
                 text-[#d4a843]
-                sm:text-[26px]
+                sm:text-[24px]
               "
             >
               Project Archive
@@ -495,7 +516,7 @@ export default function AllProjects() {
           </div>
 
           {/* Spacer */}
-          <div className="w-[52px] sm:w-[95px]" />
+          <div className="w-[48px] sm:w-[88px]" />
         </div>
       </header>
 
@@ -504,25 +525,10 @@ export default function AllProjects() {
         className="
           relative z-10 mx-auto
           w-full max-w-7xl
-          px-5 pt-10 pb-16
+          px-5 pt-8 pb-16
           sm:px-8 lg:px-12
         "
       >
-        {/* Description */}
-        <div className="mb-10 max-w-3xl">
-          <p
-            className="
-              text-[15px]
-              leading-[1.9]
-              text-[#6d7f9f]
-            "
-          >
-            A curated collection of enterprise systems, mobile applications,
-            digital platforms, and internal solutions crafted with a focus on
-            modern technology, usability, and scalable architecture.
-          </p>
-        </div>
-
         {/* Divider */}
         <div
           className="relative mb-10 h-px"
