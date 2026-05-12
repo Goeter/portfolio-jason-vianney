@@ -331,7 +331,7 @@ export default function HomeSection() {
     <section
       id="home"
       aria-label="Home Section"
-      className="relative flex min-h-screen flex-col justify-center overflow-hidden bg-[#0B1724] py-[88px] md:py-[110px]"
+      className="relative flex min-h-screen flex-col justify-center overflow-hidden bg-[#0B1724] pt-[96px] pb-[96px] md:pt-[118px] md:pb-[118px]"
     >
       <BatikBackground />
       <FloatingLights />
@@ -492,13 +492,13 @@ export default function HomeSection() {
 
             {/* Buttons */}
             <motion.div
-              className="flex flex-wrap gap-4"
+              className="flex w-full flex-row flex-wrap gap-3 sm:w-auto sm:gap-4"
               {...fadeSlideLeft(0.75)}
             >
               {/* Download Resume */}
               <motion.button
                 onClick={handleDownloadPDF}
-                className="relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-[14px]"
+                className="relative inline-flex flex-1 items-center justify-center gap-2 overflow-hidden rounded-[14px] sm:flex-none"
                 style={{
                   padding: "14px 30px",
                   background: "#C8A96E",
@@ -507,7 +507,6 @@ export default function HomeSection() {
                   fontSize: "clamp(12px, 1vw, 13px)",
                   fontWeight: 700,
                   letterSpacing: "0.06em",
-                  textTransform: "uppercase",
                   boxShadow:
                     "0 10px 30px rgba(200,169,110,0.22)",
                 }}
@@ -559,7 +558,7 @@ export default function HomeSection() {
               {/* View Projects */}
               <motion.button
                 onClick={handleViewProjects}
-                className="inline-flex items-center justify-center gap-2 rounded-[14px]"
+                className="inline-flex flex-1 items-center justify-center gap-2 rounded-[14px] sm:flex-none"
                 style={{
                   padding: "13px 24px",
                   background: "rgba(255,255,255,0.04)",
@@ -568,7 +567,6 @@ export default function HomeSection() {
                   fontSize: "clamp(12px, 1vw, 13px)",
                   fontWeight: 600,
                   letterSpacing: "0.06em",
-                  textTransform: "uppercase",
                   border: "0.5px solid rgba(255,255,255,0.22)",
                   backdropFilter: "blur(8px)",
                 }}
