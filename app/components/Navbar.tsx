@@ -20,10 +20,26 @@ const NAVBAR_HEIGHT = 64
 
 const navItems = [
   { id: "home", label: "Home", icon: Home },
-  { id: "roles", label: "Professional Expertise", icon: Wrench },
-  { id: "projects", label: "Projects", icon: FolderOpen },
-  { id: "certificates", label: "Certificates", icon: Award },
-  { id: "experience", label: "Experience", icon: Briefcase },
+  {
+    id: "roles",
+    label: "Professional Expertise",
+    icon: Wrench,
+  },
+  {
+    id: "projects",
+    label: "Projects",
+    icon: FolderOpen,
+  },
+  {
+    id: "certificates",
+    label: "Certificates",
+    icon: Award,
+  },
+  {
+    id: "experience",
+    label: "Experience",
+    icon: Briefcase,
+  },
 ]
 
 export default function Navbar({
@@ -71,7 +87,7 @@ export default function Navbar({
       >
         <div className="mx-auto flex h-[64px] items-center justify-between px-5 sm:px-6 lg:px-10">
 
-          {/* Logo */}
+          {/* Brand */}
           <button
             onClick={() => scrollToSection("home")}
             aria-label="Go to Home"
@@ -79,21 +95,33 @@ export default function Navbar({
           >
             <div className="relative">
 
-              {/* Glow */}
-              <div className="absolute inset-0 opacity-0 blur-xl transition-opacity duration-500 group-hover:opacity-100">
-                <div className="h-full w-full rounded-full bg-cyan-400/20" />
+              {/* Ambient Glow */}
+              <div className="absolute inset-0 -z-10 scale-150 opacity-70 blur-2xl">
+                <div className="h-full w-full rounded-full bg-gradient-to-r from-[#C8A96E]/25 via-cyan-300/20 to-blue-400/20" />
               </div>
 
-              {/* Logo Text */}
+              {/* Light Sweep */}
+              <div className="absolute inset-0 overflow-hidden rounded-full">
+                <div className="absolute -left-[120%] top-0 h-full w-[90%] skew-x-[-25deg] bg-gradient-to-r from-transparent via-white/20 to-transparent transition-transform duration-[2200ms] ease-out group-hover:translate-x-[260%]" />
+              </div>
+
+              {/* Text */}
               <span
-                className="relative block text-[24px] leading-none tracking-[0.08em] text-[#F4EDD8] transition-all duration-300 group-hover:text-white"
+                className="relative block text-[25px] leading-none tracking-[0.10em] text-[#F4EDD8] transition-all duration-500 group-hover:scale-[1.03] group-hover:text-white"
                 style={{
                   fontFamily:
                     "'Cormorant Garamond', serif",
                   fontWeight: 600,
+                  textShadow: `
+                    0 0 10px rgba(255,255,255,0.10),
+                    0 0 22px rgba(200,169,110,0.18),
+                    0 0 42px rgba(125,165,200,0.12)
+                  `,
                 }}
               >
-                Fiat lux
+                <span className="bg-gradient-to-r from-[#F4EDD8] via-[#FFF7E2] to-[#C8A96E] bg-clip-text text-transparent">
+                  Fiat lux
+                </span>
               </span>
             </div>
           </button>
@@ -118,6 +146,7 @@ export default function Navbar({
                       : "text-slate-300 hover:bg-white/10 hover:text-cyan-300"
                   }`}
                 >
+
                   {/* Hover Glow */}
                   <div className="absolute inset-0 rounded-xl bg-cyan-400/10 opacity-0 blur-lg transition-opacity duration-300 group-hover:opacity-100" />
 
@@ -218,7 +247,7 @@ export default function Navbar({
             </Button>
           </div>
 
-          {/* Menu Items */}
+          {/* Mobile Menu Items */}
           <div className="space-y-3">
             {navItems.map((item, index) => {
               const Icon = item.icon
