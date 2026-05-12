@@ -132,7 +132,7 @@ const SWIPE_THRESHOLD = 40
 function BatikBg() {
   return (
     <svg
-      className="absolute inset-0 h-full w-full pointer-events-none"
+      className="pointer-events-none absolute inset-0 h-full w-full"
       viewBox="0 0 800 560"
       xmlns="http://www.w3.org/2000/svg"
       aria-hidden="true"
@@ -165,6 +165,7 @@ function BatikBg() {
             strokeWidth="0.35"
             strokeDasharray="2,2"
           />
+
           <line
             x1="72"
             y1="36"
@@ -174,6 +175,7 @@ function BatikBg() {
             strokeWidth="0.35"
             strokeDasharray="2,2"
           />
+
           <line
             x1="36"
             y1="72"
@@ -183,6 +185,7 @@ function BatikBg() {
             strokeWidth="0.35"
             strokeDasharray="2,2"
           />
+
           <line
             x1="0"
             y1="36"
@@ -221,7 +224,8 @@ function RoleCard({ role }: { role: (typeof roles)[number] }) {
   const c = colorMap[role.color]
 
   return (
-    <div className="h-full overflow-hidden rounded-[14px] border border-[#c9a84c]/[0.18] bg-white/[0.035] transform-gpu transition-transform duration-500 ease-[cubic-bezier(.22,1,.36,1)] transition-colors hover:scale-[1.035] hover:border-[#c9a84c]/[0.45]">
+    <div className="h-full overflow-hidden rounded-[14px] border border-[#c9a84c]/[0.18] bg-white/[0.035] transform-gpu transition-transform transition-colors duration-500 ease-[cubic-bezier(.22,1,.36,1)] hover:scale-[1.035] hover:border-[#c9a84c]/[0.45]">
+      {/* Top Bar */}
       <div className={`h-[3px] w-full bg-gradient-to-r ${c.bar}`} />
 
       <div className="p-5 md:p-6">
@@ -365,8 +369,10 @@ export default function RolesShowcase() {
       className="relative overflow-hidden bg-[#080d1c] py-12 md:py-14"
       style={{ fontFamily: "'Inter', sans-serif" }}
     >
-      {/* Gold edge lines */}
+      {/* Top Gold Line */}
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#c9a84c]/55 to-transparent" />
+
+      {/* Bottom Gold Line */}
       <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-[#c9a84c]/55 to-transparent" />
 
       <BatikBg />
@@ -396,7 +402,7 @@ export default function RolesShowcase() {
         {/* Carousel */}
         <div
           ref={wrapRef}
-          className="overflow-hidden pb-8"
+          className="overflow-x-hidden overflow-y-visible pt-3 pb-8"
           onTouchStart={(e) => {
             touchStartX.current = e.touches[0].clientX
           }}
@@ -424,6 +430,8 @@ export default function RolesShowcase() {
                   flexBasis: `${cardWidth}%`,
                   minWidth: `${cardWidth}%`,
                   paddingInline: "0.75rem",
+                  paddingTop: "0.35rem",
+                  paddingBottom: "0.45rem",
                   boxSizing: "border-box",
                 }}
               >
@@ -465,11 +473,11 @@ export default function RolesShowcase() {
                   key={i}
                   onClick={() => goTo(i)}
                   aria-label={`Go to slide ${i + 1}`}
-                  className={`rounded-full transition-all duration-300 ${
+                  className={`h-[6px] rounded-full transition-all duration-300 ${
                     active
                       ? "w-[20px] bg-[#c9a84c]"
                       : "w-[6px] bg-[#c9a84c]/20 hover:bg-[#c9a84c]/40"
-                  } h-[6px]`}
+                  }`}
                 />
               )
             })}
