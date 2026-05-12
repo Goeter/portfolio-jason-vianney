@@ -1,8 +1,13 @@
 "use client"
 
+import { useState } from "react"
 import Link from "next/link"
 import Image from "next/image"
-import { ChevronLeft, ArrowUpRight } from "lucide-react"
+import {
+  ChevronLeft,
+  ArrowUpRight,
+  X,
+} from "lucide-react"
 
 // ============================================================
 // TYPES
@@ -177,7 +182,11 @@ function BatikBackground() {
 // PROJECT IMAGE
 // ============================================================
 
-function ProjectImage({ project }: { project: Project }) {
+function ProjectImage({
+  project,
+}: {
+  project: Project
+}) {
   if (project.image.includes("mobile-app/combined")) {
     return (
       <div className="flex h-full gap-[3px] bg-[#050816] p-[7px]">
@@ -188,6 +197,7 @@ function ProjectImage({ project }: { project: Project }) {
           height={240}
           className="h-full w-1/3 rounded-lg object-cover"
         />
+
         <Image
           src="/assets/projects/mobile-app/topas-mobile-menu.jpeg"
           alt="Menu"
@@ -195,6 +205,7 @@ function ProjectImage({ project }: { project: Project }) {
           height={240}
           className="h-full w-1/3 rounded-lg object-cover"
         />
+
         <Image
           src="/assets/projects/mobile-app/topas-mobile-profile.jpeg"
           alt="Profile"
@@ -216,6 +227,7 @@ function ProjectImage({ project }: { project: Project }) {
           height={240}
           className="h-full w-1/3 rounded-lg object-cover"
         />
+
         <Image
           src="/assets/projects/mobile-mata-elang/foto-2.png"
           alt="Foto 2"
@@ -223,6 +235,7 @@ function ProjectImage({ project }: { project: Project }) {
           height={240}
           className="h-full w-1/3 rounded-lg object-cover"
         />
+
         <Image
           src="/assets/projects/mobile-mata-elang/foto-3.png"
           alt="Foto 3"
@@ -250,10 +263,146 @@ function ProjectImage({ project }: { project: Project }) {
 }
 
 // ============================================================
+// IMAGE MODAL
+// ============================================================
+
+function ImageModal({
+  project,
+  onClose,
+}: {
+  project: Project | null
+  onClose: () => void
+}) {
+  if (!project) return null
+
+  return (
+    <div
+      className="
+        fixed inset-0 z-[999]
+        flex items-center justify-center
+        bg-black/80
+        backdrop-blur-md
+        p-4
+      "
+    >
+      <div
+        className="
+          relative w-full max-w-6xl
+          overflow-hidden rounded-[30px]
+          border border-[#1f2b47]
+          bg-[#0a1020]
+          shadow-[0_25px_80px_rgba(0,0,0,0.7)]
+        "
+      >
+        {/* Close */}
+        <button
+          onClick={onClose}
+          className="
+            absolute right-4 top-4 z-50
+            flex h-11 w-11 items-center justify-center
+            rounded-full
+            border border-[#d4a84330]
+            bg-[#0d1226]/90
+            text-[#d4a843]
+            transition-all duration-300
+            hover:border-[#d4a84360]
+            hover:bg-[#141b35]
+          "
+        >
+          <X size={18} />
+        </button>
+
+        {/* Image */}
+        <div
+          className="
+            max-h-[90vh]
+            overflow-auto
+            bg-[#050816]
+            p-4
+          "
+        >
+          {project.image.includes("mobile-app/combined") ? (
+            <div className="flex gap-3 overflow-x-auto">
+              <Image
+                src="/assets/projects/mobile-app/topas-mobile-dashboard.jpeg"
+                alt="Dashboard"
+                width={350}
+                height={700}
+                className="rounded-2xl object-contain"
+              />
+
+              <Image
+                src="/assets/projects/mobile-app/topas-mobile-menu.jpeg"
+                alt="Menu"
+                width={350}
+                height={700}
+                className="rounded-2xl object-contain"
+              />
+
+              <Image
+                src="/assets/projects/mobile-app/topas-mobile-profile.jpeg"
+                alt="Profile"
+                width={350}
+                height={700}
+                className="rounded-2xl object-contain"
+              />
+            </div>
+          ) : project.image.includes("mobile-mata-elang/combined") ? (
+            <div className="flex gap-3 overflow-x-auto">
+              <Image
+                src="/assets/projects/mobile-mata-elang/foto-1.png"
+                alt="Foto 1"
+                width={350}
+                height={700}
+                className="rounded-2xl object-contain"
+              />
+
+              <Image
+                src="/assets/projects/mobile-mata-elang/foto-2.png"
+                alt="Foto 2"
+                width={350}
+                height={700}
+                className="rounded-2xl object-contain"
+              />
+
+              <Image
+                src="/assets/projects/mobile-mata-elang/foto-3.png"
+                alt="Foto 3"
+                width={350}
+                height={700}
+                className="rounded-2xl object-contain"
+              />
+            </div>
+          ) : (
+            <Image
+              src={project.image}
+              alt={project.title}
+              width={1600}
+              height={1000}
+              className="
+                h-auto max-h-[82vh]
+                w-full rounded-2xl
+                object-contain
+              "
+            />
+          )}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+// ============================================================
 // PROJECT CARD
 // ============================================================
 
-function ProjectCard({ project }: { project: Project }) {
+function ProjectCard({
+  project,
+  onOpen,
+}: {
+  project: Project
+  onOpen: (project: Project) => void
+}) {
   return (
     <article
       className="
@@ -268,11 +417,13 @@ function ProjectCard({ project }: { project: Project }) {
       "
     >
       {/* Thumbnail */}
-      <div
+      <button
+        onClick={() => onOpen(project)}
         className="
           relative aspect-video overflow-hidden
           border-b border-[#1b2742]
           bg-[#060c18]
+          text-left
         "
       >
         <ProjectImage project={project} />
@@ -301,7 +452,7 @@ function ProjectCard({ project }: { project: Project }) {
         >
           PROJECT #{project.id}
         </div>
-      </div>
+      </button>
 
       {/* Content */}
       <div className="flex flex-1 flex-col p-6">
@@ -364,6 +515,9 @@ function ProjectCard({ project }: { project: Project }) {
 // ============================================================
 
 export default function AllProjects() {
+  const [selectedProject, setSelectedProject] =
+    useState<Project | null>(null)
+
   return (
     <main
       className="
@@ -403,11 +557,11 @@ export default function AllProjects() {
             mx-auto flex h-[68px]
             w-full max-w-7xl
             items-center justify-between
-            px-5 sm:px-8 lg:px-12
+            px-4 sm:px-8 lg:px-12
           "
         >
           {/* Left */}
-          <div className="w-[120px]">
+          <div className="w-[80px] sm:w-[120px]">
             <Link
               href="/#projects"
               className="
@@ -439,7 +593,8 @@ export default function AllProjects() {
           <div className="flex-1 text-center">
             <h1
               className="
-                font-serif text-[22px]
+                whitespace-nowrap
+                font-serif text-[18px]
                 font-medium tracking-[0.02em]
                 text-[#d4a843]
                 sm:text-[28px]
@@ -450,7 +605,7 @@ export default function AllProjects() {
           </div>
 
           {/* Spacer */}
-          <div className="w-[120px]" />
+          <div className="w-[80px] sm:w-[120px]" />
         </div>
       </header>
 
@@ -463,7 +618,6 @@ export default function AllProjects() {
           sm:px-8 lg:px-12
         "
       >
-        {/* Grid */}
         <div
           className="
             grid grid-cols-1 gap-7
@@ -475,12 +629,19 @@ export default function AllProjects() {
             <ProjectCard
               key={project.id}
               project={project}
+              onOpen={setSelectedProject}
             />
           ))}
         </div>
       </div>
 
-      {/* Scrollbar Style */}
+      {/* Modal */}
+      <ImageModal
+        project={selectedProject}
+        onClose={() => setSelectedProject(null)}
+      />
+
+      {/* Scrollbar */}
       <style jsx global>{`
         html {
           scroll-behavior: smooth;
