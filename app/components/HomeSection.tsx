@@ -430,7 +430,7 @@ export default function HomeSection() {
               <h2
                 style={{
                   fontFamily: "DM Sans, sans-serif",
-                  fontSize: "clamp(16px, 1.8vw, 19px)",
+                  fontSize: "clamp(16px, 1.8vw, 18px)",
                   fontWeight: 600,
                   color: "#F4EDD8",
                   letterSpacing: "0.03em",
