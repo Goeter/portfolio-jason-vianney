@@ -1,14 +1,13 @@
 "use client"
 
-import { useState } from "react"
+import { useCallback, useState } from "react"
 import {
   Home,
   FolderOpen,
-  X,
   Wrench,
   Briefcase,
   Award,
-  Menu,
+  X,
 } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
@@ -16,6 +15,8 @@ import { Button } from "@/components/ui/button"
 interface NavbarProps {
   activeSection: string
 }
+
+const NAVBAR_HEIGHT = 64
 
 const navItems = [
   { id: "home", label: "Home", icon: Home },
@@ -25,69 +26,102 @@ const navItems = [
   { id: "experience", label: "Experience", icon: Briefcase },
 ]
 
-export default function Navbar({ activeSection }: NavbarProps) {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+export default function Navbar({
+  activeSection,
+}: NavbarProps) {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] =
+    useState(false)
 
-  const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId)
-
-    if (!element) return
-
-    const navbarHeight = 70
-
-    const targetPosition =
-      element.getBoundingClientRect().top +
-      window.scrollY -
-      navbarHeight
-
-    window.scrollTo({
-      top: targetPosition,
-      behavior: "smooth",
-    })
-
+  const closeMobileMenu = useCallback(() => {
     setIsMobileMenuOpen(false)
-  }
+  }, [])
+
+  const toggleMobileMenu = useCallback(() => {
+    setIsMobileMenuOpen((prev) => !prev)
+  }, [])
+
+  const scrollToSection = useCallback(
+    (sectionId: string) => {
+      const element =
+        document.getElementById(sectionId)
+
+      if (!element) return
+
+      const targetPosition =
+        element.getBoundingClientRect().top +
+        window.scrollY -
+        NAVBAR_HEIGHT
+
+      window.scrollTo({
+        top: targetPosition,
+        behavior: "smooth",
+      })
+
+      closeMobileMenu()
+    },
+    [closeMobileMenu]
+  )
 
   return (
     <>
       {/* Navbar */}
-      <nav className="fixed top-0 left-0 right-0 z-50 border-b border-cyan-500/20 bg-slate-950/75 backdrop-blur-xl shadow-lg shadow-cyan-500/5">
-        
+      <nav
+        aria-label="Main Navigation"
+        className="fixed inset-x-0 top-0 z-50 border-b border-cyan-500/15 bg-slate-950/72 shadow-lg shadow-cyan-500/5 backdrop-blur-xl"
+      >
         <div className="mx-auto flex h-[64px] items-center justify-between px-5 sm:px-6 lg:px-10">
-          
-          {/* Logo */}
-          <div className="flex items-center pl-1">
-            <div className="group relative flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-cyan-400 via-cyan-500 to-purple-500 shadow-lg shadow-cyan-500/25 transition-all duration-500 hover:scale-110 hover:rotate-6">
-              
-              {/* Glow */}
-              <div className="absolute inset-0 rounded-full bg-cyan-400/30 blur-md opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
 
-              <span className="relative z-10 text-sm font-bold tracking-wider text-white">
-                JV
+          {/* Logo */}
+          <button
+            onClick={() => scrollToSection("home")}
+            aria-label="Go to Home"
+            className="group relative flex items-center pl-1"
+          >
+            <div className="relative">
+
+              {/* Glow */}
+              <div className="absolute inset-0 opacity-0 blur-xl transition-opacity duration-500 group-hover:opacity-100">
+                <div className="h-full w-full rounded-full bg-cyan-400/20" />
+              </div>
+
+              {/* Logo Text */}
+              <span
+                className="relative block text-[24px] leading-none tracking-[0.08em] text-[#F4EDD8] transition-all duration-300 group-hover:text-white"
+                style={{
+                  fontFamily:
+                    "'Cormorant Garamond', serif",
+                  fontWeight: 600,
+                }}
+              >
+                Fiat lux
               </span>
             </div>
-          </div>
+          </button>
 
-          {/* Desktop Menu */}
-          <div className="hidden lg:flex items-center gap-2">
+          {/* Desktop Navigation */}
+          <div className="hidden items-center gap-2 lg:flex">
             {navItems.map((item) => {
               const Icon = item.icon
-              const isActive = activeSection === item.id
+              const isActive =
+                activeSection === item.id
 
               return (
                 <button
                   key={item.id}
-                  onClick={() => scrollToSection(item.id)}
-                  className={`group relative flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-medium transition-all duration-300 ${
+                  onClick={() =>
+                    scrollToSection(item.id)
+                  }
+                  aria-label={item.label}
+                  className={`group relative flex items-center gap-2 overflow-hidden rounded-xl px-4 py-2 text-sm font-medium transition-all duration-300 will-change-transform ${
                     isActive
                       ? "bg-gradient-to-r from-cyan-500 to-blue-500 text-white shadow-lg shadow-cyan-500/20"
                       : "text-slate-300 hover:bg-white/10 hover:text-cyan-300"
                   }`}
                 >
                   {/* Hover Glow */}
-                  <div className="absolute inset-0 bg-cyan-400/10 blur-lg opacity-0 transition-opacity duration-300 group-hover:opacity-100 rounded-xl" />
+                  <div className="absolute inset-0 rounded-xl bg-cyan-400/10 opacity-0 blur-lg transition-opacity duration-300 group-hover:opacity-100" />
 
-                  <Icon className="relative z-10 h-4 w-4 transition-transform duration-300 group-hover:scale-110" />
+                  <Icon className="relative z-10 h-4 w-4 shrink-0 transition-transform duration-300 group-hover:scale-110" />
 
                   <span className="relative z-10 whitespace-nowrap">
                     {item.label}
@@ -97,38 +131,39 @@ export default function Navbar({ activeSection }: NavbarProps) {
             })}
           </div>
 
-          {/* Mobile Button */}
+          {/* Mobile Menu Button */}
           <Button
             variant="ghost"
             size="icon"
-            className="lg:hidden relative flex h-10 w-10 items-center justify-center rounded-xl text-cyan-300 transition-all duration-300 hover:bg-cyan-500/10 hover:text-white hover:scale-105"
-            onClick={() => setIsMobileMenuOpen((prev) => !prev)}
+            aria-label="Toggle Menu"
+            onClick={toggleMobileMenu}
+            className="relative flex h-10 w-10 items-center justify-center rounded-xl text-cyan-300 transition-all duration-300 hover:scale-105 hover:bg-cyan-500/10 hover:text-white lg:hidden"
           >
             <div className="relative flex h-5 w-6 items-center justify-center">
-              
-              {/* Top Line */}
+
+              {/* Top */}
               <span
-                className={`absolute h-[2px] w-6 rounded-full bg-current transition-all duration-300 ease-in-out ${
+                className={`absolute h-[2px] w-6 rounded-full bg-current transition-all duration-300 ease-out ${
                   isMobileMenuOpen
-                    ? "rotate-45 translate-y-0"
+                    ? "rotate-45"
                     : "-translate-y-2"
                 }`}
               />
-          
-              {/* Middle Line */}
+
+              {/* Middle */}
               <span
-                className={`absolute h-[2px] w-6 rounded-full bg-current transition-all duration-300 ease-in-out ${
+                className={`absolute h-[2px] w-6 rounded-full bg-current transition-all duration-200 ${
                   isMobileMenuOpen
-                    ? "opacity-0 scale-0"
-                    : "opacity-100 scale-100"
+                    ? "scale-0 opacity-0"
+                    : "scale-100 opacity-100"
                 }`}
               />
-          
-              {/* Bottom Line */}
+
+              {/* Bottom */}
               <span
-                className={`absolute h-[2px] w-6 rounded-full bg-current transition-all duration-300 ease-in-out ${
+                className={`absolute h-[2px] w-6 rounded-full bg-current transition-all duration-300 ease-out ${
                   isMobileMenuOpen
-                    ? "-rotate-45 translate-y-0"
+                    ? "-rotate-45"
                     : "translate-y-2"
                 }`}
               />
@@ -137,84 +172,94 @@ export default function Navbar({ activeSection }: NavbarProps) {
         </div>
       </nav>
 
-      {/* Mobile Menu */}
+      {/* Mobile Navigation */}
+      <div
+        className={`fixed inset-0 z-40 lg:hidden ${
+          isMobileMenuOpen
+            ? "pointer-events-auto"
+            : "pointer-events-none"
+        }`}
+      >
+
+        {/* Overlay */}
         <div
-          className={`fixed inset-0 z-40 lg:hidden transition-all duration-300 ${
+          onClick={closeMobileMenu}
+          className={`absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity duration-300 ${
             isMobileMenuOpen
-              ? "pointer-events-auto opacity-100"
-              : "pointer-events-none opacity-0"
+              ? "opacity-100"
+              : "opacity-0"
+          }`}
+        />
+
+        {/* Sidebar */}
+        <aside
+          aria-label="Mobile Navigation"
+          className={`absolute right-0 top-0 h-full w-[280px] border-l border-cyan-500/15 bg-slate-950/95 p-5 shadow-2xl backdrop-blur-xl transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+            isMobileMenuOpen
+              ? "translate-x-0"
+              : "translate-x-full"
           }`}
         >
-          {/* Overlay */}
-          <div
-            className={`absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity duration-300 ${
-              isMobileMenuOpen ? "opacity-100" : "opacity-0"
-            }`}
-            onClick={() => setIsMobileMenuOpen(false)}
-          />
-        
-          {/* Sidebar */}
-          <div
-            className={`absolute right-0 top-0 h-full w-[280px] border-l border-cyan-500/20 bg-slate-950/95 p-5 shadow-2xl backdrop-blur-xl transition-all duration-500 ease-out ${
-              isMobileMenuOpen
-                ? "translate-x-0 opacity-100"
-                : "translate-x-full opacity-0"
-            }`}
-          >
-            {/* Header */}
-            <div className="mb-8 flex items-center justify-between">
-              <h2 className="text-lg font-semibold tracking-wide text-white">
-                Navigation
-              </h2>
-        
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="rounded-xl text-cyan-300 transition-all duration-300 hover:bg-cyan-500/10 hover:text-white"
-              >
-                <X className="h-5 w-5" />
-              </Button>
-            </div>
-        
-            {/* Menu Items */}
-            <div className="space-y-3">
-              {navItems.map((item, index) => {
-                const Icon = item.icon
-                const isActive = activeSection === item.id
-        
-                return (
-                  <button
-                    key={item.id}
-                    onClick={() => scrollToSection(item.id)}
-                    className={`group relative flex w-full items-center gap-3 overflow-hidden rounded-xl px-4 py-3 text-left transition-all duration-500 ${
-                      isMobileMenuOpen
-                        ? "translate-x-0 opacity-100"
-                        : "translate-x-8 opacity-0"
-                    } ${
-                      isActive
-                        ? "bg-gradient-to-r from-cyan-500 to-blue-500 text-white shadow-lg shadow-cyan-500/20"
-                        : "text-slate-300 hover:bg-white/10 hover:text-cyan-300"
-                    }`}
-                    style={{
-                      transitionDelay: `${index * 80}ms`,
-                    }}
-                  >
-                    {/* Hover Glow */}
-                    <div className="absolute inset-0 rounded-xl bg-cyan-400/10 blur-lg opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-        
-                    <Icon className="relative z-10 h-5 w-5 shrink-0 transition-transform duration-300 group-hover:scale-110" />
-        
-                    <span className="relative z-10 text-sm font-medium">
-                      {item.label}
-                    </span>
-                  </button>
-                )
-              })}
-            </div>
+
+          {/* Header */}
+          <div className="mb-8 flex items-center justify-between">
+            <h2 className="text-lg font-semibold tracking-wide text-white">
+              Navigation
+            </h2>
+
+            <Button
+              variant="ghost"
+              size="icon"
+              aria-label="Close Menu"
+              onClick={closeMobileMenu}
+              className="rounded-xl text-cyan-300 transition-all duration-300 hover:bg-cyan-500/10 hover:text-white"
+            >
+              <X className="h-5 w-5" />
+            </Button>
           </div>
-        </div>
-      )}
+
+          {/* Menu Items */}
+          <div className="space-y-3">
+            {navItems.map((item, index) => {
+              const Icon = item.icon
+              const isActive =
+                activeSection === item.id
+
+              return (
+                <button
+                  key={item.id}
+                  onClick={() =>
+                    scrollToSection(item.id)
+                  }
+                  aria-label={item.label}
+                  className={`group relative flex w-full items-center gap-3 overflow-hidden rounded-xl px-4 py-3 text-left transition-all duration-500 will-change-transform ${
+                    isMobileMenuOpen
+                      ? "translate-x-0 opacity-100"
+                      : "translate-x-8 opacity-0"
+                  } ${
+                    isActive
+                      ? "bg-gradient-to-r from-cyan-500 to-blue-500 text-white shadow-lg shadow-cyan-500/20"
+                      : "text-slate-300 hover:bg-white/10 hover:text-cyan-300"
+                  }`}
+                  style={{
+                    transitionDelay: `${index * 70}ms`,
+                  }}
+                >
+
+                  {/* Hover Glow */}
+                  <div className="absolute inset-0 rounded-xl bg-cyan-400/10 opacity-0 blur-lg transition-opacity duration-300 group-hover:opacity-100" />
+
+                  <Icon className="relative z-10 h-5 w-5 shrink-0 transition-transform duration-300 group-hover:scale-110" />
+
+                  <span className="relative z-10 text-sm font-medium">
+                    {item.label}
+                  </span>
+                </button>
+              )
+            })}
+          </div>
+        </aside>
+      </div>
     </>
   )
 }
