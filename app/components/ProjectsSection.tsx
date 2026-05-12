@@ -1,11 +1,16 @@
 "use client"
 
 import { useState, useEffect, useCallback, useMemo } from "react"
-import { ChevronLeft, ChevronRight, ExternalLink } from "lucide-react"
+import Image from "next/image"
 import Link from "next/link"
+import {
+  ChevronLeft,
+  ChevronRight,
+  ExternalLink,
+} from "lucide-react"
 
 // ============================================================
-// DATA PROYEK
+// DATA PROJECTS
 // ============================================================
 
 const projects = [
@@ -14,7 +19,7 @@ const projects = [
     title: "PT Topas Multi Finance Website",
     description:
       "Website korporat publik yang membangun kepercayaan pelanggan dan brand awareness melalui kehadiran digital profesional.",
-    icon: "building",
+    image: "/assets/projects/topas-website.png",
     link: "https://frontend.topasmultifinance.co.id",
   },
   {
@@ -22,7 +27,7 @@ const projects = [
     title: "PT. Alfa Berkat Sigma",
     description:
       "Website toko perlengkapan plumbing yang memamerkan produk dan profil perusahaan secara profesional dan menarik.",
-    icon: "droplet",
+    image: "/assets/projects/sigma-picture.png",
     link: "https://sigma-andrew-ten.vercel.app",
   },
   {
@@ -30,7 +35,7 @@ const projects = [
     title: "Topas Mobile Application",
     description:
       "Aplikasi mobile untuk nasabah dan staf: manajemen pinjaman, tracking pencairan, monitoring nasabah, dan layanan keuangan lengkap.",
-    icon: "mobile",
+    image: "/assets/projects/mobile-app/combined",
     link: null,
   },
   {
@@ -38,7 +43,7 @@ const projects = [
     title: "HR Topas Application",
     description:
       "Sistem HRD terintegrasi: absensi, rekap gaji, perencanaan tenaga kerja berbasis KPI, dan manajemen rekrutmen lengkap.",
-    icon: "users",
+    image: "/assets/projects/hr-topas-application.png",
     link: null,
   },
   {
@@ -46,7 +51,7 @@ const projects = [
     title: "Monitoring & Feedback Prospect",
     description:
       "Aplikasi internal pencatatan penjualan motor dari dealer, konfirmasi order, jadwal pengiriman, dan kelengkapan dokumen.",
-    icon: "chart",
+    image: "/assets/projects/monitoring-server.png",
     link: null,
   },
   {
@@ -54,7 +59,7 @@ const projects = [
     title: "Vehicle Registration Certificate System",
     description:
       "Sistem cetak nota pencairan yang sebelumnya manual kini dicetak rapi, cepat, dan tersimpan aman di database sistem.",
-    icon: "file",
+    image: "/assets/projects/vehicle-registration-certificate-system.png",
     link: null,
   },
   {
@@ -62,7 +67,7 @@ const projects = [
     title: "Mobile Mata Elang & Subscribe",
     description:
       "Aplikasi pelacak kendaraan kredit untuk field user dan pihak ketiga, dilengkapi sistem berlangganan aplikasi.",
-    icon: "map",
+    image: "/assets/projects/mobile-mata-elang/combined",
     link: null,
   },
   {
@@ -70,7 +75,7 @@ const projects = [
     title: "Mobile Loan Flow Survey",
     description:
       "Aplikasi survei kunjungan rumah debitur agar data tersentralisasi dan tersimpan rapi di database perusahaan.",
-    icon: "clipboard",
+    image: "/assets/projects/flow-survey-pinjaman.jpg",
     link: null,
   },
   {
@@ -78,81 +83,10 @@ const projects = [
     title: "Dashboard Admin Ticketing",
     description:
       "Dashboard monitoring tiket berbasis web untuk pengelolaan dan pemantauan sistem ticketing secara real-time.",
-    icon: "dashboard",
+    image: "/assets/projects/dashboard_ticketing.png",
     link: null,
   },
 ]
-
-// ============================================================
-// ICONS
-// ============================================================
-
-const iconClass =
-  "w-8 h-8 stroke-[#d4a843] stroke-[1.5] fill-none"
-
-const icons: Record<string, React.ReactNode> = {
-  building: (
-    <svg viewBox="0 0 24 24" className={iconClass}>
-      <path d="M3 21h18M3 10h18M5 21V10l7-7 7 7v11M9 21v-4h6v4" />
-    </svg>
-  ),
-  droplet: (
-    <svg viewBox="0 0 24 24" className={iconClass}>
-      <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z" />
-    </svg>
-  ),
-  mobile: (
-    <svg viewBox="0 0 24 24" className={iconClass}>
-      <rect x="5" y="2" width="14" height="20" rx="2" />
-      <line x1="12" y1="18" x2="12.01" y2="18" />
-    </svg>
-  ),
-  users: (
-    <svg viewBox="0 0 24 24" className={iconClass}>
-      <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
-      <circle cx="9" cy="7" r="4" />
-      <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
-      <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-    </svg>
-  ),
-  chart: (
-    <svg viewBox="0 0 24 24" className={iconClass}>
-      <line x1="18" y1="20" x2="18" y2="10" />
-      <line x1="12" y1="20" x2="12" y2="4" />
-      <line x1="6" y1="20" x2="6" y2="14" />
-    </svg>
-  ),
-  file: (
-    <svg viewBox="0 0 24 24" className={iconClass}>
-      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-      <polyline points="14 2 14 8 20 8" />
-      <line x1="16" y1="13" x2="8" y2="13" />
-      <line x1="16" y1="17" x2="8" y2="17" />
-    </svg>
-  ),
-  map: (
-    <svg viewBox="0 0 24 24" className={iconClass}>
-      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
-      <circle cx="12" cy="10" r="3" />
-    </svg>
-  ),
-  clipboard: (
-    <svg viewBox="0 0 24 24" className={iconClass}>
-      <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
-      <rect x="8" y="2" width="8" height="4" rx="1" />
-      <line x1="9" y1="12" x2="15" y2="12" />
-      <line x1="9" y1="16" x2="13" y2="16" />
-    </svg>
-  ),
-  dashboard: (
-    <svg viewBox="0 0 24 24" className={iconClass}>
-      <rect x="3" y="3" width="7" height="7" />
-      <rect x="14" y="3" width="7" height="7" />
-      <rect x="14" y="14" width="7" height="7" />
-      <rect x="3" y="14" width="7" height="7" />
-    </svg>
-  ),
-}
 
 // ============================================================
 // BATIK BACKGROUND
@@ -180,9 +114,32 @@ function BatikBackground() {
           <circle cx="0" cy="70" r="1.4" fill="#d4a843" />
           <circle cx="70" cy="70" r="1.4" fill="#d4a843" />
 
-          <circle cx="35" cy="35" r="9" fill="none" stroke="#d4a843" strokeWidth="0.5" />
-          <circle cx="35" cy="35" r="17" fill="none" stroke="#4a7cbf" strokeWidth="0.38" />
-          <circle cx="35" cy="35" r="25" fill="none" stroke="#d4a843" strokeWidth="0.28" />
+          <circle
+            cx="35"
+            cy="35"
+            r="9"
+            fill="none"
+            stroke="#d4a843"
+            strokeWidth="0.5"
+          />
+
+          <circle
+            cx="35"
+            cy="35"
+            r="17"
+            fill="none"
+            stroke="#4a7cbf"
+            strokeWidth="0.38"
+          />
+
+          <circle
+            cx="35"
+            cy="35"
+            r="25"
+            fill="none"
+            stroke="#d4a843"
+            strokeWidth="0.28"
+          />
         </pattern>
 
         <linearGradient id="vfade" x1="0" y1="0" x2="0" y2="1">
@@ -200,123 +157,184 @@ function BatikBackground() {
 }
 
 // ============================================================
-// CARD PATTERN
-// ============================================================
-
-function CardThumbnailPattern({ id }: { id: number }) {
-  return (
-    <svg
-      className="absolute inset-0 h-full w-full"
-      viewBox="0 0 300 168"
-      preserveAspectRatio="xMidYMid slice"
-    >
-      <defs>
-        <pattern
-          id={`tp${id}`}
-          x="0"
-          y="0"
-          width="24"
-          height="24"
-          patternUnits="userSpaceOnUse"
-        >
-          <circle cx="12" cy="12" r="0.8" fill="#d4a843" />
-          <circle
-            cx="12"
-            cy="12"
-            r="6"
-            fill="none"
-            stroke="#d4a843"
-            strokeWidth="0.32"
-          />
-        </pattern>
-      </defs>
-
-      <rect width="300" height="168" fill={`url(#tp${id})`} opacity="0.18" />
-    </svg>
-  )
-}
-
-// ============================================================
 // PROJECT CARD
 // ============================================================
 
-function ProjectCard({ project }: { project: (typeof projects)[0] }) {
+function ProjectCard({
+  project,
+}: {
+  project: (typeof projects)[0]
+}) {
   return (
-    <div className="pt-3">
+    <div className="flex flex-1 pt-4">
       <div
         className="
-          group flex h-full min-w-0 flex-1 flex-col overflow-hidden rounded-2xl
-          border border-[#1e2a46] bg-[#0b1020]
-          transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]
-          hover:scale-[1.035]
+          group flex h-full min-w-0 flex-1 flex-col overflow-hidden
+          rounded-[24px]
+          border border-[#1f2b46]
+          bg-[#0b1020]
+          transition-all duration-500
+          ease-[cubic-bezier(0.22,1,0.36,1)]
+          hover:-translate-y-[6px]
+          hover:scale-[1.02]
           hover:border-[#d4a84355]
-          hover:shadow-[0_18px_45px_rgba(0,0,0,0.45)]
-          will-change-transform
+          hover:shadow-[0_24px_60px_rgba(0,0,0,0.48)]
         "
       >
-        {/* Thumbnail */}
-        <div className="relative aspect-video w-full flex-shrink-0 overflow-hidden bg-[#060c18]">
-          <CardThumbnailPattern id={project.id} />
+        {/* THUMBNAIL */}
+        <div
+          className="
+            relative aspect-[16/9]
+            overflow-hidden
+            border-b border-[#17233b]
+            bg-[#060c18]
+          "
+        >
+          {project.image.includes("mobile-app/combined") ? (
+            <div className="flex h-full w-full">
+              <Image
+                src="/assets/projects/mobile-app/topas-mobile-dashboard.jpeg"
+                alt="Dashboard"
+                width={300}
+                height={600}
+                className="h-full w-1/3 object-cover transition-transform duration-700 group-hover:scale-105"
+              />
 
-          <div
-            className="
-              absolute inset-0 flex items-center justify-center
-              transition-transform duration-700 ease-out
-              group-hover:scale-110
-            "
-          >
-            <div className="relative z-10 opacity-60">
-              {icons[project.icon]}
+              <Image
+                src="/assets/projects/mobile-app/topas-mobile-menu.jpeg"
+                alt="Menu"
+                width={300}
+                height={600}
+                className="h-full w-1/3 object-cover transition-transform duration-700 group-hover:scale-105"
+              />
+
+              <Image
+                src="/assets/projects/mobile-app/topas-mobile-profile.jpeg"
+                alt="Profile"
+                width={300}
+                height={600}
+                className="h-full w-1/3 object-cover transition-transform duration-700 group-hover:scale-105"
+              />
             </div>
-          </div>
+          ) : project.image.includes(
+              "mobile-mata-elang/combined"
+            ) ? (
+            <div className="flex h-full w-full">
+              <Image
+                src="/assets/projects/mobile-mata-elang/foto-1.png"
+                alt="Foto 1"
+                width={300}
+                height={600}
+                className="h-full w-1/3 object-cover transition-transform duration-700 group-hover:scale-105"
+              />
 
+              <Image
+                src="/assets/projects/mobile-mata-elang/foto-2.png"
+                alt="Foto 2"
+                width={300}
+                height={600}
+                className="h-full w-1/3 object-cover transition-transform duration-700 group-hover:scale-105"
+              />
+
+              <Image
+                src="/assets/projects/mobile-mata-elang/foto-3.png"
+                alt="Foto 3"
+                width={300}
+                height={600}
+                className="h-full w-1/3 object-cover transition-transform duration-700 group-hover:scale-105"
+              />
+            </div>
+          ) : (
+            <>
+              <Image
+                src={project.image}
+                alt={project.title}
+                fill
+                className="
+                  object-cover
+                  transition-transform duration-700 ease-out
+                  group-hover:scale-105
+                "
+              />
+
+              <div className="absolute inset-0 bg-gradient-to-t from-[#07091ac9] via-transparent to-transparent" />
+            </>
+          )}
+
+          {/* Overlay */}
+          <div className="absolute inset-0 bg-[#04081610]" />
+
+          {/* Badge */}
           <span
             className="
-              absolute left-[10px] top-[10px] z-20 rounded
+              absolute left-4 top-4 z-20
+              rounded-md
               border border-[#d4a84325]
-              bg-[#07091ab8]
-              px-[7px] py-[3px]
+              bg-[#07091ad9]
+              px-[9px] py-[5px]
               font-mono text-[10px]
-              tracking-widest text-[#d4a84368]
+              tracking-[0.18em]
+              text-[#d4a84390]
+              backdrop-blur-sm
             "
           >
             #P0{project.id}
           </span>
         </div>
 
-        {/* Body */}
-        <div className="flex flex-1 flex-col p-[18px_18px_17px]">
-          <h3 className="mb-3 text-[16px] md:text-[17px] font-medium leading-[1.4] text-[#c8bfa0]">
+        {/* BODY */}
+        <div className="flex flex-1 flex-col px-5 pb-5 pt-5">
+          {/* TITLE */}
+          <h3
+            className="
+              min-h-[56px]
+              text-[17px]
+              font-semibold
+              leading-[1.45]
+              tracking-[-0.01em]
+              text-[#d8ceb0]
+            "
+          >
             {project.title}
           </h3>
 
-          <p className="mb-4 flex-1 text-[13px] md:text-[14px] leading-[1.8] text-[#5b6c8d]">
+          {/* DESCRIPTION */}
+          <p
+            className="
+              mt-3 flex-1
+              text-[13.5px]
+              leading-[1.85]
+              text-[#64748f]
+            "
+          >
             {project.description}
           </p>
 
-          <div className="mb-3 h-px bg-[#1a2540]" />
+          {/* DIVIDER */}
+          <div className="my-5 h-px bg-[#1a2540]" />
 
-          <div className="flex min-h-[24px] items-center">
+          {/* FOOTER */}
+          <div className="flex min-h-[28px] items-center">
             {project.link ? (
               <a
                 href={project.link}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="
-                  flex items-center gap-[6px]
-                  text-[12px] md:text-[13px]
-                  tracking-[0.3px]
-                  text-[#4a8fd4]
-                  no-underline
-                  transition-colors duration-300
-                  hover:text-[#80b4f0]
+                  inline-flex items-center gap-2
+                  text-[13px]
+                  font-medium
+                  tracking-[0.01em]
+                  text-[#5ea4ea]
+                  transition-all duration-300
+                  hover:text-[#8cc2f5]
                 "
               >
-                <ExternalLink size={14} />
+                <ExternalLink size={15} />
                 Kunjungi Website
               </a>
             ) : (
-              <span className="inline-block h-[24px]" />
+              <span className="h-[28px]" />
             )}
           </div>
         </div>
@@ -338,29 +356,38 @@ export default function ProjectsSection() {
     setIsClient(true)
 
     const handleResize = () => {
-      setCardsPerPage(window.innerWidth <= 640 ? 1 : 3)
+      if (window.innerWidth < 768) {
+        setCardsPerPage(1)
+      } else if (window.innerWidth < 1100) {
+        setCardsPerPage(2)
+      } else {
+        setCardsPerPage(3)
+      }
     }
 
     handleResize()
 
     window.addEventListener("resize", handleResize)
 
-    return () => window.removeEventListener("resize", handleResize)
+    return () =>
+      window.removeEventListener("resize", handleResize)
   }, [])
 
   useEffect(() => {
     setCurrentPage(0)
   }, [cardsPerPage])
 
-  const totalPages = useMemo(
-    () => Math.ceil(projects.length / cardsPerPage),
-    [cardsPerPage]
-  )
+  const totalPages = useMemo(() => {
+    return Math.ceil(projects.length / cardsPerPage)
+  }, [cardsPerPage])
 
   const slide = useCallback(
     (direction: number) => {
       setCurrentPage((prev) =>
-        Math.max(0, Math.min(totalPages - 1, prev + direction))
+        Math.max(
+          0,
+          Math.min(totalPages - 1, prev + direction)
+        )
       )
     },
     [totalPages]
@@ -453,7 +480,9 @@ export default function ProjectsSection() {
                   leading-none text-[#07091a]
                 "
               >
-                <span className="text-[22px] font-medium">9</span>
+                <span className="text-[22px] font-medium">
+                  {projects.length}
+                </span>
 
                 <span className="mt-[2px] text-[9px] uppercase tracking-widest opacity-70">
                   Projects
@@ -463,7 +492,7 @@ export default function ProjectsSection() {
           </Link>
         </div>
 
-        {/* Divider */}
+        {/* DIVIDER */}
         <div
           className="relative mb-10 h-px"
           style={{ background: "#d4a84318" }}
@@ -476,14 +505,14 @@ export default function ProjectsSection() {
 
         {/* CAROUSEL */}
         <div className="relative">
-          {/* Prev */}
+          {/* PREV */}
           <button
             onClick={() => slide(-1)}
             disabled={currentPage === 0}
             aria-label="Sebelumnya"
             className="
               absolute left-[-10px] top-1/2 z-10 hidden
-              h-[42px] w-[42px] -translate-y-1/2
+              h-[44px] w-[44px] -translate-y-1/2
               items-center justify-center rounded-full
               border border-[#d4a84335]
               bg-[#0d1226]
@@ -494,17 +523,17 @@ export default function ProjectsSection() {
               sm:flex
             "
           >
-            <ChevronLeft size={19} />
+            <ChevronLeft size={20} />
           </button>
 
-          {/* Next */}
+          {/* NEXT */}
           <button
             onClick={() => slide(1)}
             disabled={currentPage === totalPages - 1}
             aria-label="Berikutnya"
             className="
               absolute right-[-10px] top-1/2 z-10 hidden
-              h-[42px] w-[42px] -translate-y-1/2
+              h-[44px] w-[44px] -translate-y-1/2
               items-center justify-center rounded-full
               border border-[#d4a84335]
               bg-[#0d1226]
@@ -515,26 +544,31 @@ export default function ProjectsSection() {
               sm:flex
             "
           >
-            <ChevronRight size={19} />
+            <ChevronRight size={20} />
           </button>
 
-          {/* Track */}
-          <div className="overflow-x-hidden overflow-y-visible sm:mx-[30px]">
+          {/* TRACK */}
+          <div className="overflow-x-hidden overflow-y-visible sm:mx-[34px]">
             <div
-              className="flex transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]"
+              className="
+                flex transition-transform duration-700
+                ease-[cubic-bezier(0.22,1,0.36,1)]
+              "
               style={{
                 transform: `translateX(-${currentPage * 100}%)`,
               }}
             >
               {isClient &&
-                Array.from({ length: totalPages }).map((_, pageIdx) => (
+                Array.from({
+                  length: totalPages,
+                }).map((_, pageIdx) => (
                   <div
                     key={pageIdx}
                     className="
                       flex min-w-full items-stretch
-                      gap-[18px]
+                      gap-6
                       px-[4px]
-                      pb-2
+                      pb-4
                     "
                   >
                     {pageProjects(pageIdx).map((project) => (
@@ -544,7 +578,8 @@ export default function ProjectsSection() {
                       />
                     ))}
 
-                    {pageProjects(pageIdx).length < cardsPerPage &&
+                    {pageProjects(pageIdx).length <
+                      cardsPerPage &&
                       Array.from({
                         length:
                           cardsPerPage -
@@ -562,7 +597,7 @@ export default function ProjectsSection() {
         </div>
 
         {/* DOTS */}
-        <div className="mt-8 flex items-center justify-center gap-[7px]">
+        <div className="mt-9 flex items-center justify-center gap-[7px]">
           {Array.from({ length: totalPages }).map((_, i) => {
             const active = i === currentPage
 
@@ -572,14 +607,18 @@ export default function ProjectsSection() {
                 onClick={() => setCurrentPage(i)}
                 aria-label={`Halaman ${i + 1}`}
                 className="
-                  h-[8px] border-none outline-none
+                  h-[8px]
                   transition-all duration-500
                   ease-[cubic-bezier(0.22,1,0.36,1)]
                 "
                 style={{
                   width: active ? "30px" : "8px",
-                  borderRadius: active ? "999px" : "50%",
-                  background: active ? "#d4a843" : "#1e2a46",
+                  borderRadius: active
+                    ? "999px"
+                    : "50%",
+                  background: active
+                    ? "#d4a843"
+                    : "#1e2a46",
                 }}
               />
             )
@@ -589,7 +628,8 @@ export default function ProjectsSection() {
             className="ml-[7px] min-w-[30px] text-[11px]"
             style={{
               color: "#2a3d60",
-              fontFamily: "var(--font-mono, monospace)",
+              fontFamily:
+                "var(--font-mono, monospace)",
             }}
           >
             {currentPage + 1}/{totalPages}
