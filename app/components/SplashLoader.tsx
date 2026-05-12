@@ -50,15 +50,21 @@ export default function SplashLoader({
 
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const starsRef = useRef<HTMLCanvasElement>(null)
+
+  const hyperRef = useRef<HTMLDivElement>(null)
   const hyperCanvasRef =
     useRef<HTMLCanvasElement>(null)
 
+  const dustRef = useRef<HTMLDivElement>(null)
+
   const pctRef = useRef<HTMLDivElement>(null)
   const msgRef = useRef<HTMLDivElement>(null)
+
   const nameRef = useRef<HTMLDivElement>(null)
   const skillsRef = useRef<HTMLDivElement>(null)
-  const hyperRef = useRef<HTMLDivElement>(null)
-  const dustRef = useRef<HTMLDivElement>(null)
+
+  const welcomeRef = useRef<HTMLDivElement>(null)
+  const expertiseRef = useRef<HTMLDivElement>(null)
 
   const batteryCellsRef = useRef<
     (HTMLDivElement | null)[]
@@ -89,7 +95,9 @@ export default function SplashLoader({
     el.textContent = ""
 
     ;(el as any)._typingTimer = setInterval(() => {
-      el.textContent = text.slice(0, ++i)
+      el.textContent = text.slice(0, i + 1)
+
+      i++
 
       if (i >= text.length) {
         clearInterval((el as any)._typingTimer)
@@ -105,7 +113,8 @@ export default function SplashLoader({
     const ctx = cv.getContext("2d")
     if (!ctx) return
 
-    const { width: w, height: h } = cv
+    const w = cv.width
+    const h = cv.height
 
     const cx = w / 2
     const cy = h / 2
@@ -172,6 +181,7 @@ export default function SplashLoader({
     ctx.shadowBlur = 30 + pulse * 16
 
     ctx.stroke()
+
     ctx.shadowBlur = 0
 
     const orbR = 28 + pulse * 4
@@ -198,18 +208,51 @@ export default function SplashLoader({
 
     ctx.beginPath()
     ctx.arc(cx, cy, orbR + 26, 0, Math.PI * 2)
+
     ctx.fillStyle = orbGlow
     ctx.fill()
 
     ctx.beginPath()
     ctx.arc(cx, cy, orbR * 0.58, 0, Math.PI * 2)
 
-    ctx.fillStyle = "#fff"
+    ctx.fillStyle = "#ffffff"
 
     ctx.shadowColor = `hsla(${190 + hue},100%,75%,1)`
     ctx.shadowBlur = 34
 
     ctx.fill()
+
+    ctx.shadowBlur = 0
+
+    // POWER ICON
+    ctx.save()
+
+    ctx.translate(cx, cy)
+
+    const iconR = 10
+
+    ctx.beginPath()
+
+    ctx.arc(
+      0,
+      0,
+      iconR,
+      -Math.PI / 2 + 0.55,
+      -Math.PI / 2 - 0.55 + Math.PI * 2
+    )
+
+    ctx.strokeStyle = "#0f172a"
+    ctx.lineWidth = 2.5
+    ctx.lineCap = "round"
+
+    ctx.stroke()
+
+    ctx.beginPath()
+
+    ctx.moveTo(0, -iconR - 2)
+    ctx.lineTo(0, -iconR * 0.2)
+
+    ctx.stroke()
 
     ctx.restore()
   }
@@ -220,11 +263,12 @@ export default function SplashLoader({
     const animate = (ts: number) => {
       if (!start) start = ts
 
-      const progress = easeOut(
-        Math.min((ts - start) / PH2_DUR, 1)
+      const raw = Math.min(
+        (ts - start) / PH2_DUR,
+        1
       )
 
-      drawArc(progress, ts)
+      drawArc(easeOut(raw), ts)
 
       arcRafRef.current =
         requestAnimationFrame(animate)
@@ -248,18 +292,22 @@ export default function SplashLoader({
       const card = document.createElement("div")
 
       card.className = "sl-skill-card"
-      card.style.background = `linear-gradient(135deg,${s.grad})`
+
+      card.style.background = `
+        linear-gradient(135deg,${s.grad})
+      `
 
       card.innerHTML = `
-        <div class="sl-skill-name">${s.label}</div>
+        <div class="sl-skill-name">
+          ${s.label}
+        </div>
       `
 
       grid.appendChild(card)
 
-      setTimeout(
-        () => card.classList.add("sl-card-show"),
-        idx * 180
-      )
+      setTimeout(() => {
+        card.classList.add("sl-card-show")
+      }, idx * 180)
     })
   }
 
@@ -274,19 +322,23 @@ export default function SplashLoader({
     for (let i = 0; i < 160; i++) {
       const p = document.createElement("div")
 
+      const size = 1 + Math.random() * 5
+
       const x = (Math.random() - 0.5) * 900
       const y = (Math.random() - 0.5) * 700
+
+      const dur = 1.2 + Math.random() * 0.8
 
       p.className = "sl-dust"
 
       p.style.cssText = `
         --tx:${x}px;
         --ty:${y}px;
-        width:${1 + Math.random() * 5}px;
-        height:${1 + Math.random() * 5}px;
+        width:${size}px;
+        height:${size}px;
         left:50%;
         top:50%;
-        animation-duration:${1.2 + Math.random() * 0.8}s;
+        animation-duration:${dur}s;
       `
 
       frag.appendChild(p)
@@ -295,33 +347,189 @@ export default function SplashLoader({
     dust.appendChild(frag)
   }
 
+  function initStars() {
+    const cv = starsRef.current
+    if (!cv) return
+
+    cv.width = window.innerWidth
+    cv.height = window.innerHeight
+
+    const ctx = cv.getContext("2d")
+    if (!ctx) return
+
+    const stars = Array.from(
+      { length: 90 },
+      () => ({
+        x: Math.random() * cv.width,
+        y: Math.random() * cv.height,
+        r: Math.random() * 2,
+      })
+    )
+
+    const loop = () => {
+      ctx.clearRect(0, 0, cv.width, cv.height)
+
+      stars.forEach((s) => {
+        ctx.beginPath()
+
+        ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2)
+
+        ctx.fillStyle = "rgba(255,255,255,.9)"
+
+        ctx.fill()
+      })
+
+      starsRafRef.current =
+        requestAnimationFrame(loop)
+    }
+
+    loop()
+  }
+
+  function runHyperspace(onDone: () => void) {
+    const wrap = hyperRef.current
+    const cv = hyperCanvasRef.current
+
+    if (!wrap || !cv) {
+      onDone()
+      return
+    }
+
+    cv.width = window.innerWidth
+    cv.height = window.innerHeight
+
+    wrap.style.opacity = "1"
+
+    const ctx = cv.getContext("2d")
+    if (!ctx) return
+
+    const cx = cv.width / 2
+    const cy = cv.height / 2
+
+    const TOTAL = 2400
+
+    const lines = Array.from(
+      { length: 240 },
+      () => ({
+        angle: Math.random() * Math.PI * 2,
+        speed: 0.8 + Math.random() * 2,
+        hue: Math.random() * 360,
+      })
+    )
+
+    let t0: number | null = null
+
+    const frame = (ts: number) => {
+      if (!t0) t0 = ts
+
+      const progress = Math.min(
+        (ts - t0) / TOTAL,
+        1
+      )
+
+      const ease = easeOut(progress)
+
+      ctx.fillStyle = "rgba(1,10,20,.16)"
+
+      ctx.fillRect(0, 0, cv.width, cv.height)
+
+      lines.forEach((l) => {
+        const dist =
+          ease *
+          Math.max(cv.width, cv.height) *
+          l.speed
+
+        const x1 = cx + Math.cos(l.angle) * dist
+        const y1 = cy + Math.sin(l.angle) * dist
+
+        const x2 =
+          cx +
+          Math.cos(l.angle) * (dist + 140)
+
+        const y2 =
+          cy +
+          Math.sin(l.angle) * (dist + 140)
+
+        const grad = ctx.createLinearGradient(
+          x1,
+          y1,
+          x2,
+          y2
+        )
+
+        grad.addColorStop(
+          0,
+          `hsla(${l.hue},100%,80%,0)`
+        )
+
+        grad.addColorStop(
+          1,
+          `hsla(${l.hue},100%,90%,.95)`
+        )
+
+        ctx.beginPath()
+
+        ctx.moveTo(x1, y1)
+        ctx.lineTo(x2, y2)
+
+        ctx.strokeStyle = grad
+        ctx.lineWidth = 1.5
+
+        ctx.stroke()
+      })
+
+      if (progress < 1) {
+        hyperRafRef.current =
+          requestAnimationFrame(frame)
+
+        return
+      }
+
+      wrap.style.transition = "opacity .8s ease"
+      wrap.style.opacity = "0"
+
+      setTimeout(onDone, 800)
+    }
+
+    hyperRafRef.current =
+      requestAnimationFrame(frame)
+  }
+
   useEffect(() => {
     drawArc(0, 0)
 
-    let start: number | null = null
+    let t0: number | null = null
 
     const phase1 = (ts: number) => {
-      if (!start) start = ts
+      if (!t0) t0 = ts
 
       const raw = Math.min(
-        (ts - start) / PH1_DUR,
+        (ts - t0) / PH1_DUR,
         1
       )
 
       const p = easeOut(raw)
 
-      pctRef.current!.textContent = `${Math.floor(
-        p * 100
-      )}%`
+      const pct = Math.floor(p * 100)
 
-      batteryCellsRef.current.forEach((cell, idx) => {
-        if (
-          cell &&
-          idx < Math.min(Math.floor(p * 10), 10)
-        ) {
-          cell.classList.add("active")
+      if (pctRef.current) {
+        pctRef.current.textContent = `${pct}%`
+      }
+
+      const activeCells = Math.min(
+        Math.floor(p * 10),
+        10
+      )
+
+      batteryCellsRef.current.forEach(
+        (cell, idx) => {
+          if (!cell) return
+
+          if (idx < activeCells) {
+            cell.classList.add("active")
+          }
         }
-      })
+      )
 
       const mi = Math.min(
         Math.floor(p * STATUS_MSGS.length),
@@ -357,19 +565,81 @@ export default function SplashLoader({
 
         startArcAnimation()
 
-        ;[300, 1000, 1700].forEach((t, i) =>
+        ;[300, 1000, 1700].forEach((t, i) => {
           setTimeout(() => activateAtom(i), t)
-        )
+        })
 
-        setTimeout(() => {
-          cancelAnimationFrame(arcRafRef.current)
+        let t1: number | null = null
 
-          ph2Ref.current?.classList.add("sl-out")
+        const phase2 = (ts2: number) => {
+          if (!t1) t1 = ts2
+
+          const r2 = Math.min(
+            (ts2 - t1) / PH2_DUR,
+            1
+          )
+
+          if (r2 < 1) {
+            rafRef.current =
+              requestAnimationFrame(phase2)
+
+            return
+          }
+
+          cancelAnimationFrame(
+            arcRafRef.current
+          )
 
           setTimeout(() => {
-            onLoadingComplete()
-          }, 4200)
-        }, PH2_DUR)
+            ph2Ref.current?.classList.add(
+              "sl-out"
+            )
+
+            runHyperspace(() => {
+              initStars()
+
+              ph3Ref.current?.classList.add(
+                "sl-in"
+              )
+
+              welcomeRef.current?.classList.add(
+                "show"
+              )
+
+              setTimeout(() => {
+                if (!nameRef.current) return
+
+                typeWriter(
+                  nameRef.current,
+                  FULL_NAME,
+                  60,
+                  () => {
+                    expertiseRef.current?.classList.add(
+                      "show"
+                    )
+
+                    buildSkills()
+
+                    setTimeout(() => {
+                      createDustExplosion()
+
+                      containerRef.current?.classList.add(
+                        "sl-content-dust-out"
+                      )
+
+                      setTimeout(() => {
+                        onLoadingComplete()
+                      }, 1400)
+                    }, 2600)
+                  }
+                )
+              }, 500)
+            })
+          }, 700)
+        }
+
+        rafRef.current =
+          requestAnimationFrame(phase2)
       }, 500)
     }
 
@@ -388,7 +658,139 @@ export default function SplashLoader({
 
   return (
     <>
-      {/* JSX tetap sama seperti milikmu */}
+      <div ref={containerRef} className="sl-root">
+        <canvas
+          ref={starsRef}
+          className="sl-stars-canvas"
+        />
+
+        <div
+          ref={hyperRef}
+          className="sl-hyper-wrap"
+        >
+          <canvas
+            ref={hyperCanvasRef}
+            style={{
+              position: "absolute",
+              inset: 0,
+              width: "100%",
+              height: "100%",
+            }}
+          />
+        </div>
+
+        <div
+          ref={dustRef}
+          className="sl-dust-wrap"
+        />
+
+        <div className="sl-content">
+          {/* PHASE 1 */}
+
+          <div ref={ph1Ref} className="sl-ph1">
+            <div className="sl-battery-shell">
+              <div className="sl-battery-topline">
+                <div className="sl-battery-title">
+                  ARC ENERGY SYSTEM
+                </div>
+
+                <div className="sl-battery-mini">
+                  <span />
+                  <span />
+                  <span />
+                </div>
+              </div>
+
+              <div className="sl-battery-cells">
+                {Array.from({ length: 10 }).map(
+                  (_, i) => (
+                    <div
+                      key={i}
+                      className="sl-battery-cell"
+                      ref={(el) => {
+                        batteryCellsRef.current[i] =
+                          el
+                      }}
+                    />
+                  )
+                )}
+              </div>
+
+              <div className="sl-battery-bottom">
+                <div
+                  ref={pctRef}
+                  className="sl-charge-pct"
+                >
+                  0%
+                </div>
+
+                <div
+                  ref={msgRef}
+                  className="sl-loading-text"
+                >
+                  Initializing...
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* PHASE 2 */}
+
+          <div ref={ph2Ref} className="sl-ph2">
+            <div className="sl-arc-wrap">
+              <div className="sl-ring sl-ring-1" />
+              <div className="sl-ring sl-ring-2" />
+
+              {[1, 2, 3].map((n, i) => (
+                <div
+                  key={n}
+                  ref={(el) => {
+                    atomRefs.current[i] = el
+                  }}
+                  className={`sl-atom sl-atom-${n}`}
+                />
+              ))}
+
+              <canvas
+                ref={canvasRef}
+                className="sl-arc-canvas"
+                width={300}
+                height={300}
+              />
+            </div>
+          </div>
+
+          {/* PHASE 3 */}
+
+          <div ref={ph3Ref} className="sl-ph3">
+            <div
+              ref={welcomeRef}
+              className="sl-welcome-line"
+            >
+              ◈ Welcome To My Portfolio ◈
+            </div>
+
+            <div
+              ref={nameRef}
+              className="sl-name"
+            />
+
+            <div className="sl-divline" />
+
+            <div
+              ref={expertiseRef}
+              className="sl-expertise-label"
+            >
+              My Expertise
+            </div>
+
+            <div
+              ref={skillsRef}
+              className="sl-skills-grid"
+            />
+          </div>
+        </div>
+      </div>
     </>
   )
 }
