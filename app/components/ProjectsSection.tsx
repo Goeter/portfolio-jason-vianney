@@ -203,7 +203,6 @@ function SpaceBackground() {
         <rect width="100%" height="100%" fill="url(#vignette)" />
       </svg>
 
-      {/* Shooting stars placed around edges so they do not disappear behind the cards */}
       <span className="shooting-star shooting-star-1" />
       <span className="shooting-star shooting-star-2" />
       <span className="shooting-star shooting-star-3" />
@@ -245,9 +244,8 @@ function SpaceBackground() {
           background: linear-gradient(
             90deg,
             transparent,
-            rgba(255, 255, 255, 0.95),
-            rgba(212, 168, 67, 0.55),
-            transparent
+            rgba(212, 168, 67, 0.45),
+            rgba(255, 255, 255, 0.95)
           );
           opacity: 0;
           filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.4));
@@ -256,28 +254,28 @@ function SpaceBackground() {
 
         .shooting-star-1 {
           top: 12%;
-          left: -160px;
-          animation: shootingTopOne 8s ease-in-out infinite;
+          right: -180px;
+          animation: shootingRightToLeftOne 8s ease-in-out infinite;
         }
 
         .shooting-star-2 {
-          top: 22%;
-          left: 12%;
-          animation: shootingTopTwo 12s ease-in-out infinite;
+          top: 24%;
+          right: -180px;
+          animation: shootingRightToLeftTwo 12s ease-in-out infinite;
           animation-delay: 3s;
         }
 
         .shooting-star-3 {
-          bottom: 17%;
-          left: -180px;
-          animation: shootingBottomOne 14s ease-in-out infinite;
+          bottom: 18%;
+          right: -180px;
+          animation: shootingRightToLeftThree 14s ease-in-out infinite;
           animation-delay: 5s;
         }
 
         .shooting-star-4 {
           top: 8%;
           right: -180px;
-          animation: shootingTopReverse 16s ease-in-out infinite;
+          animation: shootingRightToLeftFour 16s ease-in-out infinite;
           animation-delay: 7s;
         }
 
@@ -333,67 +331,67 @@ function SpaceBackground() {
           }
         }
 
-        @keyframes shootingTopOne {
+        @keyframes shootingRightToLeftOne {
           0%,
           68%,
           100% {
             opacity: 0;
-            transform: translate3d(0, 0, 0) rotate(-22deg);
+            transform: translate3d(0, 0, 0) rotate(155deg);
           }
           74% {
             opacity: 1;
           }
           86% {
             opacity: 0;
-            transform: translate3d(115vw, 38vh, 0) rotate(-22deg);
+            transform: translate3d(-115vw, 38vh, 0) rotate(155deg);
           }
         }
 
-        @keyframes shootingTopTwo {
+        @keyframes shootingRightToLeftTwo {
           0%,
           70%,
           100% {
             opacity: 0;
-            transform: translate3d(0, 0, 0) rotate(-20deg);
+            transform: translate3d(0, 0, 0) rotate(155deg);
           }
           76% {
             opacity: 0.9;
           }
           88% {
             opacity: 0;
-            transform: translate3d(90vw, 30vh, 0) rotate(-20deg);
+            transform: translate3d(-100vw, 30vh, 0) rotate(155deg);
           }
         }
 
-        @keyframes shootingBottomOne {
+        @keyframes shootingRightToLeftThree {
           0%,
           72%,
           100% {
             opacity: 0;
-            transform: translate3d(0, 0, 0) rotate(-16deg);
+            transform: translate3d(0, 0, 0) rotate(205deg);
           }
           78% {
             opacity: 0.85;
           }
           89% {
             opacity: 0;
-            transform: translate3d(110vw, -24vh, 0) rotate(-16deg);
+            transform: translate3d(-110vw, -24vh, 0) rotate(205deg);
           }
         }
 
-        @keyframes shootingTopReverse {
+        @keyframes shootingRightToLeftFour {
           0%,
           74%,
           100% {
             opacity: 0;
-            transform: translate3d(0, 0, 0) rotate(205deg);
+            transform: translate3d(0, 0, 0) rotate(155deg);
           }
           80% {
             opacity: 0.8;
           }
           90% {
             opacity: 0;
-            transform: translate3d(-105vw, 30vh, 0) rotate(205deg);
+            transform: translate3d(-105vw, 30vh, 0) rotate(155deg);
           }
         }
 
@@ -437,7 +435,6 @@ function ProjectCard({
           hover:shadow-[0_24px_60px_rgba(0,0,0,0.48)]
         "
       >
-        {/* THUMBNAIL */}
         <div
           className="
             relative aspect-[16/9]
@@ -515,10 +512,8 @@ function ProjectCard({
             </>
           )}
 
-          {/* Overlay */}
           <div className="absolute inset-0 bg-[#04081610]" />
 
-          {/* Badge */}
           <span
             className="
               absolute left-4 top-4 z-20
@@ -536,9 +531,7 @@ function ProjectCard({
           </span>
         </div>
 
-        {/* BODY */}
         <div className="flex flex-1 flex-col px-5 pb-5 pt-5">
-          {/* TITLE */}
           <h3
             className="
               min-h-[56px]
@@ -552,7 +545,6 @@ function ProjectCard({
             {project.title}
           </h3>
 
-          {/* DESCRIPTION */}
           <p
             className="
               mt-3 flex-1
@@ -564,10 +556,8 @@ function ProjectCard({
             {project.description}
           </p>
 
-          {/* DIVIDER */}
           <div className="my-5 h-px bg-[#1a2540]" />
 
-          {/* FOOTER */}
           <div className="flex min-h-[28px] items-center">
             {project.link ? (
               <a
@@ -726,7 +716,6 @@ export default function ProjectsSection() {
           px-5 sm:px-8 lg:px-12
         "
       >
-        {/* HEADER */}
         <div
           className={`
             mb-5 flex flex-wrap items-center justify-between gap-4 md:mb-6
@@ -817,7 +806,6 @@ export default function ProjectsSection() {
           </Link>
         </div>
 
-        {/* DIVIDER */}
         <div
           className={`
             relative mb-5 h-px md:mb-6
@@ -839,7 +827,6 @@ export default function ProjectsSection() {
           />
         </div>
 
-        {/* CAROUSEL */}
         <div
           className={`
             relative
@@ -851,7 +838,6 @@ export default function ProjectsSection() {
             }
           `}
         >
-          {/* DESKTOP / TABLET PREV */}
           <button
             onClick={() => slide(-1)}
             disabled={currentPage === 0}
@@ -874,7 +860,6 @@ export default function ProjectsSection() {
             <ChevronLeft size={20} />
           </button>
 
-          {/* DESKTOP / TABLET NEXT */}
           <button
             onClick={() => slide(1)}
             disabled={currentPage === totalPages - 1}
@@ -897,7 +882,6 @@ export default function ProjectsSection() {
             <ChevronRight size={20} />
           </button>
 
-          {/* TRACK */}
           <div
             className="overflow-x-hidden overflow-y-visible sm:mx-[34px]"
             onTouchStart={handleTouchStart}
@@ -954,7 +938,6 @@ export default function ProjectsSection() {
           </div>
         </div>
 
-        {/* MOBILE NAVIGATION + DOTS */}
         <div
           className={`
             mt-4 flex items-center justify-center gap-4 md:mt-5
@@ -966,7 +949,6 @@ export default function ProjectsSection() {
             }
           `}
         >
-          {/* MOBILE PREV */}
           <button
             onClick={() => slide(-1)}
             disabled={currentPage === 0}
@@ -987,7 +969,6 @@ export default function ProjectsSection() {
             <ChevronLeft size={18} />
           </button>
 
-          {/* DOTS + PAGE NUMBER */}
           <div className="flex items-center justify-center gap-[7px]">
             {Array.from({ length: totalPages }).map((_, i) => {
               const active = i === currentPage
@@ -1027,7 +1008,6 @@ export default function ProjectsSection() {
             </span>
           </div>
 
-          {/* MOBILE NEXT */}
           <button
             onClick={() => slide(1)}
             disabled={currentPage === totalPages - 1}
