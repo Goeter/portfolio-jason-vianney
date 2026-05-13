@@ -180,8 +180,8 @@ export default function CertificatesSection() {
             </h2>
 
             <p className="mt-3 max-w-2xl text-sm leading-relaxed text-slate-300 md:text-base">
-              A curated list of certifications and learning achievements that
-              support my professional growth.
+              A complete collection of certifications and learning achievements
+              that support my professional development journey.
             </p>
           </div>
 
