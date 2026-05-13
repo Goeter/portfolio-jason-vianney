@@ -107,8 +107,9 @@ export default function ExperienceSection() {
             Career Journey
           </p>
 
-          <h2 className="bg-gradient-to-r from-white via-cyan-100 to-purple-300 bg-clip-text text-4xl font-bold tracking-tight text-transparent md:text-5xl">
-            My Experiences
+          <h2 className="font-[Poppins] bg-gradient-to-r from-cyan-200 via-white to-purple-300 bg-clip-text text-4xl font-black tracking-[-0.03em] text-transparent drop-shadow-[0_0_25px_rgba(103,232,249,0.28)] md:text-5xl lg:text-6xl">
+            <span className="font-[800] italic">My</span>{" "}
+            <span className="font-black">Experiences</span>
           </h2>
         </div>
 
