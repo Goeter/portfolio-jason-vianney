@@ -125,31 +125,31 @@ export default function CertificatesSection() {
       id="certificates"
       className="relative flex min-h-screen items-center overflow-hidden py-20"
     >
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(34,197,94,0.20),transparent_32%),radial-gradient(circle_at_80%_15%,rgba(20,184,166,0.16),transparent_30%),radial-gradient(circle_at_50%_90%,rgba(16,185,129,0.18),transparent_35%),linear-gradient(135deg,#020617_0%,#031c16_45%,#042f2e_100%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_18%,rgba(34,197,94,0.28),transparent_30%),radial-gradient(circle_at_82%_20%,rgba(45,212,191,0.22),transparent_32%),radial-gradient(circle_at_48%_88%,rgba(16,185,129,0.20),transparent_34%),linear-gradient(135deg,#020617_0%,#042018_42%,#052e2b_100%)]" />
 
-      <div className="absolute inset-0 opacity-[0.12]">
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(34,197,94,0.28)_1px,transparent_1px),linear-gradient(to_bottom,rgba(45,212,191,0.22)_1px,transparent_1px)] bg-[size:72px_72px]" />
+      <div className="absolute inset-0 opacity-[0.14]">
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(34,197,94,0.30)_1px,transparent_1px),linear-gradient(to_bottom,rgba(45,212,191,0.22)_1px,transparent_1px)] bg-[size:76px_76px]" />
       </div>
 
-      <div className="absolute inset-0 opacity-[0.18]">
-        <div className="absolute left-0 top-0 h-full w-full bg-[radial-gradient(circle_at_center,rgba(34,197,94,0.18)_1px,transparent_1.5px)] bg-[size:28px_28px]" />
+      <div className="absolute inset-0 opacity-[0.16]">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(134,239,172,0.35)_1px,transparent_1.5px)] bg-[size:30px_30px]" />
       </div>
 
-      <div className="absolute left-[8%] top-[18%] h-56 w-56 rounded-full bg-green-500/20 blur-[110px]" />
-      <div className="absolute right-[10%] bottom-[15%] h-72 w-72 rounded-full bg-teal-400/20 blur-[130px]" />
-      <div className="absolute left-1/2 top-1/2 h-96 w-96 -translate-x-1/2 -translate-y-1/2 rounded-full bg-emerald-500/10 blur-[150px]" />
+      <div className="absolute -left-24 top-24 h-80 w-80 rounded-full bg-green-500/20 blur-[120px]" />
+      <div className="absolute -right-24 bottom-16 h-96 w-96 rounded-full bg-teal-400/20 blur-[140px]" />
+      <div className="absolute left-1/2 top-1/2 h-[32rem] w-[32rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-emerald-400/10 blur-[170px]" />
 
-      <div className="absolute inset-0 bg-[linear-gradient(120deg,transparent_0%,rgba(34,197,94,0.06)_45%,transparent_70%)]" />
+      <div className="absolute inset-0 bg-[linear-gradient(115deg,transparent_0%,rgba(34,197,94,0.07)_42%,transparent_68%)]" />
 
       {selectedImage && (
         <div
           className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 px-4 backdrop-blur-sm"
           onClick={() => setSelectedImage(null)}
         >
-          <div className="relative max-h-[90vh] w-full max-w-5xl">
+          <div className="relative max-h-[90vh] w-full max-w-5xl overflow-hidden rounded-2xl border border-white/20 bg-slate-950/80 p-3 shadow-2xl shadow-black/60 backdrop-blur-md">
             <button
               type="button"
-              className="absolute right-3 top-3 z-10 rounded-full border border-white/20 bg-slate-950/80 p-2 text-white transition hover:bg-slate-800"
+              className="absolute right-5 top-5 z-10 rounded-full border border-white/25 bg-slate-950/85 p-2 text-white transition hover:bg-slate-800"
               onClick={(e) => {
                 e.stopPropagation()
                 setSelectedImage(null)
@@ -164,20 +164,15 @@ export default function CertificatesSection() {
               alt="Certificate Detail"
               width={1200}
               height={800}
-              className="max-h-[90vh] w-full rounded-2xl object-contain shadow-2xl"
+              className="max-h-[86vh] w-full rounded-xl border border-white/20 object-contain shadow-2xl"
             />
           </div>
         </div>
       )}
 
       <div className="container relative z-10 mx-auto max-w-6xl px-4">
-        <div className="mb-10 flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
+        <div className="mb-10 flex translate-y-0 animate-[fadeInUp_0.8s_ease-out] flex-col gap-5 md:flex-row md:items-end md:justify-between">
           <div>
-            <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-green-400/30 bg-green-400/10 px-4 py-2 text-sm font-medium text-green-300">
-              <Award className="h-4 w-4" />
-              Certificate Collection
-            </div>
-
             <h2 className="bg-gradient-to-r from-white via-green-100 to-emerald-300 bg-clip-text text-4xl font-bold tracking-tight text-transparent md:text-5xl">
               Certificates
             </h2>
@@ -189,17 +184,17 @@ export default function CertificatesSection() {
           </div>
 
           <Link href="/certificates">
-            <Button className="group w-fit rounded-full bg-gradient-to-r from-green-500 to-emerald-500 px-5 py-5 font-semibold text-white shadow-lg shadow-green-500/25 transition-all duration-300 hover:scale-[1.03] hover:from-green-400 hover:to-emerald-400 hover:shadow-green-500/40">
-              View All Certificates
-              <span className="ml-2 rounded-full border border-white/20 bg-white/15 px-2.5 py-1 text-xs">
+            <Button className="group w-fit rounded-full border border-green-300/30 bg-gradient-to-r from-green-500 to-emerald-500 px-4 py-4 text-sm font-semibold text-white shadow-lg shadow-green-500/25 transition-all duration-300 hover:scale-[1.03] hover:from-green-400 hover:to-emerald-400 hover:shadow-green-500/40 md:px-5">
+              View All
+              <span className="ml-2 rounded-full border border-white/25 bg-white/15 px-2 py-0.5 text-xs">
                 {certificates.length}
               </span>
-              <ExternalLink className="ml-2 h-4 w-4 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              <ExternalLink className="ml-1.5 h-4 w-4 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </Button>
           </Link>
         </div>
 
-        <div className="relative">
+        <div className="relative animate-[fadeInUp_1s_ease-out]">
           <Button
             type="button"
             variant="outline"
@@ -305,6 +300,19 @@ export default function CertificatesSection() {
           </div>
         </div>
       </div>
+
+      <style jsx>{`
+        @keyframes fadeInUp {
+          from {
+            opacity: 0;
+            transform: translateY(28px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+      `}</style>
     </section>
   )
 }
