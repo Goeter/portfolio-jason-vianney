@@ -99,15 +99,15 @@ export default function ExperienceSection() {
 
       <div className="container relative z-10 mx-auto max-w-6xl px-4">
         <div
-          className={`mb-10 text-center transition-all duration-700 ease-out lg:text-left ${
+          className={`mb-14 text-center transition-all duration-700 ease-out lg:text-left ${
             isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
           }`}
         >
-          <p className="mb-3 text-sm font-semibold uppercase tracking-[0.3em] text-cyan-300">
+          <p className="mb-4 text-sm font-semibold uppercase tracking-[0.3em] text-cyan-300">
             Career Journey
           </p>
-
-          <h2 className="font-[Poppins] bg-gradient-to-r from-cyan-200 via-white to-purple-300 bg-clip-text text-4xl font-black tracking-[-0.03em] text-transparent drop-shadow-[0_0_25px_rgba(103,232,249,0.28)] md:text-5xl lg:text-6xl">
+        
+          <h2 className="font-[Poppins] bg-gradient-to-r from-cyan-200 via-white to-purple-300 bg-clip-text pb-2 text-4xl font-black leading-[1.15] tracking-[-0.03em] text-transparent drop-shadow-[0_0_25px_rgba(103,232,249,0.28)] md:text-5xl lg:text-6xl">
             <span className="font-[800] italic">My</span>{" "}
             <span className="font-black">Experiences</span>
           </h2>
