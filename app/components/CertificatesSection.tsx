@@ -143,17 +143,17 @@ export default function CertificatesSection() {
 
       {selectedImage && (
         <div
-          className="fixed inset-0 z-[999] flex items-center justify-center overflow-y-auto bg-black/90 p-4 backdrop-blur-md"
+          className="fixed inset-0 z-[999] flex items-center justify-center bg-black/90 p-4 backdrop-blur-md"
           onClick={() => setSelectedImage(null)}
         >
           <div
-            className="relative flex w-full max-w-5xl items-center justify-center"
+            className="relative flex items-center justify-center"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="relative overflow-hidden rounded-2xl border border-white/20 bg-slate-950/90 p-3 shadow-2xl shadow-black/60 backdrop-blur-md">
+            <div className="relative rounded-2xl border border-white/15 bg-slate-950/85 p-3 shadow-2xl shadow-black/60 backdrop-blur-xl">
               <button
                 type="button"
-                className="absolute right-4 top-4 z-20 rounded-full border border-white/20 bg-slate-900/90 p-2 text-white transition hover:bg-slate-800"
+                className="absolute right-3 top-3 z-20 rounded-full border border-white/20 bg-slate-900/90 p-2 text-white transition hover:bg-slate-800"
                 onClick={() => setSelectedImage(null)}
                 aria-label="Close certificate preview"
               >
@@ -163,9 +163,9 @@ export default function CertificatesSection() {
               <Image
                 src={selectedImage}
                 alt="Certificate Detail"
-                width={1200}
-                height={800}
-                className="max-h-[85vh] w-auto rounded-xl border border-white/15 object-contain"
+                width={1000}
+                height={700}
+                className="max-h-[72vh] w-auto max-w-[88vw] rounded-xl object-contain"
               />
             </div>
           </div>
