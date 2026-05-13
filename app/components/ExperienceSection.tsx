@@ -55,96 +55,110 @@ const experiences = [
 
 export default function ExperienceSection() {
   return (
-    <section id="experience" className="min-h-screen flex items-center py-20 relative">
-      {/* Futuristic Background Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-br from-slate-900/80 via-blue-900/80 to-purple-900/80 backdrop-blur-sm">
-        {/* Tech Grid Pattern */}
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width=%2260%22 height=%2260%22 viewBox=%220 0 60 60%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cg fill=%22none%22 fillRule=%22evenodd%22%3E%3Cg stroke=%22%2300ffff%22 strokeWidth=%221%22%3E%3Cpath d=%22M0 0h60v60H0z%22/%3E%3Cpath d=%22M15 0v60M30 0v60M45 0v60M0 15h60M0 30h60M0 45h60%22/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')]" />
-        </div>
+    <section
+      id="experience"
+      className="relative flex min-h-screen items-center overflow-hidden py-20"
+    >
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_18%,rgba(34,211,238,0.18),transparent_32%),radial-gradient(circle_at_82%_22%,rgba(168,85,247,0.18),transparent_34%),radial-gradient(circle_at_50%_90%,rgba(59,130,246,0.16),transparent_36%),linear-gradient(135deg,#020617_0%,#0f172a_45%,#111827_100%)]" />
 
-        {/* Floating Neon Elements */}
-        <div className="absolute top-20 right-20 w-32 h-32 bg-gradient-to-br from-cyan-400/20 to-blue-400/20 rounded-full blur-xl animate-pulse" />
-        <div
-          className="absolute bottom-40 left-20 w-48 h-48 bg-gradient-to-tr from-purple-400/20 to-pink-400/20 rounded-full blur-xl animate-pulse"
-          style={{ animationDelay: "1s" }}
-        />
-        <div
-          className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-gradient-to-r from-green-400/10 to-emerald-400/10 rounded-full blur-2xl animate-pulse"
-          style={{ animationDelay: "2s" }}
-        />
+      <div className="absolute inset-0 opacity-[0.12]">
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(34,211,238,0.28)_1px,transparent_1px),linear-gradient(to_bottom,rgba(168,85,247,0.22)_1px,transparent_1px)] bg-[size:76px_76px]" />
       </div>
 
-      <div className="container mx-auto px-4 max-w-6xl relative z-10">
-        {/* Section Title */}
-        <div className="mb-8 scroll-animate opacity-0 translate-y-8 transition-all duration-1000">
-          <h2 className="text-white text-3xl lg:text-4xl xl:text-5xl font-bold text-center lg:text-left bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
+      <div className="absolute left-[-8rem] top-24 h-80 w-80 rounded-full bg-cyan-400/20 blur-[130px]" />
+      <div className="absolute right-[-8rem] bottom-20 h-96 w-96 rounded-full bg-purple-500/20 blur-[150px]" />
+      <div className="absolute left-1/2 top-1/2 h-[32rem] w-[32rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-blue-500/10 blur-[170px]" />
+
+      <div className="container relative z-10 mx-auto max-w-6xl px-4">
+        <div className="mb-10 animate-[fadeInUp_0.8s_ease-out] text-center lg:text-left">
+          <p className="mb-3 text-sm font-semibold uppercase tracking-[0.3em] text-cyan-300">
+            Career Journey
+          </p>
+
+          <h2 className="bg-gradient-to-r from-white via-cyan-100 to-purple-300 bg-clip-text text-4xl font-bold tracking-tight text-transparent md:text-5xl">
             My Experiences
           </h2>
         </div>
 
-        {/* Experience Timeline */}
-        <div className="max-w-5xl mx-auto">
-          <div className="space-y-6 scroll-animate opacity-0 translate-y-8 transition-all duration-1000 delay-300">
-            {experiences.map((experience, index) => (
-              <div
-                key={experience.id}
-                className="bg-gradient-to-r from-slate-800/90 via-blue-900/90 to-purple-900/90 backdrop-blur-sm rounded-xl p-6 shadow-2xl transition-all duration-300 transform hover:scale-[1.02] hover:shadow-cyan-500/20 cursor-pointer group border border-cyan-500/20 hover:border-cyan-400/40"
-                style={{
-                  animationDelay: `${index * 100}ms`,
-                }}
-              >
-                <div className="flex flex-col lg:flex-row lg:items-start space-y-4 lg:space-y-0 lg:space-x-6">
-                  {/* Company Logo */}
-                  <div className="flex-shrink-0 flex justify-center lg:justify-start">
-                    <div className="w-16 h-16 bg-gradient-to-br from-cyan-400/20 to-purple-400/20 rounded-xl shadow-lg flex items-center justify-center p-2 transition-transform duration-300 group-hover:scale-110 border border-cyan-500/30">
-                      <Image
-                        src={experience.logo || "/placeholder.svg"}
-                        alt={`${experience.company} logo`}
-                        width={48}
-                        height={48}
-                        className="w-full h-full object-contain"
-                      />
+        <div className="mx-auto max-w-5xl space-y-5">
+          {experiences.map((experience, index) => (
+            <div
+              key={experience.id}
+              className="group relative animate-[fadeInUp_0.9s_ease-out_both] overflow-hidden rounded-3xl border border-cyan-400/20 bg-slate-950/65 p-5 shadow-2xl shadow-black/30 backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:border-cyan-300/45 hover:shadow-cyan-500/15 md:p-6"
+              style={{
+                animationDelay: `${index * 130}ms`,
+              }}
+            >
+              <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-300/60 to-transparent" />
+
+              <div className="flex flex-col gap-5 md:flex-row md:items-start">
+                <div className="flex justify-center md:justify-start">
+                  <div className="flex h-16 w-16 items-center justify-center rounded-2xl border border-white/15 bg-white/95 p-2.5 shadow-lg shadow-cyan-500/10 transition duration-300 group-hover:scale-105 md:h-18 md:w-18">
+                    <Image
+                      src={experience.logo || "/placeholder.svg"}
+                      alt={`${experience.company} logo`}
+                      width={56}
+                      height={56}
+                      className="h-full w-full object-contain"
+                    />
+                  </div>
+                </div>
+
+                <div className="flex-1 text-center md:text-left">
+                  <div className="mb-4">
+                    <h3 className="text-lg font-bold leading-snug text-white transition duration-300 group-hover:text-cyan-100 md:text-xl">
+                      {experience.company}
+                    </h3>
+
+                    <div className="mt-3 flex flex-col items-center gap-2 sm:flex-row sm:flex-wrap sm:justify-center md:justify-start">
+                      <span className="rounded-full border border-cyan-300/25 bg-cyan-300/10 px-3 py-1 text-sm font-semibold text-cyan-200">
+                        {experience.division}
+                      </span>
+
+                      <span className="rounded-full border border-purple-300/25 bg-purple-300/10 px-3 py-1 text-sm font-medium text-purple-200">
+                        {experience.period}
+                      </span>
                     </div>
                   </div>
 
-                  {/* Company Details */}
-                  <div className="flex-grow text-center lg:text-left">
-                    {/* Header Information */}
-                    <div className="mb-4">
-                      <h3 className="text-white font-bold text-xl mb-1 transition-colors duration-300 group-hover:text-cyan-400">
-                        {experience.company}
-                      </h3>
-                      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-center lg:justify-start gap-1 sm:gap-3">
-                        <p className="text-cyan-400 font-semibold text-lg transition-colors duration-300 group-hover:text-cyan-300">
-                          {experience.division}
-                        </p>
-                        <span className="hidden sm:block text-purple-400">•</span>
-                        <p className="text-purple-300 font-medium transition-colors duration-300 group-hover:text-purple-200">
-                          {experience.period}
-                        </p>
-                      </div>
-                    </div>
+                  <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-4">
+                    <h4 className="mb-3 text-sm font-semibold text-cyan-200 md:text-base">
+                      Key Responsibilities & Achievements:
+                    </h4>
 
-                    {/* Experience Details */}
-                    <div className="space-y-2">
-                      <h4 className="text-cyan-300 font-semibold text-base mb-3">
-                        Key Responsibilities & Achievements:
-                      </h4>
+                    <div className="space-y-2.5">
                       {experience.details.map((detail, detailIndex) => (
-                        <div key={detailIndex} className="flex items-start space-x-2 text-left">
-                          <span className="text-cyan-400 mt-1 flex-shrink-0 text-sm animate-pulse">▪</span>
-                          <p className="text-gray-300 text-sm leading-relaxed">{detail}</p>
+                        <div
+                          key={detailIndex}
+                          className="flex items-start gap-3 text-left"
+                        >
+                          <span className="mt-2 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-cyan-300 shadow-[0_0_12px_rgba(103,232,249,0.9)]" />
+                          <p className="text-sm leading-relaxed text-slate-300">
+                            {detail}
+                          </p>
                         </div>
                       ))}
                     </div>
                   </div>
                 </div>
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
       </div>
+
+      <style jsx>{`
+        @keyframes fadeInUp {
+          from {
+            opacity: 0;
+            transform: translateY(30px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+      `}</style>
     </section>
   )
 }
