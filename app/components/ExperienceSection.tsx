@@ -1,5 +1,6 @@
 "use client"
 
+import { useEffect, useRef, useState } from "react"
 import Image from "next/image"
 
 const experiences = [
@@ -54,23 +55,54 @@ const experiences = [
 ]
 
 export default function ExperienceSection() {
+  const sectionRef = useRef<HTMLElement | null>(null)
+  const [isVisible, setIsVisible] = useState(false)
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true)
+        }
+      },
+      { threshold: 0.25 }
+    )
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current)
+    }
+
+    return () => observer.disconnect()
+  }, [])
+
   return (
     <section
+      ref={sectionRef}
       id="experience"
       className="relative flex min-h-screen items-center overflow-hidden py-20"
     >
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_18%,rgba(34,211,238,0.18),transparent_32%),radial-gradient(circle_at_82%_22%,rgba(168,85,247,0.18),transparent_34%),radial-gradient(circle_at_50%_90%,rgba(59,130,246,0.16),transparent_36%),linear-gradient(135deg,#020617_0%,#0f172a_45%,#111827_100%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_18%,rgba(34,211,238,0.20),transparent_32%),radial-gradient(circle_at_82%_22%,rgba(168,85,247,0.20),transparent_34%),radial-gradient(circle_at_50%_90%,rgba(59,130,246,0.18),transparent_36%),linear-gradient(135deg,#020617_0%,#0f172a_45%,#111827_100%)]" />
 
-      <div className="absolute inset-0 opacity-[0.12]">
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(34,211,238,0.28)_1px,transparent_1px),linear-gradient(to_bottom,rgba(168,85,247,0.22)_1px,transparent_1px)] bg-[size:76px_76px]" />
+      <div className="absolute inset-0 opacity-[0.14]">
+        <div className="experience-grid absolute inset-0 bg-[linear-gradient(to_right,rgba(34,211,238,0.28)_1px,transparent_1px),linear-gradient(to_bottom,rgba(168,85,247,0.22)_1px,transparent_1px)] bg-[size:76px_76px]" />
       </div>
 
-      <div className="absolute left-[-8rem] top-24 h-80 w-80 rounded-full bg-cyan-400/20 blur-[130px]" />
-      <div className="absolute right-[-8rem] bottom-20 h-96 w-96 rounded-full bg-purple-500/20 blur-[150px]" />
-      <div className="absolute left-1/2 top-1/2 h-[32rem] w-[32rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-blue-500/10 blur-[170px]" />
+      <div className="experience-orb absolute left-[-8rem] top-24 h-80 w-80 rounded-full bg-cyan-400/20 blur-[130px]" />
+      <div className="experience-orb-delay absolute right-[-8rem] bottom-20 h-96 w-96 rounded-full bg-purple-500/20 blur-[150px]" />
+      <div className="experience-orb-slow absolute left-1/2 top-1/2 h-[32rem] w-[32rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-blue-500/10 blur-[170px]" />
+
+      <div className="absolute inset-0 overflow-hidden">
+        <span className="experience-line left-[12%] top-[18%]" />
+        <span className="experience-line experience-line-delay left-[72%] top-[28%]" />
+        <span className="experience-line experience-line-slow left-[45%] top-[70%]" />
+      </div>
 
       <div className="container relative z-10 mx-auto max-w-6xl px-4">
-        <div className="mb-10 animate-[fadeInUp_0.8s_ease-out] text-center lg:text-left">
+        <div
+          className={`mb-10 text-center transition-all duration-700 ease-out lg:text-left ${
+            isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
+          }`}
+        >
           <p className="mb-3 text-sm font-semibold uppercase tracking-[0.3em] text-cyan-300">
             Career Journey
           </p>
@@ -84,16 +116,20 @@ export default function ExperienceSection() {
           {experiences.map((experience, index) => (
             <div
               key={experience.id}
-              className="group relative animate-[fadeInUp_0.9s_ease-out_both] overflow-hidden rounded-3xl border border-cyan-400/20 bg-slate-950/65 p-5 shadow-2xl shadow-black/30 backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:border-cyan-300/45 hover:shadow-cyan-500/15 md:p-6"
+              className={`group relative overflow-hidden rounded-3xl border border-cyan-400/20 bg-slate-950/65 p-5 shadow-2xl shadow-black/30 backdrop-blur-xl transition-all duration-700 ease-out hover:-translate-y-1 hover:border-cyan-300/45 hover:shadow-cyan-500/15 md:p-6 ${
+                isVisible
+                  ? "translate-y-0 opacity-100"
+                  : "translate-y-12 opacity-0"
+              }`}
               style={{
-                animationDelay: `${index * 130}ms`,
+                transitionDelay: isVisible ? `${index * 130}ms` : "0ms",
               }}
             >
               <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-300/60 to-transparent" />
 
               <div className="flex flex-col gap-5 md:flex-row md:items-start">
                 <div className="flex justify-center md:justify-start">
-                  <div className="flex h-16 w-16 items-center justify-center rounded-2xl border border-white/15 bg-white/95 p-2.5 shadow-lg shadow-cyan-500/10 transition duration-300 group-hover:scale-105 md:h-18 md:w-18">
+                  <div className="flex h-16 w-16 items-center justify-center rounded-2xl border border-white/15 bg-white/95 p-2.5 shadow-lg shadow-cyan-500/10 transition duration-300 group-hover:scale-105">
                     <Image
                       src={experience.logo || "/placeholder.svg"}
                       alt={`${experience.company} logo`}
@@ -148,14 +184,88 @@ export default function ExperienceSection() {
       </div>
 
       <style jsx>{`
-        @keyframes fadeInUp {
+        .experience-grid {
+          animation: gridMove 18s linear infinite;
+        }
+
+        .experience-orb {
+          animation: orbFloat 8s ease-in-out infinite;
+        }
+
+        .experience-orb-delay {
+          animation: orbFloat 10s ease-in-out infinite;
+          animation-delay: 1.5s;
+        }
+
+        .experience-orb-slow {
+          animation: orbPulse 7s ease-in-out infinite;
+        }
+
+        .experience-line {
+          position: absolute;
+          width: 160px;
+          height: 1px;
+          background: linear-gradient(
+            90deg,
+            transparent,
+            rgba(103, 232, 249, 0.8),
+            transparent
+          );
+          transform: rotate(-24deg);
+          animation: lineMove 5s ease-in-out infinite;
+        }
+
+        .experience-line-delay {
+          animation-delay: 1.4s;
+        }
+
+        .experience-line-slow {
+          animation-delay: 2.2s;
+          animation-duration: 7s;
+        }
+
+        @keyframes gridMove {
           from {
-            opacity: 0;
-            transform: translateY(30px);
+            transform: translate3d(0, 0, 0);
           }
           to {
+            transform: translate3d(76px, 76px, 0);
+          }
+        }
+
+        @keyframes orbFloat {
+          0%,
+          100% {
+            transform: translate3d(0, 0, 0) scale(1);
+          }
+          50% {
+            transform: translate3d(24px, -18px, 0) scale(1.08);
+          }
+        }
+
+        @keyframes orbPulse {
+          0%,
+          100% {
+            opacity: 0.7;
+            transform: translate(-50%, -50%) scale(1);
+          }
+          50% {
             opacity: 1;
-            transform: translateY(0);
+            transform: translate(-50%, -50%) scale(1.08);
+          }
+        }
+
+        @keyframes lineMove {
+          0% {
+            opacity: 0;
+            transform: translate3d(-40px, 30px, 0) rotate(-24deg);
+          }
+          35% {
+            opacity: 1;
+          }
+          100% {
+            opacity: 0;
+            transform: translate3d(90px, -45px, 0) rotate(-24deg);
           }
         }
       `}</style>
