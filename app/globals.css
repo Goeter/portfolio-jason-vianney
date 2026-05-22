@@ -524,3 +524,89 @@ body::-webkit-scrollbar-corner,
   border: 0 !important;
   box-shadow: none !important;
 }
+
+/* Final scrollbar cleanup: remove the blinking scrollbar/indicator inside the Projects section and any nested card/carousel surface. Scrolling still works normally. */
+#projects,
+#projects *,
+.no-card-scrollbar,
+.no-card-scrollbar * {
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+
+#projects::-webkit-scrollbar,
+#projects *::-webkit-scrollbar,
+.no-card-scrollbar::-webkit-scrollbar,
+.no-card-scrollbar *::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+  background: transparent !important;
+}
+
+#projects::-webkit-scrollbar-track,
+#projects::-webkit-scrollbar-track-piece,
+#projects *::-webkit-scrollbar-track,
+#projects *::-webkit-scrollbar-track-piece,
+#projects::-webkit-scrollbar-thumb,
+#projects *::-webkit-scrollbar-thumb,
+#projects::-webkit-scrollbar-corner,
+#projects *::-webkit-scrollbar-corner,
+.no-card-scrollbar::-webkit-scrollbar-track,
+.no-card-scrollbar::-webkit-scrollbar-track-piece,
+.no-card-scrollbar *::-webkit-scrollbar-track,
+.no-card-scrollbar *::-webkit-scrollbar-track-piece,
+.no-card-scrollbar::-webkit-scrollbar-thumb,
+.no-card-scrollbar *::-webkit-scrollbar-thumb,
+.no-card-scrollbar::-webkit-scrollbar-corner,
+.no-card-scrollbar *::-webkit-scrollbar-corner {
+  display: none !important;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+/* Disable the old global orange scrollbar indicator so it cannot appear beside cards during hover/animation repaints. */
+*::-webkit-scrollbar-thumb,
+*::-webkit-scrollbar-thumb:hover {
+  background: transparent !important;
+  background-color: transparent !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+}
+
+
+/* Final global scrollbar removal: keep scrolling functional, hide every visual scrollbar/track/thumb. */
+html,
+body,
+* {
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar,
+*::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+  background: transparent !important;
+}
+
+html::-webkit-scrollbar-track,
+html::-webkit-scrollbar-track-piece,
+body::-webkit-scrollbar-track,
+body::-webkit-scrollbar-track-piece,
+*::-webkit-scrollbar-track,
+*::-webkit-scrollbar-track-piece,
+html::-webkit-scrollbar-thumb,
+body::-webkit-scrollbar-thumb,
+*::-webkit-scrollbar-thumb,
+html::-webkit-scrollbar-corner,
+body::-webkit-scrollbar-corner,
+*::-webkit-scrollbar-corner {
+  display: none !important;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
