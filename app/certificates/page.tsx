@@ -1,16 +1,16 @@
 "use client"
 
 import { useMemo, useState } from "react"
-import { ChevronLeft, Award, Sparkles } from "lucide-react"
+import { ChevronLeft, Award } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import Link from "next/link"
 import Image from "next/image"
-import { certificates, certificatesLatestFirst } from "@/lib/site-content"
+import { certificatesLatestFirst, type Certificate } from "@/lib/site-content"
 import ImagePreviewDialog from "../components/ImagePreviewDialog"
 
 export default function AllCertificates() {
-  const [selectedCertificate, setSelectedCertificate] = useState<(typeof certificates)[number] | null>(null)
+  const [selectedCertificate, setSelectedCertificate] = useState<Certificate | null>(null)
 
   const previewImages = useMemo(() => {
     if (!selectedCertificate) return null
@@ -39,21 +39,26 @@ export default function AllCertificates() {
         <span className="certificate-line certificate-line-slow left-[44%] top-[78%]" />
       </div>
 
-      <div className="relative z-10 border-b border-white/10 bg-slate-950/50 backdrop-blur-xl">
-        <div className="container mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-5">
-          <Link href="/#certificates">
-            <Button className="group rounded-full border border-green-300/30 bg-white/10 px-4 py-5 text-sm font-semibold text-white shadow-lg shadow-green-500/10 backdrop-blur-md transition-all duration-300 hover:-translate-x-1 hover:bg-green-400 hover:text-slate-950">
-              <ChevronLeft className="mr-2 h-5 w-5 transition group-hover:-translate-x-1" />
-              Back
-            </Button>
-          </Link>
-
-          <div className="inline-flex items-center gap-2 rounded-full border border-green-300/25 bg-green-300/10 px-4 py-2 text-xs font-semibold text-green-200 shadow-lg shadow-green-500/10 backdrop-blur-md sm:text-sm">
-            <Sparkles className="h-4 w-4" />
-            Certificate Archive
+      <header className="sticky top-0 z-50 border-b border-white/10 bg-slate-950/55 backdrop-blur-xl">
+        <div className="container mx-auto flex h-[68px] max-w-6xl items-center justify-between gap-4 px-4">
+          <div className="w-[80px] sm:w-[120px]">
+            <Link href="/#certificates">
+              <Button className="group rounded-full border border-green-300/30 bg-white/10 px-4 py-5 text-sm font-semibold text-white shadow-lg shadow-green-500/10 backdrop-blur-md transition-all duration-300 hover:-translate-x-1 hover:bg-green-400 hover:text-slate-950">
+                <ChevronLeft className="mr-2 h-5 w-5 transition group-hover:-translate-x-1" />
+                Back
+              </Button>
+            </Link>
           </div>
+
+          <div className="flex-1 text-center">
+            <h1 className="whitespace-nowrap font-serif text-[18px] font-medium tracking-[0.02em] text-green-200 sm:text-[28px]">
+              Certificate Archive
+            </h1>
+          </div>
+
+          <div className="w-[80px] sm:w-[120px]" />
         </div>
-      </div>
+      </header>
 
       <main className="relative z-10 container mx-auto max-w-6xl px-4 py-12 md:py-16">
         <div className="mb-12 text-center">
@@ -115,9 +120,6 @@ export default function AllCertificates() {
                       {certificate.date}
                     </span>
 
-                    <span className="rounded-full bg-emerald-700/10 px-3 py-1 text-[11px] font-medium text-emerald-800">
-                      Uploaded {certificate.uploadedAt}
-                    </span>
                   </div>
 
                   <h3 className="mb-2 text-lg font-bold leading-snug text-slate-950">

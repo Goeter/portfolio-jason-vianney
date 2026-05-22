@@ -15,6 +15,7 @@ export type Project = {
   image: string
   link?: string | null
   gallery?: string[]
+  /** Kept for CMS/front-end ordering data. Hidden from selected UI when not needed. */
   uploadedAt: string
 }
 
@@ -25,6 +26,7 @@ export type Certificate = {
   image: string
   issuer: string
   date: string
+  /** Kept for CMS/front-end ordering data. Hidden from the certificate UI. */
   uploadedAt: string
 }
 
@@ -48,6 +50,10 @@ export const siteConfig = {
     "Portfolio of Jason Vianney Sugiarto, an IT professional experienced in system analysis, UI/UX design, data analytics, fullstack development, freelance IT projects, tutoring, HR systems, corporate websites, CMS websites, mobile applications, and business process digitalization.",
   url: "https://jasonvianney.com",
   locale: "en_US",
+  defaultOgImage: "/assets/profile/home.png",
+  seoTitle: "Jason Vianney Sugiarto - System Analyst, UI/UX Designer, Data Analyst & Fullstack Developer",
+  seoDescription:
+    "Explore Jason Vianney Sugiarto's professional portfolio featuring system analysis, UI/UX design, data analysis, fullstack development, CMS websites, corporate profiles, mobile applications, HR systems, and digital business solutions.",
   keywords: [
     "Jason Vianney Sugiarto",
     "System Analyst Portfolio",
@@ -243,11 +249,7 @@ export const certificates: Certificate[] = [
   },
 ]
 
-const projectOrderLatestFirst = [10, 1, 2, 3, 8, 4, 7, 9, 6, 5]
-
-export const projectsLatestFirst = projectOrderLatestFirst
-  .map((projectId) => projects.find((project) => project.id === projectId))
-  .filter((project): project is Project => Boolean(project))
+export const projectsLatestFirst = [...projects].sort((a, b) => b.id - a.id)
 
 export const certificatesLatestFirst = [...certificates].sort((a, b) => b.id - a.id)
 
@@ -335,3 +337,13 @@ export const experiences: Experience[] = [
   },
 ]
 
+export const cmsContent = {
+  site: siteConfig,
+  navigation: navItems,
+  expertise,
+  projects,
+  projectsLatestFirst,
+  certificates,
+  certificatesLatestFirst,
+  experiences,
+}

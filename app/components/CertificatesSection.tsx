@@ -218,9 +218,6 @@ export default function CertificatesSection() {
                                 <span className="rounded-full border border-slate-500/30 bg-white/5 px-3 py-1 text-slate-300">
                                   {certificate.date}
                                 </span>
-                                <span className="rounded-full border border-emerald-300/20 bg-emerald-300/10 px-3 py-1 text-[11px] text-emerald-200/85">
-                                  Uploaded {certificate.uploadedAt}
-                                </span>
                               </div>
 
                               <h3 className="mb-3 text-lg font-bold leading-snug text-white transition group-hover:text-green-200">

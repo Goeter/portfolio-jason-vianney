@@ -5,24 +5,39 @@ import { siteConfig } from "@/lib/site-content"
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
-  title: `${siteConfig.owner} - Portfolio`,
-  description: siteConfig.description,
+  title: {
+    default: siteConfig.seoTitle,
+    template: `%s | ${siteConfig.shortName} Portfolio`,
+  },
+  description: siteConfig.seoDescription,
   keywords: siteConfig.keywords,
+  applicationName: `${siteConfig.shortName} Portfolio`,
   authors: [{ name: siteConfig.owner }],
   creator: siteConfig.owner,
+  publisher: siteConfig.owner,
+  category: "Portfolio",
   alternates: { canonical: "/" },
   openGraph: {
-    title: `${siteConfig.owner} - Portfolio`,
-    description: siteConfig.description,
+    title: siteConfig.seoTitle,
+    description: siteConfig.seoDescription,
     type: "website",
     locale: siteConfig.locale,
     url: siteConfig.url,
     siteName: `${siteConfig.shortName} Portfolio`,
+    images: [
+      {
+        url: siteConfig.defaultOgImage,
+        width: 1200,
+        height: 630,
+        alt: `${siteConfig.shortName} portfolio preview`,
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
-    title: `${siteConfig.owner} - Portfolio`,
-    description: siteConfig.description,
+    title: siteConfig.seoTitle,
+    description: siteConfig.seoDescription,
+    images: [siteConfig.defaultOgImage],
   },
   robots: {
     index: true,

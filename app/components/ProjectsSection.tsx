@@ -423,22 +423,6 @@ function ProjectCard({
           <div className="absolute bottom-3 left-3 z-20 rounded-full border border-[#d4a84322] bg-[#07091ad9] px-3 py-1 text-[10px] font-medium uppercase tracking-[0.12em] text-[#d4a843a8] backdrop-blur-sm">
             {project.uploadedAt}
           </div>
-
-          <span
-            className="
-              absolute left-4 top-4 z-20
-              rounded-md
-              border border-[#d4a84325]
-              bg-[#07091ad9]
-              px-[9px] py-[5px]
-              font-mono text-[10px]
-              tracking-[0.18em]
-              text-[#d4a84390]
-              backdrop-blur-sm
-            "
-          >
-            #P0{project.id}
-          </span>
         </button>
 
         <div className="flex flex-1 flex-col px-5 pb-5 pt-5">

@@ -277,9 +277,6 @@ function ProjectCard({
         />
 
         <div className="absolute left-4 top-4 flex flex-wrap gap-2">
-          <span className="rounded-md border border-[#d4a84325] bg-[#07091ab8] px-3 py-[5px] font-mono text-[10px] tracking-[0.18em] text-[#d4a8438a] backdrop-blur-md">
-            PROJECT #{project.id}
-          </span>
           <span className="rounded-md border border-[#4a7cbf25] bg-[#07091ab8] px-3 py-[5px] text-[10px] font-medium uppercase tracking-[0.14em] text-[#8ea9d8] backdrop-blur-md">
             Uploaded {project.uploadedAt}
           </span>
