@@ -548,7 +548,7 @@ export default function ProjectsSection() {
           }`}
         >
           <div className="flex items-start justify-between gap-4">
-            <h2 className="min-w-0 bg-gradient-to-r from-white via-amber-100 to-[#d4a843] bg-clip-text text-4xl font-bold tracking-tight text-transparent md:text-5xl">
+            <h2 className="min-w-0 bg-gradient-to-r from-white via-amber-100 to-[#d4a843] bg-clip-text pb-1 text-4xl font-bold leading-[1.15] tracking-tight text-transparent md:pb-1.5 md:text-5xl md:leading-[1.15]">
               Projects
             </h2>
 
