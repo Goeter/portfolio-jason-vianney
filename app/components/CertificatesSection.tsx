@@ -81,12 +81,15 @@ export default function CertificatesSection() {
       className="section-transition-soft relative flex min-h-screen items-center overflow-hidden py-20"
     >
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_18%,rgba(34,197,94,0.22),transparent_30%),radial-gradient(circle_at_82%_20%,rgba(45,212,191,0.18),transparent_32%),radial-gradient(circle_at_48%_88%,rgba(16,185,129,0.16),transparent_34%),linear-gradient(135deg,#020617_0%,#05231c_44%,#062c2c_100%)]" />
+
       <div className="absolute inset-0 opacity-[0.11]">
         <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(34,197,94,0.28)_1px,transparent_1px),linear-gradient(to_bottom,rgba(45,212,191,0.22)_1px,transparent_1px)] bg-[size:84px_84px]" />
       </div>
+
       <div className="absolute inset-0 opacity-[0.12]">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(134,239,172,0.32)_1px,transparent_1.5px)] bg-[size:34px_34px]" />
       </div>
+
       <div className="absolute -left-24 top-24 h-80 w-80 rounded-full bg-green-500/16 blur-[130px]" />
       <div className="absolute -right-24 bottom-16 h-96 w-96 rounded-full bg-teal-400/16 blur-[150px]" />
       <div className="absolute left-1/2 top-1/2 h-[32rem] w-[32rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-emerald-400/8 blur-[180px]" />
@@ -97,7 +100,10 @@ export default function CertificatesSection() {
           className="fixed inset-0 z-[999] flex items-center justify-center bg-black/90 p-4 backdrop-blur-md"
           onClick={() => setSelectedImage(null)}
         >
-          <div className="relative flex items-center justify-center" onClick={(event) => event.stopPropagation()}>
+          <div
+            className="relative flex items-center justify-center"
+            onClick={(event) => event.stopPropagation()}
+          >
             <div className="relative rounded-2xl border border-white/15 bg-slate-950/85 p-3 shadow-2xl shadow-black/60 backdrop-blur-xl">
               <button
                 type="button"
@@ -122,7 +128,7 @@ export default function CertificatesSection() {
       )}
 
       <div className="container relative z-10 mx-auto max-w-6xl px-4">
-        <div className="mb-10 flex animate-[fadeInUp_0.8s_ease-out] flex-row items-start justify-between gap-4 md:items-end">
+        <div className="mb-10 flex animate-[fadeInUp_0.8s_ease-out] flex-row items-start justify-between gap-4">
           <div className="min-w-0">
             <h2 className="bg-gradient-to-r from-white via-green-100 to-emerald-300 bg-clip-text text-4xl font-bold tracking-tight text-transparent md:text-5xl">
               Certificates
@@ -133,16 +139,18 @@ export default function CertificatesSection() {
             </p>
           </div>
 
-          <Link href="/certificates" className="shrink-0 no-underline">
+          <Link href="/certificates" className="mt-1 shrink-0 no-underline md:mt-2">
             <div className="group flex overflow-hidden rounded-[12px] border border-green-300/30 bg-slate-950/70 shadow-lg shadow-green-500/10 backdrop-blur-md transition-all duration-300 hover:scale-[1.03] hover:border-green-300/60 hover:shadow-green-500/20">
               <div className="flex items-center justify-center gap-2 bg-slate-950/60 px-3 py-[12px] text-[13px] font-semibold tracking-[0.02em] text-green-200 transition-colors duration-300 group-hover:bg-green-400 group-hover:text-slate-950 sm:px-5">
                 <span className="hidden sm:inline">View All</span>
                 <ExternalLink className="h-4 w-4 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </div>
 
-              <div className="hidden min-w-[58px] flex-col items-center justify-center bg-green-400 px-3 py-[10px] leading-none text-slate-950 sm:flex sm:px-4">
-                <span className="text-[21px] font-bold">{certificates.length}</span>
-                <span className="mt-[2px] text-[9px] uppercase tracking-widest opacity-70">
+              <div className="flex min-w-[52px] items-center justify-center gap-1 bg-green-400 px-3 py-[12px] leading-none text-slate-950 sm:min-w-[82px] sm:px-4">
+                <span className="text-[16px] font-bold sm:text-[18px]">
+                  {certificates.length}
+                </span>
+                <span className="text-[8px] uppercase tracking-widest opacity-70 sm:text-[9px]">
                   Certif
                 </span>
               </div>
