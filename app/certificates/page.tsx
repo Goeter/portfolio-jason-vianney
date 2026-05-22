@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import Link from "next/link"
 import Image from "next/image"
-import { certificates } from "@/lib/site-content"
+import { certificates, certificatesLatestFirst } from "@/lib/site-content"
 import ImagePreviewDialog from "../components/ImagePreviewDialog"
 
 export default function AllCertificates() {
@@ -40,22 +40,23 @@ export default function AllCertificates() {
       </div>
 
       <div className="relative z-10 border-b border-white/10 bg-slate-950/50 backdrop-blur-xl">
-        <div className="container mx-auto max-w-6xl px-4 py-5">
+        <div className="container mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-5">
           <Link href="/#certificates">
             <Button className="group rounded-full border border-green-300/30 bg-white/10 px-4 py-5 text-sm font-semibold text-white shadow-lg shadow-green-500/10 backdrop-blur-md transition-all duration-300 hover:-translate-x-1 hover:bg-green-400 hover:text-slate-950">
               <ChevronLeft className="mr-2 h-5 w-5 transition group-hover:-translate-x-1" />
-              Back to Certificates
+              Back
             </Button>
           </Link>
+
+          <div className="inline-flex items-center gap-2 rounded-full border border-green-300/25 bg-green-300/10 px-4 py-2 text-xs font-semibold text-green-200 shadow-lg shadow-green-500/10 backdrop-blur-md sm:text-sm">
+            <Sparkles className="h-4 w-4" />
+            Certificate Archive
+          </div>
         </div>
       </div>
 
       <main className="relative z-10 container mx-auto max-w-6xl px-4 py-12 md:py-16">
         <div className="mb-12 text-center">
-          <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-green-300/25 bg-green-300/10 px-4 py-2 text-sm font-semibold text-green-200 shadow-lg shadow-green-500/10 backdrop-blur-md">
-            <Sparkles className="h-4 w-4" />
-            Certificate Archive
-          </div>
 
           <h1 className="bg-gradient-to-r from-green-200 via-white to-emerald-300 bg-clip-text pb-2 text-4xl font-black leading-[1.15] tracking-[-0.03em] text-transparent drop-shadow-[0_0_28px_rgba(74,222,128,0.28)] md:text-5xl lg:text-6xl">
             All My Certificates
@@ -68,10 +69,10 @@ export default function AllCertificates() {
         </div>
 
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {certificates.map((certificate, index) => (
+          {certificatesLatestFirst.map((certificate, index) => (
             <Card
               key={certificate.id}
-              className="group certificate-card h-full overflow-hidden rounded-3xl border border-green-300/20 bg-slate-950/60 shadow-2xl shadow-black/30 backdrop-blur-xl transition-all duration-300 hover:-translate-y-2 hover:border-green-300/50 hover:shadow-green-500/20"
+              className="group certificate-card h-full overflow-hidden rounded-3xl border border-green-300/20 bg-slate-950/60 shadow-2xl shadow-black/30 backdrop-blur-xl transition-all duration-500 hover:-translate-y-2 hover:rotate-[0.35deg] hover:border-green-300/50 hover:shadow-green-500/20"
               style={{
                 animationDelay: `${index * 120}ms`,
               }}
@@ -112,6 +113,10 @@ export default function AllCertificates() {
 
                     <span className="rounded-full bg-slate-900/10 px-3 py-1 text-xs font-medium text-slate-600">
                       {certificate.date}
+                    </span>
+
+                    <span className="rounded-full bg-emerald-700/10 px-3 py-1 text-[11px] font-medium text-emerald-800">
+                      Uploaded {certificate.uploadedAt}
                     </span>
                   </div>
 

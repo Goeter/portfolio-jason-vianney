@@ -8,7 +8,7 @@ import Link from "next/link"
 
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import { certificates } from "@/lib/site-content"
+import { certificates, certificatesLatestFirst } from "@/lib/site-content"
 
 const getCardsPerPage = () => {
   if (window.innerWidth < 768) return 1
@@ -33,7 +33,7 @@ export default function CertificatesSection() {
   }, [])
 
   const totalPages = useMemo(
-    () => Math.max(1, Math.ceil(certificates.length / cardsPerPage)),
+    () => Math.max(1, Math.ceil(certificatesLatestFirst.length / cardsPerPage)),
     [cardsPerPage]
   )
 
@@ -49,7 +49,7 @@ export default function CertificatesSection() {
   )
 
   const getPageCertificates = useCallback(
-    (page: number) => certificates.slice(page * cardsPerPage, (page + 1) * cardsPerPage),
+    (page: number) => certificatesLatestFirst.slice(page * cardsPerPage, (page + 1) * cardsPerPage),
     [cardsPerPage]
   )
 
@@ -132,14 +132,17 @@ export default function CertificatesSection() {
             </p>
           </div>
 
-          <Link href="/certificates">
-            <Button className="group w-fit rounded-full border border-green-300/30 bg-gradient-to-r from-green-500 to-emerald-500 px-4 py-4 text-sm font-semibold text-white shadow-lg shadow-green-500/20 transition-all duration-300 hover:scale-[1.03] hover:from-green-400 hover:to-emerald-400 hover:shadow-green-500/30 md:px-5">
-              View All
-              <span className="ml-2 rounded-full border border-white/25 bg-white/15 px-2 py-0.5 text-xs">
-                {certificates.length}
-              </span>
-              <ExternalLink className="ml-1.5 h-4 w-4 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-            </Button>
+          <Link href="/certificates" className="w-fit no-underline">
+            <div className="group flex overflow-hidden rounded-[12px] border border-green-300/30 bg-slate-950/70 shadow-lg shadow-green-500/10 backdrop-blur-md transition-all duration-300 hover:scale-[1.03] hover:border-green-300/60 hover:shadow-green-500/20">
+              <div className="flex items-center gap-2 bg-slate-950/60 px-4 py-[12px] text-[13px] font-semibold tracking-[0.02em] text-green-200 transition-colors duration-300 group-hover:bg-green-400 group-hover:text-slate-950 sm:px-5">
+                <span>View All</span>
+                <ExternalLink className="h-4 w-4 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              </div>
+              <div className="flex min-w-[58px] flex-col items-center justify-center bg-green-400 px-3 py-[10px] leading-none text-slate-950 sm:px-4">
+                <span className="text-[21px] font-bold">{certificates.length}</span>
+                <span className="mt-[2px] text-[8px] uppercase tracking-widest opacity-70 sm:text-[9px]">Certif</span>
+              </div>
+            </div>
           </Link>
         </div>
 
@@ -214,6 +217,9 @@ export default function CertificatesSection() {
                                 </span>
                                 <span className="rounded-full border border-slate-500/30 bg-white/5 px-3 py-1 text-slate-300">
                                   {certificate.date}
+                                </span>
+                                <span className="rounded-full border border-emerald-300/20 bg-emerald-300/10 px-3 py-1 text-[11px] text-emerald-200/85">
+                                  Uploaded {certificate.uploadedAt}
                                 </span>
                               </div>
 

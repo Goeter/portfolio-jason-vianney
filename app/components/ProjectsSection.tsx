@@ -11,7 +11,7 @@ import {
   ExternalLink,
 } from "lucide-react"
 
-import { projects, type Project } from "@/lib/site-content"
+import { projects, projectsLatestFirst, type Project } from "@/lib/site-content"
 
 // ============================================================
 // NATURAL SPACE BACKGROUND
@@ -420,6 +420,10 @@ function ProjectCard({
             Click to preview
           </div>
 
+          <div className="absolute bottom-3 left-3 z-20 rounded-full border border-[#d4a84322] bg-[#07091ad9] px-3 py-1 text-[10px] font-medium uppercase tracking-[0.12em] text-[#d4a843a8] backdrop-blur-sm">
+            {project.uploadedAt}
+          </div>
+
           <span
             className="
               absolute left-4 top-4 z-20
@@ -553,7 +557,7 @@ export default function ProjectsSection() {
   }, [cardsPerPage])
 
   const totalPages = useMemo(() => {
-    return Math.ceil(projects.length / cardsPerPage)
+    return Math.ceil(projectsLatestFirst.length / cardsPerPage)
   }, [cardsPerPage])
 
   const slide = useCallback(
@@ -570,7 +574,7 @@ export default function ProjectsSection() {
 
   const pageProjects = useCallback(
     (page: number) =>
-      projects.slice(
+      projectsLatestFirst.slice(
         page * cardsPerPage,
         (page + 1) * cardsPerPage
       ),
@@ -702,7 +706,7 @@ export default function ProjectsSection() {
                 </svg>
 
                 <span className="hidden whitespace-nowrap sm:inline">
-                  Lihat Semua Project
+                  View All
                 </span>
               </div>
 

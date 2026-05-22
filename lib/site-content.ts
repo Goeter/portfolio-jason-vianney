@@ -15,6 +15,7 @@ export type Project = {
   image: string
   link?: string | null
   gallery?: string[]
+  uploadedAt: string
 }
 
 export type Certificate = {
@@ -24,6 +25,7 @@ export type Certificate = {
   image: string
   issuer: string
   date: string
+  uploadedAt: string
 }
 
 export type Experience = {
@@ -94,15 +96,17 @@ export const projects: Project[] = [
     detailDescription:
       "A comprehensive corporate website for PT Topas Multi Finance that serves as the primary digital touchpoint for customers and stakeholders. This public-facing platform showcases the company's financial products and services while building strong brand awareness and customer trust. Key features include product information, financing options, job vacancy publication, customer-facing content, and regulatory trust signals for Indonesian financial services customers.",
     image: "/assets/projects/topas-website.png",
+    uploadedAt: "June 2025",
     link: "https://frontend.topasmultifinance.co.id",
   },
   {
     id: 2,
-    title: "PT. Alfa Berkat Sigma",
+    title: "PT Alfa Berkat Sigma",
     description: "Website toko perlengkapan plumbing yang memamerkan produk dan profil perusahaan secara profesional dan menarik.",
     detailDescription:
       "A corporate website for PT. Alfa Berkat Sigma focused on company profile presentation, plumbing product visibility, and a clean digital brand identity. The project emphasizes responsive layout, clear product communication, and a professional user experience for prospective business customers.",
     image: "/assets/projects/sigma-picture.png",
+    uploadedAt: "June 2025",
     link: "https://sigma-andrew-ten.vercel.app",
   },
   {
@@ -112,6 +116,7 @@ export const projects: Project[] = [
     detailDescription:
       "A mobile application designed for Topas Multi Finance customers and internal staff, featuring a modern interface for financing application submission, contract management, payment guidance, outlet location access, profile management, loan simulation, and secure financial service navigation.",
     image: "/assets/projects/mobile-app/combined",
+    uploadedAt: "June 2025",
     gallery: [
       "/assets/projects/mobile-app/topas-mobile-dashboard.jpeg",
       "/assets/projects/mobile-app/topas-mobile-menu.jpeg",
@@ -125,6 +130,7 @@ export const projects: Project[] = [
     detailDescription:
       "An integrated HR management system for PT Topas Multi Finance that streamlines attendance, payroll recap, employee records, manpower planning, recruitment workflows, and KPI-based workforce management through centralized digital modules.",
     image: "/assets/projects/hr-topas-application.png",
+    uploadedAt: "June 2025",
   },
   {
     id: 5,
@@ -133,6 +139,7 @@ export const projects: Project[] = [
     detailDescription:
       "An internal monitoring application for dealer motorcycle sales, order confirmation, delivery scheduling, document validation, and transaction tracking. The system improves operational visibility and reduces manual follow-up across dealer-related workflows.",
     image: "/assets/projects/monitoring-server.png",
+    uploadedAt: "February 2024",
   },
   {
     id: 6,
@@ -141,6 +148,7 @@ export const projects: Project[] = [
     detailDescription:
       "A digital system that modernizes vehicle registration certificate and disbursement note processes by replacing handwritten workflows with structured printing, centralized storage, validation, audit trails, and faster document retrieval.",
     image: "/assets/projects/vehicle-registration-certificate-system.png",
+    uploadedAt: "February 2024",
   },
   {
     id: 7,
@@ -149,6 +157,7 @@ export const projects: Project[] = [
     detailDescription:
       "A field-oriented vehicle tracking mobile application for internal users and third-party partners. The solution supports credit vehicle monitoring, structured field reporting, and subscription-based access management.",
     image: "/assets/projects/mobile-mata-elang/combined",
+    uploadedAt: "June 2025",
     gallery: [
       "/assets/projects/mobile-mata-elang/foto-1.png",
       "/assets/projects/mobile-mata-elang/foto-2.png",
@@ -162,6 +171,7 @@ export const projects: Project[] = [
     detailDescription:
       "A mobile survey application for debtor home visits, designed to centralize survey data, standardize field input, and improve the accuracy of loan-related customer verification processes.",
     image: "/assets/projects/flow-survey-pinjaman.jpg",
+    uploadedAt: "June 2025",
   },
   {
     id: 9,
@@ -170,6 +180,7 @@ export const projects: Project[] = [
     detailDescription:
       "A web-based admin dashboard for ticket management, operational monitoring, and real-time tracking of issue handling workflows across internal systems.",
     image: "/assets/projects/dashboard_ticketing.png",
+    uploadedAt: "June 2025",
   },
   {
     id: 10,
@@ -179,6 +190,7 @@ export const projects: Project[] = [
     detailDescription:
       "A responsive company profile website and CMS for PT Steda Roaster, designed to strengthen the brand's digital presence, present coffee roasting services and business offerings clearly, and make content updates easier through a structured content management workflow. The website focuses on clean visual hierarchy, accessible information, responsive layouts, and a professional user experience for customers and business partners.",
     image: "/assets/projects/steda-roaster.svg",
+    uploadedAt: "May 2026",
     link: "https://stedaroaster.vercel.app/",
   },
 ]
@@ -191,6 +203,7 @@ export const certificates: Certificate[] = [
     image: "/assets/certificates/English Certificate Gabung_1.jpg",
     issuer: "English Test Center",
     date: "2025",
+    uploadedAt: "2025",
   },
   {
     id: 2,
@@ -199,6 +212,7 @@ export const certificates: Certificate[] = [
     image: "/assets/certificates/Teaching Certification.png",
     issuer: "Teaching Program",
     date: "2025",
+    uploadedAt: "2025",
   },
   {
     id: 3,
@@ -207,6 +221,7 @@ export const certificates: Certificate[] = [
     image: "/assets/certificates/data-analyst-udemy.jpeg",
     issuer: "Udemy",
     date: "02 August 2025",
+    uploadedAt: "02 August 2025",
   },
   {
     id: 4,
@@ -215,6 +230,7 @@ export const certificates: Certificate[] = [
     image: "/assets/certificates/data-analyst-revou.jpeg",
     issuer: "RevoU",
     date: "18 July 2025",
+    uploadedAt: "18 July 2025",
   },
   {
     id: 5,
@@ -223,8 +239,17 @@ export const certificates: Certificate[] = [
     image: "/assets/certificates/ui-ux-webinar-ubaya.png",
     issuer: "Universitas Surabaya (UBAYA)",
     date: "24 May 2025",
+    uploadedAt: "24 May 2025",
   },
 ]
+
+const projectOrderLatestFirst = [10, 1, 2, 3, 8, 4, 7, 9, 6, 5]
+
+export const projectsLatestFirst = projectOrderLatestFirst
+  .map((projectId) => projects.find((project) => project.id === projectId))
+  .filter((project): project is Project => Boolean(project))
+
+export const certificatesLatestFirst = [...certificates].sort((a, b) => b.id - a.id)
 
 export const experiences: Experience[] = [
   {

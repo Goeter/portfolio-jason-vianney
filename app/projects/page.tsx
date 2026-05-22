@@ -4,7 +4,7 @@ import { useState } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { ChevronLeft, ArrowUpRight, X } from "lucide-react"
-import { projects, type Project } from "@/lib/site-content"
+import { projects, projectsLatestFirst, type Project } from "@/lib/site-content"
 
 // ============================================================
 // BATIK BACKGROUND
@@ -234,14 +234,17 @@ function ImageModal({
 function ProjectCard({
   project,
   onOpen,
+  index,
 }: {
   project: Project
   onOpen: (project: Project) => void
+  index: number
 }) {
   return (
     <article
+      style={{ animationDelay: `${index * 80}ms` }}
       className="
-        group flex h-full flex-col overflow-hidden rounded-[26px]
+        project-archive-card group flex h-full flex-col overflow-hidden rounded-[26px]
         border border-[#1e2a46]
         bg-[#0b1020]/95
         backdrop-blur-xl
@@ -273,19 +276,13 @@ function ProjectCard({
           "
         />
 
-        <div
-          className="
-            absolute left-4 top-4
-            rounded-md border border-[#d4a84325]
-            bg-[#07091ab8]
-            px-3 py-[5px]
-            font-mono text-[10px]
-            tracking-[0.18em]
-            text-[#d4a8438a]
-            backdrop-blur-md
-          "
-        >
-          PROJECT #{project.id}
+        <div className="absolute left-4 top-4 flex flex-wrap gap-2">
+          <span className="rounded-md border border-[#d4a84325] bg-[#07091ab8] px-3 py-[5px] font-mono text-[10px] tracking-[0.18em] text-[#d4a8438a] backdrop-blur-md">
+            PROJECT #{project.id}
+          </span>
+          <span className="rounded-md border border-[#4a7cbf25] bg-[#07091ab8] px-3 py-[5px] text-[10px] font-medium uppercase tracking-[0.14em] text-[#8ea9d8] backdrop-blur-md">
+            Uploaded {project.uploadedAt}
+          </span>
         </div>
       </button>
 
@@ -452,6 +449,22 @@ export default function AllProjects() {
           sm:px-8 lg:px-12
         "
       >
+        <div className="mb-8 animate-[fadeInUp_0.75s_ease-out_both] rounded-[28px] border border-[#d4a8431f] bg-[#0b1020]/58 p-5 shadow-[0_22px_70px_rgba(0,0,0,0.28)] backdrop-blur-xl md:p-7">
+          <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
+            <div>
+              <p className="text-[11px] uppercase tracking-[0.26em] text-[#d4a8439e]">Latest first</p>
+              <h2 className="mt-2 text-2xl font-semibold tracking-[-0.02em] text-[#f4ead0] md:text-3xl">Project Collection</h2>
+              <p className="mt-3 max-w-2xl text-sm leading-relaxed text-[#7e8dab]">
+                A curated archive of web, mobile, internal systems, CMS, and business digitalization projects, sorted from the latest upload to earlier works.
+              </p>
+            </div>
+            <div className="w-fit rounded-2xl border border-[#d4a84324] bg-[#d4a84312] px-4 py-3 text-right">
+              <div className="text-3xl font-semibold text-[#d4a843]">{projects.length}</div>
+              <div className="text-[10px] uppercase tracking-[0.18em] text-[#8fa1c1]">Projects</div>
+            </div>
+          </div>
+        </div>
+
         <div
           className="
             grid grid-cols-1 gap-7
@@ -459,11 +472,12 @@ export default function AllProjects() {
             xl:grid-cols-3
           "
         >
-          {projects.map((project) => (
+          {projectsLatestFirst.map((project, index) => (
             <ProjectCard
               key={project.id}
               project={project}
               onOpen={setSelectedProject}
+              index={index}
             />
           ))}
         </div>
@@ -482,6 +496,21 @@ export default function AllProjects() {
 
         body {
           background: #07091a;
+        }
+
+        .project-archive-card {
+          animation: fadeInUp 0.78s ease-out both;
+        }
+
+        @keyframes fadeInUp {
+          from {
+            opacity: 0;
+            transform: translateY(30px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
         }
       `}</style>
     </main>
