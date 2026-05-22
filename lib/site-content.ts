@@ -189,7 +189,7 @@ export const projects: Project[] = [
       "Responsive company profile website with CMS support to present Steda Roaster's coffee roasting services, products, and business information clearly.",
     detailDescription:
       "A responsive company profile website and CMS for PT Steda Roaster, designed to strengthen the brand's digital presence, present coffee roasting services and business offerings clearly, and make content updates easier through a structured content management workflow. The website focuses on clean visual hierarchy, accessible information, responsive layouts, and a professional user experience for customers and business partners.",
-    image: "/assets/projects/steda-roaster.svg",
+    image: "/assets/projects/steda-roaster.png",
     uploadedAt: "May 2026",
     link: "https://stedaroaster.vercel.app/",
   },
