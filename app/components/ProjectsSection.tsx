@@ -357,7 +357,7 @@ function ProjectCard({
         className="
           group flex h-full min-w-0 flex-1 flex-col overflow-hidden
           rounded-[24px]
-          border border-[#1f2b46]
+          border border-[#d4a84322]
           bg-[#0b1020]
           transition-all duration-500
           ease-[cubic-bezier(0.22,1,0.36,1)]
@@ -371,7 +371,7 @@ function ProjectCard({
           className="
             relative aspect-[16/9]
             overflow-hidden
-            border-b border-[#17233b]
+            border-b border-[#d4a84318]
             bg-[#060c18]
           "
         >
@@ -407,7 +407,7 @@ function ProjectCard({
             </>
           )}
 
-          <div className="absolute inset-0 bg-[#04081610]" />
+          <div className="absolute inset-0 bg-transparent" />
 
           <span
             className="
@@ -445,13 +445,13 @@ function ProjectCard({
               mt-3 flex-1
               text-[13.5px]
               leading-[1.85]
-              text-[#64748f]
+              text-[#8a93a7]
             "
           >
             {project.description}
           </p>
 
-          <div className="my-5 h-px bg-[#1a2540]" />
+          <div className="my-5 h-px bg-[#d4a84318]" />
 
           <div className="flex min-h-[28px] items-center">
             {project.link ? (
@@ -597,7 +597,7 @@ export default function ProjectsSection() {
       ref={sectionRef}
       id="projects"
       className="
-        relative flex min-h-screen scroll-mt-16 items-center overflow-hidden
+        section-transition-soft relative flex min-h-screen scroll-mt-16 items-center overflow-hidden
         py-8 sm:py-10 md:py-12 lg:py-8
       "
       style={{ background: "#07091a" }}

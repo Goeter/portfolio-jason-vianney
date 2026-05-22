@@ -29,7 +29,7 @@ export default function ExperienceSection() {
     <section
       ref={sectionRef}
       id="experience"
-      className="relative flex min-h-screen items-center overflow-hidden py-20"
+      className="section-transition-soft relative flex min-h-screen items-center overflow-hidden py-20"
     >
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_18%,rgba(34,211,238,0.20),transparent_32%),radial-gradient(circle_at_82%_22%,rgba(168,85,247,0.20),transparent_34%),radial-gradient(circle_at_50%_90%,rgba(59,130,246,0.18),transparent_36%),linear-gradient(135deg,#020617_0%,#0f172a_45%,#111827_100%)]" />
 
