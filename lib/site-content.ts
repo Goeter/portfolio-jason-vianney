@@ -96,7 +96,18 @@ export const expertise = [
 
 export const projects: Project[] = [
   {
-    id: 1,
+    id: 10,
+    title: "PT Steda Roaster Company Profile & CMS",
+    description:
+      "Responsive company profile website with CMS support to present Steda Roaster's coffee roasting services, products, and business information clearly.",
+    detailDescription:
+      "A responsive company profile website and CMS for PT Steda Roaster, designed to strengthen the brand's digital presence, present coffee roasting services and business offerings clearly, and make content updates easier through a structured content management workflow. The website focuses on clean visual hierarchy, accessible information, responsive layouts, and a professional user experience for customers and business partners.",
+    image: "/assets/projects/steda-roaster.png",
+    uploadedAt: "May 2026",
+    link: "https://stedaroaster.vercel.app/",
+  },
+  {
+    id: 9,
     title: "PT Topas Multi Finance Website",
     description: "Website korporat publik yang membangun kepercayaan pelanggan dan brand awareness melalui kehadiran digital profesional.",
     detailDescription:
@@ -106,7 +117,7 @@ export const projects: Project[] = [
     link: "https://frontend.topasmultifinance.co.id",
   },
   {
-    id: 2,
+    id: 8,
     title: "PT Alfa Berkat Sigma",
     description: "Website toko perlengkapan plumbing yang memamerkan produk dan profil perusahaan secara profesional dan menarik.",
     detailDescription:
@@ -116,7 +127,7 @@ export const projects: Project[] = [
     link: "https://sigma-andrew-ten.vercel.app",
   },
   {
-    id: 3,
+    id: 7,
     title: "Topas Multi Finance Mobile Application",
     description: "Aplikasi mobile untuk nasabah dan staf: manajemen pinjaman, tracking pencairan, monitoring nasabah, dan layanan keuangan lengkap.",
     detailDescription:
@@ -130,7 +141,16 @@ export const projects: Project[] = [
     ],
   },
   {
-    id: 4,
+    id: 6,
+    title: "Mobile Loan Flow Survey",
+    description: "Aplikasi survei kunjungan rumah debitur agar data tersentralisasi dan tersimpan rapi di database perusahaan.",
+    detailDescription:
+      "A mobile survey application for debtor home visits, designed to centralize survey data, standardize field input, and improve the accuracy of loan-related customer verification processes.",
+    image: "/assets/projects/flow-survey-pinjaman.jpg",
+    uploadedAt: "June 2025",
+  },
+  {
+    id: 5,
     title: "HR Topas Application",
     description: "Sistem HRD terintegrasi: absensi, rekap gaji, perencanaan tenaga kerja berbasis KPI, dan manajemen rekrutmen lengkap.",
     detailDescription:
@@ -139,25 +159,7 @@ export const projects: Project[] = [
     uploadedAt: "June 2025",
   },
   {
-    id: 5,
-    title: "Monitoring & Feedback Prospect",
-    description: "Aplikasi internal pencatatan penjualan motor dari dealer, konfirmasi order, jadwal pengiriman, dan kelengkapan dokumen.",
-    detailDescription:
-      "An internal monitoring application for dealer motorcycle sales, order confirmation, delivery scheduling, document validation, and transaction tracking. The system improves operational visibility and reduces manual follow-up across dealer-related workflows.",
-    image: "/assets/projects/monitoring-server.png",
-    uploadedAt: "February 2024",
-  },
-  {
-    id: 6,
-    title: "Vehicle Registration Certificate System",
-    description: "Sistem cetak nota pencairan yang sebelumnya manual kini dicetak rapi, cepat, dan tersimpan aman di database sistem.",
-    detailDescription:
-      "A digital system that modernizes vehicle registration certificate and disbursement note processes by replacing handwritten workflows with structured printing, centralized storage, validation, audit trails, and faster document retrieval.",
-    image: "/assets/projects/vehicle-registration-certificate-system.png",
-    uploadedAt: "February 2024",
-  },
-  {
-    id: 7,
+    id: 4,
     title: "Mobile Mata Elang & Subscribe",
     description: "Aplikasi pelacak kendaraan kredit untuk field user dan pihak ketiga, dilengkapi sistem berlangganan aplikasi.",
     detailDescription:
@@ -171,16 +173,7 @@ export const projects: Project[] = [
     ],
   },
   {
-    id: 8,
-    title: "Mobile Loan Flow Survey",
-    description: "Aplikasi survei kunjungan rumah debitur agar data tersentralisasi dan tersimpan rapi di database perusahaan.",
-    detailDescription:
-      "A mobile survey application for debtor home visits, designed to centralize survey data, standardize field input, and improve the accuracy of loan-related customer verification processes.",
-    image: "/assets/projects/flow-survey-pinjaman.jpg",
-    uploadedAt: "June 2025",
-  },
-  {
-    id: 9,
+    id: 3,
     title: "Dashboard Admin Ticketing",
     description: "Dashboard monitoring tiket berbasis web untuk pengelolaan dan pemantauan sistem ticketing secara real-time.",
     detailDescription:
@@ -189,21 +182,28 @@ export const projects: Project[] = [
     uploadedAt: "June 2025",
   },
   {
-    id: 10,
-    title: "PT Steda Roaster Company Profile & CMS",
-    description:
-      "Responsive company profile website with CMS support to present Steda Roaster's coffee roasting services, products, and business information clearly.",
+    id: 2,
+    title: "Vehicle Registration Certificate System",
+    description: "Sistem cetak nota pencairan yang sebelumnya manual kini dicetak rapi, cepat, dan tersimpan aman di database sistem.",
     detailDescription:
-      "A responsive company profile website and CMS for PT Steda Roaster, designed to strengthen the brand's digital presence, present coffee roasting services and business offerings clearly, and make content updates easier through a structured content management workflow. The website focuses on clean visual hierarchy, accessible information, responsive layouts, and a professional user experience for customers and business partners.",
-    image: "/assets/projects/steda-roaster.png",
-    uploadedAt: "May 2026",
-    link: "https://stedaroaster.vercel.app/",
+      "A digital system that modernizes vehicle registration certificate and disbursement note processes by replacing handwritten workflows with structured printing, centralized storage, validation, audit trails, and faster document retrieval.",
+    image: "/assets/projects/vehicle-registration-certificate-system.png",
+    uploadedAt: "February 2024",
+  },
+  {
+    id: 1,
+    title: "Monitoring & Feedback Prospect",
+    description: "Aplikasi internal pencatatan penjualan motor dari dealer, konfirmasi order, jadwal pengiriman, dan kelengkapan dokumen.",
+    detailDescription:
+      "An internal monitoring application for dealer motorcycle sales, order confirmation, delivery scheduling, document validation, and transaction tracking. The system improves operational visibility and reduces manual follow-up across dealer-related workflows.",
+    image: "/assets/projects/monitoring-server.png",
+    uploadedAt: "February 2024",
   },
 ]
 
 export const certificates: Certificate[] = [
   {
-    id: 1,
+    id: 5,
     title: "English Certificate",
     description: "English proficiency certification demonstrating communication and academic language capability.",
     image: "/assets/certificates/English Certificate Gabung_1.jpg",
@@ -212,7 +212,7 @@ export const certificates: Certificate[] = [
     uploadedAt: "09 October 2025",
   },
   {
-    id: 2,
+    id: 4,
     title: "Teaching Certification",
     description: "Certification for teaching and tutoring with structured learning methods.",
     image: "/assets/certificates/Teaching Certification.png",
@@ -230,7 +230,7 @@ export const certificates: Certificate[] = [
     uploadedAt: "02 August 2025",
   },
   {
-    id: 4,
+    id: 2,
     title: "Intro to Data Analytics",
     description: "Fundamentals of data analysis, including organizing and interpreting data using spreadsheets.",
     image: "/assets/certificates/data-analyst-revou.jpeg",
@@ -239,7 +239,7 @@ export const certificates: Certificate[] = [
     uploadedAt: "18 July 2025",
   },
   {
-    id: 5,
+    id: 1,
     title: "UI/UX Webinar Participation",
     description: "Comprehensive training on UI/UX principles, design tools, and best practice.",
     image: "/assets/certificates/ui-ux-webinar-ubaya.png",
