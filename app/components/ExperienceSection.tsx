@@ -109,12 +109,12 @@ export default function ExperienceSection() {
 
                 <div className="flex flex-col gap-5 sm:flex-row sm:items-start">
                   <div className="flex items-center justify-center sm:justify-start">
-                    <div className="relative flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl border border-white/15 bg-white/95 p-2.5 shadow-lg shadow-black/20 transition duration-300 group-hover:scale-105 sm:h-[4.5rem] sm:w-[4.5rem]">
+                    <div className="relative flex h-[4.25rem] w-[4.25rem] shrink-0 items-center justify-center rounded-2xl border border-white/15 bg-white/95 p-1.5 shadow-lg shadow-black/20 transition duration-300 group-hover:scale-105 sm:h-20 sm:w-20 sm:p-2">
                       <Image
                         src={experience.logo || "/placeholder.svg"}
                         alt={`${experience.company} logo`}
-                        width={64}
-                        height={64}
+                        width={80}
+                        height={80}
                         className="h-full w-full object-contain"
                       />
                     </div>
