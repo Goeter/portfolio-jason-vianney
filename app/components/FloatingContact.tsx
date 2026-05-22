@@ -22,7 +22,7 @@ export default function FloatingContact() {
     },
     {
       icon: Instagram,
-      href: "https://www.instagram.com/jasonvianney/",
+      href: "https://www.instagram.com/pixelnav.id/",
       color:
         "bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 hover:from-pink-600 hover:via-red-600 hover:to-yellow-600",
       label: "Instagram",

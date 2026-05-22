@@ -339,7 +339,7 @@ function ProjectCard({
       }`}
       style={{ transitionDelay: `${Math.min(index * 90, 360)}ms` }}
     >
-      <div className="group relative flex h-full min-w-0 flex-1 flex-col overflow-hidden rounded-3xl border border-amber-300/15 bg-slate-950/62 shadow-xl shadow-black/35 backdrop-blur-md transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-2 hover:border-amber-300/45 hover:bg-slate-950/75 hover:shadow-amber-500/15">
+      <div className="group relative flex h-full min-w-0 flex-1 flex-col overflow-hidden rounded-3xl border border-amber-300/15 bg-slate-950/62 shadow-xl shadow-black/35 backdrop-blur-md transition-all duration-500 ease-fluid hover:-translate-y-2 hover:border-amber-300/45 hover:bg-slate-950/75 hover:shadow-amber-500/15">
         <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100">
           <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-amber-300/55 to-transparent" />
           <div className="absolute -right-20 -top-20 h-44 w-44 rounded-full bg-amber-400/10 blur-3xl" />
@@ -607,7 +607,7 @@ export default function ProjectsSection() {
             onTouchEnd={handleTouchEnd}
           >
             <div
-              className="flex touch-pan-y select-none transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]"
+              className="flex touch-pan-y select-none transition-transform duration-700 ease-fluid"
               style={{
                 transform: `translateX(-${currentPage * 100}%)`,
               }}

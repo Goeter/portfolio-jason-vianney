@@ -74,6 +74,9 @@ export const siteConfig = {
   contacts: {
     email: "jasonvianneys@gmail.com",
     resumeFileId: "10Nllp8ydFAMENKFA0089aGdT5hCijCNd95oKo_DI3NU",
+    github: "https://github.com/Goeter",
+    linkedin: "https://www.linkedin.com/in/jasonvianneysugiarto",
+    instagram: "https://www.instagram.com/pixelnav.id/",
   },
   footer: "Copyright © 2025 Jason Vianney S Portfolio Web Design. All rights reserved.",
 }
@@ -249,9 +252,15 @@ export const certificates: Certificate[] = [
   },
 ]
 
-export const projectsLatestFirst = [...projects].sort((a, b) => b.id - a.id)
+const sortByNewestId = <T extends { id: number }>(items: T[]) =>
+  [...items].sort((a, b) => b.id - a.id)
 
-export const certificatesLatestFirst = [...certificates].sort((a, b) => b.id - a.id)
+// CMS-ready derived lists.
+// Upload new project/certificate data once in `projects` or `certificates`;
+// the home sections and archive pages consume these sorted lists automatically.
+export const projectsLatestFirst = sortByNewestId(projects)
+
+export const certificatesLatestFirst = sortByNewestId(certificates)
 
 export const experiences: Experience[] = [
   {

@@ -73,7 +73,7 @@ export default function Navbar({
 
               {/* Light Sweep */}
               <div className="absolute inset-0 overflow-hidden rounded-full">
-                <div className="absolute -left-[120%] top-0 h-full w-[90%] skew-x-[-25deg] bg-gradient-to-r from-transparent via-white/20 to-transparent transition-transform duration-[2200ms] ease-out group-hover:translate-x-[260%]" />
+                <div className="absolute -left-[120%] top-0 h-full w-[90%] skew-x-[-25deg] bg-gradient-to-r from-transparent via-white/20 to-transparent transition-transform duration-2200 ease-out group-hover:translate-x-[260%]" />
               </div>
 
               {/* Text */}
@@ -194,7 +194,7 @@ export default function Navbar({
         {/* Sidebar */}
         <aside
           aria-label="Mobile Navigation"
-          className={`absolute right-0 top-0 h-full w-[280px] border-l border-cyan-500/15 bg-slate-950/95 p-5 shadow-2xl backdrop-blur-xl transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+          className={`absolute right-0 top-0 h-full w-[280px] border-l border-cyan-500/15 bg-slate-950/95 p-5 shadow-2xl backdrop-blur-xl transition-transform duration-500 ease-fluid ${
             isMobileMenuOpen
               ? "translate-x-0"
               : "translate-x-full"

@@ -79,6 +79,7 @@ export default function AllCertificates() {
           {certificatesLatestFirst.map((certificate, index) => (
             <Card
               key={certificate.id}
+              id={`certificate-${certificate.id}`}
               className="group certificate-card h-full overflow-hidden rounded-3xl border border-green-300/20 bg-slate-950/60 shadow-2xl shadow-black/30 backdrop-blur-xl transition-all duration-500 hover:-translate-y-2 hover:rotate-[0.35deg] hover:border-green-300/50 hover:shadow-green-500/20"
               style={{
                 animationDelay: `${index * 120}ms`,

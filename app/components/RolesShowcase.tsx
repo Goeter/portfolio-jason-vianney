@@ -224,7 +224,7 @@ function RoleCard({ role }: { role: (typeof roles)[number] }) {
   const c = colorMap[role.color]
 
   return (
-    <div className="h-full overflow-hidden rounded-[14px] border border-[#c9a84c]/[0.18] bg-white/[0.035] transform-gpu transition-transform transition-colors duration-500 ease-[cubic-bezier(.22,1,.36,1)] hover:scale-[1.035] hover:border-[#c9a84c]/[0.45]">
+    <div className="h-full overflow-hidden rounded-[14px] border border-[#c9a84c]/[0.18] bg-white/[0.035] transform-gpu transition-transform transition-colors duration-500 ease-fluid hover:scale-[1.035] hover:border-[#c9a84c]/[0.45]">
       {/* Top Bar */}
       <div className={`h-[3px] w-full bg-gradient-to-r ${c.bar}`} />
 

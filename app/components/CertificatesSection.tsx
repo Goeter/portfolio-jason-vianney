@@ -191,7 +191,7 @@ export default function CertificatesSection() {
             onTouchEnd={handleTouchEnd}
           >
             <div
-              className="flex touch-pan-y select-none transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]"
+              className="flex touch-pan-y select-none transition-transform duration-700 ease-fluid"
               style={{ transform: `translateX(-${currentPage * 100}%)` }}
             >
               {Array.from({ length: totalPages }).map((_, pageIndex) => {
