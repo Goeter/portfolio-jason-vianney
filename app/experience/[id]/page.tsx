@@ -15,6 +15,13 @@ interface ExperienceDetailProps {
   }
 }
 
+type ProjectImageFit = "cover" | "contain" | "logo"
+
+type ProjectDisplayConfig = {
+  imageFit?: ProjectImageFit
+  logoImageIndexes?: number[]
+}
+
 export default function ExperienceDetail({ params }: ExperienceDetailProps) {
   const projectId = Number.parseInt(params.id, 10)
 
@@ -30,6 +37,11 @@ export default function ExperienceDetail({ params }: ExperienceDetailProps) {
 
   const [isPreviewOpen, setIsPreviewOpen] = useState(false)
 
+  const projectDisplayConfig = project as typeof project & ProjectDisplayConfig
+
+  const imageFit = projectDisplayConfig.imageFit ?? "cover"
+  const logoImageIndexes = projectDisplayConfig.logoImageIndexes ?? []
+
   const previewImages = useMemo(() => {
     const sources = project.gallery?.length ? project.gallery : [project.image]
 
@@ -38,6 +50,10 @@ export default function ExperienceDetail({ params }: ExperienceDetailProps) {
       alt: `${project.title} preview ${index + 1}`,
     }))
   }, [project])
+
+  const isLogoImage = (index: number) => {
+    return imageFit === "logo" || logoImageIndexes.includes(index)
+  }
 
   return (
     <div className="relative min-h-screen overflow-x-hidden bg-[#07091a] text-white">
@@ -49,7 +65,11 @@ export default function ExperienceDetail({ params }: ExperienceDetailProps) {
       <header className="relative z-10 border-b border-cyan-400/15 bg-slate-950/70 py-4 backdrop-blur-xl">
         <div className="container mx-auto px-4">
           <Link href="/#projects">
-            <Button variant="ghost" size="sm" className="flex items-center gap-2 text-cyan-200 hover:bg-cyan-300/10 hover:text-white">
+            <Button
+              variant="ghost"
+              size="sm"
+              className="flex items-center gap-2 text-cyan-200 hover:bg-cyan-300/10 hover:text-white"
+            >
               <ChevronLeft className="h-5 w-5" />
               Back
             </Button>
@@ -59,7 +79,10 @@ export default function ExperienceDetail({ params }: ExperienceDetailProps) {
 
       <main className="container relative z-10 mx-auto px-4 py-10">
         <div className="mx-auto max-w-5xl">
-          <p className="mb-3 text-sm font-semibold uppercase tracking-[0.3em] text-cyan-300">Project Detail</p>
+          <p className="mb-3 text-sm font-semibold uppercase tracking-[0.3em] text-cyan-300">
+            Project Detail
+          </p>
+
           <h1 className="mb-8 bg-gradient-to-r from-cyan-200 via-white to-[#d4a843] bg-clip-text text-3xl font-black leading-tight text-transparent md:text-5xl">
             {project.title}
           </h1>
@@ -71,33 +94,63 @@ export default function ExperienceDetail({ params }: ExperienceDetailProps) {
               aria-label={`Preview ${project.title}`}
               className="group relative aspect-video w-full overflow-hidden rounded-[20px] bg-[#050816] text-left"
             >
-              {project.gallery ? (
+              {project.gallery?.length ? (
                 <div className="flex h-full gap-3 p-4">
-                  {project.gallery.map((src, index) => (
-                    <Image
-                      key={src}
-                      src={src}
-                      alt={`${project.title} screenshot ${index + 1}`}
-                      width={320}
-                      height={640}
-                      sizes="(max-width: 768px) 33vw, 320px"
-                      className="h-full w-1/3 rounded-2xl object-cover shadow-lg transition-transform duration-500 group-hover:scale-[1.02]"
-                      priority={index === 0}
-                    />
-                  ))}
+                  {project.gallery.map((src, index) => {
+                    const shouldUseLogoFit = isLogoImage(index)
+
+                    return (
+                      <div
+                        key={src}
+                        className={`relative h-full flex-1 overflow-hidden rounded-2xl shadow-lg ${
+                          shouldUseLogoFit
+                            ? "border border-white/10 bg-white/95 p-3"
+                            : "bg-slate-900"
+                        }`}
+                      >
+                        <Image
+                          src={src}
+                          alt={`${project.title} screenshot ${index + 1}`}
+                          fill
+                          sizes="(max-width: 768px) 33vw, 320px"
+                          className={`transition-transform duration-500 ${
+                            shouldUseLogoFit
+                              ? "object-contain scale-[1.13] group-hover:scale-[1.18]"
+                              : "object-cover group-hover:scale-[1.02]"
+                          }`}
+                          priority={index === 0}
+                        />
+                      </div>
+                    )
+                  })}
                 </div>
               ) : (
-                <Image
-                  src={project.image}
-                  alt={`${project.title} project screenshot`}
-                  width={1200}
-                  height={760}
-                  sizes="(max-width: 1024px) 100vw, 960px"
-                  className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
-                  priority
-                />
+                <div
+                  className={`relative h-full w-full overflow-hidden ${
+                    imageFit === "logo"
+                      ? "bg-white/95 p-5"
+                      : "bg-[#050816]"
+                  }`}
+                >
+                  <Image
+                    src={project.image}
+                    alt={`${project.title} project screenshot`}
+                    fill
+                    sizes="(max-width: 1024px) 100vw, 960px"
+                    className={`transition-transform duration-700 ${
+                      imageFit === "logo"
+                        ? "object-contain scale-[1.1] group-hover:scale-[1.15]"
+                        : imageFit === "contain"
+                          ? "object-contain group-hover:scale-[1.03]"
+                          : "object-cover group-hover:scale-[1.03]"
+                    }`}
+                    priority
+                  />
+                </div>
               )}
+
               <div className="absolute inset-0 bg-gradient-to-t from-slate-950/65 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+
               <div className="absolute bottom-4 right-4 rounded-full border border-white/20 bg-black/45 px-4 py-2 text-sm font-medium text-white/90 opacity-0 backdrop-blur-md transition-opacity duration-300 group-hover:opacity-100">
                 Click to preview
               </div>
