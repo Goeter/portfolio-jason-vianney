@@ -272,7 +272,7 @@ export const experiences: Experience[] = [
     period: "September 2024 – Now",
     location: "Jakarta - Surabaya, Indonesia",
     workMode: "On-Site",
-    logo: "/assets/company-logos/icon_student_center.svg",
+    logo: "/assets/company-logos/icon_student_center.jpg",
     details: [
       "Taught Mathematics, Physics, and English to elementary and high school students through interactive learning methods, helping strengthen fundamentals, improve comprehension, and prepare for exams.",
     ],
