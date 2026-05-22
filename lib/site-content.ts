@@ -208,8 +208,8 @@ export const certificates: Certificate[] = [
     description: "English proficiency certification demonstrating communication and academic language capability.",
     image: "/assets/certificates/English Certificate Gabung_1.jpg",
     issuer: "English Test Center",
-    date: "2025",
-    uploadedAt: "2025",
+    date: "09 October 2025",
+    uploadedAt: "09 October 2025",
   },
   {
     id: 2,
@@ -217,8 +217,8 @@ export const certificates: Certificate[] = [
     description: "Certification for teaching and tutoring with structured learning methods.",
     image: "/assets/certificates/Teaching Certification.png",
     issuer: "Teaching Program",
-    date: "2025",
-    uploadedAt: "2025",
+    date: "10 November 2025",
+    uploadedAt: "10 November 2025",
   },
   {
     id: 3,
