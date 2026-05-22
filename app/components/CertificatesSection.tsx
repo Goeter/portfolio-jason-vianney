@@ -6,53 +6,8 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import Link from "next/link"
 import Image from "next/image"
+import { certificates } from "@/lib/site-content"
 
-const certificates = [
-  {
-    id: 1,
-    title: "English Certificate",
-    description:
-      "Has achieved CEFR C1 - Advanced (Score 599), Compare to IELTS (same with band 8).",
-    image: "/assets/certificates/English Certificate Gabung_1.jpg",
-    issuer: "British Council",
-    date: "09 October 2025",
-  },
-  {
-    id: 2,
-    title: "Teaching Certification",
-    description: "Teaching Mathematic, English and Physics",
-    image: "/assets/certificates/Teaching Certification.png",
-    issuer: "British Council",
-    date: "09 October 2025",
-  },
-  {
-    id: 3,
-    title: "Data Analyst Python & SQL",
-    description:
-      "In depth training in Python for data analysis, data organization, and SQL database management.",
-    image: "/assets/certificates/data-analyst-udemy.jpeg",
-    issuer: "Udemy",
-    date: "02 August 2025",
-  },
-  {
-    id: 4,
-    title: "Intro to Data Analytics",
-    description:
-      "Fundamentals of data analysis, including organizing and interpreting data using spreadsheets.",
-    image: "/assets/certificates/data-analyst-revou.jpeg",
-    issuer: "RevoU",
-    date: "18 July 2025",
-  },
-  {
-    id: 5,
-    title: "UI/UX Webinar Participation",
-    description:
-      "Comprehensive training on UI/UX principles, design tools, and best practice.",
-    image: "/assets/certificates/ui-ux-webinar-ubaya.png",
-    issuer: "Universitas Surabaya (UBAYA)",
-    date: "24 May 2025",
-  },
-]
 
 export default function CertificatesSection() {
   const [currentIndex, setCurrentIndex] = useState(0)

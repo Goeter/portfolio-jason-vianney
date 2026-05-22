@@ -2,57 +2,7 @@
 
 import { useEffect, useRef, useState } from "react"
 import Image from "next/image"
-
-const experiences = [
-  {
-    id: 1,
-    company: "PT Topas Multi Finance - Member of Mayapada Group",
-    division: "System Analyst",
-    period: "March 2024 - June 2025",
-    logo: "/assets/company-logos/icon_topas.png",
-    details: [
-      "Developing systems to increase operational efficiency 50% through integrated document and financial workflows.",
-      "Developing a corporate website to boost product visibility, enable secure oversight, engage customers, and list job vacancies.",
-      "Creating an online loan mobile application to make it easier for customers.",
-      "Building a centralized HR system to manage payroll, attendance, performance, and employee records securely.",
-    ],
-  },
-  {
-    id: 2,
-    company: "PT Astra Honda Motor",
-    division: "System Analyst",
-    period: "February 2023 - February 2024",
-    logo: "/assets/company-logos/icon_astra.png",
-    details: [
-      "Developed an internal application for dealer motorcycle sales, order confirmation, delivery scheduling, and document validation.",
-      "Modernized an outdated system to be more secure, user-friendly, and reliable.",
-      "Performing unit testing to minimize bugs and human error, ensuring smooth deployment and user adoption.",
-    ],
-  },
-  {
-    id: 3,
-    company: "PT Wings Group",
-    division: "Full-stack Developer",
-    period: "February 2022 - February 2023",
-    logo: "/assets/company-logos/icon_wings.png",
-    details: [
-      "Enhancing the international sales website for seamless inventory tracking and real time digital sales monitoring across Asia.",
-      "Enhanced the mobile app with scanning features for accurate, real-time data capture.",
-      "Resolving critical bugs on the web and mobile platforms during live operations, restoring full functionality and uninterrupted use.",
-    ],
-  },
-  {
-    id: 4,
-    company: "Universitas Surabaya",
-    division: "Bachelor of Information Systems",
-    period: "2017 – 2021",
-    logo: "/assets/company-logos/icon_ubaya.png",
-    details: [
-      "Assisting professors by preparing programming exercises and reviewing assignments to reinforce programming fundamentals.",
-      "Opening a Business Mathematics class provides tutoring and exercises to hone mathematical logic skills in business.",
-    ],
-  },
-]
+import { experiences } from "@/lib/site-content"
 
 export default function ExperienceSection() {
   const sectionRef = useRef<HTMLElement | null>(null)

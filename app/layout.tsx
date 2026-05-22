@@ -1,31 +1,40 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { Inter } from "next/font/google"
 import "./globals.css"
-
-const inter = Inter({
-  subsets: ["latin"],
-  display: "swap",
-})
+import { siteConfig } from "@/lib/site-content"
 
 export const metadata: Metadata = {
-  title: "Jason Vianney Sugiarto - Portfolio",
-  description:
-    "System Analyst, UI/UX Design, Data Analyst - Professional Portfolio showcasing experience in business analysis, system design, and data visualization.",
-  keywords: ["System Analyst", "UI/UX Design", "Data Analyst", "Portfolio", "Jason Vianney Sugiarto"],
-  authors: [{ name: "Jason Vianney Sugiarto" }],
-  creator: "Jason Vianney Sugiarto",
+  metadataBase: new URL(siteConfig.url),
+  title: `${siteConfig.owner} - Portfolio`,
+  description: siteConfig.description,
+  keywords: siteConfig.keywords,
+  authors: [{ name: siteConfig.owner }],
+  creator: siteConfig.owner,
+  alternates: { canonical: "/" },
   openGraph: {
-    title: "Jason Vianney Sugiarto - Portfolio",
-    description: "System Analyst, UI/UX Design, Data Analyst - Professional Portfolio",
+    title: `${siteConfig.owner} - Portfolio`,
+    description: siteConfig.description,
     type: "website",
-    locale: "en_US",
+    locale: siteConfig.locale,
+    url: siteConfig.url,
+    siteName: `${siteConfig.shortName} Portfolio`,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${siteConfig.owner} - Portfolio`,
+    description: siteConfig.description,
   },
   robots: {
     index: true,
     follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
   },
-    generator: 'v0.dev'
 }
 
 interface RootLayoutProps {
@@ -35,7 +44,7 @@ interface RootLayoutProps {
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en" className="scroll-smooth">
-      <body className={inter.className} suppressHydrationWarning>
+      <body suppressHydrationWarning>
         {children}
       </body>
     </html>

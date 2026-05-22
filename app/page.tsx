@@ -9,6 +9,7 @@ import ExperienceSection from "./components/ExperienceSection"
 import FloatingContact from "./components/FloatingContact"
 import CertificatesSection from "./components/CertificatesSection"
 import SplashLoader from "./components/SplashLoader"
+import { navItems, siteConfig } from "@/lib/site-content"
 
 export default function Home() {
   const [activeSection, setActiveSection] = useState("home")
@@ -29,7 +30,7 @@ export default function Home() {
     if (!isClient || isLoading) return
 
     const handleScroll = () => {
-      const sections = ["home", "roles", "projects", "certificates", "experience"]
+      const sections = navItems.map((item) => item.id)
       const scrollPosition = window.scrollY + 100
 
       for (const section of sections) {
@@ -218,7 +219,7 @@ export default function Home() {
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between">
             <p className="text-cyan-300 text-sm font-mono">
-              Copyright © 2025 Jason Vianney S Portfolio Web Design. All rights reserved.
+              {siteConfig.footer}
             </p>
             <div className="flex space-x-2">
               <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />

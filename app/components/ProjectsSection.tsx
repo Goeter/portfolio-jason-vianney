@@ -10,84 +10,7 @@ import {
   ExternalLink,
 } from "lucide-react"
 
-// ============================================================
-// DATA PROJECTS
-// ============================================================
-
-const projects = [
-  {
-    id: 1,
-    title: "PT Topas Multi Finance Website",
-    description:
-      "Website korporat publik yang membangun kepercayaan pelanggan dan brand awareness melalui kehadiran digital profesional.",
-    image: "/assets/projects/topas-website.png",
-    link: "https://frontend.topasmultifinance.co.id",
-  },
-  {
-    id: 2,
-    title: "PT. Alfa Berkat Sigma",
-    description:
-      "Website toko perlengkapan plumbing yang memamerkan produk dan profil perusahaan secara profesional dan menarik.",
-    image: "/assets/projects/sigma-picture.png",
-    link: "https://sigma-andrew-ten.vercel.app",
-  },
-  {
-    id: 3,
-    title: "Topas Mobile Application",
-    description:
-      "Aplikasi mobile untuk nasabah dan staf: manajemen pinjaman, tracking pencairan, monitoring nasabah, dan layanan keuangan lengkap.",
-    image: "/assets/projects/mobile-app/combined",
-    link: null,
-  },
-  {
-    id: 4,
-    title: "HR Topas Application",
-    description:
-      "Sistem HRD terintegrasi: absensi, rekap gaji, perencanaan tenaga kerja berbasis KPI, dan manajemen rekrutmen lengkap.",
-    image: "/assets/projects/hr-topas-application.png",
-    link: null,
-  },
-  {
-    id: 5,
-    title: "Monitoring & Feedback Prospect",
-    description:
-      "Aplikasi internal pencatatan penjualan motor dari dealer, konfirmasi order, jadwal pengiriman, dan kelengkapan dokumen.",
-    image: "/assets/projects/monitoring-server.png",
-    link: null,
-  },
-  {
-    id: 6,
-    title: "Vehicle Registration Certificate System",
-    description:
-      "Sistem cetak nota pencairan yang sebelumnya manual kini dicetak rapi, cepat, dan tersimpan aman di database sistem.",
-    image: "/assets/projects/vehicle-registration-certificate-system.png",
-    link: null,
-  },
-  {
-    id: 7,
-    title: "Mobile Mata Elang & Subscribe",
-    description:
-      "Aplikasi pelacak kendaraan kredit untuk field user dan pihak ketiga, dilengkapi sistem berlangganan aplikasi.",
-    image: "/assets/projects/mobile-mata-elang/combined",
-    link: null,
-  },
-  {
-    id: 8,
-    title: "Mobile Loan Flow Survey",
-    description:
-      "Aplikasi survei kunjungan rumah debitur agar data tersentralisasi dan tersimpan rapi di database perusahaan.",
-    image: "/assets/projects/flow-survey-pinjaman.jpg",
-    link: null,
-  },
-  {
-    id: 9,
-    title: "Dashboard Admin Ticketing",
-    description:
-      "Dashboard monitoring tiket berbasis web untuk pengelolaan dan pemantauan sistem ticketing secara real-time.",
-    image: "/assets/projects/dashboard_ticketing.png",
-    link: null,
-  },
-]
+import { projects, type Project } from "@/lib/site-content"
 
 // ============================================================
 // NATURAL SPACE BACKGROUND
@@ -416,11 +339,20 @@ function SpaceBackground() {
 
 function ProjectCard({
   project,
+  index,
+  isVisible,
 }: {
-  project: (typeof projects)[0]
+  project: Project
+  index: number
+  isVisible: boolean
 }) {
   return (
-    <div className="flex flex-1 pt-4">
+    <div
+      className={`flex flex-1 pt-4 transition-all duration-700 ease-out ${
+        isVisible ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
+      }`}
+      style={{ transitionDelay: `${Math.min(index * 90, 360)}ms` }}
+    >
       <div
         className="
           group flex h-full min-w-0 flex-1 flex-col overflow-hidden
@@ -443,57 +375,19 @@ function ProjectCard({
             bg-[#060c18]
           "
         >
-          {project.image.includes("mobile-app/combined") ? (
+          {project.gallery ? (
             <div className="flex h-full w-full">
-              <Image
-                src="/assets/projects/mobile-app/topas-mobile-dashboard.jpeg"
-                alt="Dashboard"
-                width={300}
-                height={600}
-                className="h-full w-1/3 object-cover transition-transform duration-700 group-hover:scale-105"
-              />
-
-              <Image
-                src="/assets/projects/mobile-app/topas-mobile-menu.jpeg"
-                alt="Menu"
-                width={300}
-                height={600}
-                className="h-full w-1/3 object-cover transition-transform duration-700 group-hover:scale-105"
-              />
-
-              <Image
-                src="/assets/projects/mobile-app/topas-mobile-profile.jpeg"
-                alt="Profile"
-                width={300}
-                height={600}
-                className="h-full w-1/3 object-cover transition-transform duration-700 group-hover:scale-105"
-              />
-            </div>
-          ) : project.image.includes("mobile-mata-elang/combined") ? (
-            <div className="flex h-full w-full">
-              <Image
-                src="/assets/projects/mobile-mata-elang/foto-1.png"
-                alt="Foto 1"
-                width={300}
-                height={600}
-                className="h-full w-1/3 object-cover transition-transform duration-700 group-hover:scale-105"
-              />
-
-              <Image
-                src="/assets/projects/mobile-mata-elang/foto-2.png"
-                alt="Foto 2"
-                width={300}
-                height={600}
-                className="h-full w-1/3 object-cover transition-transform duration-700 group-hover:scale-105"
-              />
-
-              <Image
-                src="/assets/projects/mobile-mata-elang/foto-3.png"
-                alt="Foto 3"
-                width={300}
-                height={600}
-                className="h-full w-1/3 object-cover transition-transform duration-700 group-hover:scale-105"
-              />
+              {project.gallery.map((src, imageIndex) => (
+                <Image
+                  key={src}
+                  src={src}
+                  alt={`${project.title} preview ${imageIndex + 1}`}
+                  width={300}
+                  height={600}
+                  sizes="(max-width: 768px) 33vw, 12vw"
+                  className="h-full w-1/3 object-cover transition-transform duration-700 group-hover:scale-105"
+                />
+              ))}
             </div>
           ) : (
             <>
@@ -501,6 +395,7 @@ function ProjectCard({
                 src={project.image}
                 alt={project.title}
                 fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1100px) 45vw, 30vw"
                 className="
                   object-cover
                   transition-transform duration-700 ease-out
@@ -917,6 +812,8 @@ export default function ProjectsSection() {
                         <ProjectCard
                           key={project.id}
                           project={project}
+                          index={pageIdx * cardsPerPage + visibleProjects.indexOf(project)}
+                          isVisible={isVisible}
                         />
                       ))}
 

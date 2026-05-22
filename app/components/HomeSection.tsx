@@ -3,6 +3,7 @@
 import Image from "next/image"
 import { motion } from "framer-motion"
 import { Download, ArrowRight } from "lucide-react"
+import { expertise, siteConfig } from "@/lib/site-content"
 
 /* ─────────────────────────────────────────────
    Batik + Tech Background
@@ -257,7 +258,7 @@ const fadeSlideLeft = (delay = 0) => ({
   animate: { opacity: 1, x: 0 },
   transition: {
     duration: 0.55,
-    ease: "easeOut",
+    ease: [0.22, 1, 0.36, 1] as const,
     delay,
   },
 })
@@ -267,53 +268,17 @@ const fadeSlideRight = {
   animate: { opacity: 1, x: 0 },
   transition: {
     duration: 0.65,
-    ease: "easeOut",
+    ease: [0.22, 1, 0.36, 1] as const,
     delay: 0.35,
   },
 }
-
-/* ─────────────────────────────────────────────
-   Expertise Data
-───────────────────────────────────────────── */
-const expertise = [
-  {
-    label: "IT Fullstack",
-    bg: "rgba(55,138,221,0.12)",
-    color: "#8CC8FF",
-    border: "rgba(140,200,255,0.25)",
-  },
-  {
-    label: "System Analyst",
-    bg: "rgba(100,210,170,0.12)",
-    color: "#73E0B6",
-    border: "rgba(115,224,182,0.25)",
-  },
-  {
-    label: "UI/UX Designer",
-    bg: "rgba(255,170,80,0.12)",
-    color: "#FFBC72",
-    border: "rgba(255,188,114,0.25)",
-  },
-  {
-    label: "Data Analyst",
-    bg: "rgba(215,140,255,0.12)",
-    color: "#D99BFF",
-    border: "rgba(217,155,255,0.25)",
-  },
-  {
-    label: "Tutor",
-    bg: "rgba(255,220,120,0.12)",
-    color: "#FFE083",
-    border: "rgba(255,224,131,0.25)",
-  },
-]
 
 /* ─────────────────────────────────────────────
    Home Section
 ───────────────────────────────────────────── */
 export default function HomeSection() {
   const handleDownloadPDF = () => {
-    const fileId = "10Nllp8ydFAMENKFA0089aGdT5hCijCNd95oKo_DI3NU"
+    const fileId = siteConfig.contacts.resumeFileId
 
     window.open(
       `https://docs.google.com/document/d/${fileId}/export?format=pdf`,
@@ -399,7 +364,7 @@ export default function HomeSection() {
               }}
               {...fadeSlideLeft(0.45)}
             >
-              Jason Vianney
+              {siteConfig.shortName}
               <br />
               <span style={{ color: "#C8A96E" }}>
                 Sugiarto

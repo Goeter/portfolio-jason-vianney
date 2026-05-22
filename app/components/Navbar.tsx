@@ -1,16 +1,10 @@
 "use client"
 
 import { useCallback, useState } from "react"
-import {
-  Home,
-  FolderOpen,
-  Wrench,
-  Briefcase,
-  Award,
-  X,
-} from "lucide-react"
+import { X } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
+import { navItems } from "@/lib/site-content"
 
 interface NavbarProps {
   activeSection: string
@@ -18,29 +12,6 @@ interface NavbarProps {
 
 const NAVBAR_HEIGHT = 64
 
-const navItems = [
-  { id: "home", label: "Home", icon: Home },
-  {
-    id: "roles",
-    label: "Professional Expertise",
-    icon: Wrench,
-  },
-  {
-    id: "projects",
-    label: "Projects",
-    icon: FolderOpen,
-  },
-  {
-    id: "certificates",
-    label: "Certificates",
-    icon: Award,
-  },
-  {
-    id: "experience",
-    label: "Experience",
-    icon: Briefcase,
-  },
-]
 
 export default function Navbar({
   activeSection,

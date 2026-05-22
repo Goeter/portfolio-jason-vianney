@@ -3,95 +3,8 @@
 import { useState } from "react"
 import Link from "next/link"
 import Image from "next/image"
-import {
-  ChevronLeft,
-  ArrowUpRight,
-  X,
-} from "lucide-react"
-
-// ============================================================
-// TYPES
-// ============================================================
-
-interface Project {
-  id: number
-  title: string
-  description: string
-  image: string
-  link?: string | null
-}
-
-// ============================================================
-// DATA
-// ============================================================
-
-const projects: Project[] = [
-  {
-    id: 1,
-    title: "PT Topas Multi Finance Website",
-    description:
-      "Public-facing corporate website that builds customer trust and strengthens digital brand presence through modern financial technology architecture.",
-    image: "/assets/projects/topas-website.png",
-    link: "https://frontend.topasmultifinance.co.id",
-  },
-  {
-    id: 2,
-    title: "PT. Alfa Berkat Sigma",
-    description:
-      "Corporate plumbing supply website focused on professional product presentation and modern business identity.",
-    image: "/assets/projects/sigma-picture.png",
-    link: "https://sigma-andrew-ten.vercel.app",
-  },
-  {
-    id: 3,
-    title: "Topas Multi Finance Mobile Application",
-    description:
-      "Mobile platform for customers and internal staff featuring loan management, disbursement tracking, monitoring, and financial services.",
-    image: "/assets/projects/mobile-app/combined",
-  },
-  {
-    id: 4,
-    title: "HR Topas Application",
-    description:
-      "Integrated HR system for attendance, payroll recap, KPI workforce planning, and recruitment process management.",
-    image: "/assets/projects/hr-topas-application.png",
-  },
-  {
-    id: 5,
-    title: "Monitoring & Feedback Prospect",
-    description:
-      "Internal monitoring system for dealer sales recording, delivery scheduling, confirmation, and document tracking.",
-    image: "/assets/projects/monitoring-server.png",
-  },
-  {
-    id: 6,
-    title: "Vehicle Registration Certificate System",
-    description:
-      "Digitalized disbursement note printing system replacing manual handwritten processes with secure centralized storage.",
-    image: "/assets/projects/vehicle-registration-certificate-system.png",
-  },
-  {
-    id: 7,
-    title: "Mobile Mata Elang & Subscribe",
-    description:
-      "Vehicle tracking mobile application for field teams and external partners with integrated subscription services.",
-    image: "/assets/projects/mobile-mata-elang/combined",
-  },
-  {
-    id: 8,
-    title: "Mobile Loan Flow Survey",
-    description:
-      "Survey application for debtor visits with centralized data collection and structured company database integration.",
-    image: "/assets/projects/flow-survey-pinjaman.jpg",
-  },
-  {
-    id: 9,
-    title: "Dashboard Admin Ticketing",
-    description:
-      "Web-based monitoring dashboard for ticket management and operational system tracking in real-time.",
-    image: "/assets/projects/dashboard_ticketing.png",
-  },
-]
+import { ChevronLeft, ArrowUpRight, X } from "lucide-react"
+import { projects, type Project } from "@/lib/site-content"
 
 // ============================================================
 // BATIK BACKGROUND
@@ -187,62 +100,20 @@ function ProjectImage({
 }: {
   project: Project
 }) {
-  if (project.image.includes("mobile-app/combined")) {
+  if (project.gallery) {
     return (
       <div className="flex h-full gap-[3px] bg-[#050816] p-[7px]">
-        <Image
-          src="/assets/projects/mobile-app/topas-mobile-dashboard.jpeg"
-          alt="Dashboard"
-          width={120}
-          height={240}
-          className="h-full w-1/3 rounded-lg object-cover"
-        />
-
-        <Image
-          src="/assets/projects/mobile-app/topas-mobile-menu.jpeg"
-          alt="Menu"
-          width={120}
-          height={240}
-          className="h-full w-1/3 rounded-lg object-cover"
-        />
-
-        <Image
-          src="/assets/projects/mobile-app/topas-mobile-profile.jpeg"
-          alt="Profile"
-          width={120}
-          height={240}
-          className="h-full w-1/3 rounded-lg object-cover"
-        />
-      </div>
-    )
-  }
-
-  if (project.image.includes("mobile-mata-elang/combined")) {
-    return (
-      <div className="flex h-full gap-[3px] bg-[#050816] p-[7px]">
-        <Image
-          src="/assets/projects/mobile-mata-elang/foto-1.png"
-          alt="Foto 1"
-          width={120}
-          height={240}
-          className="h-full w-1/3 rounded-lg object-cover"
-        />
-
-        <Image
-          src="/assets/projects/mobile-mata-elang/foto-2.png"
-          alt="Foto 2"
-          width={120}
-          height={240}
-          className="h-full w-1/3 rounded-lg object-cover"
-        />
-
-        <Image
-          src="/assets/projects/mobile-mata-elang/foto-3.png"
-          alt="Foto 3"
-          width={120}
-          height={240}
-          className="h-full w-1/3 rounded-lg object-cover"
-        />
+        {project.gallery.map((src, index) => (
+          <Image
+            key={src}
+            src={src}
+            alt={`${project.title} preview ${index + 1}`}
+            width={120}
+            height={240}
+            sizes="(max-width: 768px) 33vw, 12vw"
+            className="h-full w-1/3 rounded-lg object-cover"
+          />
+        ))}
       </div>
     )
   }
@@ -253,6 +124,7 @@ function ProjectImage({
       alt={project.title}
       width={600}
       height={400}
+      sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
       className="
         h-full w-full object-cover
         transition-transform duration-700
@@ -321,57 +193,19 @@ function ImageModal({
             p-4
           "
         >
-          {project.image.includes("mobile-app/combined") ? (
+          {project.gallery ? (
             <div className="flex gap-3 overflow-x-auto">
-              <Image
-                src="/assets/projects/mobile-app/topas-mobile-dashboard.jpeg"
-                alt="Dashboard"
-                width={350}
-                height={700}
-                className="rounded-2xl object-contain"
-              />
-
-              <Image
-                src="/assets/projects/mobile-app/topas-mobile-menu.jpeg"
-                alt="Menu"
-                width={350}
-                height={700}
-                className="rounded-2xl object-contain"
-              />
-
-              <Image
-                src="/assets/projects/mobile-app/topas-mobile-profile.jpeg"
-                alt="Profile"
-                width={350}
-                height={700}
-                className="rounded-2xl object-contain"
-              />
-            </div>
-          ) : project.image.includes("mobile-mata-elang/combined") ? (
-            <div className="flex gap-3 overflow-x-auto">
-              <Image
-                src="/assets/projects/mobile-mata-elang/foto-1.png"
-                alt="Foto 1"
-                width={350}
-                height={700}
-                className="rounded-2xl object-contain"
-              />
-
-              <Image
-                src="/assets/projects/mobile-mata-elang/foto-2.png"
-                alt="Foto 2"
-                width={350}
-                height={700}
-                className="rounded-2xl object-contain"
-              />
-
-              <Image
-                src="/assets/projects/mobile-mata-elang/foto-3.png"
-                alt="Foto 3"
-                width={350}
-                height={700}
-                className="rounded-2xl object-contain"
-              />
+              {project.gallery.map((src, index) => (
+                <Image
+                  key={src}
+                  src={src}
+                  alt={`${project.title} preview ${index + 1}`}
+                  width={350}
+                  height={700}
+                  sizes="350px"
+                  className="rounded-2xl object-contain"
+                />
+              ))}
             </div>
           ) : (
             <Image
@@ -379,6 +213,7 @@ function ImageModal({
               alt={project.title}
               width={1600}
               height={1000}
+              sizes="90vw"
               className="
                 h-auto max-h-[82vh]
                 w-full rounded-2xl
