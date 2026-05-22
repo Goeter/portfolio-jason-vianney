@@ -803,7 +803,7 @@ export default function ProjectsSection() {
           </button>
 
           <div
-            className="overflow-x-hidden overflow-y-visible sm:mx-[34px]"
+            className="no-card-scrollbar overflow-hidden sm:mx-[34px]"
             onTouchStart={handleTouchStart}
             onTouchMove={handleTouchMove}
             onTouchEnd={handleTouchEnd}

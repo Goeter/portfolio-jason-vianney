@@ -188,13 +188,13 @@ function ImageModal({
         <div
           className="
             max-h-[90vh]
-            overflow-auto
+            no-card-scrollbar overflow-auto
             bg-[#050816]
             p-4
           "
         >
           {project.gallery ? (
-            <div className="flex gap-3 overflow-x-auto">
+            <div className="no-card-scrollbar flex gap-3 overflow-x-auto">
               {project.gallery.map((src, index) => (
                 <Image
                   key={src}

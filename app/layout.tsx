@@ -2,7 +2,6 @@ import type React from "react"
 import type { Metadata } from "next"
 import "./globals.css"
 import { siteConfig } from "@/lib/site-content"
-import OverlayScrollbars from "./components/OverlayScrollbars"
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
@@ -46,7 +45,6 @@ export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en" className="scroll-smooth">
       <body suppressHydrationWarning>
-        <OverlayScrollbars />
         {children}
       </body>
     </html>

@@ -63,7 +63,7 @@ export default function ImagePreviewDialog({
 
         <div className="rounded-[22px] bg-[#050816] p-3">
           {isGallery ? (
-            <div className="portfolio-preview-scroll flex max-h-[82vh] gap-4 overflow-x-auto pb-2 pr-10">
+            <div className="portfolio-preview-scroll no-card-scrollbar flex max-h-[82vh] gap-4 overflow-x-auto pb-2 pr-10">
               {images.map((image, index) => (
                 <div
                   key={`${image.src}-${index}`}

@@ -495,3 +495,32 @@ body::-webkit-scrollbar-corner,
 .portfolio-preview-scroll {
   scrollbar-color: rgba(212, 168, 67, 0.55) transparent !important;
 }
+
+/* Hide scrollbars for carousel/card/preview surfaces to prevent the right-side blinking line glitch. */
+.no-card-scrollbar,
+.no-card-scrollbar * {
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+
+.no-card-scrollbar::-webkit-scrollbar,
+.no-card-scrollbar *::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+  background: transparent !important;
+}
+
+.no-card-scrollbar::-webkit-scrollbar-track,
+.no-card-scrollbar::-webkit-scrollbar-track-piece,
+.no-card-scrollbar *::-webkit-scrollbar-track,
+.no-card-scrollbar *::-webkit-scrollbar-track-piece,
+.no-card-scrollbar::-webkit-scrollbar-thumb,
+.no-card-scrollbar *::-webkit-scrollbar-thumb,
+.no-card-scrollbar::-webkit-scrollbar-corner,
+.no-card-scrollbar *::-webkit-scrollbar-corner {
+  display: none !important;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}

@@ -402,7 +402,7 @@ export default function RolesShowcase() {
         {/* Carousel */}
         <div
           ref={wrapRef}
-          className="overflow-x-hidden overflow-y-visible pt-3 pb-8"
+          className="no-card-scrollbar overflow-hidden pt-3 pb-8"
           onTouchStart={(e) => {
             touchStartX.current = e.touches[0].clientX
           }}
