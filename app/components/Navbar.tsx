@@ -47,9 +47,13 @@ export default function Navbar({ activeSection }: NavbarProps) {
       {/* Navbar */}
       <nav
         aria-label="Main Navigation"
-        className="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-slate-950/70 shadow-[0_18px_60px_rgba(2,6,23,0.28)] backdrop-blur-2xl"
+        className="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-slate-950/72 shadow-[0_18px_60px_rgba(2,6,23,0.32)] backdrop-blur-2xl"
       >
-        <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-300/40 to-transparent" />
+        {/* Soft top accent */}
+        <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-300/45 to-transparent" />
+
+        {/* Soft bottom depth */}
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
 
         <div className="mx-auto flex h-[64px] max-w-[1440px] items-center justify-between px-5 sm:px-6 lg:px-10">
           {/* Brand */}
@@ -79,7 +83,7 @@ export default function Navbar({ activeSection }: NavbarProps) {
           </button>
 
           {/* Desktop Navigation */}
-          <div className="hidden items-center rounded-2xl border border-white/10 bg-white/[0.045] p-1 shadow-inner shadow-white/5 lg:flex">
+          <div className="hidden items-center gap-1 rounded-2xl bg-white/[0.018] p-1 lg:flex">
             {navItems.map((item) => {
               const Icon = item.icon
               const isActive = activeSection === item.id
@@ -92,25 +96,42 @@ export default function Navbar({ activeSection }: NavbarProps) {
                   aria-current={isActive ? "page" : undefined}
                   className={`group relative flex items-center gap-2 overflow-hidden rounded-xl px-4 py-2 text-sm font-medium outline-none transition-all duration-300 focus-visible:ring-2 focus-visible:ring-cyan-300/50 ${
                     isActive
-                      ? "bg-white/[0.11] text-white shadow-[0_10px_32px_rgba(34,211,238,0.12)]"
-                      : "text-slate-300 hover:bg-white/[0.075] hover:text-white"
+                      ? "text-white"
+                      : "text-slate-300 hover:text-white"
                   }`}
                 >
+                  {/* Active background */}
+                  <span
+                    className={`absolute inset-0 rounded-xl transition-all duration-300 ${
+                      isActive
+                        ? "bg-white/[0.105] shadow-[0_10px_34px_rgba(34,211,238,0.13)]"
+                        : "bg-transparent"
+                    }`}
+                  />
+
+                  {/* Hover background */}
+                  <span className="absolute inset-0 rounded-xl bg-white/[0.075] opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+
+                  {/* Elegant hover glow */}
+                  <span className="absolute inset-0 rounded-xl bg-gradient-to-r from-cyan-300/0 via-cyan-300/[0.11] to-blue-400/0 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+
+                  {/* Hover light sweep */}
+                  <span className="absolute inset-y-0 -left-1/2 w-1/2 skew-x-[-18deg] bg-gradient-to-r from-transparent via-white/12 to-transparent opacity-0 transition-all duration-700 ease-out group-hover:left-full group-hover:opacity-100" />
+
+                  {/* Bottom accent */}
                   <span
                     className={`absolute inset-x-3 bottom-1 h-px rounded-full bg-gradient-to-r from-transparent via-cyan-300 to-transparent transition-all duration-300 ${
                       isActive
                         ? "opacity-100"
-                        : "opacity-0 group-hover:opacity-70"
+                        : "opacity-0 group-hover:opacity-80"
                     }`}
                   />
-
-                  <span className="absolute inset-0 rounded-xl bg-gradient-to-r from-cyan-300/0 via-cyan-300/[0.08] to-blue-400/0 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
 
                   <Icon
                     className={`relative z-10 h-4 w-4 shrink-0 transition-all duration-300 ${
                       isActive
                         ? "text-cyan-200"
-                        : "text-slate-400 group-hover:text-cyan-200"
+                        : "text-slate-400 group-hover:scale-105 group-hover:text-cyan-200"
                     }`}
                   />
 
@@ -128,7 +149,7 @@ export default function Navbar({ activeSection }: NavbarProps) {
             size="icon"
             aria-label="Toggle Menu"
             onClick={toggleMobileMenu}
-            className="relative flex h-10 w-10 items-center justify-center rounded-2xl border border-white/10 bg-white/[0.045] text-cyan-200 shadow-inner shadow-white/5 transition-all duration-300 hover:scale-105 hover:bg-white/[0.075] hover:text-white lg:hidden"
+            className="relative flex h-10 w-10 items-center justify-center rounded-2xl bg-white/[0.045] text-cyan-200 shadow-inner shadow-white/5 transition-all duration-300 hover:scale-105 hover:bg-white/[0.085] hover:text-white lg:hidden"
           >
             <div className="relative flex h-5 w-6 items-center justify-center">
               <span
@@ -139,7 +160,9 @@ export default function Navbar({ activeSection }: NavbarProps) {
 
               <span
                 className={`absolute h-[2px] w-6 rounded-full bg-current transition-all duration-200 ${
-                  isMobileMenuOpen ? "scale-0 opacity-0" : "scale-100 opacity-100"
+                  isMobileMenuOpen
+                    ? "scale-0 opacity-0"
+                    : "scale-100 opacity-100"
                 }`}
               />
 
@@ -198,7 +221,7 @@ export default function Navbar({ activeSection }: NavbarProps) {
               size="icon"
               aria-label="Close Menu"
               onClick={closeMobileMenu}
-              className="rounded-2xl border border-white/10 bg-white/[0.045] text-cyan-200 transition-all duration-300 hover:bg-white/[0.075] hover:text-white"
+              className="rounded-2xl bg-white/[0.045] text-cyan-200 transition-all duration-300 hover:bg-white/[0.085] hover:text-white"
             >
               <X className="h-5 w-5" />
             </Button>
@@ -216,29 +239,33 @@ export default function Navbar({ activeSection }: NavbarProps) {
                   onClick={() => scrollToSection(item.id)}
                   aria-label={item.label}
                   aria-current={isActive ? "page" : undefined}
-                  className={`group relative flex w-full items-center gap-3 overflow-hidden rounded-2xl border px-4 py-3 text-left outline-none transition-all duration-500 focus-visible:ring-2 focus-visible:ring-cyan-300/50 ${
+                  className={`group relative flex w-full items-center gap-3 overflow-hidden rounded-2xl px-4 py-3 text-left outline-none transition-all duration-500 focus-visible:ring-2 focus-visible:ring-cyan-300/50 ${
                     isMobileMenuOpen
                       ? "translate-x-0 opacity-100"
                       : "translate-x-8 opacity-0"
                   } ${
                     isActive
-                      ? "border-cyan-300/20 bg-white/[0.11] text-white shadow-[0_12px_36px_rgba(34,211,238,0.12)]"
-                      : "border-white/10 bg-white/[0.035] text-slate-300 hover:border-cyan-300/20 hover:bg-white/[0.075] hover:text-white"
+                      ? "bg-white/[0.11] text-white shadow-[0_12px_36px_rgba(34,211,238,0.12)]"
+                      : "bg-white/[0.035] text-slate-300 hover:bg-white/[0.085] hover:text-white"
                   }`}
                   style={{
                     transitionDelay: `${index * 70}ms`,
                   }}
                 >
-                  <span className="absolute inset-0 rounded-2xl bg-gradient-to-r from-cyan-300/0 via-cyan-300/[0.08] to-blue-400/0 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                  {/* Hover glow */}
+                  <span className="absolute inset-0 rounded-2xl bg-gradient-to-r from-cyan-300/0 via-cyan-300/[0.11] to-blue-400/0 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+
+                  {/* Hover light sweep */}
+                  <span className="absolute inset-y-0 -left-1/2 w-1/2 skew-x-[-18deg] bg-gradient-to-r from-transparent via-white/10 to-transparent opacity-0 transition-all duration-700 ease-out group-hover:left-full group-hover:opacity-100" />
 
                   <span
                     className={`relative z-10 flex h-9 w-9 shrink-0 items-center justify-center rounded-xl transition-all duration-300 ${
                       isActive
                         ? "bg-cyan-300/10 text-cyan-100"
-                        : "bg-white/[0.045] text-slate-400 group-hover:text-cyan-200"
+                        : "bg-white/[0.045] text-slate-400 group-hover:bg-cyan-300/10 group-hover:text-cyan-200"
                     }`}
                   >
-                    <Icon className="h-5 w-5" />
+                    <Icon className="h-5 w-5 transition-transform duration-300 group-hover:scale-105" />
                   </span>
 
                   <span className="relative z-10 text-sm font-medium">
@@ -247,7 +274,9 @@ export default function Navbar({ activeSection }: NavbarProps) {
 
                   <span
                     className={`absolute bottom-2 left-[68px] right-4 h-px rounded-full bg-gradient-to-r from-cyan-300/70 to-transparent transition-opacity duration-300 ${
-                      isActive ? "opacity-100" : "opacity-0 group-hover:opacity-60"
+                      isActive
+                        ? "opacity-100"
+                        : "opacity-0 group-hover:opacity-70"
                     }`}
                   />
                 </button>
