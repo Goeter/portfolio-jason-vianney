@@ -1,11 +1,13 @@
 "use client"
 
+import { useMemo, useState } from "react"
 import { ChevronLeft } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import Image from "next/image"
 import { notFound } from "next/navigation"
 import { projects } from "@/lib/site-content"
+import ImagePreviewDialog from "../../components/ImagePreviewDialog"
 
 interface ExperienceDetailProps {
   params: {
@@ -25,6 +27,17 @@ export default function ExperienceDetail({ params }: ExperienceDetailProps) {
   if (!project) {
     notFound()
   }
+
+  const [isPreviewOpen, setIsPreviewOpen] = useState(false)
+
+  const previewImages = useMemo(() => {
+    const sources = project.gallery?.length ? project.gallery : [project.image]
+
+    return sources.map((src, index) => ({
+      src,
+      alt: `${project.title} preview ${index + 1}`,
+    }))
+  }, [project])
 
   return (
     <div className="relative min-h-screen overflow-x-hidden bg-[#07091a] text-white">
@@ -52,7 +65,12 @@ export default function ExperienceDetail({ params }: ExperienceDetailProps) {
           </h1>
 
           <div className="mb-8 overflow-hidden rounded-[28px] border border-cyan-400/15 bg-slate-950/70 p-3 shadow-2xl shadow-black/40 backdrop-blur-xl">
-            <div className="aspect-video overflow-hidden rounded-[20px] bg-[#050816]">
+            <button
+              type="button"
+              onClick={() => setIsPreviewOpen(true)}
+              aria-label={`Preview ${project.title}`}
+              className="group relative aspect-video w-full overflow-hidden rounded-[20px] bg-[#050816] text-left"
+            >
               {project.gallery ? (
                 <div className="flex h-full gap-3 p-4">
                   {project.gallery.map((src, index) => (
@@ -63,7 +81,7 @@ export default function ExperienceDetail({ params }: ExperienceDetailProps) {
                       width={320}
                       height={640}
                       sizes="(max-width: 768px) 33vw, 320px"
-                      className="h-full w-1/3 rounded-2xl object-cover shadow-lg"
+                      className="h-full w-1/3 rounded-2xl object-cover shadow-lg transition-transform duration-500 group-hover:scale-[1.02]"
                       priority={index === 0}
                     />
                   ))}
@@ -75,11 +93,15 @@ export default function ExperienceDetail({ params }: ExperienceDetailProps) {
                   width={1200}
                   height={760}
                   sizes="(max-width: 1024px) 100vw, 960px"
-                  className="h-full w-full object-cover"
+                  className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
                   priority
                 />
               )}
-            </div>
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/65 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+              <div className="absolute bottom-4 right-4 rounded-full border border-white/20 bg-black/45 px-4 py-2 text-sm font-medium text-white/90 opacity-0 backdrop-blur-md transition-opacity duration-300 group-hover:opacity-100">
+                Click to preview
+              </div>
+            </button>
           </div>
 
           <article className="rounded-[28px] border border-cyan-400/15 bg-slate-950/70 p-6 text-lg leading-relaxed text-slate-300 shadow-2xl shadow-black/30 backdrop-blur-xl md:p-8">
@@ -87,6 +109,12 @@ export default function ExperienceDetail({ params }: ExperienceDetailProps) {
           </article>
         </div>
       </main>
+
+      <ImagePreviewDialog
+        images={isPreviewOpen ? previewImages : null}
+        title={project.title}
+        onClose={() => setIsPreviewOpen(false)}
+      />
     </div>
   )
 }

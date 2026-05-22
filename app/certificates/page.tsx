@@ -1,13 +1,28 @@
 "use client"
 
+import { useMemo, useState } from "react"
 import { ChevronLeft, Award, Sparkles } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import Link from "next/link"
 import Image from "next/image"
 import { certificates } from "@/lib/site-content"
+import ImagePreviewDialog from "../components/ImagePreviewDialog"
 
 export default function AllCertificates() {
+  const [selectedCertificate, setSelectedCertificate] = useState<(typeof certificates)[number] | null>(null)
+
+  const previewImages = useMemo(() => {
+    if (!selectedCertificate) return null
+
+    return [
+      {
+        src: selectedCertificate.image,
+        alt: `${selectedCertificate.title} certificate preview`,
+      },
+    ]
+  }, [selectedCertificate])
+
   return (
     <div className="relative min-h-screen overflow-x-hidden bg-slate-950">
       <div className="fixed inset-0 bg-[radial-gradient(circle_at_18%_18%,rgba(34,197,94,0.22),transparent_32%),radial-gradient(circle_at_82%_20%,rgba(20,184,166,0.18),transparent_34%),radial-gradient(circle_at_50%_90%,rgba(16,185,129,0.18),transparent_36%),linear-gradient(135deg,#020617_0%,#03251c_45%,#042f2e_100%)]" />
@@ -62,7 +77,12 @@ export default function AllCertificates() {
               }}
             >
               <CardContent className="flex h-full flex-col p-0">
-                <div className="relative aspect-video flex-shrink-0 overflow-hidden bg-slate-900">
+                <button
+                  type="button"
+                  onClick={() => setSelectedCertificate(certificate)}
+                  aria-label={`Preview ${certificate.title}`}
+                  className="relative aspect-video w-full flex-shrink-0 overflow-hidden bg-slate-900 text-left"
+                >
                   <Image
                     src={certificate.image || "/placeholder.svg"}
                     alt={`${certificate.title} certificate`}
@@ -76,7 +96,11 @@ export default function AllCertificates() {
                   <div className="absolute left-3 top-3 rounded-full border border-white/20 bg-black/40 p-2 text-green-200 backdrop-blur-md">
                     <Award className="h-4 w-4" />
                   </div>
-                </div>
+
+                  <div className="absolute bottom-3 right-3 rounded-full border border-white/20 bg-black/45 px-3 py-1 text-xs font-medium text-white backdrop-blur-md opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                    Click to preview
+                  </div>
+                </button>
 
                 <div className="flex flex-grow flex-col rounded-b-3xl border-t border-green-300/10 bg-gradient-to-br from-green-100 via-emerald-100 to-teal-100 p-5">
                   <div className="mb-3 flex flex-wrap items-center gap-2">
@@ -104,6 +128,12 @@ export default function AllCertificates() {
           ))}
         </div>
       </main>
+
+      <ImagePreviewDialog
+        images={previewImages}
+        title={selectedCertificate?.title}
+        onClose={() => setSelectedCertificate(null)}
+      />
 
       <style jsx>{`
         .certificate-grid {

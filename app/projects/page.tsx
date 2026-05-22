@@ -484,33 +484,39 @@ export default function AllProjects() {
 
         .custom-scrollbar {
           scrollbar-width: thin;
-          scrollbar-color: rgba(212, 168, 67, 0) transparent;
-        }
-
-        .custom-scrollbar:hover {
-          scrollbar-color: rgba(212, 168, 67, 0.45) transparent;
+          scrollbar-color: rgba(212, 168, 67, 0.58) transparent;
         }
 
         .custom-scrollbar::-webkit-scrollbar {
           width: 8px;
+          height: 8px;
+          background: transparent;
         }
 
-        .custom-scrollbar::-webkit-scrollbar-track {
+        .custom-scrollbar::-webkit-scrollbar-track,
+        .custom-scrollbar::-webkit-scrollbar-track-piece {
           background: transparent;
+          border: 0;
+          box-shadow: none;
         }
 
         .custom-scrollbar::-webkit-scrollbar-thumb {
-          background: transparent;
+          min-height: 48px;
+          border: 2px solid transparent;
+          background: rgba(212, 168, 67, 0.58);
+          background-clip: content-box;
           border-radius: 999px;
+          box-shadow: none;
           transition: background 0.3s ease;
         }
 
-        .custom-scrollbar:hover::-webkit-scrollbar-thumb {
-          background: rgba(212, 168, 67, 0.45);
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+          background: rgba(212, 168, 67, 0.82);
+          background-clip: content-box;
         }
 
-        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-          background: rgba(212, 168, 67, 0.72);
+        .custom-scrollbar::-webkit-scrollbar-corner {
+          background: transparent;
         }
 
         body {

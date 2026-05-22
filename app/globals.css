@@ -435,3 +435,63 @@ html[data-scrolling="true"] *::-webkit-scrollbar-thumb,
   height: 96px;
   background: linear-gradient(to top, rgba(2, 6, 23, 0.52), transparent);
 }
+
+
+/* Clean scrollbar: show only the thumb, never the white scrollbar track/gutter. */
+html {
+  scrollbar-gutter: auto !important;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(212, 168, 67, 0.58) transparent !important;
+}
+
+body,
+* {
+  scrollbar-color: rgba(212, 168, 67, 0.58) transparent !important;
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar,
+*::-webkit-scrollbar {
+  width: 8px !important;
+  height: 8px !important;
+  background: transparent !important;
+}
+
+html::-webkit-scrollbar-track,
+html::-webkit-scrollbar-track-piece,
+body::-webkit-scrollbar-track,
+body::-webkit-scrollbar-track-piece,
+*::-webkit-scrollbar-track,
+*::-webkit-scrollbar-track-piece {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+html::-webkit-scrollbar-thumb,
+body::-webkit-scrollbar-thumb,
+*::-webkit-scrollbar-thumb {
+  min-height: 48px;
+  border-radius: 999px !important;
+  border: 2px solid transparent !important;
+  background: rgba(212, 168, 67, 0.58) !important;
+  background-clip: content-box !important;
+  box-shadow: none !important;
+}
+
+html::-webkit-scrollbar-thumb:hover,
+body::-webkit-scrollbar-thumb:hover,
+*::-webkit-scrollbar-thumb:hover {
+  background: rgba(212, 168, 67, 0.82) !important;
+  background-clip: content-box !important;
+}
+
+html::-webkit-scrollbar-corner,
+body::-webkit-scrollbar-corner,
+*::-webkit-scrollbar-corner {
+  background: transparent !important;
+}
+
+.portfolio-preview-scroll {
+  scrollbar-color: rgba(212, 168, 67, 0.55) transparent !important;
+}
