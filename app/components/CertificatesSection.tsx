@@ -122,25 +122,29 @@ export default function CertificatesSection() {
       )}
 
       <div className="container relative z-10 mx-auto max-w-6xl px-4">
-        <div className="mb-10 flex animate-[fadeInUp_0.8s_ease-out] flex-col gap-5 md:flex-row md:items-end md:justify-between">
-          <div>
+        <div className="mb-10 flex animate-[fadeInUp_0.8s_ease-out] flex-row items-start justify-between gap-4 md:items-end">
+          <div className="min-w-0">
             <h2 className="bg-gradient-to-r from-white via-green-100 to-emerald-300 bg-clip-text text-4xl font-bold tracking-tight text-transparent md:text-5xl">
               Certificates
             </h2>
+
             <p className="mt-3 max-w-2xl text-sm leading-relaxed text-slate-300 md:text-base">
               A complete collection of certifications and learning achievements that support my professional development journey.
             </p>
           </div>
 
-          <Link href="/certificates" className="w-fit no-underline">
+          <Link href="/certificates" className="shrink-0 no-underline">
             <div className="group flex overflow-hidden rounded-[12px] border border-green-300/30 bg-slate-950/70 shadow-lg shadow-green-500/10 backdrop-blur-md transition-all duration-300 hover:scale-[1.03] hover:border-green-300/60 hover:shadow-green-500/20">
-              <div className="flex items-center gap-2 bg-slate-950/60 px-4 py-[12px] text-[13px] font-semibold tracking-[0.02em] text-green-200 transition-colors duration-300 group-hover:bg-green-400 group-hover:text-slate-950 sm:px-5">
-                <span>View All</span>
+              <div className="flex items-center justify-center gap-2 bg-slate-950/60 px-3 py-[12px] text-[13px] font-semibold tracking-[0.02em] text-green-200 transition-colors duration-300 group-hover:bg-green-400 group-hover:text-slate-950 sm:px-5">
+                <span className="hidden sm:inline">View All</span>
                 <ExternalLink className="h-4 w-4 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </div>
-              <div className="flex min-w-[58px] flex-col items-center justify-center bg-green-400 px-3 py-[10px] leading-none text-slate-950 sm:px-4">
+
+              <div className="hidden min-w-[58px] flex-col items-center justify-center bg-green-400 px-3 py-[10px] leading-none text-slate-950 sm:flex sm:px-4">
                 <span className="text-[21px] font-bold">{certificates.length}</span>
-                <span className="mt-[2px] text-[8px] uppercase tracking-widest opacity-70 sm:text-[9px]">Certif</span>
+                <span className="mt-[2px] text-[9px] uppercase tracking-widest opacity-70">
+                  Certif
+                </span>
               </div>
             </div>
           </Link>
@@ -203,7 +207,9 @@ export default function CertificatesSection() {
                                 sizes="(max-width: 768px) 88vw, (max-width: 1024px) 42vw, 30vw"
                                 className="h-full w-full object-cover transition duration-500 group-hover:scale-110"
                               />
+
                               <div className="absolute inset-0 bg-gradient-to-t from-slate-950/75 via-transparent to-transparent opacity-80" />
+
                               <div className="absolute bottom-3 left-3 rounded-full border border-white/20 bg-black/40 px-3 py-1 text-xs font-medium text-white backdrop-blur-md">
                                 Click to preview
                               </div>
@@ -215,6 +221,7 @@ export default function CertificatesSection() {
                                   <Award className="h-3.5 w-3.5" />
                                   {certificate.issuer}
                                 </span>
+
                                 <span className="rounded-full border border-slate-500/30 bg-white/5 px-3 py-1 text-slate-300">
                                   {certificate.date}
                                 </span>
@@ -272,6 +279,7 @@ export default function CertificatesSection() {
                   />
                 )
               })}
+
               <span className="ml-1 min-w-8 font-mono text-[11px] text-slate-400">
                 {currentPage + 1}/{totalPages}
               </span>
