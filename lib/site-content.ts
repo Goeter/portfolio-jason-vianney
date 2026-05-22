@@ -261,7 +261,7 @@ export const experiences: Experience[] = [
     period: "June 2025 – Now",
     location: "Surabaya, Indonesia",
     workMode: "On-Site",
-    logo: "/assets/company-logos/icon_freelance_it.svg",
+    logo: "/assets/company-logos/icon_freelance_it.png",
     details: [
       "Built a responsive front-end company profile website for PT Sigma to enhance digital credibility and improve customer access to company information.",
       "Built a responsive company profile website and CMS for PT Steda Roaster to streamline content updates and present business offerings clearly to customers.",
