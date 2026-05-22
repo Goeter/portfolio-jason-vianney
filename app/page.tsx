@@ -214,17 +214,25 @@ export default function Home() {
 
       <FloatingContact />
 
-      {/* Futuristic Footer */}
-      <footer className="w-full bg-gradient-to-r from-slate-900/90 via-blue-900/90 to-purple-900/90 backdrop-blur-sm py-6 relative z-10 border-t border-cyan-500/20">
-        <div className="container mx-auto px-4">
-          <div className="flex items-center justify-between">
-            <p className="text-cyan-300 text-sm font-mono">
+      {/* Elegant Footer */}
+      <footer className="relative z-10 w-full border-t border-white/10 bg-slate-950/70 py-6 backdrop-blur-2xl">
+        <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-300/35 to-transparent" />
+      
+        <div className="container mx-auto px-5 sm:px-6 lg:px-10">
+          <div className="flex flex-col items-center justify-center gap-3 text-center sm:flex-row sm:justify-between sm:text-left">
+            <p
+              className="text-[13px] leading-relaxed tracking-[0.015em] text-slate-300/90 sm:text-sm"
+              style={{
+                fontFamily: "'Inter', sans-serif",
+              }}
+            >
               {siteConfig.footer}
             </p>
-            <div className="flex space-x-2">
-              <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
-              <div className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse" style={{ animationDelay: "0.5s" }} />
-              <div className="w-2 h-2 bg-purple-400 rounded-full animate-pulse" style={{ animationDelay: "1s" }} />
+      
+            <div className="flex items-center gap-2 text-[11px] font-medium tracking-[0.18em] text-cyan-200/70">
+              <span className="h-px w-8 bg-gradient-to-r from-transparent to-cyan-300/50" />
+              <span>PORTFOLIO</span>
+              <span className="h-px w-8 bg-gradient-to-l from-transparent to-cyan-300/50" />
             </div>
           </div>
         </div>
