@@ -33,6 +33,8 @@ export type Experience = {
   period: string
   logo: string
   details: string[]
+  location?: string
+  workMode?: string
 }
 
 export const siteConfig = {
@@ -41,7 +43,7 @@ export const siteConfig = {
   role: "IT Professional",
   headline: "System Analyst, UI/UX Designer, Data Analyst, and Fullstack Developer",
   description:
-    "Portfolio of Jason Vianney Sugiarto, an IT professional experienced in system analysis, UI/UX design, data analytics, fullstack development, HR systems, corporate websites, mobile applications, and business process digitalization.",
+    "Portfolio of Jason Vianney Sugiarto, an IT professional experienced in system analysis, UI/UX design, data analytics, fullstack development, freelance IT projects, tutoring, HR systems, corporate websites, CMS websites, mobile applications, and business process digitalization.",
   url: "https://jasonvianney.com",
   locale: "en_US",
   keywords: [
@@ -56,6 +58,10 @@ export const siteConfig = {
     "HR System",
     "Corporate Website",
     "Mobile Application",
+    "Freelance IT Portfolio",
+    "PT Steda Roaster Website",
+    "PT Sigma Website",
+    "Math Physics English Tutor",
   ],
   contacts: {
     email: "jasonvianneys@gmail.com",
@@ -165,6 +171,16 @@ export const projects: Project[] = [
       "A web-based admin dashboard for ticket management, operational monitoring, and real-time tracking of issue handling workflows across internal systems.",
     image: "/assets/projects/dashboard_ticketing.png",
   },
+  {
+    id: 10,
+    title: "PT Steda Roaster Company Profile & CMS",
+    description:
+      "Responsive company profile website with CMS support to present Steda Roaster's coffee roasting services, products, and business information clearly.",
+    detailDescription:
+      "A responsive company profile website and CMS for PT Steda Roaster, designed to strengthen the brand's digital presence, present coffee roasting services and business offerings clearly, and make content updates easier through a structured content management workflow. The website focuses on clean visual hierarchy, accessible information, responsive layouts, and a professional user experience for customers and business partners.",
+    image: "/assets/projects/steda-roaster.svg",
+    link: "https://stedaroaster.vercel.app/",
+  },
 ]
 
 export const certificates: Certificate[] = [
@@ -213,9 +229,36 @@ export const certificates: Certificate[] = [
 export const experiences: Experience[] = [
   {
     id: 1,
+    company: "Freelance IT",
+    division: "Fullstack Developer, System Analyst, UI/UX Designer, Data Analyst",
+    period: "June 2025 – Now",
+    location: "Surabaya, Indonesia",
+    workMode: "On-Site",
+    logo: "/assets/company-logos/icon_freelance_it.svg",
+    details: [
+      "Built a responsive front-end company profile website for PT Sigma to enhance digital credibility and improve customer access to company information.",
+      "Built a responsive company profile website and CMS for PT Steda Roaster to streamline content updates and present business offerings clearly to customers.",
+    ],
+  },
+  {
+    id: 2,
+    company: "Student Center",
+    division: "Math, Physics and English Tutor",
+    period: "September 2024 – Now",
+    location: "Jakarta - Surabaya, Indonesia",
+    workMode: "On-Site",
+    logo: "/assets/company-logos/icon_student_center.svg",
+    details: [
+      "Taught Mathematics, Physics, and English to elementary and high school students through interactive learning methods, helping strengthen fundamentals, improve comprehension, and prepare for exams.",
+    ],
+  },
+  {
+    id: 3,
     company: "PT Topas Multi Finance - Member of Mayapada Group",
     division: "System Analyst",
     period: "March 2024 - June 2025",
+    location: "Jakarta, Indonesia",
+    workMode: "On-Site",
     logo: "/assets/company-logos/icon_topas.png",
     details: [
       "Developing systems to increase operational efficiency 50% through integrated document and financial workflows.",
@@ -225,10 +268,12 @@ export const experiences: Experience[] = [
     ],
   },
   {
-    id: 2,
+    id: 4,
     company: "PT Astra Honda Motor",
     division: "System Analyst",
     period: "February 2023 - February 2024",
+    location: "Jakarta, Indonesia",
+    workMode: "On-Site",
     logo: "/assets/company-logos/icon_astra.png",
     details: [
       "Developed an internal application for dealer motorcycle sales, order confirmation, delivery scheduling, and document validation.",
@@ -237,10 +282,12 @@ export const experiences: Experience[] = [
     ],
   },
   {
-    id: 3,
+    id: 5,
     company: "PT Wings Group",
     division: "Full-stack Developer",
     period: "February 2022 - February 2023",
+    location: "Surabaya, Indonesia",
+    workMode: "On-Site",
     logo: "/assets/company-logos/icon_wings.png",
     details: [
       "Enhancing the international sales website for seamless inventory tracking and real time digital sales monitoring across Asia.",
@@ -249,10 +296,12 @@ export const experiences: Experience[] = [
     ],
   },
   {
-    id: 4,
+    id: 6,
     company: "Universitas Surabaya",
     division: "Bachelor of Information Systems",
     period: "2017 – 2021",
+    location: "Surabaya, Indonesia",
+    workMode: "Academic",
     logo: "/assets/company-logos/icon_ubaya.png",
     details: [
       "Assisting professors by preparing programming exercises and reviewing assignments to reinforce programming fundamentals.",
@@ -260,3 +309,4 @@ export const experiences: Experience[] = [
     ],
   },
 ]
+
