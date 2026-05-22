@@ -128,34 +128,35 @@ export default function CertificatesSection() {
       )}
 
       <div className="container relative z-10 mx-auto max-w-6xl px-4">
-        <div className="mb-10 flex animate-[fadeInUp_0.8s_ease-out] flex-row items-start justify-between gap-4">
-          <div className="min-w-0 flex-1">
-            <h2 className="bg-gradient-to-r from-white via-green-100 to-emerald-300 bg-clip-text text-4xl font-bold tracking-tight text-transparent md:text-5xl">
+        <div className="mb-10 animate-[fadeInUp_0.8s_ease-out]">
+          <div className="flex items-start justify-between gap-4">
+            <h2 className="min-w-0 bg-gradient-to-r from-white via-green-100 to-emerald-300 bg-clip-text text-4xl font-bold tracking-tight text-transparent md:text-5xl">
               Certificates
             </h2>
-        
-            <p className="mt-3 w-full max-w-none pr-2 text-sm leading-relaxed text-slate-300 md:pr-8 md:text-base lg:pr-12">
-              A complete collection of certifications and learning achievements that support my professional development journey.
-            </p>
-          </div>
-        
-          <Link href="/certificates" className="mt-1 shrink-0 no-underline md:mt-2">
-            <div className="group flex overflow-hidden rounded-[12px] border border-green-300/30 bg-slate-950/70 shadow-lg shadow-green-500/10 backdrop-blur-md transition-all duration-300 hover:scale-[1.03] hover:border-green-300/60 hover:shadow-green-500/20">
-              <div className="flex items-center justify-center gap-2 bg-slate-950/60 px-3 py-[12px] text-[13px] font-semibold tracking-[0.02em] text-green-200 transition-colors duration-300 group-hover:bg-green-400 group-hover:text-slate-950 sm:px-5">
-                <span className="hidden sm:inline">View All</span>
-                <ExternalLink className="h-4 w-4 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-              </div>
 
-              <div className="flex min-w-[52px] items-center justify-center gap-1 bg-green-400 px-3 py-[12px] leading-none text-slate-950 sm:min-w-[82px] sm:px-4">
-                <span className="text-[16px] font-bold sm:text-[18px]">
-                  {certificates.length}
-                </span>
-                <span className="text-[8px] uppercase tracking-widest opacity-70 sm:text-[9px]">
-                  Certif
-                </span>
+            <Link href="/certificates" className="mt-1 shrink-0 no-underline md:mt-2">
+              <div className="group flex overflow-hidden rounded-[12px] border border-green-300/30 bg-slate-950/70 shadow-lg shadow-green-500/10 backdrop-blur-md transition-all duration-300 hover:scale-[1.03] hover:border-green-300/60 hover:shadow-green-500/20">
+                <div className="flex items-center justify-center gap-2 bg-slate-950/60 px-3 py-[12px] text-[13px] font-semibold tracking-[0.02em] text-green-200 transition-colors duration-300 group-hover:bg-green-400 group-hover:text-slate-950 sm:px-5">
+                  <span className="hidden sm:inline">View All</span>
+                  <ExternalLink className="h-4 w-4 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                </div>
+
+                <div className="flex min-w-[52px] flex-col items-center justify-center bg-green-400 px-3 py-[8px] leading-none text-slate-950 sm:min-w-[64px] sm:px-4">
+                  <span className="text-[18px] font-bold leading-none sm:text-[21px]">
+                    {certificates.length}
+                  </span>
+
+                  <span className="mt-[3px] text-[8px] uppercase tracking-widest opacity-70 sm:text-[9px]">
+                    Certif
+                  </span>
+                </div>
               </div>
-            </div>
-          </Link>
+            </Link>
+          </div>
+
+          <p className="mt-3 w-full max-w-none text-sm leading-relaxed text-slate-300 md:max-w-4xl md:text-base lg:max-w-5xl">
+            A complete collection of certifications and learning achievements that support my professional development journey.
+          </p>
         </div>
 
         <div className="relative animate-[fadeInUp_1s_ease-out]">
