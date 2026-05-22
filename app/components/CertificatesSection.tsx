@@ -129,16 +129,16 @@ export default function CertificatesSection() {
 
       <div className="container relative z-10 mx-auto max-w-6xl px-4">
         <div className="mb-10 flex animate-[fadeInUp_0.8s_ease-out] flex-row items-start justify-between gap-4">
-          <div className="min-w-0">
+          <div className="min-w-0 flex-1">
             <h2 className="bg-gradient-to-r from-white via-green-100 to-emerald-300 bg-clip-text text-4xl font-bold tracking-tight text-transparent md:text-5xl">
               Certificates
             </h2>
-
-            <p className="mt-3 max-w-2xl text-sm leading-relaxed text-slate-300 md:text-base">
+        
+            <p className="mt-3 w-full max-w-none pr-2 text-sm leading-relaxed text-slate-300 md:pr-8 md:text-base lg:pr-12">
               A complete collection of certifications and learning achievements that support my professional development journey.
             </p>
           </div>
-
+        
           <Link href="/certificates" className="mt-1 shrink-0 no-underline md:mt-2">
             <div className="group flex overflow-hidden rounded-[12px] border border-green-300/30 bg-slate-950/70 shadow-lg shadow-green-500/10 backdrop-blur-md transition-all duration-300 hover:scale-[1.03] hover:border-green-300/60 hover:shadow-green-500/20">
               <div className="flex items-center justify-center gap-2 bg-slate-950/60 px-3 py-[12px] text-[13px] font-semibold tracking-[0.02em] text-green-200 transition-colors duration-300 group-hover:bg-green-400 group-hover:text-slate-950 sm:px-5">
