@@ -44,8 +44,10 @@ export default function AllCertificates() {
           <div className="w-[80px] sm:w-[120px]">
             <Link href="/#certificates">
               <Button className="group rounded-full border border-green-300/30 bg-white/10 px-4 py-5 text-sm font-semibold text-white shadow-lg shadow-green-500/10 backdrop-blur-md transition-all duration-300 hover:-translate-x-1 hover:bg-green-400 hover:text-slate-950">
-                <ChevronLeft className="mr-2 h-5 w-5 transition group-hover:-translate-x-1" />
-                Back
+                <ChevronLeft className="h-5 w-5 transition group-hover:-translate-x-1 sm:mr-2" />
+                <span className="hidden text-[13px] sm:inline">
+                  Back
+                </span>
               </Button>
             </Link>
           </div>
