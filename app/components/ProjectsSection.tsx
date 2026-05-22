@@ -5,11 +5,7 @@ import type { TouchEvent } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import ImagePreviewDialog from "./ImagePreviewDialog"
-import {
-  ChevronLeft,
-  ChevronRight,
-  ExternalLink,
-} from "lucide-react"
+import { ChevronLeft, ChevronRight, ExternalLink } from "lucide-react"
 
 import { projects, projectsLatestFirst, type Project } from "@/lib/site-content"
 
@@ -19,7 +15,7 @@ import { projects, projectsLatestFirst, type Project } from "@/lib/site-content"
 
 function SpaceBackground() {
   return (
-    <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+    <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
       <svg
         className="absolute inset-0 h-full w-full"
         xmlns="http://www.w3.org/2000/svg"
@@ -27,21 +23,27 @@ function SpaceBackground() {
       >
         <defs>
           <linearGradient id="spaceBase" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stopColor="#02030a" />
-            <stop offset="45%" stopColor="#07091a" />
-            <stop offset="100%" stopColor="#02040d" />
+            <stop offset="0%" stopColor="#020617" />
+            <stop offset="45%" stopColor="#07111f" />
+            <stop offset="100%" stopColor="#030712" />
           </linearGradient>
 
-          <radialGradient id="edgeBlue" cx="88%" cy="18%" r="48%">
-            <stop offset="0%" stopColor="#2563eb" stopOpacity="0.22" />
-            <stop offset="48%" stopColor="#1e3a8a" stopOpacity="0.08" />
-            <stop offset="100%" stopColor="#07091a" stopOpacity="0" />
+          <radialGradient id="edgeBlue" cx="86%" cy="16%" r="48%">
+            <stop offset="0%" stopColor="#38bdf8" stopOpacity="0.2" />
+            <stop offset="48%" stopColor="#1d4ed8" stopOpacity="0.08" />
+            <stop offset="100%" stopColor="#020617" stopOpacity="0" />
           </radialGradient>
 
-          <radialGradient id="edgeGold" cx="8%" cy="82%" r="45%">
-            <stop offset="0%" stopColor="#d4a843" stopOpacity="0.14" />
-            <stop offset="45%" stopColor="#a16207" stopOpacity="0.06" />
-            <stop offset="100%" stopColor="#07091a" stopOpacity="0" />
+          <radialGradient id="edgeGold" cx="10%" cy="82%" r="45%">
+            <stop offset="0%" stopColor="#fbbf24" stopOpacity="0.16" />
+            <stop offset="45%" stopColor="#d4a843" stopOpacity="0.07" />
+            <stop offset="100%" stopColor="#020617" stopOpacity="0" />
+          </radialGradient>
+
+          <radialGradient id="centerGlow" cx="50%" cy="48%" r="62%">
+            <stop offset="0%" stopColor="#1e293b" stopOpacity="0.28" />
+            <stop offset="60%" stopColor="#020617" stopOpacity="0.08" />
+            <stop offset="100%" stopColor="#020617" stopOpacity="0" />
           </radialGradient>
 
           <radialGradient id="vignette" cx="50%" cy="50%" r="78%">
@@ -99,30 +101,11 @@ function SpaceBackground() {
         <rect width="100%" height="100%" fill="url(#spaceBase)" />
         <rect className="edge-glow-blue" width="100%" height="100%" fill="url(#edgeBlue)" />
         <rect className="edge-glow-gold" width="100%" height="100%" fill="url(#edgeGold)" />
+        <rect width="100%" height="100%" fill="url(#centerGlow)" />
 
-        <rect
-          className="stars-small"
-          width="100%"
-          height="100%"
-          fill="url(#starsSmall)"
-          opacity="0.72"
-        />
-
-        <rect
-          className="stars-large"
-          width="100%"
-          height="100%"
-          fill="url(#starsLarge)"
-          opacity="0.58"
-        />
-
-        <rect
-          className="stars-twinkle"
-          width="100%"
-          height="100%"
-          fill="url(#starsTwinkle)"
-          opacity="0.5"
-        />
+        <rect className="stars-small" width="100%" height="100%" fill="url(#starsSmall)" opacity="0.72" />
+        <rect className="stars-large" width="100%" height="100%" fill="url(#starsLarge)" opacity="0.58" />
+        <rect className="stars-twinkle" width="100%" height="100%" fill="url(#starsTwinkle)" opacity="0.5" />
 
         <rect width="100%" height="100%" fill="url(#vignette)" />
       </svg>
@@ -356,31 +339,18 @@ function ProjectCard({
       }`}
       style={{ transitionDelay: `${Math.min(index * 90, 360)}ms` }}
     >
-      <div
-        className="
-          group flex h-full min-w-0 flex-1 flex-col overflow-hidden
-          rounded-[24px]
-          border border-[#d4a84322]
-          bg-[#0b1020]
-          transition-all duration-500
-          ease-[cubic-bezier(0.22,1,0.36,1)]
-          hover:-translate-y-[6px]
-          hover:scale-[1.02]
-          hover:border-[#d4a84355]
-          hover:shadow-[0_24px_60px_rgba(0,0,0,0.48)]
-        "
-      >
+      <div className="group relative flex h-full min-w-0 flex-1 flex-col overflow-hidden rounded-3xl border border-amber-300/15 bg-slate-950/62 shadow-xl shadow-black/35 backdrop-blur-md transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-2 hover:border-amber-300/45 hover:bg-slate-950/75 hover:shadow-amber-500/15">
+        <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100">
+          <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-amber-300/55 to-transparent" />
+          <div className="absolute -right-20 -top-20 h-44 w-44 rounded-full bg-amber-400/10 blur-3xl" />
+          <div className="absolute -bottom-24 -left-24 h-52 w-52 rounded-full bg-sky-400/10 blur-3xl" />
+        </div>
+
         <button
           type="button"
           onClick={() => onPreview(project)}
           aria-label={`Preview ${project.title}`}
-          className="
-            relative aspect-[16/9] w-full
-            overflow-hidden
-            border-b border-[#d4a84318]
-            bg-[#060c18]
-            text-left
-          "
+          className="relative aspect-[16/9] w-full overflow-hidden border-b border-amber-300/10 bg-slate-900 text-left"
         >
           {project.gallery ? (
             <div className="flex h-full w-full">
@@ -397,82 +367,55 @@ function ProjectCard({
               ))}
             </div>
           ) : (
-            <>
-              <Image
-                src={project.image}
-                alt={project.title}
-                fill
-                sizes="(max-width: 768px) 100vw, (max-width: 1100px) 45vw, 30vw"
-                className="
-                  object-cover
-                  transition-transform duration-700 ease-out
-                  group-hover:scale-105
-                "
-              />
-
-              <div className="absolute inset-0 bg-gradient-to-t from-[#07091ac9] via-transparent to-transparent" />
-            </>
+            <Image
+              src={project.image}
+              alt={project.title}
+              fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1100px) 45vw, 30vw"
+              className="object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+            />
           )}
 
-          <div className="absolute inset-0 bg-gradient-to-t from-[#07091a90] via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+          <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-950/15 to-transparent" />
+          <div className="absolute inset-0 bg-slate-950/0 transition-colors duration-300 group-hover:bg-slate-950/10" />
+
+          <div className="absolute bottom-3 left-3 z-20 rounded-full border border-amber-300/20 bg-slate-950/70 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-amber-200 backdrop-blur-md">
+            {project.uploadedAt}
+          </div>
 
           <div className="absolute bottom-3 right-3 z-20 rounded-full border border-white/15 bg-black/45 px-3 py-1 text-[11px] font-medium text-white/85 opacity-0 backdrop-blur-md transition-opacity duration-300 group-hover:opacity-100">
             Click to preview
           </div>
-
-          <div className="absolute bottom-3 left-3 z-20 rounded-full border border-[#d4a84322] bg-[#07091ad9] px-3 py-1 text-[10px] font-medium uppercase tracking-[0.12em] text-[#d4a843a8] backdrop-blur-sm">
-            {project.uploadedAt}
-          </div>
         </button>
 
-        <div className="flex flex-1 flex-col px-5 pb-5 pt-5">
-          <h3
-            className="
-              min-h-[56px]
-              text-[17px]
-              font-semibold
-              leading-[1.45]
-              tracking-[-0.01em]
-              text-[#d8ceb0]
-            "
-          >
+        <div className="relative z-10 flex flex-1 flex-col p-5">
+          <h3 className="min-h-[54px] text-[17px] font-bold leading-snug tracking-tight text-white transition group-hover:text-amber-100">
             {project.title}
           </h3>
 
-          <p
-            className="
-              mt-3 flex-1
-              text-[13.5px]
-              leading-[1.85]
-              text-[#8a93a7]
-            "
-          >
+          <p className="mt-3 flex-1 text-sm leading-relaxed text-slate-300">
             {project.description}
           </p>
 
-          <div className="my-5 h-px bg-[#d4a84318]" />
+          <div className="my-5 h-px bg-gradient-to-r from-amber-300/25 via-slate-600/20 to-transparent" />
 
-          <div className="flex min-h-[28px] items-center">
+          <div className="flex min-h-[30px] items-center justify-between gap-3">
+            <span className="rounded-full border border-slate-500/25 bg-white/[0.04] px-3 py-1 text-[11px] font-medium uppercase tracking-[0.12em] text-slate-400">
+              Project
+            </span>
+
             {project.link ? (
               <a
                 href={project.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="
-                  inline-flex items-center gap-2
-                  text-[13px]
-                  font-medium
-                  tracking-[0.01em]
-                  text-[#5ea4ea]
-                  transition-all duration-300
-                  hover:text-[#8cc2f5]
-                "
+                className="inline-flex items-center gap-2 rounded-full border border-sky-300/20 bg-sky-400/10 px-3 py-1.5 text-[12px] font-semibold text-sky-200 transition-all duration-300 hover:border-sky-300/45 hover:bg-sky-400/20 hover:text-white"
               >
-                <ExternalLink size={15} />
-                Kunjungi Website
+                Visit
+                <ExternalLink size={14} />
               </a>
             ) : (
-              <span className="h-[28px]" />
+              <span className="h-[30px]" />
             )}
           </div>
         </div>
@@ -541,36 +484,25 @@ export default function ProjectsSection() {
   }, [cardsPerPage])
 
   const totalPages = useMemo(() => {
-    return Math.ceil(projectsLatestFirst.length / cardsPerPage)
+    return Math.max(1, Math.ceil(projectsLatestFirst.length / cardsPerPage))
   }, [cardsPerPage])
 
   const slide = useCallback(
     (direction: number) => {
-      setCurrentPage((prev) =>
-        Math.max(
-          0,
-          Math.min(totalPages - 1, prev + direction)
-        )
-      )
+      setCurrentPage((prev) => Math.max(0, Math.min(totalPages - 1, prev + direction)))
     },
     [totalPages]
   )
 
   const pageProjects = useCallback(
-    (page: number) =>
-      projectsLatestFirst.slice(
-        page * cardsPerPage,
-        (page + 1) * cardsPerPage
-      ),
+    (page: number) => projectsLatestFirst.slice(page * cardsPerPage, (page + 1) * cardsPerPage),
     [cardsPerPage]
   )
 
   const previewImages = useMemo(() => {
     if (!previewProject) return null
 
-    const sources = previewProject.gallery?.length
-      ? previewProject.gallery
-      : [previewProject.image]
+    const sources = previewProject.gallery?.length ? previewProject.gallery : [previewProject.image]
 
     return sources.map((src, index) => ({
       src,
@@ -593,13 +525,8 @@ export default function ProjectsSection() {
     const swipeDistance = touchStartX - touchEndX
     const minSwipeDistance = 50
 
-    if (swipeDistance > minSwipeDistance) {
-      slide(1)
-    }
-
-    if (swipeDistance < -minSwipeDistance) {
-      slide(-1)
-    }
+    if (swipeDistance > minSwipeDistance) slide(1)
+    if (swipeDistance < -minSwipeDistance) slide(-1)
 
     setTouchStartX(null)
     setTouchEndX(null)
@@ -609,161 +536,57 @@ export default function ProjectsSection() {
     <section
       ref={sectionRef}
       id="projects"
-      className="
-        section-transition-soft relative flex min-h-screen scroll-mt-16 items-center overflow-hidden
-        py-8 sm:py-10 md:py-12 lg:py-8
-      "
+      className="section-transition-soft relative flex min-h-screen scroll-mt-16 items-center overflow-hidden py-20"
       style={{ background: "#07091a" }}
     >
       <SpaceBackground />
 
-      <div
-        className="
-          relative z-10 mx-auto flex min-h-[calc(100vh-4rem)] w-full max-w-7xl
-          flex-col justify-center
-          px-5 sm:px-8 lg:px-12
-        "
-      >
+      <div className="relative z-10 mx-auto w-full max-w-6xl px-4">
         <div
-          className={`
-            mb-5 flex flex-wrap items-center justify-between gap-4 md:mb-6
-            transition-all duration-700 ease-out
-            ${
-              isVisible
-                ? "translate-y-0 opacity-100"
-                : "translate-y-6 opacity-0"
-            }
-          `}
+          className={`mb-10 transition-all duration-700 ease-out ${
+            isVisible ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"
+          }`}
         >
-          <h2
-            className="
-              font-serif font-medium leading-none
-              text-[clamp(34px,5vw,52px)]
-            "
-            style={{
-              color: "#d4a843",
-              letterSpacing: "-0.5px",
-            }}
-          >
-            Projects
-          </h2>
+          <div className="flex items-start justify-between gap-4">
+            <h2 className="min-w-0 bg-gradient-to-r from-white via-amber-100 to-[#d4a843] bg-clip-text text-4xl font-bold tracking-tight text-transparent md:text-5xl">
+              Projects
+            </h2>
 
-          <Link
-            href="/projects"
-            className="flex-shrink-0 no-underline"
-          >
-            <div
-              className="
-                flex overflow-hidden rounded-[12px]
-                border border-[#d4a84340]
-                bg-[#0d1226]/80
-                backdrop-blur-sm
-                transition-all duration-300
-                hover:border-[#d4a84370]
-                hover:shadow-[0_12px_35px_rgba(212,168,67,0.12)]
-              "
-            >
-              <div
-                className="
-                  flex items-center gap-2
-                  bg-[#0d1226]/90
-                  px-5 py-[12px]
-                  text-[13px]
-                  tracking-[0.5px]
-                  text-[#d4a843]
-                  transition-colors duration-300
-                  hover:bg-[#14193a]
-                "
-              >
-                <svg
-                  width="15"
-                  height="15"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="#d4a843"
-                  strokeWidth="1.8"
-                >
-                  <rect x="3" y="3" width="7" height="7" />
-                  <rect x="14" y="3" width="7" height="7" />
-                  <rect x="14" y="14" width="7" height="7" />
-                  <rect x="3" y="14" width="7" height="7" />
-                </svg>
+            <Link href="/projects" className="mt-1 shrink-0 no-underline md:mt-2">
+              <div className="group flex overflow-hidden rounded-[12px] border border-amber-300/30 bg-slate-950/70 shadow-lg shadow-amber-500/10 backdrop-blur-md transition-all duration-300 hover:scale-[1.03] hover:border-amber-300/60 hover:shadow-amber-500/20">
+                <div className="flex items-center justify-center gap-2 bg-slate-950/60 px-3 py-[12px] text-[13px] font-semibold tracking-[0.02em] text-amber-200 transition-colors duration-300 group-hover:bg-amber-400 group-hover:text-slate-950 sm:px-5">
+                  <span className="hidden sm:inline">View All</span>
+                  <ExternalLink className="h-4 w-4 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                </div>
 
-                <span className="hidden whitespace-nowrap sm:inline">
-                  View All
-                </span>
+                <div className="flex min-w-[52px] flex-col items-center justify-center bg-amber-400 px-3 py-[8px] leading-none text-slate-950 sm:min-w-[72px] sm:px-4">
+                  <span className="text-[18px] font-bold leading-none sm:text-[21px]">
+                    {projects.length}
+                  </span>
+
+                  <span className="mt-[3px] text-[8px] uppercase tracking-widest opacity-70 sm:text-[9px]">
+                    Projects
+                  </span>
+                </div>
               </div>
+            </Link>
+          </div>
 
-              <div
-                className="
-                  flex min-w-[56px] flex-col items-center justify-center
-                  bg-[#d4a843]
-                  px-4 py-[12px]
-                  leading-none text-[#07091a]
-                "
-              >
-                <span className="text-[22px] font-medium">
-                  {projects.length}
-                </span>
-
-                <span className="mt-[2px] text-[9px] uppercase tracking-widest opacity-70">
-                  Projects
-                </span>
-              </div>
-            </div>
-          </Link>
+          <p className="mt-3 w-full max-w-none text-sm leading-relaxed text-slate-300 md:max-w-4xl md:text-base lg:max-w-5xl">
+            A curated collection of web, system, and digital product projects built with a focus on usability, performance, and real business needs.
+          </p>
         </div>
 
         <div
-          className={`
-            relative mb-5 h-px md:mb-6
-            transition-all delay-100 duration-700 ease-out
-            ${
-              isVisible
-                ? "translate-y-0 opacity-100"
-                : "translate-y-5 opacity-0"
-            }
-          `}
-          style={{ background: "#d4a84318" }}
-        >
-          <span
-            className={`
-              absolute left-0 top-0 h-px bg-[#d4a843]
-              transition-all delay-300 duration-700 ease-out
-              ${isVisible ? "w-[70px]" : "w-0"}
-            `}
-          />
-        </div>
-
-        <div
-          className={`
-            relative
-            transition-all delay-200 duration-700 ease-out
-            ${
-              isVisible
-                ? "translate-y-0 opacity-100"
-                : "translate-y-8 opacity-0"
-            }
-          `}
+          className={`relative transition-all delay-200 duration-700 ease-out ${
+            isVisible ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
+          }`}
         >
           <button
             onClick={() => slide(-1)}
             disabled={currentPage === 0}
             aria-label="Sebelumnya"
-            className="
-              absolute left-[-10px] top-1/2 z-20 hidden
-              h-[44px] w-[44px] -translate-y-1/2
-              items-center justify-center rounded-full
-              border border-[#d4a84335]
-              bg-[#0d1226]/90
-              text-[#d4a843]
-              shadow-[0_10px_30px_rgba(0,0,0,0.35)]
-              backdrop-blur-md
-              transition-all duration-300
-              hover:bg-[#14193a]
-              disabled:cursor-default disabled:opacity-20
-              sm:flex
-            "
+            className="absolute -left-2 top-1/2 z-20 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-amber-300/30 bg-slate-950/80 text-amber-300 shadow-xl backdrop-blur-md transition hover:bg-amber-400 hover:text-slate-950 disabled:cursor-default disabled:opacity-25 md:-left-5 sm:flex"
           >
             <ChevronLeft size={20} />
           </button>
@@ -772,55 +595,29 @@ export default function ProjectsSection() {
             onClick={() => slide(1)}
             disabled={currentPage === totalPages - 1}
             aria-label="Berikutnya"
-            className="
-              absolute right-[-10px] top-1/2 z-20 hidden
-              h-[44px] w-[44px] -translate-y-1/2
-              items-center justify-center rounded-full
-              border border-[#d4a84335]
-              bg-[#0d1226]/90
-              text-[#d4a843]
-              shadow-[0_10px_30px_rgba(0,0,0,0.35)]
-              backdrop-blur-md
-              transition-all duration-300
-              hover:bg-[#14193a]
-              disabled:cursor-default disabled:opacity-20
-              sm:flex
-            "
+            className="absolute -right-2 top-1/2 z-20 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-amber-300/30 bg-slate-950/80 text-amber-300 shadow-xl backdrop-blur-md transition hover:bg-amber-400 hover:text-slate-950 disabled:cursor-default disabled:opacity-25 md:-right-5 sm:flex"
           >
             <ChevronRight size={20} />
           </button>
 
           <div
-            className="no-card-scrollbar overflow-hidden sm:mx-[34px]"
+            className="no-card-scrollbar overflow-hidden px-4 md:px-6"
             onTouchStart={handleTouchStart}
             onTouchMove={handleTouchMove}
             onTouchEnd={handleTouchEnd}
           >
             <div
-              className="
-                flex touch-pan-y select-none transition-transform duration-700
-                ease-[cubic-bezier(0.22,1,0.36,1)]
-              "
+              className="flex touch-pan-y select-none transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]"
               style={{
                 transform: `translateX(-${currentPage * 100}%)`,
               }}
             >
               {isClient &&
-                Array.from({
-                  length: totalPages,
-                }).map((_, pageIdx) => {
+                Array.from({ length: totalPages }).map((_, pageIdx) => {
                   const visibleProjects = pageProjects(pageIdx)
 
                   return (
-                    <div
-                      key={pageIdx}
-                      className="
-                        flex min-w-full items-stretch
-                        gap-6
-                        px-[4px]
-                        pb-4
-                      "
-                    >
+                    <div key={pageIdx} className="flex min-w-full items-stretch gap-5 px-1 pb-4">
                       {visibleProjects.map((project) => (
                         <ProjectCard
                           key={project.id}
@@ -833,15 +630,8 @@ export default function ProjectsSection() {
 
                       {visibleProjects.length < cardsPerPage &&
                         Array.from({
-                          length:
-                            cardsPerPage -
-                            visibleProjects.length,
-                        }).map((_, i) => (
-                          <div
-                            key={i}
-                            className="min-w-0 flex-1"
-                          />
-                        ))}
+                          length: cardsPerPage - visibleProjects.length,
+                        }).map((_, i) => <div key={i} className="hidden min-w-0 flex-1 md:block" />)}
                     </div>
                   )
                 })}
@@ -850,37 +640,20 @@ export default function ProjectsSection() {
         </div>
 
         <div
-          className={`
-            mt-4 flex items-center justify-center gap-4 md:mt-5
-            transition-all delay-300 duration-700 ease-out
-            ${
-              isVisible
-                ? "translate-y-0 opacity-100"
-                : "translate-y-5 opacity-0"
-            }
-          `}
+          className={`mt-7 flex items-center justify-center gap-4 transition-all delay-300 duration-700 ease-out ${
+            isVisible ? "translate-y-0 opacity-100" : "translate-y-5 opacity-0"
+          }`}
         >
           <button
             onClick={() => slide(-1)}
             disabled={currentPage === 0}
             aria-label="Sebelumnya"
-            className="
-              flex h-[38px] w-[38px] items-center justify-center rounded-full
-              border border-[#d4a84335]
-              bg-[#0d1226]/90
-              text-[#d4a843]
-              shadow-[0_10px_30px_rgba(0,0,0,0.28)]
-              backdrop-blur-md
-              transition-all duration-300
-              hover:bg-[#14193a]
-              disabled:cursor-default disabled:opacity-20
-              sm:hidden
-            "
+            className="flex h-9 w-9 items-center justify-center rounded-full border border-amber-300/30 bg-slate-950/80 text-amber-300 shadow-lg backdrop-blur-md transition hover:bg-amber-400 hover:text-slate-950 disabled:cursor-default disabled:opacity-25 sm:hidden"
           >
             <ChevronLeft size={18} />
           </button>
 
-          <div className="flex items-center justify-center gap-[7px]">
+          <div className="flex items-center justify-center gap-2">
             {Array.from({ length: totalPages }).map((_, i) => {
               const active = i === currentPage
 
@@ -889,32 +662,14 @@ export default function ProjectsSection() {
                   key={i}
                   onClick={() => setCurrentPage(i)}
                   aria-label={`Halaman ${i + 1}`}
-                  className="
-                    h-[8px]
-                    transition-all duration-500
-                    ease-[cubic-bezier(0.22,1,0.36,1)]
-                  "
-                  style={{
-                    width: active ? "30px" : "8px",
-                    borderRadius: active
-                      ? "999px"
-                      : "50%",
-                    background: active
-                      ? "#d4a843"
-                      : "#1e2a46",
-                  }}
+                  className={`h-2 rounded-full transition-all duration-300 ${
+                    active ? "w-8 bg-amber-400" : "w-2 bg-slate-500 hover:bg-slate-300"
+                  }`}
                 />
               )
             })}
 
-            <span
-              className="ml-[7px] min-w-[30px] text-[11px]"
-              style={{
-                color: "#59709a",
-                fontFamily:
-                  "var(--font-mono, monospace)",
-              }}
-            >
+            <span className="ml-1 min-w-8 font-mono text-[11px] text-slate-400">
               {currentPage + 1}/{totalPages}
             </span>
           </div>
@@ -923,18 +678,7 @@ export default function ProjectsSection() {
             onClick={() => slide(1)}
             disabled={currentPage === totalPages - 1}
             aria-label="Berikutnya"
-            className="
-              flex h-[38px] w-[38px] items-center justify-center rounded-full
-              border border-[#d4a84335]
-              bg-[#0d1226]/90
-              text-[#d4a843]
-              shadow-[0_10px_30px_rgba(0,0,0,0.28)]
-              backdrop-blur-md
-              transition-all duration-300
-              hover:bg-[#14193a]
-              disabled:cursor-default disabled:opacity-20
-              sm:hidden
-            "
+            className="flex h-9 w-9 items-center justify-center rounded-full border border-amber-300/30 bg-slate-950/80 text-amber-300 shadow-lg backdrop-blur-md transition hover:bg-amber-400 hover:text-slate-950 disabled:cursor-default disabled:opacity-25 sm:hidden"
           >
             <ChevronRight size={18} />
           </button>
