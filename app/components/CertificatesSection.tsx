@@ -71,12 +71,18 @@ export default function CertificatesSection() {
   )
 
   const handleTouchStart = (event: TouchEvent<HTMLDivElement>) => {
+    const firstTouch = event.targetTouches.item(0)
+    if (!firstTouch) return
+
     setTouchEndX(null)
-    setTouchStartX(event.targetTouches[0].clientX)
+    setTouchStartX(firstTouch.clientX)
   }
 
   const handleTouchMove = (event: TouchEvent<HTMLDivElement>) => {
-    setTouchEndX(event.targetTouches[0].clientX)
+    const firstTouch = event.targetTouches.item(0)
+    if (!firstTouch) return
+
+    setTouchEndX(firstTouch.clientX)
   }
 
   const handleTouchEnd = () => {
@@ -221,6 +227,7 @@ export default function CertificatesSection() {
                             <button
                               type="button"
                               onClick={() => setSelectedImage(certificate.image)}
+                              aria-label={`Preview ${certificate.title} certificate`}
                               className="relative aspect-video w-full overflow-hidden bg-slate-900 text-left"
                             >
                               <Image
