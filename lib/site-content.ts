@@ -41,6 +41,17 @@ export type Experience = {
   workMode?: string
 }
 
+export type ProfessionalRoleColor = "cyan" | "purple" | "rose" | "emerald" | "amber"
+
+export type ProfessionalRole = {
+  id: number
+  number: string
+  title: string
+  color: ProfessionalRoleColor
+  skills: string[]
+  tools: string[]
+}
+
 export const siteConfig = {
   owner: "Jason Vianney Sugiarto",
   shortName: "Jason Vianney",
@@ -95,6 +106,49 @@ export const expertise = [
   { label: "UI/UX Designer", bg: "rgba(255,170,80,0.12)", color: "#FFBC72", border: "rgba(255,188,114,0.25)" },
   { label: "Data Analyst", bg: "rgba(215,140,255,0.12)", color: "#D99BFF", border: "rgba(217,155,255,0.25)" },
   { label: "Tutor", bg: "rgba(255,220,120,0.12)", color: "#FFE083", border: "rgba(255,224,131,0.25)" },
+]
+
+export const professionalRoles: ProfessionalRole[] = [
+  {
+    id: 1,
+    number: "01",
+    title: "Fullstack Developer",
+    color: "cyan",
+    skills: ["HTML", "CSS", "PHP", "JavaScript", "SQL"],
+    tools: ["Visual Studio Code", "React.js & Next.js", "PostgreSQL & MySQL"],
+  },
+  {
+    id: 2,
+    number: "02",
+    title: "System Analyst",
+    color: "purple",
+    skills: ["SRS", "QA Testing", "Agile", "BPMN"],
+    tools: ["MS Visio & BPMN.io", "Google Docs & Sheets", "Word, Excel, PowerPoint", "Trello"],
+  },
+  {
+    id: 3,
+    number: "03",
+    title: "UI/UX Designer",
+    color: "rose",
+    skills: ["Wireframing", "Prototyping", "User Research"],
+    tools: ["Figma & Adobe XD", "Adobe Illustrator", "Balsamiq Wireframes", "Awwwards & Dribbble"],
+  },
+  {
+    id: 4,
+    number: "04",
+    title: "Data Analyst",
+    color: "emerald",
+    skills: ["Data Analysis", "Cleaning", "Visualization", "Reporting"],
+    tools: ["Python", "Power BI"],
+  },
+  {
+    id: 5,
+    number: "05",
+    title: "Tutor",
+    color: "amber",
+    skills: ["Teaching", "Curriculum", "Mentoring", "Assessment"],
+    tools: ["Google Classroom", "Zoom & Meet", "Word & PowerPoint"],
+  },
 ]
 
 export const projects: Project[] = [
@@ -350,6 +404,7 @@ export const cmsContent = {
   site: siteConfig,
   navigation: navItems,
   expertise,
+  professionalRoles,
   projects,
   projectsLatestFirst,
   certificates,

@@ -1,72 +1,14 @@
 "use client"
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react"
-
-// ─────────────────────────────────────────────────────────────
-// Data
-// ─────────────────────────────────────────────────────────────
-
-type ColorKey = "cyan" | "purple" | "rose" | "emerald" | "amber"
-
-const roles = [
-  {
-    id: 1,
-    number: "01",
-    title: "Fullstack Developer",
-    color: "cyan" as const,
-    skills: ["HTML", "CSS", "PHP", "JavaScript", "SQL"],
-    tools: ["Visual Studio Code", "React.js & Next.js", "PostgreSQL & MySQL"],
-  },
-  {
-    id: 2,
-    number: "02",
-    title: "System Analyst",
-    color: "purple" as const,
-    skills: ["SRS", "QA Testing", "Agile", "BPMN"],
-    tools: [
-      "MS Visio & BPMN.io",
-      "Google Docs & Sheets",
-      "Word, Excel, PowerPoint",
-      "Trello",
-    ],
-  },
-  {
-    id: 3,
-    number: "03",
-    title: "UI/UX Designer",
-    color: "rose" as const,
-    skills: ["Wireframing", "Prototyping", "User Research"],
-    tools: [
-      "Figma & Adobe XD",
-      "Adobe Illustrator",
-      "Balsamiq Wireframes",
-      "Awwwards & Dribbble",
-    ],
-  },
-  {
-    id: 4,
-    number: "04",
-    title: "Data Analyst",
-    color: "emerald" as const,
-    skills: ["Data Analysis", "Cleaning", "Visualization", "Reporting"],
-    tools: ["Python", "Power BI"],
-  },
-  {
-    id: 5,
-    number: "05",
-    title: "Tutor",
-    color: "amber" as const,
-    skills: ["Teaching", "Curriculum", "Mentoring", "Assessment"],
-    tools: ["Google Classroom", "Zoom & Meet", "Word & PowerPoint"],
-  },
-]
+import { professionalRoles, type ProfessionalRole, type ProfessionalRoleColor } from "@/lib/site-content"
 
 // ─────────────────────────────────────────────────────────────
 // Color Tokens
 // ─────────────────────────────────────────────────────────────
 
 const colorMap: Record<
-  ColorKey,
+  ProfessionalRoleColor,
   {
     bar: string
     label: string
@@ -220,7 +162,7 @@ function BatikBg() {
 // Card
 // ─────────────────────────────────────────────────────────────
 
-function RoleCard({ role }: { role: (typeof roles)[number] }) {
+function RoleCard({ role }: { role: ProfessionalRole }) {
   const c = colorMap[role.color]
 
   return (
@@ -297,7 +239,7 @@ export default function RolesShowcase() {
   const timerRef = useRef<NodeJS.Timeout | null>(null)
 
   const maxIndex = useMemo(
-    () => Math.max(roles.length - visibleCount, 0),
+    () => Math.max(professionalRoles.length - visibleCount, 0),
     [visibleCount]
   )
 
@@ -416,26 +358,25 @@ export default function RolesShowcase() {
           }}
         >
           <div
-            className="flex"
+            className="flex items-stretch"
             style={{
               transform: `translateX(-${translateX}%)`,
               transition: "transform 0.65s cubic-bezier(.4,0,.2,1)",
-              paddingInline: "0.75rem",
             }}
           >
-            {roles.map((role) => (
+            {professionalRoles.map((role) => (
               <div
                 key={role.id}
+                className="flex justify-center px-3 pt-[0.35rem] pb-[0.45rem]"
                 style={{
                   flexBasis: `${cardWidth}%`,
                   minWidth: `${cardWidth}%`,
-                  paddingInline: "0.75rem",
-                  paddingTop: "0.35rem",
-                  paddingBottom: "0.45rem",
                   boxSizing: "border-box",
                 }}
               >
-                <RoleCard role={role} />
+                <div className="w-full max-w-[420px] sm:max-w-none">
+                  <RoleCard role={role} />
+                </div>
               </div>
             ))}
           </div>
