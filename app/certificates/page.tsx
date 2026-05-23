@@ -1,7 +1,7 @@
 import type { Metadata } from "next"
 
 import CertificatesArchiveClient from "./CertificatesArchiveClient"
-import { siteConfig } from "@/lib/site-content"
+import { certificatesCollectionStructuredData, siteConfig } from "@/lib/site-content"
 
 export const metadata: Metadata = {
   title: `Certificates | ${siteConfig.shortName} Portfolio`,
@@ -18,5 +18,13 @@ export const metadata: Metadata = {
 }
 
 export default function CertificatesPage() {
-  return <CertificatesArchiveClient />
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(certificatesCollectionStructuredData) }}
+      />
+      <CertificatesArchiveClient />
+    </>
+  )
 }

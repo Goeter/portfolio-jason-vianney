@@ -442,6 +442,124 @@ export const experiences: Experience[] = [
   },
 ]
 
+
+export const getAbsoluteUrl = (path = "") => {
+  if (!path) return siteConfig.url
+  if (/^https?:\/\//.test(path)) return path
+  return `${siteConfig.url}${path.startsWith("/") ? path : `/${path}`}`
+}
+
+export const getAbsoluteImageUrl = (imagePath?: string) =>
+  getAbsoluteUrl(imagePath || siteConfig.defaultOgImage)
+
+export const siteStructuredData = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: siteConfig.owner,
+    url: siteConfig.url,
+    image: getAbsoluteImageUrl(siteConfig.defaultOgImage),
+    jobTitle: siteConfig.headline,
+    description: siteConfig.description,
+    email: siteConfig.contacts.email,
+    sameAs: siteConfig.sameAs,
+    knowsAbout: siteConfig.keywords,
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: `${siteConfig.shortName} Portfolio`,
+    url: siteConfig.url,
+    description: siteConfig.seoDescription,
+    inLanguage: "en",
+    author: {
+      "@type": "Person",
+      name: siteConfig.owner,
+      url: siteConfig.url,
+    },
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "CreativeWork",
+    name: `${siteConfig.shortName} Portfolio`,
+    url: siteConfig.url,
+    description: siteConfig.description,
+    image: getAbsoluteImageUrl(siteConfig.defaultOgImage),
+    creator: {
+      "@type": "Person",
+      name: siteConfig.owner,
+      url: siteConfig.url,
+    },
+    hasPart: projects.map((project) => ({
+      "@type": "CreativeWork",
+      name: project.title,
+      url: getAbsoluteUrl(getProjectPath(project)),
+      description: getProjectSeoDescription(project),
+      image: getAbsoluteImageUrl(getProjectOgImage(project)),
+    })),
+  },
+]
+
+export const getProjectStructuredData = (project: Project) => ({
+  "@context": "https://schema.org",
+  "@type": "CreativeWork",
+  name: project.title,
+  description: getProjectSeoDescription(project),
+  image: getAbsoluteImageUrl(getProjectOgImage(project)),
+  url: getAbsoluteUrl(getProjectPath(project)),
+  creator: {
+    "@type": "Person",
+    name: siteConfig.owner,
+    url: siteConfig.url,
+  },
+})
+
+export const projectsCollectionStructuredData = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  name: `${siteConfig.shortName} Projects`,
+  url: getAbsoluteUrl("/projects"),
+  description:
+    "Portfolio projects by Jason Vianney Sugiarto across system analysis, UI/UX design, data analytics, fullstack development, CMS websites, HR systems, and mobile applications.",
+  creator: {
+    "@type": "Person",
+    name: siteConfig.owner,
+    url: siteConfig.url,
+  },
+  hasPart: projectsLatestFirst.map((project) => ({
+    "@type": "CreativeWork",
+    name: project.title,
+    url: getAbsoluteUrl(getProjectPath(project)),
+    description: getProjectSeoDescription(project),
+    image: getAbsoluteImageUrl(getProjectOgImage(project)),
+  })),
+}
+
+export const certificatesCollectionStructuredData = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  name: `${siteConfig.shortName} Certificates`,
+  url: getAbsoluteUrl("/certificates"),
+  description:
+    "Certificate archive and professional learning achievements of Jason Vianney Sugiarto.",
+  creator: {
+    "@type": "Person",
+    name: siteConfig.owner,
+    url: siteConfig.url,
+  },
+  hasPart: certificatesLatestFirst.map((certificate) => ({
+    "@type": "EducationalOccupationalCredential",
+    name: certificate.title,
+    description: certificate.seoDescription ?? certificate.description,
+    image: getAbsoluteImageUrl(certificate.ogImage ?? certificate.image),
+    credentialCategory: "Certificate",
+    recognizedBy: {
+      "@type": "Organization",
+      name: certificate.issuer,
+    },
+  })),
+}
+
 export const cmsContent = {
   source: "local-typescript-content",
   version: "1.0.0",
@@ -456,4 +574,13 @@ export const cmsContent = {
   certificates,
   certificatesLatestFirst,
   experiences,
+  getAbsoluteUrl,
+  getAbsoluteImageUrl,
+  getProjectSeoTitle,
+  getProjectSeoDescription,
+  getProjectOgImage,
+  siteStructuredData,
+  getProjectStructuredData,
+  projectsCollectionStructuredData,
+  certificatesCollectionStructuredData,
 }

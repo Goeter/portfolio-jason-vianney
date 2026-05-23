@@ -8,6 +8,7 @@ import {
   getProjectPath,
   getProjectSeoDescription,
   getProjectSeoTitle,
+  getProjectStructuredData,
   projects,
   siteConfig,
 } from "@/lib/site-content"
@@ -65,19 +66,7 @@ export default function ProjectPage({ params }: ProjectPageProps) {
     notFound()
   }
 
-  const projectJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "CreativeWork",
-    name: project.title,
-    description: getProjectSeoDescription(project),
-    image: `${siteConfig.url}${getProjectOgImage(project)}`,
-    url: `${siteConfig.url}${getProjectPath(project)}`,
-    creator: {
-      "@type": "Person",
-      name: siteConfig.owner,
-      url: siteConfig.url,
-    },
-  }
+  const projectJsonLd = getProjectStructuredData(project)
 
   return (
     <>

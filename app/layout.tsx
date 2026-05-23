@@ -1,7 +1,7 @@
 import type React from "react"
 import type { Metadata } from "next"
 import "./globals.css"
-import { siteConfig } from "@/lib/site-content"
+import { siteConfig, siteStructuredData } from "@/lib/site-content"
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
@@ -56,44 +56,6 @@ interface RootLayoutProps {
   children: React.ReactNode
 }
 
-const structuredData = [
-  {
-    "@context": "https://schema.org",
-    "@type": "Person",
-    name: siteConfig.owner,
-    url: siteConfig.url,
-    image: `${siteConfig.url}${siteConfig.defaultOgImage}`,
-    jobTitle: siteConfig.headline,
-    description: siteConfig.description,
-    email: siteConfig.contacts.email,
-    sameAs: siteConfig.sameAs,
-    knowsAbout: siteConfig.keywords,
-  },
-  {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    name: `${siteConfig.shortName} Portfolio`,
-    url: siteConfig.url,
-    description: siteConfig.seoDescription,
-    author: {
-      "@type": "Person",
-      name: siteConfig.owner,
-      url: siteConfig.url,
-    },
-  },
-  {
-    "@context": "https://schema.org",
-    "@type": "CreativeWork",
-    name: `${siteConfig.shortName} Portfolio`,
-    url: siteConfig.url,
-    description: siteConfig.description,
-    creator: {
-      "@type": "Person",
-      name: siteConfig.owner,
-      url: siteConfig.url,
-    },
-  },
-]
 
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
@@ -101,7 +63,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
       <body suppressHydrationWarning>
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(siteStructuredData) }}
         />
         {children}
       </body>

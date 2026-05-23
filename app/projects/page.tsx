@@ -1,7 +1,7 @@
 import type { Metadata } from "next"
 
 import ProjectsClient from "./ProjectsClient"
-import { siteConfig } from "@/lib/site-content"
+import { projectsCollectionStructuredData, siteConfig } from "@/lib/site-content"
 
 export const metadata: Metadata = {
   title: `Projects | ${siteConfig.shortName} Portfolio`,
@@ -18,5 +18,13 @@ export const metadata: Metadata = {
 }
 
 export default function ProjectsPage() {
-  return <ProjectsClient />
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(projectsCollectionStructuredData) }}
+      />
+      <ProjectsClient />
+    </>
+  )
 }
