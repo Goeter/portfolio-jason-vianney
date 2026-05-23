@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next"
-import { certificatesLatestFirst, projectsLatestFirst, siteConfig } from "@/lib/site-content"
+import { certificatesLatestFirst, getProjectPath, projectsLatestFirst, siteConfig } from "@/lib/site-content"
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date()
@@ -24,7 +24,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     },
     ...projectsLatestFirst.map((project) => ({
-      url: `${siteConfig.url}/experience/${project.id}`,
+      url: `${siteConfig.url}${getProjectPath(project)}`,
       lastModified: now,
       changeFrequency: "monthly" as const,
       priority: 0.7,

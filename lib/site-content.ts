@@ -9,23 +9,31 @@ export type NavItem = {
 
 export type Project = {
   id: number
+  slug: string
   title: string
   description: string
   detailDescription: string
   image: string
   link?: string | null
   gallery?: string[]
+  seoTitle?: string
+  seoDescription?: string
+  ogImage?: string
   /** Kept for CMS/front-end ordering data. Hidden from selected UI when not needed. */
   uploadedAt: string
 }
 
 export type Certificate = {
   id: number
+  slug: string
   title: string
   description: string
   image: string
   issuer: string
   date: string
+  seoTitle?: string
+  seoDescription?: string
+  ogImage?: string
   /** Kept for CMS/front-end ordering data. Hidden from the certificate UI. */
   uploadedAt: string
 }
@@ -89,6 +97,11 @@ export const siteConfig = {
     linkedin: "https://www.linkedin.com/in/jasonvianneysugiarto",
     instagram: "https://www.instagram.com/pixelnav.id/",
   },
+  sameAs: [
+    "https://github.com/Goeter",
+    "https://www.linkedin.com/in/jasonvianneysugiarto",
+    "https://www.instagram.com/pixelnav.id/",
+  ],
   footer: "Copyright © 2025 Jason Vianney S Portfolio Web Design. All rights reserved.",
 }
 
@@ -154,6 +167,7 @@ export const professionalRoles: ProfessionalRole[] = [
 export const projects: Project[] = [
   {
     id: 10,
+    slug: "pt-steda-roaster-company-profile-cms",
     title: "PT Steda Roaster Company Profile & CMS",
     description:
       "Responsive company profile website with CMS support to present Steda Roaster's coffee roasting services, products, and business information clearly.",
@@ -165,6 +179,7 @@ export const projects: Project[] = [
   },
   {
     id: 9,
+    slug: "pt-topas-multi-finance-website",
     title: "PT Topas Multi Finance Website",
     description: "Public corporate website that builds customer trust and brand awareness through a professional digital presence.",
     detailDescription:
@@ -175,6 +190,7 @@ export const projects: Project[] = [
   },
   {
     id: 8,
+    slug: "pt-alfa-berkat-sigma",
     title: "PT Alfa Berkat Sigma",
     description: "Professional plumbing product website that presents company information and product offerings clearly.",
     detailDescription:
@@ -185,6 +201,7 @@ export const projects: Project[] = [
   },
   {
     id: 7,
+    slug: "topas-multi-finance-mobile-application",
     title: "Topas Multi Finance Mobile Application",
     description: "Mobile application for customers and staff, covering loan management, disbursement tracking, customer monitoring, and financial services.",
     detailDescription:
@@ -199,6 +216,7 @@ export const projects: Project[] = [
   },
   {
     id: 6,
+    slug: "mobile-loan-flow-survey",
     title: "Mobile Loan Flow Survey",
     description: "Mobile debtor home-visit survey application that centralizes field data and stores it neatly in the company database.",
     detailDescription:
@@ -208,6 +226,7 @@ export const projects: Project[] = [
   },
   {
     id: 5,
+    slug: "hr-topas-application",
     title: "HR Topas Application",
     description: "Integrated HR system for attendance, payroll recap, KPI-based manpower planning, and end-to-end recruitment management.",
     detailDescription:
@@ -217,6 +236,7 @@ export const projects: Project[] = [
   },
   {
     id: 4,
+    slug: "mobile-mata-elang-subscribe",
     title: "Mobile Mata Elang & Subscribe",
     description: "Credit vehicle tracking application for field users and third-party partners, supported by subscription-based access.",
     detailDescription:
@@ -231,6 +251,7 @@ export const projects: Project[] = [
   },
   {
     id: 3,
+    slug: "dashboard-admin-ticketing",
     title: "Dashboard Admin Ticketing",
     description: "Web-based ticket monitoring dashboard for managing and tracking ticketing workflows in real time.",
     detailDescription:
@@ -240,6 +261,7 @@ export const projects: Project[] = [
   },
   {
     id: 2,
+    slug: "vehicle-registration-certificate-system",
     title: "Vehicle Registration Certificate System",
     description: "Digital disbursement note printing system that replaces manual writing with fast, neat, and securely stored documents.",
     detailDescription:
@@ -249,6 +271,7 @@ export const projects: Project[] = [
   },
   {
     id: 1,
+    slug: "monitoring-feedback-prospect",
     title: "Monitoring & Feedback Prospect",
     description: "Internal application for recording dealer motorcycle sales, order confirmation, delivery schedules, and document completeness.",
     detailDescription:
@@ -261,6 +284,7 @@ export const projects: Project[] = [
 export const certificates: Certificate[] = [
   {
     id: 5,
+    slug: "english-certificate",
     title: "English Certificate",
     description: "English proficiency certification demonstrating communication and academic language capability.",
     image: "/assets/certificates/English Certificate Gabung_1.jpg",
@@ -270,6 +294,7 @@ export const certificates: Certificate[] = [
   },
   {
     id: 4,
+    slug: "teaching-certification",
     title: "Teaching Certification",
     description: "Certification for teaching and tutoring with structured learning methods.",
     image: "/assets/certificates/Teaching Certification.png",
@@ -279,6 +304,7 @@ export const certificates: Certificate[] = [
   },
   {
     id: 3,
+    slug: "data-analyst-certification",
     title: "Data Analyst Certification",
     description: "In-depth training in Python for data analysis, data organization, and SQL database management.",
     image: "/assets/certificates/data-analyst-udemy.jpeg",
@@ -288,6 +314,7 @@ export const certificates: Certificate[] = [
   },
   {
     id: 2,
+    slug: "intro-to-data-analytics",
     title: "Intro to Data Analytics",
     description: "Fundamentals of data analysis, including organizing and interpreting data using spreadsheets.",
     image: "/assets/certificates/data-analyst-revou.jpeg",
@@ -297,6 +324,7 @@ export const certificates: Certificate[] = [
   },
   {
     id: 1,
+    slug: "ui-ux-webinar-participation",
     title: "UI/UX Webinar Participation",
     description: "Comprehensive training on UI/UX principles, design tools, and best practices.",
     image: "/assets/certificates/ui-ux-webinar-ubaya.png",
@@ -305,6 +333,20 @@ export const certificates: Certificate[] = [
     uploadedAt: "24 May 2025",
   },
 ]
+
+export const getProjectPath = (project: Project) => `/projects/${project.slug}`
+
+export const getProjectBySlug = (slug: string) =>
+  projects.find((project) => project.slug === slug || String(project.id) === slug)
+
+export const getProjectSeoTitle = (project: Project) =>
+  project.seoTitle ?? `${project.title} | ${siteConfig.shortName} Portfolio`
+
+export const getProjectSeoDescription = (project: Project) =>
+  project.seoDescription ?? project.detailDescription
+
+export const getProjectOgImage = (project: Project) =>
+  project.ogImage ?? (project.gallery?.[0] || project.image || siteConfig.defaultOgImage)
 
 const sortByNewestId = <T extends { id: number }>(items: T[]) =>
   [...items].sort((a, b) => b.id - a.id)
@@ -401,12 +443,16 @@ export const experiences: Experience[] = [
 ]
 
 export const cmsContent = {
+  source: "local-typescript-content",
+  version: "1.0.0",
   site: siteConfig,
   navigation: navItems,
   expertise,
   professionalRoles,
   projects,
   projectsLatestFirst,
+  getProjectPath,
+  getProjectBySlug,
   certificates,
   certificatesLatestFirst,
   experiences,
