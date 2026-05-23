@@ -166,7 +166,7 @@ export const projects: Project[] = [
   {
     id: 9,
     title: "PT Topas Multi Finance Website",
-    description: "Website korporat publik yang membangun kepercayaan pelanggan dan brand awareness melalui kehadiran digital profesional.",
+    description: "Public corporate website that builds customer trust and brand awareness through a professional digital presence.",
     detailDescription:
       "A comprehensive corporate website for PT Topas Multi Finance that serves as the primary digital touchpoint for customers and stakeholders. This public-facing platform showcases the company's financial products and services while building strong brand awareness and customer trust. Key features include product information, financing options, job vacancy publication, customer-facing content, and regulatory trust signals for Indonesian financial services customers.",
     image: "/assets/projects/topas-website.png",
@@ -176,7 +176,7 @@ export const projects: Project[] = [
   {
     id: 8,
     title: "PT Alfa Berkat Sigma",
-    description: "Website toko perlengkapan plumbing yang memamerkan produk dan profil perusahaan secara profesional dan menarik.",
+    description: "Professional plumbing product website that presents company information and product offerings clearly.",
     detailDescription:
       "A corporate website for PT. Alfa Berkat Sigma focused on company profile presentation, plumbing product visibility, and a clean digital brand identity. The project emphasizes responsive layout, clear product communication, and a professional user experience for prospective business customers.",
     image: "/assets/projects/sigma-picture.png",
@@ -186,7 +186,7 @@ export const projects: Project[] = [
   {
     id: 7,
     title: "Topas Multi Finance Mobile Application",
-    description: "Aplikasi mobile untuk nasabah dan staf: manajemen pinjaman, tracking pencairan, monitoring nasabah, dan layanan keuangan lengkap.",
+    description: "Mobile application for customers and staff, covering loan management, disbursement tracking, customer monitoring, and financial services.",
     detailDescription:
       "A mobile application designed for Topas Multi Finance customers and internal staff, featuring a modern interface for financing application submission, contract management, payment guidance, outlet location access, profile management, loan simulation, and secure financial service navigation.",
     image: "/assets/projects/mobile-app/combined",
@@ -200,7 +200,7 @@ export const projects: Project[] = [
   {
     id: 6,
     title: "Mobile Loan Flow Survey",
-    description: "Aplikasi survei kunjungan rumah debitur agar data tersentralisasi dan tersimpan rapi di database perusahaan.",
+    description: "Mobile debtor home-visit survey application that centralizes field data and stores it neatly in the company database.",
     detailDescription:
       "A mobile survey application for debtor home visits, designed to centralize survey data, standardize field input, and improve the accuracy of loan-related customer verification processes.",
     image: "/assets/projects/flow-survey-pinjaman.jpg",
@@ -209,7 +209,7 @@ export const projects: Project[] = [
   {
     id: 5,
     title: "HR Topas Application",
-    description: "Sistem HRD terintegrasi: absensi, rekap gaji, perencanaan tenaga kerja berbasis KPI, dan manajemen rekrutmen lengkap.",
+    description: "Integrated HR system for attendance, payroll recap, KPI-based manpower planning, and end-to-end recruitment management.",
     detailDescription:
       "An integrated HR management system for PT Topas Multi Finance that streamlines attendance, payroll recap, employee records, manpower planning, recruitment workflows, and KPI-based workforce management through centralized digital modules.",
     image: "/assets/projects/hr-topas-application.png",
@@ -218,7 +218,7 @@ export const projects: Project[] = [
   {
     id: 4,
     title: "Mobile Mata Elang & Subscribe",
-    description: "Aplikasi pelacak kendaraan kredit untuk field user dan pihak ketiga, dilengkapi sistem berlangganan aplikasi.",
+    description: "Credit vehicle tracking application for field users and third-party partners, supported by subscription-based access.",
     detailDescription:
       "A field-oriented vehicle tracking mobile application for internal users and third-party partners. The solution supports credit vehicle monitoring, structured field reporting, and subscription-based access management.",
     image: "/assets/projects/mobile-mata-elang/combined",
@@ -232,7 +232,7 @@ export const projects: Project[] = [
   {
     id: 3,
     title: "Dashboard Admin Ticketing",
-    description: "Dashboard monitoring tiket berbasis web untuk pengelolaan dan pemantauan sistem ticketing secara real-time.",
+    description: "Web-based ticket monitoring dashboard for managing and tracking ticketing workflows in real time.",
     detailDescription:
       "A web-based admin dashboard for ticket management, operational monitoring, and real-time tracking of issue handling workflows across internal systems.",
     image: "/assets/projects/dashboard_ticketing.png",
@@ -241,7 +241,7 @@ export const projects: Project[] = [
   {
     id: 2,
     title: "Vehicle Registration Certificate System",
-    description: "Sistem cetak nota pencairan yang sebelumnya manual kini dicetak rapi, cepat, dan tersimpan aman di database sistem.",
+    description: "Digital disbursement note printing system that replaces manual writing with fast, neat, and securely stored documents.",
     detailDescription:
       "A digital system that modernizes vehicle registration certificate and disbursement note processes by replacing handwritten workflows with structured printing, centralized storage, validation, audit trails, and faster document retrieval.",
     image: "/assets/projects/vehicle-registration-certificate-system.png",
@@ -250,7 +250,7 @@ export const projects: Project[] = [
   {
     id: 1,
     title: "Monitoring & Feedback Prospect",
-    description: "Aplikasi internal pencatatan penjualan motor dari dealer, konfirmasi order, jadwal pengiriman, dan kelengkapan dokumen.",
+    description: "Internal application for recording dealer motorcycle sales, order confirmation, delivery schedules, and document completeness.",
     detailDescription:
       "An internal monitoring application for dealer motorcycle sales, order confirmation, delivery scheduling, document validation, and transaction tracking. The system improves operational visibility and reduces manual follow-up across dealer-related workflows.",
     image: "/assets/projects/monitoring-server.png",
@@ -280,7 +280,7 @@ export const certificates: Certificate[] = [
   {
     id: 3,
     title: "Data Analyst Certification",
-    description: "In depth training in Python for data analysis, data organization, and SQL database management.",
+    description: "In-depth training in Python for data analysis, data organization, and SQL database management.",
     image: "/assets/certificates/data-analyst-udemy.jpeg",
     issuer: "Udemy",
     date: "02 August 2025",
@@ -298,7 +298,7 @@ export const certificates: Certificate[] = [
   {
     id: 1,
     title: "UI/UX Webinar Participation",
-    description: "Comprehensive training on UI/UX principles, design tools, and best practice.",
+    description: "Comprehensive training on UI/UX principles, design tools, and best practices.",
     image: "/assets/certificates/ui-ux-webinar-ubaya.png",
     issuer: "Universitas Surabaya (UBAYA)",
     date: "24 May 2025",
@@ -351,10 +351,10 @@ export const experiences: Experience[] = [
     workMode: "On-Site",
     logo: "/assets/company-logos/icon_topas.png",
     details: [
-      "Developing systems to increase operational efficiency 50% through integrated document and financial workflows.",
-      "Developing a corporate website to boost product visibility, enable secure oversight, engage customers, and list job vacancies.",
-      "Creating an online loan mobile application to make it easier for customers.",
-      "Building a centralized HR system to manage payroll, attendance, performance, and employee records securely.",
+      "Developed systems that improved operational efficiency by up to 50% through integrated document and financial workflows.",
+      "Developed a corporate website to improve product visibility, support secure oversight, engage customers, and publish job vacancies.",
+      "Created an online loan mobile application to make financing services easier for customers to access.",
+      "Built a centralized HR system to manage payroll, attendance, performance, and employee records securely.",
     ],
   },
   {
@@ -368,7 +368,7 @@ export const experiences: Experience[] = [
     details: [
       "Developed an internal application for dealer motorcycle sales, order confirmation, delivery scheduling, and document validation.",
       "Modernized an outdated system to be more secure, user-friendly, and reliable.",
-      "Performing unit testing to minimize bugs and human error, ensuring smooth deployment and user adoption.",
+      "Performed unit testing to minimize bugs and human error, ensuring smooth deployment and user adoption.",
     ],
   },
   {
@@ -395,7 +395,7 @@ export const experiences: Experience[] = [
     logo: "/assets/company-logos/icon_ubaya.png",
     details: [
       "Assisting professors by preparing programming exercises and reviewing assignments to reinforce programming fundamentals.",
-      "Opening a Business Mathematics class provides tutoring and exercises to hone mathematical logic skills in business.",
+      "Opened a Business Mathematics class that provided tutoring and exercises to strengthen mathematical logic for business contexts.",
     ],
   },
 ]

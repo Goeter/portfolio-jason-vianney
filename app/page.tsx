@@ -14,12 +14,11 @@ import { navItems, siteConfig } from "@/lib/site-content"
 export default function Home() {
   const [activeSection, setActiveSection] = useState("home")
   const [isClient, setIsClient] = useState(false)
-  // Initialize isLoading based on sessionStorage to show splash only once per session
   const [isLoading, setIsLoading] = useState(() => {
     if (typeof window !== "undefined") {
       return !sessionStorage.getItem("hasShownSplash")
     }
-    return true // Default to true on server or before client hydration
+    return true
   })
 
   useEffect(() => {
@@ -29,26 +28,36 @@ export default function Home() {
   useEffect(() => {
     if (!isClient || isLoading) return
 
-    const handleScroll = () => {
-      const sections = navItems.map((item) => item.id)
-      const scrollPosition = window.scrollY + 100
+    const sections = navItems.map((item) => item.id)
+    let scrollFrame = 0
 
-      for (const section of sections) {
-        const element = document.getElementById(section)
-        if (element) {
+    const handleScroll = () => {
+      cancelAnimationFrame(scrollFrame)
+      scrollFrame = requestAnimationFrame(() => {
+        const scrollPosition = window.scrollY + 100
+
+        for (const section of sections) {
+          const element = document.getElementById(section)
+          if (!element) continue
+
           const offsetTop = element.offsetTop
           const offsetHeight = element.offsetHeight
 
           if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
-            setActiveSection(section)
+            setActiveSection((current) => (current === section ? current : section))
             break
           }
         }
-      }
+      })
     }
 
-    window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
+    handleScroll()
+    window.addEventListener("scroll", handleScroll, { passive: true })
+
+    return () => {
+      cancelAnimationFrame(scrollFrame)
+      window.removeEventListener("scroll", handleScroll)
+    }
   }, [isClient, isLoading])
 
   useEffect(() => {
@@ -67,7 +76,6 @@ export default function Home() {
       })
     }, observerOptions)
 
-    // Observe all elements with scroll-animate class
     const animateElements = document.querySelectorAll(".scroll-animate")
     animateElements.forEach((el) => observer.observe(el))
 
@@ -76,7 +84,6 @@ export default function Home() {
 
   const handleLoadingComplete = () => {
     setIsLoading(false)
-    // Set flag in sessionStorage after splash is shown
     if (typeof window !== "undefined") {
       sessionStorage.setItem("hasShownSplash", "true")
     }

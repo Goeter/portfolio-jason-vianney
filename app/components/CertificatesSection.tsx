@@ -11,6 +11,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { certificates, certificatesLatestFirst } from "@/lib/site-content"
 
 const getCardsPerPage = () => {
+  if (typeof window === "undefined") return 3
   if (window.innerWidth < 768) return 1
   if (window.innerWidth < 1024) return 2
   return 3
@@ -24,12 +25,25 @@ export default function CertificatesSection() {
   const [touchEndX, setTouchEndX] = useState<number | null>(null)
 
   useEffect(() => {
-    const updateCardsPerPage = () => setCardsPerPage(getCardsPerPage())
+    let resizeFrame = 0
+
+    const updateCardsPerPage = () => {
+      cancelAnimationFrame(resizeFrame)
+      resizeFrame = requestAnimationFrame(() => {
+        setCardsPerPage((current) => {
+          const next = getCardsPerPage()
+          return current === next ? current : next
+        })
+      })
+    }
 
     updateCardsPerPage()
-    window.addEventListener("resize", updateCardsPerPage)
+    window.addEventListener("resize", updateCardsPerPage, { passive: true })
 
-    return () => window.removeEventListener("resize", updateCardsPerPage)
+    return () => {
+      cancelAnimationFrame(resizeFrame)
+      window.removeEventListener("resize", updateCardsPerPage)
+    }
   }, [])
 
   const totalPages = useMemo(
@@ -48,9 +62,12 @@ export default function CertificatesSection() {
     [totalPages]
   )
 
-  const getPageCertificates = useCallback(
-    (page: number) => certificatesLatestFirst.slice(page * cardsPerPage, (page + 1) * cardsPerPage),
-    [cardsPerPage]
+  const paginatedCertificates = useMemo(
+    () =>
+      Array.from({ length: totalPages }, (_, page) =>
+        certificatesLatestFirst.slice(page * cardsPerPage, (page + 1) * cardsPerPage)
+      ),
+    [cardsPerPage, totalPages]
   )
 
   const handleTouchStart = (event: TouchEvent<HTMLDivElement>) => {
@@ -116,7 +133,7 @@ export default function CertificatesSection() {
 
               <Image
                 src={selectedImage}
-                alt="Certificate Detail"
+                alt="Certificate preview"
                 width={1000}
                 height={700}
                 sizes="88vw"
@@ -147,7 +164,7 @@ export default function CertificatesSection() {
                   </span>
 
                   <span className="mt-[3px] text-[8px] uppercase tracking-widest opacity-70 sm:text-[9px]">
-                    Certif
+                    Certs
                   </span>
                 </div>
               </div>
@@ -194,9 +211,7 @@ export default function CertificatesSection() {
               className="flex touch-pan-y select-none transition-transform duration-700 ease-fluid"
               style={{ transform: `translateX(-${currentPage * 100}%)` }}
             >
-              {Array.from({ length: totalPages }).map((_, pageIndex) => {
-                const pageCertificates = getPageCertificates(pageIndex)
-
+              {paginatedCertificates.map((pageCertificates, pageIndex) => {
                 return (
                   <div key={pageIndex} className="flex min-w-full items-stretch gap-5 px-1 pb-4">
                     {pageCertificates.map((certificate) => (

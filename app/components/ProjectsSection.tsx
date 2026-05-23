@@ -441,21 +441,31 @@ export default function ProjectsSection() {
 
   useEffect(() => {
     setIsClient(true)
+    let resizeFrame = 0
+
+    const getCardsPerPage = () => {
+      if (window.innerWidth < 768) return 1
+      if (window.innerWidth < 1100) return 2
+      return 3
+    }
 
     const handleResize = () => {
-      if (window.innerWidth < 768) {
-        setCardsPerPage(1)
-      } else if (window.innerWidth < 1100) {
-        setCardsPerPage(2)
-      } else {
-        setCardsPerPage(3)
-      }
+      cancelAnimationFrame(resizeFrame)
+      resizeFrame = requestAnimationFrame(() => {
+        setCardsPerPage((current) => {
+          const next = getCardsPerPage()
+          return current === next ? current : next
+        })
+      })
     }
 
     handleResize()
-    window.addEventListener("resize", handleResize)
+    window.addEventListener("resize", handleResize, { passive: true })
 
-    return () => window.removeEventListener("resize", handleResize)
+    return () => {
+      cancelAnimationFrame(resizeFrame)
+      window.removeEventListener("resize", handleResize)
+    }
   }, [])
 
   useEffect(() => {
@@ -494,9 +504,12 @@ export default function ProjectsSection() {
     [totalPages]
   )
 
-  const pageProjects = useCallback(
-    (page: number) => projectsLatestFirst.slice(page * cardsPerPage, (page + 1) * cardsPerPage),
-    [cardsPerPage]
+  const paginatedProjects = useMemo(
+    () =>
+      Array.from({ length: totalPages }, (_, page) =>
+        projectsLatestFirst.slice(page * cardsPerPage, (page + 1) * cardsPerPage)
+      ),
+    [cardsPerPage, totalPages]
   )
 
   const previewImages = useMemo(() => {
@@ -585,7 +598,7 @@ export default function ProjectsSection() {
           <button
             onClick={() => slide(-1)}
             disabled={currentPage === 0}
-            aria-label="Sebelumnya"
+            aria-label="Previous projects"
             className="absolute -left-2 top-1/2 z-20 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-amber-300/30 bg-slate-950/80 text-amber-300 shadow-xl backdrop-blur-md transition hover:bg-amber-400 hover:text-slate-950 disabled:cursor-default disabled:opacity-25 md:-left-5 sm:flex"
           >
             <ChevronLeft size={20} />
@@ -594,7 +607,7 @@ export default function ProjectsSection() {
           <button
             onClick={() => slide(1)}
             disabled={currentPage === totalPages - 1}
-            aria-label="Berikutnya"
+            aria-label="Next projects"
             className="absolute -right-2 top-1/2 z-20 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-amber-300/30 bg-slate-950/80 text-amber-300 shadow-xl backdrop-blur-md transition hover:bg-amber-400 hover:text-slate-950 disabled:cursor-default disabled:opacity-25 md:-right-5 sm:flex"
           >
             <ChevronRight size={20} />
@@ -613,9 +626,7 @@ export default function ProjectsSection() {
               }}
             >
               {isClient &&
-                Array.from({ length: totalPages }).map((_, pageIdx) => {
-                  const visibleProjects = pageProjects(pageIdx)
-
+                paginatedProjects.map((visibleProjects, pageIdx) => {
                   return (
                     <div key={pageIdx} className="flex min-w-full items-stretch gap-5 px-1 pb-4">
                       {visibleProjects.map((project) => (
@@ -647,7 +658,7 @@ export default function ProjectsSection() {
           <button
             onClick={() => slide(-1)}
             disabled={currentPage === 0}
-            aria-label="Sebelumnya"
+            aria-label="Previous projects"
             className="flex h-9 w-9 items-center justify-center rounded-full border border-amber-300/30 bg-slate-950/80 text-amber-300 shadow-lg backdrop-blur-md transition hover:bg-amber-400 hover:text-slate-950 disabled:cursor-default disabled:opacity-25 sm:hidden"
           >
             <ChevronLeft size={18} />
@@ -677,7 +688,7 @@ export default function ProjectsSection() {
           <button
             onClick={() => slide(1)}
             disabled={currentPage === totalPages - 1}
-            aria-label="Berikutnya"
+            aria-label="Next projects"
             className="flex h-9 w-9 items-center justify-center rounded-full border border-amber-300/30 bg-slate-950/80 text-amber-300 shadow-lg backdrop-blur-md transition hover:bg-amber-400 hover:text-slate-950 disabled:cursor-default disabled:opacity-25 sm:hidden"
           >
             <ChevronRight size={18} />
