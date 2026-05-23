@@ -382,58 +382,52 @@ export default function AllProjects() {
       >
         <div
           className="
-            mx-auto flex h-[68px]
+            relative mx-auto flex h-[68px]
             w-full max-w-7xl
-            items-center justify-between
+            items-center
             px-4 sm:px-8 lg:px-12
           "
         >
           {/* Left */}
-          <div className="w-[80px] sm:w-[120px]">
-            <Link
-              href="/#projects"
+          <Link
+            href="/#projects"
+            className="
+              group relative z-10 inline-flex items-center gap-2
+              rounded-full border border-[#d4a84325]
+              bg-[#0d1226]
+              px-3 py-[10px]
+              text-[#d4a843]
+              transition-all duration-300
+              hover:border-[#d4a84355]
+              hover:bg-[#111831]
+            "
+          >
+            <ChevronLeft
+              size={18}
               className="
-                group inline-flex items-center gap-2
-                rounded-full border border-[#d4a84325]
-                bg-[#0d1226]
-                px-3 py-[10px]
-                text-[#d4a843]
-                transition-all duration-300
-                hover:border-[#d4a84355]
-                hover:bg-[#111831]
+                transition-transform duration-300
+                group-hover:-translate-x-[2px]
               "
-            >
-              <ChevronLeft
-                size={18}
-                className="
-                  transition-transform duration-300
-                  group-hover:-translate-x-[2px]
-                "
-              />
+            />
 
-              <span className="hidden text-[13px] sm:inline">
-                Back
-              </span>
-            </Link>
-          </div>
+            <span className="hidden text-[13px] sm:inline">
+              Back
+            </span>
+          </Link>
 
           {/* Center */}
-          <div className="flex-1 text-center">
+          <div className="pointer-events-none absolute inset-0 flex items-center justify-center px-24 text-center">
             <h1
               className="
-                whitespace-nowrap
-                font-serif text-[18px]
-                font-medium tracking-[0.02em]
+                truncate
+                text-[11px] font-semibold uppercase
+                tracking-[0.28em]
                 text-[#d4a843]
-                sm:text-[28px]
               "
             >
               Project Archive
             </h1>
           </div>
-
-          {/* Spacer */}
-          <div className="w-[80px] sm:w-[120px]" />
         </div>
       </header>
 

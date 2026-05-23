@@ -41,21 +41,19 @@ export default function CertificatesArchiveClient() {
       </div>
 
       <header className="sticky top-0 z-50 border-b border-white/10 bg-slate-950/60 backdrop-blur-xl">
-        <div className="container mx-auto flex h-[68px] max-w-6xl items-center justify-between gap-4 px-4">
-          <Link href="/#certificates" className="shrink-0">
+        <div className="container relative mx-auto flex h-[68px] max-w-6xl items-center px-4">
+          <Link href="/#certificates" className="relative z-10 shrink-0">
             <Button className="group rounded-full border border-green-300/30 bg-white/10 px-4 py-5 text-sm font-semibold text-white shadow-lg shadow-green-500/10 backdrop-blur-md transition-all duration-300 hover:-translate-x-1 hover:bg-green-400 hover:text-slate-950">
               <ChevronLeft className="h-5 w-5 transition group-hover:-translate-x-1 sm:mr-2" />
               <span className="hidden text-[13px] sm:inline">Back</span>
             </Button>
           </Link>
 
-          <div className="min-w-0 flex-1 text-center">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-green-300/80">
+          <div className="pointer-events-none absolute inset-0 flex items-center justify-center px-24 text-center">
+            <p className="truncate text-[11px] font-semibold uppercase tracking-[0.28em] text-green-300/80">
               Certificate Archive
             </p>
           </div>
-
-          <div className="hidden w-[96px] sm:block" />
         </div>
       </header>
 
