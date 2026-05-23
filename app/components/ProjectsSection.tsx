@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect, useCallback, useMemo, useRef } from "react"
+import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import type { TouchEvent } from "react"
 import Image from "next/image"
 import Link from "next/link"
@@ -524,12 +524,18 @@ export default function ProjectsSection() {
   }, [previewProject])
 
   const handleTouchStart = (event: TouchEvent<HTMLDivElement>) => {
+    const firstTouch = event.targetTouches.item(0)
+    if (!firstTouch) return
+
     setTouchEndX(null)
-    setTouchStartX(event.targetTouches[0].clientX)
+    setTouchStartX(firstTouch.clientX)
   }
 
   const handleTouchMove = (event: TouchEvent<HTMLDivElement>) => {
-    setTouchEndX(event.targetTouches[0].clientX)
+    const firstTouch = event.targetTouches.item(0)
+    if (!firstTouch) return
+
+    setTouchEndX(firstTouch.clientX)
   }
 
   const handleTouchEnd = () => {
@@ -596,6 +602,7 @@ export default function ProjectsSection() {
           }`}
         >
           <button
+            type="button"
             onClick={() => slide(-1)}
             disabled={currentPage === 0}
             aria-label="Previous projects"
@@ -605,6 +612,7 @@ export default function ProjectsSection() {
           </button>
 
           <button
+            type="button"
             onClick={() => slide(1)}
             disabled={currentPage === totalPages - 1}
             aria-label="Next projects"
@@ -629,11 +637,11 @@ export default function ProjectsSection() {
                 paginatedProjects.map((visibleProjects, pageIdx) => {
                   return (
                     <div key={pageIdx} className="flex min-w-full items-stretch gap-5 px-1 pb-4">
-                      {visibleProjects.map((project) => (
+                      {visibleProjects.map((project, projectIndex) => (
                         <ProjectCard
                           key={project.id}
                           project={project}
-                          index={pageIdx * cardsPerPage + visibleProjects.indexOf(project)}
+                          index={pageIdx * cardsPerPage + projectIndex}
                           isVisible={isVisible}
                           onPreview={setPreviewProject}
                         />
@@ -656,6 +664,7 @@ export default function ProjectsSection() {
           }`}
         >
           <button
+            type="button"
             onClick={() => slide(-1)}
             disabled={currentPage === 0}
             aria-label="Previous projects"
@@ -671,8 +680,9 @@ export default function ProjectsSection() {
               return (
                 <button
                   key={i}
+                  type="button"
                   onClick={() => setCurrentPage(i)}
-                  aria-label={`Halaman ${i + 1}`}
+                  aria-label={`Go to project page ${i + 1}`}
                   className={`h-2 rounded-full transition-all duration-300 ${
                     active ? "w-8 bg-amber-400" : "w-2 bg-slate-500 hover:bg-slate-300"
                   }`}
@@ -686,6 +696,7 @@ export default function ProjectsSection() {
           </div>
 
           <button
+            type="button"
             onClick={() => slide(1)}
             disabled={currentPage === totalPages - 1}
             aria-label="Next projects"
