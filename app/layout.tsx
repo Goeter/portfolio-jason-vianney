@@ -2,6 +2,7 @@ import type React from "react"
 import type { Metadata } from "next"
 import "./globals.css"
 import { siteConfig, siteStructuredData } from "@/lib/site-content"
+import { Analytics } from "@vercel/analytics/next"
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
@@ -66,6 +67,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(siteStructuredData) }}
         />
         {children}
+        <Analytics />
       </body>
     </html>
   )
