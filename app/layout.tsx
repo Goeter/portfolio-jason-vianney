@@ -1,5 +1,6 @@
 import type React from "react"
 import type { Metadata } from "next"
+import { Analytics } from "@vercel/analytics/next"
 import "./globals.css"
 import { siteConfig, siteStructuredData } from "@/lib/site-content"
 
@@ -17,6 +18,10 @@ export const metadata: Metadata = {
   publisher: siteConfig.owner,
   category: "Portfolio",
   alternates: { canonical: "/" },
+  icons: {
+    icon: "/icon.png",
+    apple: "/apple-icon.png",
+  },
   openGraph: {
     title: siteConfig.seoTitle,
     description: siteConfig.seoDescription,
@@ -66,6 +71,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(siteStructuredData) }}
         />
         {children}
+        <Analytics />
       </body>
     </html>
   )
