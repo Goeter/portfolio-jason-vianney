@@ -166,6 +166,18 @@ export const professionalRoles: ProfessionalRole[] = [
 
 export const projects: Project[] = [
   {
+    id: 11,
+    slug: "pemenang-konsultan-professional-consulting-website",
+    title: "Pemenang Konsultan Professional Website",
+    description:
+      "Professional consulting website designed to present services, credibility, and client-focused solutions with a clean digital presence.",
+    detailDescription:
+      "A professional consulting website for Pemenang Konsultan, built to communicate service expertise, strengthen business credibility, and guide potential clients toward consultation through a clear, responsive, and trustworthy digital experience. The website emphasizes concise messaging, structured service information, modern visual hierarchy, and a direct call-to-action for prospective clients.",
+    image: "/assets/projects/pemenang-konsultan.png",
+    uploadedAt: "May 2026",
+    link: "https://pemenangkonsultan.vercel.app/",
+  },
+  {
     id: 10,
     slug: "pt-steda-roaster-company-profile-cms",
     title: "PT Steda Roaster Company Profile & CMS",

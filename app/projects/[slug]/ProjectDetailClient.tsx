@@ -1,7 +1,7 @@
 "use client"
 
 import { useMemo, useState } from "react"
-import { ChevronLeft } from "lucide-react"
+import { ChevronLeft, ExternalLink } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import Image from "next/image"
@@ -145,6 +145,20 @@ export default function ProjectDetailClient({ project }: ProjectDetailClientProp
           <article className="rounded-[28px] border border-cyan-400/15 bg-slate-950/70 p-6 text-lg leading-relaxed text-slate-300 shadow-2xl shadow-black/30 backdrop-blur-xl md:p-8">
             {project.detailDescription}
           </article>
+
+          {project.link ? (
+            <div className="mt-6">
+              <a
+                href={project.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-full border border-cyan-300/25 bg-cyan-400/10 px-5 py-3 text-sm font-semibold uppercase tracking-[0.18em] text-cyan-100 transition-all duration-300 hover:border-cyan-200/60 hover:bg-cyan-300/20 hover:text-white"
+              >
+                View Website
+                <ExternalLink className="h-4 w-4" />
+              </a>
+            </div>
+          ) : null}
         </div>
       </main>
 
