@@ -73,7 +73,7 @@ export const siteConfig = {
     "Portfolio of Jason Vianney Sugiarto, an IT professional experienced in system analysis, UI/UX design, data analytics, fullstack development, freelance IT projects, tutoring, HR systems, corporate websites, CMS websites, mobile applications, and business process digitalization.",
   url: "https://jasonvianney.com",
   locale: "en_US",
-  defaultOgImage: "/assets/profile/home.png",
+  defaultOgImage: "/assets/profile/photo.jpeg",
   seoTitle: "Jason Vianney Sugiarto - System Analyst, UI/UX Designer, Data Analyst & Fullstack Developer",
   seoDescription:
     "Explore Jason Vianney Sugiarto's professional portfolio featuring system analysis, UI/UX design, data analysis, fullstack development, CMS websites, corporate profiles, mobile applications, HR systems, and digital business solutions.",
@@ -222,7 +222,7 @@ export const projects: Project[] = [
     description: "Mobile application for customers and staff, covering loan management, disbursement tracking, customer monitoring, and financial services.",
     detailDescription:
       "A mobile application designed for Topas Multi Finance customers and internal staff, featuring a modern interface for financing application submission, contract management, payment guidance, outlet location access, profile management, loan simulation, and secure financial service navigation.",
-    image: "/assets/projects/mobile-app/combined",
+    image: "/assets/projects/mobile-app/topas-mobile-dashboard.jpeg",
     uploadedAt: "June 2025",
     gallery: [
       "/assets/projects/mobile-app/topas-mobile-dashboard.jpeg",
@@ -257,7 +257,7 @@ export const projects: Project[] = [
     description: "Credit vehicle tracking application for field users and third-party partners, supported by subscription-based access.",
     detailDescription:
       "A field-oriented vehicle tracking mobile application for internal users and third-party partners. The solution supports credit vehicle monitoring, structured field reporting, and subscription-based access management.",
-    image: "/assets/projects/mobile-mata-elang/combined",
+    image: "/assets/projects/mobile-mata-elang/foto-1.webp",
     uploadedAt: "June 2025",
     gallery: [
       "/assets/projects/mobile-mata-elang/foto-1.webp",

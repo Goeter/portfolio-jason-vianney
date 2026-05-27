@@ -14,9 +14,9 @@ import {
 } from "@/lib/site-content"
 
 type ProjectPageProps = {
-  params: Promise<{
+  params: {
     slug: string
-  }>
+  }
 }
 
 export function generateStaticParams() {
@@ -24,7 +24,7 @@ export function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: ProjectPageProps): Promise<Metadata> {
-  const { slug } = await params
+  const { slug } = params
   const project = getProjectBySlug(slug)
 
   if (!project) {
@@ -60,8 +60,8 @@ export async function generateMetadata({ params }: ProjectPageProps): Promise<Me
   }
 }
 
-export default async function ProjectPage({ params }: ProjectPageProps) {
-  const { slug } = await params
+export default function ProjectPage({ params }: ProjectPageProps) {
+  const { slug } = params
   const project = getProjectBySlug(slug)
 
   if (!project) {

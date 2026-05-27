@@ -2,13 +2,14 @@
 
 import { useCallback, useEffect, useMemo, useState } from "react"
 import type { TouchEvent } from "react"
-import { Award, ChevronLeft, ChevronRight, ExternalLink, X } from "lucide-react"
+import { Award, ChevronLeft, ChevronRight, ExternalLink } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { certificates, certificatesLatestFirst } from "@/lib/site-content"
+import ImagePreviewDialog from "./ImagePreviewDialog"
 
 const getCardsPerPage = () => {
   if (typeof window === "undefined") return 3
@@ -21,6 +22,19 @@ export default function CertificatesSection() {
   const [currentPage, setCurrentPage] = useState(0)
   const [cardsPerPage, setCardsPerPage] = useState(3)
   const [selectedImage, setSelectedImage] = useState<string | null>(null)
+
+  const previewImages = useMemo(
+    () =>
+      selectedImage
+        ? [
+            {
+              src: selectedImage,
+              alt: "Certificate preview",
+            },
+          ]
+        : null,
+    [selectedImage]
+  )
   const [touchStartX, setTouchStartX] = useState<number | null>(null)
   const [touchEndX, setTouchEndX] = useState<number | null>(null)
 
@@ -117,38 +131,6 @@ export default function CertificatesSection() {
       <div className="absolute -right-24 bottom-16 h-96 w-96 rounded-full bg-teal-400/16 blur-[150px]" />
       <div className="absolute left-1/2 top-1/2 h-[32rem] w-[32rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-emerald-400/8 blur-[180px]" />
       <div className="absolute inset-0 bg-[linear-gradient(115deg,transparent_0%,rgba(34,197,94,0.055)_42%,transparent_68%)]" />
-
-      {selectedImage && (
-        <div
-          className="fixed inset-0 z-[999] flex items-center justify-center bg-black/90 p-4 backdrop-blur-md"
-          onClick={() => setSelectedImage(null)}
-        >
-          <div
-            className="relative flex items-center justify-center"
-            onClick={(event) => event.stopPropagation()}
-          >
-            <div className="relative rounded-2xl border border-white/15 bg-slate-950/85 p-3 shadow-2xl shadow-black/60 backdrop-blur-xl">
-              <button
-                type="button"
-                className="absolute right-3 top-3 z-20 rounded-full border border-white/20 bg-slate-900/90 p-2 text-white transition hover:bg-slate-800"
-                onClick={() => setSelectedImage(null)}
-                aria-label="Close certificate preview"
-              >
-                <X className="h-5 w-5" />
-              </button>
-
-              <Image
-                src={selectedImage}
-                alt="Certificate preview"
-                width={1000}
-                height={700}
-                sizes="88vw"
-                className="max-h-[72vh] w-auto max-w-[88vw] rounded-xl object-contain"
-              />
-            </div>
-          </div>
-        </div>
-      )}
 
       <div className="container relative z-10 mx-auto max-w-6xl px-4">
         <div className="mb-10 animate-[fadeInUp_0.8s_ease-out]">
@@ -330,6 +312,12 @@ export default function CertificatesSection() {
           </div>
         </div>
       </div>
+
+      <ImagePreviewDialog
+        images={previewImages}
+        title="Certificate preview"
+        onClose={() => setSelectedImage(null)}
+      />
     </section>
   )
 }

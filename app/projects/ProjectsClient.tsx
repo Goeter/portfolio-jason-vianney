@@ -152,23 +152,28 @@ function ImageModal({
       className="
         fixed inset-0 z-[999]
         flex items-center justify-center
-        bg-black/80
+        bg-black/85
         backdrop-blur-md
-        p-4
+        p-3 sm:p-4
       "
+      onClick={onClose}
     >
       <div
         className="
-          relative w-full max-w-6xl
-          overflow-hidden rounded-[30px]
-          border border-[#1f2b47]
+          relative flex max-h-[94vh] w-full max-w-6xl flex-col
+          overflow-hidden rounded-[26px]
+          border border-[#d4a84324]
           bg-[#0a1020]
+          p-2
           shadow-[0_25px_80px_rgba(0,0,0,0.7)]
         "
+        onClick={(event) => event.stopPropagation()}
       >
         {/* Close */}
         <button
+          type="button"
           onClick={onClose}
+          aria-label="Close project preview"
           className="
             absolute right-4 top-4 z-50
             flex h-11 w-11 items-center justify-center
@@ -187,23 +192,24 @@ function ImageModal({
         {/* Image */}
         <div
           className="
-            max-h-[90vh]
+            min-h-0 max-h-[90vh]
             no-card-scrollbar overflow-auto
+            rounded-[20px]
             bg-[#050816]
-            p-4
+            p-2 sm:p-3
           "
         >
           {project.gallery ? (
-            <div className="no-card-scrollbar flex gap-3 overflow-x-auto">
+            <div className="no-card-scrollbar flex max-h-[86vh] gap-3 overflow-x-auto">
               {project.gallery.map((src, index) => (
                 <Image
                   key={src}
                   src={src}
                   alt={`${project.title} preview ${index + 1}`}
-                  width={350}
-                  height={700}
-                  sizes="350px"
-                  className="rounded-2xl object-contain"
+                  width={420}
+                  height={840}
+                  sizes="(max-width: 768px) 78vw, 420px"
+                  className="max-h-[84vh] w-auto max-w-[78vw] rounded-2xl object-contain sm:max-w-[420px]"
                 />
               ))}
             </div>
@@ -215,7 +221,7 @@ function ImageModal({
               height={1000}
               sizes="90vw"
               className="
-                h-auto max-h-[82vh]
+                h-auto max-h-[84vh]
                 w-full rounded-2xl
                 object-contain
               "
@@ -256,6 +262,7 @@ function ProjectCard({
     >
       {/* Thumbnail */}
       <button
+        type="button"
         onClick={() => onOpen(project)}
         className="
           relative aspect-video overflow-hidden
