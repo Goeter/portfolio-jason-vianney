@@ -7,6 +7,8 @@ export type NavItem = {
   icon: LucideIcon
 }
 
+export type ProjectImageFit = "cover" | "contain" | "logo"
+
 export type Project = {
   id: number
   slug: string
@@ -16,6 +18,8 @@ export type Project = {
   image: string
   link?: string | null
   gallery?: string[]
+  imageFit?: ProjectImageFit
+  logoImageIndexes?: number[]
   seoTitle?: string
   seoDescription?: string
   ogImage?: string
@@ -570,29 +574,4 @@ export const certificatesCollectionStructuredData = {
       name: certificate.issuer,
     },
   })),
-}
-
-export const cmsContent = {
-  source: "local-typescript-content",
-  version: "1.0.0",
-  site: siteConfig,
-  navigation: navItems,
-  expertise,
-  professionalRoles,
-  projects,
-  projectsLatestFirst,
-  getProjectPath,
-  getProjectBySlug,
-  certificates,
-  certificatesLatestFirst,
-  experiences,
-  getAbsoluteUrl,
-  getAbsoluteImageUrl,
-  getProjectSeoTitle,
-  getProjectSeoDescription,
-  getProjectOgImage,
-  siteStructuredData,
-  getProjectStructuredData,
-  projectsCollectionStructuredData,
-  certificatesCollectionStructuredData,
 }

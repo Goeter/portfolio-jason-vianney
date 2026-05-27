@@ -479,31 +479,6 @@ export default function AllProjects() {
         project={selectedProject}
         onClose={() => setSelectedProject(null)}
       />
-
-      <style jsx global>{`
-        html {
-          scroll-behavior: smooth;
-        }
-
-        body {
-          background: #07091a;
-        }
-
-        .project-archive-card {
-          animation: fadeInUp 0.78s ease-out both;
-        }
-
-        @keyframes fadeInUp {
-          from {
-            opacity: 0;
-            transform: translateY(30px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-      `}</style>
     </main>
   )
 }

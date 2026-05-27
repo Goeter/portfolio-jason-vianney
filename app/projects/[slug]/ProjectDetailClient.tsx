@@ -1,31 +1,24 @@
 "use client"
 
 import { useMemo, useState } from "react"
-import { ChevronLeft, ExternalLink } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import Link from "next/link"
 import Image from "next/image"
-import type { Project } from "@/lib/site-content"
+import Link from "next/link"
+import { ChevronLeft, ExternalLink } from "lucide-react"
+
 import ImagePreviewDialog from "@/app/components/ImagePreviewDialog"
+import { Button } from "@/components/ui/button"
+import type { Project } from "@/lib/site-content"
 
 interface ProjectDetailClientProps {
   project: Project
 }
 
-type ProjectImageFit = "cover" | "contain" | "logo"
-
-type ProjectDisplayConfig = {
-  imageFit?: ProjectImageFit
-  logoImageIndexes?: number[]
-}
 
 export default function ProjectDetailClient({ project }: ProjectDetailClientProps) {
   const [isPreviewOpen, setIsPreviewOpen] = useState(false)
 
-  const projectDisplayConfig = project as typeof project & ProjectDisplayConfig
-
-  const imageFit = projectDisplayConfig.imageFit ?? "cover"
-  const logoImageIndexes = projectDisplayConfig.logoImageIndexes ?? []
+  const imageFit = project.imageFit ?? "cover"
+  const logoImageIndexes = project.logoImageIndexes ?? []
 
   const previewImages = useMemo(() => {
     const sources = project.gallery?.length ? project.gallery : [project.image]

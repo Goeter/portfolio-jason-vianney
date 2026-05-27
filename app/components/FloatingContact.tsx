@@ -95,7 +95,7 @@ export default function FloatingContact() {
             "
           >
             {/* Floating effect */}
-            <div className="absolute inset-0 rounded-full animate-[float_3s_ease-in-out_infinite]"></div>
+            <div className="absolute inset-0 rounded-full animate-[contactFloat_3s_ease-in-out_infinite]"></div>
 
             {/* Content */}
             <div
@@ -117,13 +117,6 @@ export default function FloatingContact() {
       </div>
 
       {/* Custom animation */}
-      <style jsx>{`
-        @keyframes float {
-          0% { transform: translateY(0px); }
-          50% { transform: translateY(-6px); }
-          100% { transform: translateY(0px); }
-        }
-      `}</style>
     </div>
   )
 }

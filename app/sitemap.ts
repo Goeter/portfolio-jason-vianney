@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next"
-import { certificatesLatestFirst, getAbsoluteUrl, getProjectPath, projectsLatestFirst, siteConfig } from "@/lib/site-content"
+import { getAbsoluteUrl, getProjectPath, projectsLatestFirst } from "@/lib/site-content"
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date()
@@ -28,12 +28,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: now,
       changeFrequency: "monthly" as const,
       priority: 0.7,
-    })),
-    ...certificatesLatestFirst.map((certificate) => ({
-      url: getAbsoluteUrl(`/certificates#certificate-${certificate.id}`),
-      lastModified: now,
-      changeFrequency: "yearly" as const,
-      priority: 0.5,
     })),
   ]
 }
