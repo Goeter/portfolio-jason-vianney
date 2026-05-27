@@ -159,14 +159,15 @@ function ImageModal({
       onClick={onClose}
     >
       <div
-        className="
-          relative flex max-h-[94vh] w-full max-w-6xl flex-col
-          overflow-hidden rounded-[26px]
+        className={`
+          relative flex max-h-[94vh] flex-col
+          overflow-hidden rounded-[20px] sm:rounded-[24px]
           border border-[#d4a84324]
           bg-[#0a1020]
-          p-2
+          p-1.5 sm:p-2
           shadow-[0_25px_80px_rgba(0,0,0,0.7)]
-        "
+          ${project.gallery ? "w-[min(96vw,1040px)]" : "w-fit max-w-[calc(100vw-1rem)] sm:max-w-[calc(100vw-2rem)]"}
+        `}
         onClick={(event) => event.stopPropagation()}
       >
         {/* Close */}
@@ -192,24 +193,24 @@ function ImageModal({
         {/* Image */}
         <div
           className="
-            min-h-0 max-h-[90vh]
+            min-h-0 max-h-[90vh] max-w-full
             no-card-scrollbar overflow-auto
-            rounded-[20px]
+            rounded-[16px] sm:rounded-[18px]
             bg-[#050816]
-            p-2 sm:p-3
+            p-1.5 sm:p-2
           "
         >
           {project.gallery ? (
-            <div className="no-card-scrollbar flex max-h-[86vh] gap-3 overflow-x-auto">
+            <div className="no-card-scrollbar flex max-h-[90vh] gap-3 overflow-x-auto pb-2 pr-9 sm:gap-4 sm:pr-11">
               {project.gallery.map((src, index) => (
                 <Image
                   key={src}
                   src={src}
                   alt={`${project.title} preview ${index + 1}`}
-                  width={420}
-                  height={840}
-                  sizes="(max-width: 768px) 78vw, 420px"
-                  className="max-h-[84vh] w-auto max-w-[78vw] rounded-2xl object-contain sm:max-w-[420px]"
+                  width={1100}
+                  height={1600}
+                  sizes="(max-width: 768px) 82vw, 470px"
+                  className="block h-auto max-h-[86vh] w-auto max-w-[82vw] rounded-2xl object-contain sm:max-w-[470px]"
                 />
               ))}
             </div>
@@ -217,13 +218,13 @@ function ImageModal({
             <Image
               src={project.image}
               alt={project.title}
-              width={1600}
-              height={1000}
-              sizes="90vw"
+              width={1800}
+              height={1200}
+              sizes="(max-width: 768px) 96vw, 1200px"
               className="
-                h-auto max-h-[84vh]
-                w-full rounded-2xl
-                object-contain
+                block h-auto max-h-[88vh]
+                w-auto max-w-[calc(100vw-1.75rem)] rounded-2xl
+                object-contain sm:max-w-[calc(100vw-3rem)] lg:max-w-[1200px]
               "
             />
           )}
