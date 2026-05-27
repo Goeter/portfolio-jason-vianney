@@ -177,7 +177,7 @@ export const projects: Project[] = [
       "Professional consulting website designed to present services, credibility, and client-focused solutions with a clean digital presence.",
     detailDescription:
       "A professional consulting website for Pemenang Konsultan, built to communicate service expertise, strengthen business credibility, and guide potential clients toward consultation through a clear, responsive, and trustworthy digital experience. The website emphasizes concise messaging, structured service information, modern visual hierarchy, and a direct call-to-action for prospective clients.",
-    image: "/assets/projects/pemenang-konsultan.png",
+    image: "/assets/projects/pemenang-konsultan.webp",
     uploadedAt: "May 2026",
     link: "https://pemenangkonsultan.vercel.app/",
   },
@@ -189,7 +189,7 @@ export const projects: Project[] = [
       "Responsive company profile website with CMS support to present Steda Roaster's coffee roasting services, products, and business information clearly.",
     detailDescription:
       "A responsive company profile website and CMS for PT Steda Roaster, designed to strengthen the brand's digital presence, present coffee roasting services and business offerings clearly, and make content updates easier through a structured content management workflow. The website focuses on clean visual hierarchy, accessible information, responsive layouts, and a professional user experience for customers and business partners.",
-    image: "/assets/projects/steda-roaster.png",
+    image: "/assets/projects/steda-roaster.webp",
     uploadedAt: "May 2026",
     link: "https://stedaroaster.vercel.app/",
   },
@@ -200,7 +200,7 @@ export const projects: Project[] = [
     description: "Public corporate website that builds customer trust and brand awareness through a professional digital presence.",
     detailDescription:
       "A comprehensive corporate website for PT Topas Multi Finance that serves as the primary digital touchpoint for customers and stakeholders. This public-facing platform showcases the company's financial products and services while building strong brand awareness and customer trust. Key features include product information, financing options, job vacancy publication, customer-facing content, and regulatory trust signals for Indonesian financial services customers.",
-    image: "/assets/projects/topas-website.png",
+    image: "/assets/projects/topas-website.webp",
     uploadedAt: "June 2025",
     link: "https://frontend.topasmultifinance.co.id",
   },
@@ -211,7 +211,7 @@ export const projects: Project[] = [
     description: "Professional plumbing product website that presents company information and product offerings clearly.",
     detailDescription:
       "A corporate website for PT. Alfa Berkat Sigma focused on company profile presentation, plumbing product visibility, and a clean digital brand identity. The project emphasizes responsive layout, clear product communication, and a professional user experience for prospective business customers.",
-    image: "/assets/projects/sigma-picture.png",
+    image: "/assets/projects/sigma-picture.webp",
     uploadedAt: "June 2025",
     link: "https://sigma-andrew-ten.vercel.app",
   },
@@ -247,7 +247,7 @@ export const projects: Project[] = [
     description: "Integrated HR system for attendance, payroll recap, KPI-based manpower planning, and end-to-end recruitment management.",
     detailDescription:
       "An integrated HR management system for PT Topas Multi Finance that streamlines attendance, payroll recap, employee records, manpower planning, recruitment workflows, and KPI-based workforce management through centralized digital modules.",
-    image: "/assets/projects/hr-topas-application.png",
+    image: "/assets/projects/hr-topas-application.webp",
     uploadedAt: "June 2025",
   },
   {
@@ -260,9 +260,9 @@ export const projects: Project[] = [
     image: "/assets/projects/mobile-mata-elang/combined",
     uploadedAt: "June 2025",
     gallery: [
-      "/assets/projects/mobile-mata-elang/foto-1.png",
-      "/assets/projects/mobile-mata-elang/foto-2.png",
-      "/assets/projects/mobile-mata-elang/foto-3.png",
+      "/assets/projects/mobile-mata-elang/foto-1.webp",
+      "/assets/projects/mobile-mata-elang/foto-2.webp",
+      "/assets/projects/mobile-mata-elang/foto-3.webp",
     ],
   },
   {
@@ -272,7 +272,7 @@ export const projects: Project[] = [
     description: "Web-based ticket monitoring dashboard for managing and tracking ticketing workflows in real time.",
     detailDescription:
       "A web-based admin dashboard for ticket management, operational monitoring, and real-time tracking of issue handling workflows across internal systems.",
-    image: "/assets/projects/dashboard_ticketing.png",
+    image: "/assets/projects/dashboard_ticketing.webp",
     uploadedAt: "June 2025",
   },
   {
@@ -282,7 +282,7 @@ export const projects: Project[] = [
     description: "Digital disbursement note printing system that replaces manual writing with fast, neat, and securely stored documents.",
     detailDescription:
       "A digital system that modernizes vehicle registration certificate and disbursement note processes by replacing handwritten workflows with structured printing, centralized storage, validation, audit trails, and faster document retrieval.",
-    image: "/assets/projects/vehicle-registration-certificate-system.png",
+    image: "/assets/projects/vehicle-registration-certificate-system.webp",
     uploadedAt: "February 2024",
   },
   {
@@ -292,7 +292,7 @@ export const projects: Project[] = [
     description: "Internal application for recording dealer motorcycle sales, order confirmation, delivery schedules, and document completeness.",
     detailDescription:
       "An internal monitoring application for dealer motorcycle sales, order confirmation, delivery scheduling, document validation, and transaction tracking. The system improves operational visibility and reduces manual follow-up across dealer-related workflows.",
-    image: "/assets/projects/monitoring-server.png",
+    image: "/assets/projects/monitoring-server.webp",
     uploadedAt: "February 2024",
   },
 ]
@@ -313,7 +313,7 @@ export const certificates: Certificate[] = [
     slug: "teaching-certification",
     title: "Teaching Certification",
     description: "Certification for teaching and tutoring with structured learning methods.",
-    image: "/assets/certificates/Teaching Certification.png",
+    image: "/assets/certificates/Teaching Certification.webp",
     issuer: "Teaching Program",
     date: "10 November 2025",
     uploadedAt: "10 November 2025",
@@ -343,7 +343,7 @@ export const certificates: Certificate[] = [
     slug: "ui-ux-webinar-participation",
     title: "UI/UX Webinar Participation",
     description: "Comprehensive training on UI/UX principles, design tools, and best practices.",
-    image: "/assets/certificates/ui-ux-webinar-ubaya.png",
+    image: "/assets/certificates/ui-ux-webinar-ubaya.webp",
     issuer: "Universitas Surabaya (UBAYA)",
     date: "24 May 2025",
     uploadedAt: "24 May 2025",

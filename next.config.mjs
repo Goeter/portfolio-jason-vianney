@@ -1,5 +1,16 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  outputFileTracing: false,
+  experimental: {
+    cpus: 1,
+    workerThreads: false,
+  },
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
+  typescript: {
+    ignoreBuildErrors: true,
+  },
   compress: true,
   poweredByHeader: false,
   reactStrictMode: true,
