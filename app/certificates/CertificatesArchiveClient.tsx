@@ -2,13 +2,12 @@
 
 import { useMemo, useState } from "react"
 import Image from "next/image"
-import Link from "next/link"
-import { Award, CalendarDays, ChevronLeft, Eye, GraduationCap, Search } from "lucide-react"
+import { Award, CalendarDays, Eye, GraduationCap, Search } from "lucide-react"
 
-import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { certificatesLatestFirst, type Certificate } from "@/lib/site-content"
 import ImagePreviewDialog from "../components/ImagePreviewDialog"
+import ArchiveHeader from "../components/ArchiveHeader"
 
 export default function CertificatesArchiveClient() {
   const [selectedCertificate, setSelectedCertificate] = useState<Certificate | null>(null)
@@ -51,22 +50,7 @@ export default function CertificatesArchiveClient() {
         <span className="certificate-line certificate-line-slow left-[44%] top-[78%]" />
       </div>
 
-      <header className="sticky top-0 z-50 border-b border-zinc-800 bg-black shadow-[0_12px_45px_rgba(0,0,0,0.35)] backdrop-blur-xl">
-        <div className="container relative mx-auto flex h-[68px] max-w-6xl items-center px-4">
-          <Link href="/#certificates" className="relative z-10 shrink-0">
-            <Button className="group rounded-full border border-white/10 bg-zinc-950 px-4 py-5 text-sm font-semibold text-zinc-100 shadow-sm backdrop-blur-md transition-all duration-300 hover:-translate-x-1 hover:border-white hover:bg-white hover:text-black">
-              <ChevronLeft className="h-5 w-5 transition group-hover:-translate-x-1 sm:mr-2" />
-              <span className="hidden text-[13px] sm:inline">Back</span>
-            </Button>
-          </Link>
-
-          <div className="pointer-events-none absolute inset-0 flex items-center justify-center px-24 text-center">
-            <p className="truncate text-[11px] font-semibold uppercase tracking-[0.28em] text-white">
-              Certificate Archive
-            </p>
-          </div>
-        </div>
-      </header>
+      <ArchiveHeader title="Certificate Archive" backHref="/#certificates" />
 
       <main className="container relative z-10 mx-auto max-w-6xl px-4 py-12 md:py-16">
         <section className="mb-8 overflow-hidden rounded-[28px] border border-emerald-200 bg-white/90 p-5 shadow-[0_22px_70px_rgba(15,118,110,0.12)] backdrop-blur-xl md:p-7">
@@ -86,7 +70,7 @@ export default function CertificatesArchiveClient() {
               </span>
             </div>
 
-            <p className="max-w-2xl text-sm leading-relaxed text-slate-600">
+            <p className="max-w-none text-sm leading-relaxed text-slate-600 lg:whitespace-nowrap">
               A complete collection of certifications and learning achievements that support my professional development journey.
             </p>
           </div>

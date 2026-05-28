@@ -6,6 +6,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { ChevronLeft, ChevronRight, ExternalLink } from "lucide-react"
 
+import ArchiveHeader from "@/app/components/ArchiveHeader"
 import ImagePreviewDialog from "@/app/components/ImagePreviewDialog"
 import {
   getProjectPath,
@@ -82,7 +83,7 @@ function LatestProjectCard({ project }: { project: Project }) {
         </span>
       </div>
       <div className="p-5">
-        <h3 className="text-base font-bold leading-snug text-slate-950 transition-colors duration-300 group-hover:text-sky-700">
+        <h3 className="text-base font-bold leading-snug text-slate-950 transition-colors duration-300 group-hover:text-sky-700 break-words">
           {project.title}
         </h3>
         <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-slate-600">
@@ -152,49 +153,39 @@ export default function ProjectDetailClient({ project }: ProjectDetailClientProp
     <div className="relative min-h-screen overflow-x-hidden text-slate-950">
       <DetailBackground />
 
-      <header className="sticky top-0 z-50 border-b border-zinc-800 bg-black shadow-[0_12px_45px_rgba(0,0,0,0.35)] backdrop-blur-xl">
-        <div className="relative mx-auto flex h-[68px] w-full max-w-7xl items-center px-4 sm:px-8 lg:px-12">
-          <Link
-            href="/#projects"
-            className="group relative z-10 inline-flex items-center gap-2 rounded-full border border-white/10 bg-zinc-950 px-3 py-[10px] text-zinc-100 shadow-sm transition-all duration-300 hover:border-white hover:bg-white hover:text-black"
-          >
-            <ChevronLeft size={18} className="transition-transform duration-300 group-hover:-translate-x-[2px]" />
-            <span className="hidden text-[13px] font-semibold sm:inline">Back</span>
-          </Link>
-
-          <div className="pointer-events-none absolute inset-0 flex items-center justify-center px-24 text-center">
-            <h1 className="truncate text-[11px] font-semibold uppercase tracking-[0.28em] text-white">
-              Detail Project
-            </h1>
-          </div>
-        </div>
-      </header>
+      <ArchiveHeader title="Detail Project" backHref="/#projects" />
 
       <main className="relative z-10 mx-auto w-full max-w-7xl px-5 pb-16 pt-9 sm:px-8 lg:px-12">
-        <section className="mx-auto max-w-5xl text-center">
-          <span className="inline-flex rounded-full border border-sky-200 bg-white/90 px-4 py-2 text-[11px] font-bold uppercase tracking-[0.16em] text-sky-700 shadow-sm backdrop-blur-md">
-            {projectCategoryLabels[project.category]}
-          </span>
-
-          <h2 className="mt-5 bg-gradient-to-r from-slate-950 via-sky-700 to-cyan-500 bg-clip-text text-3xl font-black leading-tight tracking-[-0.03em] text-transparent md:text-5xl">
+        <section className="mx-auto max-w-6xl text-center">
+          <h1 className="mx-auto max-w-5xl break-words bg-gradient-to-r from-slate-950 via-sky-700 to-cyan-500 bg-clip-text pb-2 text-3xl font-black leading-[1.12] tracking-[-0.03em] text-transparent md:text-5xl">
             {project.title}
-          </h2>
+          </h1>
 
-          <p className="mx-auto mt-5 max-w-3xl text-base leading-relaxed text-slate-600 md:text-lg">
+          <p className="mx-auto mt-4 max-w-3xl text-base leading-relaxed text-slate-600 md:text-lg">
             {project.description}
           </p>
 
-          {project.link ? (
-            <a
-              href={project.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-6 inline-flex items-center justify-center gap-2 rounded-full border border-sky-500 bg-sky-500 px-5 py-3 text-[12px] font-bold uppercase tracking-[0.12em] text-white shadow-[0_12px_30px_rgba(14,165,233,0.28)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-cyan-500 hover:shadow-[0_16px_36px_rgba(6,182,212,0.32)]"
-            >
-              Visit Project
-              <ExternalLink className="h-4 w-4" />
-            </a>
-          ) : null}
+          <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
+            <span className="inline-flex rounded-full border border-sky-200 bg-white/90 px-4 py-2 text-[11px] font-bold uppercase tracking-[0.16em] text-sky-700 shadow-sm backdrop-blur-md">
+              {projectCategoryLabels[project.category]}
+            </span>
+
+            <span className="inline-flex rounded-full border border-amber-200 bg-white/90 px-4 py-2 text-[11px] font-bold uppercase tracking-[0.16em] text-amber-700 shadow-sm backdrop-blur-md">
+              {project.uploadedAt}
+            </span>
+
+            {project.link ? (
+              <a
+                href={project.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-2 rounded-full border border-sky-500 bg-sky-500 px-5 py-2.5 text-[12px] font-bold uppercase tracking-[0.12em] text-white shadow-[0_12px_30px_rgba(14,165,233,0.28)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-cyan-500 hover:shadow-[0_16px_36px_rgba(6,182,212,0.32)]"
+              >
+                Visit
+                <ExternalLink className="h-4 w-4" />
+              </a>
+            ) : null}
+          </div>
         </section>
 
         <section className="mx-auto mt-10 max-w-6xl overflow-hidden rounded-[32px] border border-slate-200 bg-white/90 p-3 shadow-[0_24px_70px_rgba(15,23,42,0.12)] backdrop-blur-xl md:p-4">
@@ -268,7 +259,7 @@ export default function ProjectDetailClient({ project }: ProjectDetailClientProp
           </div>
         </section>
 
-        <section className="mx-auto mt-8 max-w-5xl rounded-[30px] border border-slate-200 bg-white/90 p-6 text-base leading-relaxed text-slate-700 shadow-[0_18px_55px_rgba(15,23,42,0.10)] backdrop-blur-xl md:p-8 md:text-lg">
+        <section className="mx-auto mt-8 max-w-6xl rounded-[30px] border border-slate-200 bg-white/90 p-6 text-base leading-relaxed text-slate-700 shadow-[0_18px_55px_rgba(15,23,42,0.10)] backdrop-blur-xl md:p-8 md:text-lg">
           <h3 className="mb-4 text-xl font-bold tracking-[-0.02em] text-slate-950 md:text-2xl">
             Project Overview
           </h3>

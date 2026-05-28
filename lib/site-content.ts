@@ -117,12 +117,10 @@ export const siteConfig = {
     resumeFileId: "10Nllp8ydFAMENKFA0089aGdT5hCijCNd95oKo_DI3NU",
     github: "https://github.com/Goeter",
     linkedin: "https://www.linkedin.com/in/jasonvianneysugiarto",
-    instagram: "https://www.instagram.com/pixelnav.id/",
   },
   sameAs: [
     "https://github.com/Goeter",
     "https://www.linkedin.com/in/jasonvianneysugiarto",
-    "https://www.instagram.com/pixelnav.id/",
   ],
   footer: "Copyright © 2025 Jason Vianney S Portfolio Web Design. All rights reserved.",
 }

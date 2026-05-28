@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { Github, Linkedin, Instagram, Mail } from "lucide-react"
+import { Github, Linkedin, Mail } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
 export default function FloatingContact() {
@@ -19,13 +19,6 @@ export default function FloatingContact() {
       href: "https://www.linkedin.com/in/jasonvianneysugiarto",
       color: "bg-blue-600 hover:bg-blue-500",
       label: "LinkedIn",
-    },
-    {
-      icon: Instagram,
-      href: "https://www.instagram.com/pixelnav.id/",
-      color:
-        "bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 hover:from-pink-600 hover:via-red-600 hover:to-yellow-600",
-      label: "Instagram",
     },
     {
       icon: Mail,
