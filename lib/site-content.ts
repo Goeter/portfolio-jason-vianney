@@ -238,7 +238,7 @@ export const projects: Project[] = [
       "A corporate website for PT. Alfa Berkat Sigma focused on company profile presentation, plumbing product visibility, and a clean digital brand identity. The project emphasizes responsive layout, clear product communication, and a professional user experience for prospective business customers.",
     image: "/assets/projects/sigma-picture.webp",
     uploadedAt: "June 2025",
-    link: "https://sigma-andrew-ten.vercel.app",
+    link: "https://sigma.indonetwork.co.id",
   },
   {
     id: 8,
