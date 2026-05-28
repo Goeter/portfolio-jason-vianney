@@ -1,5 +1,8 @@
 /** @type {import("next").NextConfig} */
 const nextConfig = {
+  experimental: {
+    cpus: 1,
+  },
   compress: true,
   poweredByHeader: false,
   reactStrictMode: true,

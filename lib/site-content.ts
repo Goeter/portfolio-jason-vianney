@@ -9,12 +9,30 @@ export type NavItem = {
 
 export type ProjectImageFit = "cover" | "contain" | "logo"
 
+export type ProjectCategory = "website" | "application" | "documentation" | "video"
+
+export const projectCategoryLabels: Record<ProjectCategory, string> = {
+  website: "Website",
+  application: "Application",
+  documentation: "Documentation",
+  video: "Video",
+}
+
+export const projectCategoryOptions: { value: ProjectCategory | "all"; label: string }[] = [
+  { value: "all", label: "All Projects" },
+  { value: "website", label: "Website" },
+  { value: "application", label: "Application" },
+  { value: "documentation", label: "Documentation" },
+  { value: "video", label: "Video" },
+]
+
 export type Project = {
   id: number
   slug: string
   title: string
   description: string
   detailDescription: string
+  category: ProjectCategory
   image: string
   link?: string | null
   gallery?: string[]
@@ -176,6 +194,7 @@ export const projects: Project[] = [
     description: "Internal application for recording dealer motorcycle sales, order confirmation, delivery schedules, and document completeness.",
     detailDescription:
       "An internal monitoring application for dealer motorcycle sales, order confirmation, delivery scheduling, document validation, and transaction tracking. The system improves operational visibility and reduces manual follow-up across dealer-related workflows.",
+    category: "application",
     image: "/assets/projects/monitoring-server.webp",
     uploadedAt: "February 2024",
   },
@@ -186,6 +205,7 @@ export const projects: Project[] = [
     description: "Digital disbursement note printing system that replaces manual writing with fast, neat, and securely stored documents.",
     detailDescription:
       "A digital system that modernizes vehicle registration certificate and disbursement note processes by replacing handwritten workflows with structured printing, centralized storage, validation, audit trails, and faster document retrieval.",
+    category: "application",
     image: "/assets/projects/vehicle-registration-certificate-system.webp",
     uploadedAt: "February 2024",
   },
@@ -196,6 +216,7 @@ export const projects: Project[] = [
     description: "Web-based ticket monitoring dashboard for managing and tracking ticketing workflows in real time.",
     detailDescription:
       "A web-based admin dashboard for ticket management, operational monitoring, and real-time tracking of issue handling workflows across internal systems.",
+    category: "application",
     image: "/assets/projects/dashboard_ticketing.webp",
     uploadedAt: "June 2025",
   },
@@ -206,6 +227,7 @@ export const projects: Project[] = [
     description: "Integrated HR system for attendance, payroll recap, KPI-based manpower planning, and end-to-end recruitment management.",
     detailDescription:
       "An integrated HR management system for PT Topas Multi Finance that streamlines attendance, payroll recap, employee records, manpower planning, recruitment workflows, and KPI-based workforce management through centralized digital modules.",
+    category: "application",
     image: "/assets/projects/hr-topas-application.webp",
     uploadedAt: "June 2025",
   },
@@ -216,6 +238,7 @@ export const projects: Project[] = [
     description: "Mobile application for customers and staff, covering loan management, disbursement tracking, customer monitoring, and financial services.",
     detailDescription:
       "A mobile application designed for Topas Multi Finance customers and internal staff, featuring a modern interface for financing application submission, contract management, payment guidance, outlet location access, profile management, loan simulation, and secure financial service navigation.",
+    category: "application",
     image: "/assets/projects/mobile-app.png",
     uploadedAt: "June 2025",
   },
@@ -226,6 +249,7 @@ export const projects: Project[] = [
     description: "Mobile debtor home-visit survey application that centralizes field data and stores it neatly in the company database.",
     detailDescription:
       "A mobile survey application for debtor home visits, designed to centralize survey data, standardize field input, and improve the accuracy of loan-related customer verification processes.",
+    category: "application",
     image: "/assets/projects/flow-survey-pinjaman.jpg",
     uploadedAt: "June 2025",
   },
@@ -236,6 +260,7 @@ export const projects: Project[] = [
     description: "Professional plumbing product website that presents company information and product offerings clearly.",
     detailDescription:
       "A corporate website for PT. Alfa Berkat Sigma focused on company profile presentation, plumbing product visibility, and a clean digital brand identity. The project emphasizes responsive layout, clear product communication, and a professional user experience for prospective business customers.",
+    category: "website",
     image: "/assets/projects/sigma-picture.webp",
     uploadedAt: "June 2025",
     link: "https://sigma.indonetwork.co.id",
@@ -247,6 +272,7 @@ export const projects: Project[] = [
     description: "Public corporate website that builds customer trust and brand awareness through a professional digital presence.",
     detailDescription:
       "A comprehensive corporate website for PT Topas Multi Finance that serves as the primary digital touchpoint for customers and stakeholders. This public-facing platform showcases the company's financial products and services while building strong brand awareness and customer trust. Key features include product information, financing options, job vacancy publication, customer-facing content, and regulatory trust signals for Indonesian financial services customers.",
+    category: "website",
     image: "/assets/projects/topas-website.webp",
     uploadedAt: "June 2025",
     link: "https://frontend.topasmultifinance.co.id",
@@ -259,6 +285,7 @@ export const projects: Project[] = [
       "Responsive company profile website with CMS support to present Steda Roaster's coffee roasting services, products, and business information clearly.",
     detailDescription:
       "A responsive company profile website and CMS for PT Steda Roaster, designed to strengthen the brand's digital presence, present coffee roasting services and business offerings clearly, and make content updates easier through a structured content management workflow. The website focuses on clean visual hierarchy, accessible information, responsive layouts, and a professional user experience for customers and business partners.",
+    category: "website",
     image: "/assets/projects/steda-roaster.webp",
     uploadedAt: "May 2026",
     link: "https://stedaroaster.vercel.app/",
@@ -271,6 +298,7 @@ export const projects: Project[] = [
       "Professional consulting website designed to present services, credibility, and client-focused solutions with a clean digital presence.",
     detailDescription:
       "A professional consulting website for Pemenang Konsultan, built to communicate service expertise, strengthen business credibility, and guide potential clients toward consultation through a clear, responsive, and trustworthy digital experience. The website emphasizes concise messaging, structured service information, modern visual hierarchy, and a direct call-to-action for prospective clients.",
+    category: "website",
     image: "/assets/projects/pemenang-konsultan.webp",
     uploadedAt: "May 2026",
     link: "https://pemenangkonsultan.vercel.app/",
@@ -503,6 +531,7 @@ export const getProjectStructuredData = (project: Project) => ({
   description: getProjectSeoDescription(project),
   image: getAbsoluteImageUrl(getProjectOgImage(project)),
   url: getAbsoluteUrl(getProjectPath(project)),
+  genre: projectCategoryLabels[project.category],
   creator: {
     "@type": "Person",
     name: siteConfig.owner,
@@ -528,6 +557,7 @@ export const projectsCollectionStructuredData = {
     url: getAbsoluteUrl(getProjectPath(project)),
     description: getProjectSeoDescription(project),
     image: getAbsoluteImageUrl(getProjectOgImage(project)),
+    genre: projectCategoryLabels[project.category],
   })),
 }
 

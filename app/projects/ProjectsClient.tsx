@@ -1,93 +1,33 @@
 "use client"
 
-import { useState } from "react"
-import Link from "next/link"
+import { useMemo, useState } from "react"
 import Image from "next/image"
-import { ChevronLeft, ArrowUpRight, X } from "lucide-react"
-import { projects, projectsLatestFirst, type Project } from "@/lib/site-content"
+import Link from "next/link"
+import { ArrowUpRight, ChevronLeft, ExternalLink, Search, X } from "lucide-react"
+
+import {
+  getProjectPath,
+  projectCategoryLabels,
+  projectCategoryOptions,
+  projects,
+  projectsLatestFirst,
+  type Project,
+  type ProjectCategory,
+} from "@/lib/site-content"
 
 // ============================================================
-// BATIK BACKGROUND
+// LIGHT ARCHIVE BACKGROUND
 // ============================================================
 
-function BatikBackground() {
+function ArchiveBackground() {
   return (
-    <svg
-      className="absolute inset-0 h-full w-full pointer-events-none"
-      xmlns="http://www.w3.org/2000/svg"
-      preserveAspectRatio="xMidYMid slice"
-    >
-      <defs>
-        <pattern
-          id="kraton-tech"
-          x="0"
-          y="0"
-          width="72"
-          height="72"
-          patternUnits="userSpaceOnUse"
-        >
-          <circle cx="36" cy="36" r="1.4" fill="#d4a843" />
-
-          <circle
-            cx="36"
-            cy="36"
-            r="10"
-            fill="none"
-            stroke="#d4a843"
-            strokeWidth="0.4"
-          />
-
-          <circle
-            cx="36"
-            cy="36"
-            r="20"
-            fill="none"
-            stroke="#4a7cbf"
-            strokeWidth="0.28"
-          />
-
-          <line
-            x1="36"
-            y1="0"
-            x2="36"
-            y2="72"
-            stroke="#4a7cbf"
-            strokeWidth="0.18"
-          />
-
-          <line
-            x1="0"
-            y1="36"
-            x2="72"
-            y2="36"
-            stroke="#4a7cbf"
-            strokeWidth="0.18"
-          />
-
-          <polygon
-            points="36,24 42,36 36,48 30,36"
-            fill="none"
-            stroke="#d4a843"
-            strokeWidth="0.3"
-          />
-        </pattern>
-
-        <linearGradient id="overlay" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#07091a" stopOpacity="0.22" />
-          <stop offset="50%" stopColor="#07091a" stopOpacity="0" />
-          <stop offset="100%" stopColor="#07091a" stopOpacity="0.72" />
-        </linearGradient>
-      </defs>
-
-      <rect
-        width="100%"
-        height="100%"
-        fill="url(#kraton-tech)"
-        opacity="0.11"
-      />
-
-      <rect width="100%" height="100%" fill="url(#overlay)" />
-    </svg>
+    <div className="pointer-events-none absolute inset-0 overflow-hidden bg-gradient-to-br from-white via-sky-50 to-slate-100">
+      <div className="absolute -left-32 top-16 h-[26rem] w-[26rem] rounded-full bg-sky-200/60 blur-3xl" />
+      <div className="absolute -right-28 top-52 h-[28rem] w-[28rem] rounded-full bg-cyan-100/80 blur-3xl" />
+      <div className="absolute bottom-[-10rem] left-1/2 h-[34rem] w-[34rem] -translate-x-1/2 rounded-full bg-amber-100/75 blur-3xl" />
+      <div className="absolute inset-0 opacity-[0.40] bg-[linear-gradient(to_right,rgba(14,165,233,0.11)_1px,transparent_1px),linear-gradient(to_bottom,rgba(14,165,233,0.11)_1px,transparent_1px)] bg-[size:72px_72px]" />
+      <div className="absolute inset-x-0 top-0 h-44 bg-gradient-to-b from-white to-transparent" />
+    </div>
   )
 }
 
@@ -95,24 +35,22 @@ function BatikBackground() {
 // PROJECT IMAGE
 // ============================================================
 
-function ProjectImage({
-  project,
-}: {
-  project: Project
-}) {
-  if (project.gallery) {
+function ProjectImage({ project }: { project: Project }) {
+  const imageFit = project.imageFit ?? "cover"
+
+  if (project.gallery?.length) {
     return (
-      <div className="flex h-full gap-[3px] bg-[#050816] p-[7px]">
-        {project.gallery.map((src, index) => (
-          <Image
-            key={src}
-            src={src}
-            alt={`${project.title} preview ${index + 1}`}
-            width={120}
-            height={240}
-            sizes="(max-width: 768px) 33vw, 12vw"
-            className="h-full w-1/3 rounded-lg object-cover"
-          />
+      <div className="flex h-full gap-1.5 bg-slate-100 p-1.5">
+        {project.gallery.slice(0, 3).map((src, index) => (
+          <div key={src} className="relative h-full flex-1 overflow-hidden rounded-xl bg-white shadow-sm">
+            <Image
+              src={src}
+              alt={`${project.title} preview ${index + 1}`}
+              fill
+              sizes="(max-width: 768px) 30vw, 12vw"
+              className="object-cover transition-transform duration-700 group-hover:scale-105"
+            />
+          </div>
         ))}
       </div>
     )
@@ -122,14 +60,11 @@ function ProjectImage({
     <Image
       src={project.image}
       alt={project.title}
-      width={600}
-      height={400}
+      fill
       sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
-      className="
-        h-full w-full object-cover
-        transition-transform duration-700
-        group-hover:scale-105
-      "
+      className={`transition-transform duration-700 group-hover:scale-105 ${
+        imageFit === "cover" ? "object-cover" : "object-contain"
+      }`}
     />
   )
 }
@@ -147,62 +82,30 @@ function ImageModal({
 }) {
   if (!project) return null
 
+  const images = project.gallery?.length ? project.gallery : [project.image]
+
   return (
     <div
-      className="
-        fixed inset-0 z-[999]
-        flex items-center justify-center
-        bg-black/85
-        backdrop-blur-md
-        p-3 sm:p-4
-      "
+      className="fixed inset-0 z-[999] flex items-center justify-center bg-slate-950/85 p-3 backdrop-blur-md sm:p-4"
       onClick={onClose}
     >
       <div
-        className={`
-          relative flex max-h-[94vh] flex-col
-          overflow-hidden rounded-[20px] sm:rounded-[24px]
-          border border-[#d4a84324]
-          bg-[#0a1020]
-          p-1.5 sm:p-2
-          shadow-[0_25px_80px_rgba(0,0,0,0.7)]
-          ${project.gallery ? "w-[min(96vw,1040px)]" : "w-fit max-w-[calc(100vw-1rem)] sm:max-w-[calc(100vw-2rem)]"}
-        `}
+        className="relative flex max-h-[94vh] w-[min(96vw,1040px)] flex-col overflow-hidden rounded-[24px] border border-white/20 bg-white p-2 shadow-[0_25px_80px_rgba(0,0,0,0.35)]"
         onClick={(event) => event.stopPropagation()}
       >
-        {/* Close */}
         <button
           type="button"
           onClick={onClose}
           aria-label="Close project preview"
-          className="
-            absolute right-4 top-4 z-50
-            flex h-11 w-11 items-center justify-center
-            rounded-full
-            border border-[#d4a84330]
-            bg-[#0d1226]/90
-            text-[#d4a843]
-            transition-all duration-300
-            hover:border-[#d4a84360]
-            hover:bg-[#141b35]
-          "
+          className="absolute right-4 top-4 z-50 flex h-11 w-11 items-center justify-center rounded-full border border-slate-200 bg-white/90 text-slate-700 shadow-lg backdrop-blur-md transition-all duration-300 hover:border-sky-300 hover:bg-sky-500 hover:text-white"
         >
           <X size={18} />
         </button>
 
-        {/* Image */}
-        <div
-          className="
-            min-h-0 max-h-[90vh] max-w-full
-            no-card-scrollbar overflow-auto
-            rounded-[16px] sm:rounded-[18px]
-            bg-[#050816]
-            p-1.5 sm:p-2
-          "
-        >
-          {project.gallery ? (
-            <div className="no-card-scrollbar flex max-h-[90vh] gap-3 overflow-x-auto pb-2 pr-9 sm:gap-4 sm:pr-11">
-              {project.gallery.map((src, index) => (
+        <div className="no-card-scrollbar min-h-0 max-h-[90vh] max-w-full overflow-auto rounded-[18px] bg-slate-100 p-2">
+          {images.length > 1 ? (
+            <div className="no-card-scrollbar flex max-h-[88vh] gap-4 overflow-x-auto pb-2 pr-11">
+              {images.map((src, index) => (
                 <Image
                   key={src}
                   src={src}
@@ -221,11 +124,7 @@ function ImageModal({
               width={1800}
               height={1200}
               sizes="(max-width: 768px) 96vw, 1200px"
-              className="
-                block h-auto max-h-[88vh]
-                w-auto max-w-[calc(100vw-1.75rem)] rounded-2xl
-                object-contain sm:max-w-[calc(100vw-3rem)] lg:max-w-[1200px]
-              "
+              className="block h-auto max-h-[88vh] w-auto max-w-[calc(100vw-1.75rem)] rounded-2xl object-contain sm:max-w-[calc(100vw-3rem)] lg:max-w-[1200px]"
             />
           )}
         </div>
@@ -250,95 +149,60 @@ function ProjectCard({
   return (
     <article
       style={{ animationDelay: `${index * 80}ms` }}
-      className="
-        project-archive-card group flex h-full flex-col overflow-hidden rounded-[26px]
-        border border-[#1e2a46]
-        bg-[#0b1020]/95
-        backdrop-blur-xl
-        transition-all duration-500
-        hover:-translate-y-[3px]
-        hover:border-[#d4a84345]
-        hover:shadow-[0_18px_45px_rgba(0,0,0,0.5)]
-      "
+      className="project-archive-card group flex h-full flex-col overflow-hidden rounded-[26px] border border-slate-200 bg-white shadow-[0_18px_45px_rgba(15,23,42,0.10)] transition-all duration-500 hover:-translate-y-[3px] hover:border-sky-300 hover:shadow-[0_24px_60px_rgba(14,165,233,0.18)]"
     >
-      {/* Thumbnail */}
       <button
         type="button"
         onClick={() => onOpen(project)}
-        className="
-          relative aspect-video overflow-hidden
-          border-b border-[#1b2742]
-          bg-[#060c18]
-          text-left
-        "
+        className="relative aspect-[16/10] overflow-hidden border-b border-slate-200 bg-slate-100 text-left"
       >
         <ProjectImage project={project} />
 
-        <div
-          className="
-            absolute inset-0
-            bg-gradient-to-t
-            from-[#060816]
-            via-transparent
-            to-transparent
-          "
-        />
+        <div className="absolute inset-0 bg-gradient-to-t from-slate-950/38 via-transparent to-transparent" />
 
-        <div className="absolute left-4 top-4 flex flex-wrap gap-2">
-          <span className="rounded-md border border-[#4a7cbf25] bg-[#07091ab8] px-3 py-[5px] text-[10px] font-medium uppercase tracking-[0.14em] text-[#8ea9d8] backdrop-blur-md">
-            Uploaded {project.uploadedAt}
+        <div className="absolute bottom-4 left-4 flex flex-wrap gap-2">
+          <span className="rounded-full border border-sky-200 bg-white/92 px-3 py-[6px] text-[10px] font-bold uppercase tracking-[0.14em] text-sky-700 shadow-sm backdrop-blur-md">
+            {projectCategoryLabels[project.category]}
           </span>
+        </div>
+
+        <div className="absolute bottom-4 right-4 rounded-full border border-white/70 bg-slate-950/70 px-3 py-[6px] text-[11px] font-medium text-white opacity-0 shadow-sm backdrop-blur-md transition-opacity duration-300 group-hover:opacity-100">
+          Click to preview
         </div>
       </button>
 
-      {/* Content */}
       <div className="flex flex-1 flex-col p-6">
-        <h3
-          className="
-            min-h-[58px]
-            text-[18px]
-            font-medium
-            leading-[1.45]
-            text-[#d7ccb0]
-          "
-        >
+        <h3 className="min-h-[58px] text-[18px] font-bold leading-[1.45] tracking-[-0.01em] text-slate-950 transition-colors duration-300 group-hover:text-sky-700">
           {project.title}
         </h3>
 
-        <p
-          className="
-            mt-3 flex-1
-            text-[14px]
-            leading-[1.85]
-            text-[#6d7f9f]
-          "
-        >
+        <p className="mt-3 flex-1 text-[14px] leading-[1.8] text-slate-600">
           {project.description}
         </p>
 
         <div className="mt-6">
-          <div className="mb-4 h-px bg-[#1b2742]" />
+          <div className="mb-4 h-px bg-slate-200" />
 
-          <div className="flex min-h-[22px] items-center">
+          <div className="flex min-h-[36px] flex-wrap items-center justify-between gap-3">
+            <Link
+              href={getProjectPath(project)}
+              className="inline-flex items-center justify-center rounded-full border border-slate-200 bg-slate-950 px-4 py-2 text-[12px] font-bold uppercase tracking-[0.08em] text-white shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:bg-sky-700 hover:shadow-md"
+            >
+              See Details
+            </Link>
+
             {project.link ? (
               <a
                 href={project.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="
-                  inline-flex items-center gap-2
-                  text-[12px]
-                  tracking-[0.12em]
-                  text-[#4a8fd4]
-                  transition-all duration-300
-                  hover:text-[#7db4f0]
-                "
+                className="inline-flex items-center justify-center gap-2 rounded-full border border-sky-500 bg-sky-500 px-4 py-2 text-[12px] font-bold uppercase tracking-[0.08em] text-white shadow-[0_10px_24px_rgba(14,165,233,0.28)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-cyan-500 hover:shadow-[0_14px_30px_rgba(6,182,212,0.32)]"
               >
-                VIEW WEBSITE
+                Visit
                 <ArrowUpRight size={14} />
               </a>
             ) : (
-              <span className="h-[18px]" />
+              <span className="h-[36px]" aria-hidden="true" />
             )}
           </div>
         </div>
@@ -352,141 +216,125 @@ function ProjectCard({
 // ============================================================
 
 export default function AllProjects() {
-  const [selectedProject, setSelectedProject] =
-    useState<Project | null>(null)
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null)
+  const [searchTerm, setSearchTerm] = useState("")
+  const [selectedCategory, setSelectedCategory] = useState<ProjectCategory | "all">("all")
+
+  const filteredProjects = useMemo(() => {
+    const normalizedSearch = searchTerm.trim().toLowerCase()
+
+    return projectsLatestFirst.filter((project) => {
+      const matchesCategory = selectedCategory === "all" || project.category === selectedCategory
+      const matchesSearch =
+        !normalizedSearch ||
+        [project.title, project.description, project.detailDescription, projectCategoryLabels[project.category]]
+          .join(" ")
+          .toLowerCase()
+          .includes(normalizedSearch)
+
+      return matchesCategory && matchesSearch
+    })
+  }, [searchTerm, selectedCategory])
+
+  const latestProject = projectsLatestFirst[0]
 
   return (
-    <main
-      className="
-        relative min-h-screen overflow-x-hidden
-        bg-[#07091a]
-      "
-    >
-      {/* Background */}
-      <BatikBackground />
+    <main className="relative min-h-screen overflow-x-hidden text-slate-950">
+      <ArchiveBackground />
 
-      {/* Glow */}
-      <div
-        className="
-          absolute left-1/2 top-[-240px]
-          h-[540px] w-[540px]
-          -translate-x-1/2
-          rounded-full blur-3xl
-        "
-        style={{
-          background:
-            "radial-gradient(circle, rgba(74,124,191,0.14), transparent 72%)",
-        }}
-      />
-
-      {/* Navbar */}
-      <header
-        className="
-          sticky top-0 z-50
-          border-b border-[#141d33]
-          bg-[#07091ad9]
-          backdrop-blur-xl
-        "
-      >
-        <div
-          className="
-            relative mx-auto flex h-[68px]
-            w-full max-w-7xl
-            items-center
-            px-4 sm:px-8 lg:px-12
-          "
-        >
-          {/* Left */}
+      <header className="sticky top-0 z-50 border-b border-slate-200/80 bg-white/86 shadow-sm backdrop-blur-xl">
+        <div className="relative mx-auto flex h-[68px] w-full max-w-7xl items-center px-4 sm:px-8 lg:px-12">
           <Link
             href="/#projects"
-            className="
-              group relative z-10 inline-flex items-center gap-2
-              rounded-full border border-[#d4a84325]
-              bg-[#0d1226]
-              px-3 py-[10px]
-              text-[#d4a843]
-              transition-all duration-300
-              hover:border-[#d4a84355]
-              hover:bg-[#111831]
-            "
+            className="group relative z-10 inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-3 py-[10px] text-slate-700 shadow-sm transition-all duration-300 hover:border-sky-300 hover:bg-sky-50 hover:text-sky-700"
           >
-            <ChevronLeft
-              size={18}
-              className="
-                transition-transform duration-300
-                group-hover:-translate-x-[2px]
-              "
-            />
-
-            <span className="hidden text-[13px] sm:inline">
-              Back
-            </span>
+            <ChevronLeft size={18} className="transition-transform duration-300 group-hover:-translate-x-[2px]" />
+            <span className="hidden text-[13px] font-semibold sm:inline">Back</span>
           </Link>
 
-          {/* Center */}
           <div className="pointer-events-none absolute inset-0 flex items-center justify-center px-24 text-center">
-            <h1
-              className="
-                truncate
-                text-[11px] font-semibold uppercase
-                tracking-[0.28em]
-                text-[#d4a843]
-              "
-            >
+            <h1 className="truncate text-[11px] font-semibold uppercase tracking-[0.28em] text-sky-700">
               Project Archive
             </h1>
           </div>
         </div>
       </header>
 
-      {/* Content */}
-      <div
-        className="
-          relative z-10 mx-auto
-          w-full max-w-7xl
-          px-5 pb-16 pt-8
-          sm:px-8 lg:px-12
-        "
-      >
-        <div className="mb-8 animate-[fadeInUp_0.75s_ease-out_both] rounded-[28px] border border-[#d4a8431f] bg-[#0b1020]/58 p-5 shadow-[0_22px_70px_rgba(0,0,0,0.28)] backdrop-blur-xl md:p-7">
-          <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
+      <div className="relative z-10 mx-auto w-full max-w-7xl px-5 pb-16 pt-8 sm:px-8 lg:px-12">
+        <section className="mb-6 animate-[fadeInUp_0.75s_ease-out_both] rounded-[28px] border border-slate-200 bg-white/88 p-5 shadow-[0_22px_70px_rgba(15,23,42,0.10)] backdrop-blur-xl md:p-7">
+          <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
             <div>
-              <p className="text-[11px] uppercase tracking-[0.26em] text-[#d4a8439e]">Latest first</p>
-              <h2 className="mt-2 text-2xl font-semibold tracking-[-0.02em] text-[#f4ead0] md:text-3xl">Project Collection</h2>
-              <p className="mt-3 max-w-2xl text-sm leading-relaxed text-[#7e8dab]">
-                A curated archive of web, mobile, internal systems, CMS, and business digitalization projects, sorted from the latest upload to earlier works.
+              <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-sky-700">Latest projects first</p>
+              <h2 className="mt-2 text-2xl font-bold tracking-[-0.02em] text-slate-950 md:text-3xl">Project Collection</h2>
+              <p className="mt-3 max-w-2xl text-sm leading-relaxed text-slate-600">
+                {projects.length} total projects. Newest items appear first, with filters for website, application, documentation, and video.
+                {latestProject ? ` Latest: ${latestProject.title}.` : ""}
               </p>
             </div>
-            <div className="w-fit rounded-2xl border border-[#d4a84324] bg-[#d4a84312] px-4 py-3 text-right">
-              <div className="text-3xl font-semibold text-[#d4a843]">{projects.length}</div>
-              <div className="text-[10px] uppercase tracking-[0.18em] text-[#8fa1c1]">Projects</div>
+
+            <div className="grid w-full max-w-[340px] grid-cols-2 gap-3 sm:max-w-[420px]">
+              <div className="rounded-2xl border border-sky-100 bg-sky-50 px-4 py-3">
+                <div className="text-3xl font-bold text-sky-700">{projects.length}</div>
+                <div className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-500">Total</div>
+              </div>
+              <div className="rounded-2xl border border-slate-200 bg-white px-4 py-3">
+                <div className="text-3xl font-bold text-slate-950">{filteredProjects.length}</div>
+                <div className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-500">Shown</div>
+              </div>
             </div>
           </div>
-        </div>
+        </section>
 
-        <div
-          className="
-            grid grid-cols-1 gap-7
-            md:grid-cols-2
-            xl:grid-cols-3
-          "
-        >
-          {projectsLatestFirst.map((project, index) => (
-            <ProjectCard
-              key={project.id}
-              project={project}
-              onOpen={setSelectedProject}
-              index={index}
-            />
-          ))}
-        </div>
+        <section className="mb-8 animate-[fadeInUp_0.85s_ease-out_both] rounded-[24px] border border-slate-200 bg-white/86 p-4 shadow-[0_18px_45px_rgba(15,23,42,0.08)] backdrop-blur-xl">
+          <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+            <label className="relative flex min-h-[46px] w-full flex-1 items-center">
+              <Search className="pointer-events-none absolute left-4 h-4 w-4 text-slate-400" />
+              <input
+                type="search"
+                value={searchTerm}
+                onChange={(event) => setSearchTerm(event.target.value)}
+                placeholder="Search project title, description, or category..."
+                className="h-12 w-full rounded-2xl border border-slate-200 bg-white pl-11 pr-4 text-sm text-slate-800 shadow-sm outline-none transition-all duration-300 placeholder:text-slate-400 focus:border-sky-400 focus:ring-4 focus:ring-sky-100"
+              />
+            </label>
+
+            <div className="no-card-scrollbar flex gap-2 overflow-x-auto pb-1 lg:max-w-[560px]">
+              {projectCategoryOptions.map((option) => {
+                const active = selectedCategory === option.value
+
+                return (
+                  <button
+                    key={option.value}
+                    type="button"
+                    onClick={() => setSelectedCategory(option.value)}
+                    className={`whitespace-nowrap rounded-full px-4 py-2 text-[12px] font-bold uppercase tracking-[0.08em] transition-all duration-300 ${
+                      active
+                        ? "bg-sky-500 text-white shadow-[0_10px_24px_rgba(14,165,233,0.28)]"
+                        : "border border-slate-200 bg-white text-slate-600 hover:border-sky-300 hover:bg-sky-50 hover:text-sky-700"
+                    }`}
+                  >
+                    {option.label}
+                  </button>
+                )
+              })}
+            </div>
+          </div>
+        </section>
+
+        {filteredProjects.length ? (
+          <div className="grid grid-cols-1 gap-7 md:grid-cols-2 xl:grid-cols-3">
+            {filteredProjects.map((project, index) => (
+              <ProjectCard key={project.id} project={project} onOpen={setSelectedProject} index={index} />
+            ))}
+          </div>
+        ) : (
+          <div className="rounded-[26px] border border-dashed border-slate-300 bg-white/80 p-8 text-center text-slate-600 shadow-sm">
+            No projects match the selected search and category.
+          </div>
+        )}
       </div>
 
-      {/* Modal */}
-      <ImageModal
-        project={selectedProject}
-        onClose={() => setSelectedProject(null)}
-      />
+      <ImageModal project={selectedProject} onClose={() => setSelectedProject(null)} />
     </main>
   )
 }

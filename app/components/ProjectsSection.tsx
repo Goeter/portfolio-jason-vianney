@@ -4,117 +4,68 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import type { TouchEvent } from "react"
 import Image from "next/image"
 import Link from "next/link"
-import ImagePreviewDialog from "./ImagePreviewDialog"
 import { ChevronLeft, ChevronRight, ExternalLink } from "lucide-react"
 
-import { projects, projectsLatestFirst, type Project } from "@/lib/site-content"
+import ImagePreviewDialog from "./ImagePreviewDialog"
+import {
+  getProjectPath,
+  projectCategoryLabels,
+  projects,
+  projectsLatestFirst,
+  type Project,
+} from "@/lib/site-content"
 
 // ============================================================
-// NATURAL SPACE BACKGROUND
+// LIGHT PROJECT BACKGROUND
 // ============================================================
 
-function SpaceBackground() {
+function ProjectsLightBackground() {
   return (
-    <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
-      <svg
-        className="absolute inset-0 h-full w-full"
-        xmlns="http://www.w3.org/2000/svg"
-        preserveAspectRatio="xMidYMid slice"
-      >
-        <defs>
-          <linearGradient id="spaceBase" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stopColor="#020617" />
-            <stop offset="45%" stopColor="#07111f" />
-            <stop offset="100%" stopColor="#030712" />
-          </linearGradient>
-
-          <radialGradient id="edgeBlue" cx="86%" cy="16%" r="48%">
-            <stop offset="0%" stopColor="#38bdf8" stopOpacity="0.2" />
-            <stop offset="48%" stopColor="#1d4ed8" stopOpacity="0.08" />
-            <stop offset="100%" stopColor="#020617" stopOpacity="0" />
-          </radialGradient>
-
-          <radialGradient id="edgeGold" cx="10%" cy="82%" r="45%">
-            <stop offset="0%" stopColor="#fbbf24" stopOpacity="0.16" />
-            <stop offset="45%" stopColor="#d4a843" stopOpacity="0.07" />
-            <stop offset="100%" stopColor="#020617" stopOpacity="0" />
-          </radialGradient>
-
-          <radialGradient id="centerGlow" cx="50%" cy="48%" r="62%">
-            <stop offset="0%" stopColor="#1e293b" stopOpacity="0.28" />
-            <stop offset="60%" stopColor="#020617" stopOpacity="0.08" />
-            <stop offset="100%" stopColor="#020617" stopOpacity="0" />
-          </radialGradient>
-
-          <radialGradient id="vignette" cx="50%" cy="50%" r="78%">
-            <stop offset="0%" stopColor="#000000" stopOpacity="0" />
-            <stop offset="72%" stopColor="#000000" stopOpacity="0.2" />
-            <stop offset="100%" stopColor="#000000" stopOpacity="0.68" />
-          </radialGradient>
-
-          <pattern
-            id="starsSmall"
-            x="0"
-            y="0"
-            width="120"
-            height="120"
-            patternUnits="userSpaceOnUse"
-          >
-            <circle cx="18" cy="24" r="0.7" fill="#ffffff" opacity="0.42" />
-            <circle cx="72" cy="18" r="0.6" fill="#dbeafe" opacity="0.34" />
-            <circle cx="104" cy="68" r="0.8" fill="#ffffff" opacity="0.34" />
-            <circle cx="35" cy="86" r="0.5" fill="#93c5fd" opacity="0.42" />
-            <circle cx="92" cy="105" r="0.6" fill="#ffffff" opacity="0.28" />
-            <circle cx="53" cy="42" r="0.45" fill="#ffffff" opacity="0.25" />
-          </pattern>
-
-          <pattern
-            id="starsLarge"
-            x="0"
-            y="0"
-            width="260"
-            height="260"
-            patternUnits="userSpaceOnUse"
-          >
-            <circle cx="42" cy="58" r="1.1" fill="#ffffff" opacity="0.48" />
-            <circle cx="184" cy="36" r="1" fill="#bfdbfe" opacity="0.38" />
-            <circle cx="218" cy="190" r="1.2" fill="#ffffff" opacity="0.33" />
-            <circle cx="95" cy="218" r="0.9" fill="#d4a843" opacity="0.34" />
-            <circle cx="148" cy="142" r="0.75" fill="#93c5fd" opacity="0.3" />
-          </pattern>
-
-          <pattern
-            id="starsTwinkle"
-            x="0"
-            y="0"
-            width="190"
-            height="190"
-            patternUnits="userSpaceOnUse"
-          >
-            <circle cx="32" cy="36" r="0.9" fill="#ffffff" opacity="0.6" />
-            <circle cx="128" cy="72" r="0.7" fill="#dbeafe" opacity="0.5" />
-            <circle cx="78" cy="150" r="0.8" fill="#ffffff" opacity="0.48" />
-            <circle cx="160" cy="132" r="0.65" fill="#d4a843" opacity="0.42" />
-          </pattern>
-        </defs>
-
-        <rect width="100%" height="100%" fill="url(#spaceBase)" />
-        <rect className="edge-glow-blue" width="100%" height="100%" fill="url(#edgeBlue)" />
-        <rect className="edge-glow-gold" width="100%" height="100%" fill="url(#edgeGold)" />
-        <rect width="100%" height="100%" fill="url(#centerGlow)" />
-
-        <rect className="stars-small" width="100%" height="100%" fill="url(#starsSmall)" opacity="0.72" />
-        <rect className="stars-large" width="100%" height="100%" fill="url(#starsLarge)" opacity="0.58" />
-        <rect className="stars-twinkle" width="100%" height="100%" fill="url(#starsTwinkle)" opacity="0.5" />
-
-        <rect width="100%" height="100%" fill="url(#vignette)" />
-      </svg>
-
-      <span className="shooting-star shooting-star-1" />
-      <span className="shooting-star shooting-star-2" />
-      <span className="shooting-star shooting-star-3" />
-      <span className="shooting-star shooting-star-4" />
+    <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden bg-gradient-to-br from-slate-50 via-sky-50 to-white">
+      <div className="absolute -left-32 top-20 h-96 w-96 rounded-full bg-sky-200/55 blur-3xl" />
+      <div className="absolute -right-28 top-40 h-[26rem] w-[26rem] rounded-full bg-amber-100/70 blur-3xl" />
+      <div className="absolute bottom-[-9rem] left-1/2 h-[30rem] w-[30rem] -translate-x-1/2 rounded-full bg-cyan-100/70 blur-3xl" />
+      <div className="absolute inset-0 opacity-[0.45] bg-[linear-gradient(to_right,rgba(14,165,233,0.10)_1px,transparent_1px),linear-gradient(to_bottom,rgba(14,165,233,0.10)_1px,transparent_1px)] bg-[size:72px_72px]" />
+      <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-white to-transparent" />
     </div>
+  )
+}
+
+// ============================================================
+// PROJECT PREVIEW IMAGE
+// ============================================================
+
+function ProjectPreviewImage({ project }: { project: Project }) {
+  const imageFit = project.imageFit ?? "cover"
+
+  if (project.gallery?.length) {
+    return (
+      <div className="flex h-full w-full gap-1 bg-slate-100 p-1.5">
+        {project.gallery.slice(0, 3).map((src, imageIndex) => (
+          <div key={src} className="relative h-full flex-1 overflow-hidden rounded-xl bg-white">
+            <Image
+              src={src}
+              alt={`${project.title} preview ${imageIndex + 1}`}
+              fill
+              sizes="(max-width: 768px) 30vw, 12vw"
+              className="object-cover transition-transform duration-700 group-hover:scale-105"
+            />
+          </div>
+        ))}
+      </div>
+    )
+  }
+
+  return (
+    <Image
+      src={project.image}
+      alt={project.title}
+      fill
+      sizes="(max-width: 768px) 100vw, (max-width: 1100px) 45vw, 30vw"
+      className={`transition-transform duration-700 ease-out group-hover:scale-105 ${
+        imageFit === "cover" ? "object-cover" : "object-contain"
+      }`}
+    />
   )
 }
 
@@ -140,87 +91,68 @@ function ProjectCard({
       }`}
       style={{ transitionDelay: `${Math.min(index * 90, 360)}ms` }}
     >
-      <div className="group relative flex h-full min-w-0 flex-1 flex-col overflow-hidden rounded-3xl border border-amber-300/15 bg-slate-950/62 shadow-xl shadow-black/35 backdrop-blur-md transition-all duration-500 ease-fluid hover:-translate-y-2 hover:border-amber-300/45 hover:bg-slate-950/75 hover:shadow-amber-500/15">
+      <article className="group relative flex h-full min-w-0 flex-1 flex-col overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-[0_18px_45px_rgba(15,23,42,0.10)] transition-all duration-500 ease-fluid hover:-translate-y-2 hover:border-sky-300 hover:shadow-[0_24px_60px_rgba(14,165,233,0.20)]">
         <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100">
-          <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-amber-300/55 to-transparent" />
-          <div className="absolute -right-20 -top-20 h-44 w-44 rounded-full bg-amber-400/10 blur-3xl" />
-          <div className="absolute -bottom-24 -left-24 h-52 w-52 rounded-full bg-sky-400/10 blur-3xl" />
+          <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-sky-400/70 to-transparent" />
+          <div className="absolute -right-20 -top-20 h-44 w-44 rounded-full bg-sky-300/18 blur-3xl" />
+          <div className="absolute -bottom-24 -left-24 h-52 w-52 rounded-full bg-amber-300/18 blur-3xl" />
         </div>
 
         <button
           type="button"
           onClick={() => onPreview(project)}
           aria-label={`Preview ${project.title}`}
-          className="relative aspect-[16/9] w-full overflow-hidden border-b border-amber-300/10 bg-slate-900 text-left"
+          className="relative aspect-[16/10] w-full overflow-hidden border-b border-slate-200 bg-slate-100 text-left"
         >
-          {project.gallery ? (
-            <div className="flex h-full w-full">
-              {project.gallery.map((src, imageIndex) => (
-                <Image
-                  key={src}
-                  src={src}
-                  alt={`${project.title} preview ${imageIndex + 1}`}
-                  width={300}
-                  height={600}
-                  sizes="(max-width: 768px) 33vw, 12vw"
-                  className="h-full w-1/3 object-cover transition-transform duration-700 group-hover:scale-105"
-                />
-              ))}
-            </div>
-          ) : (
-            <Image
-              src={project.image}
-              alt={project.title}
-              fill
-              sizes="(max-width: 768px) 100vw, (max-width: 1100px) 45vw, 30vw"
-              className="object-cover transition-transform duration-700 ease-out group-hover:scale-110"
-            />
-          )}
+          <ProjectPreviewImage project={project} />
 
-          <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-950/15 to-transparent" />
-          <div className="absolute inset-0 bg-slate-950/0 transition-colors duration-300 group-hover:bg-slate-950/10" />
+          <div className="absolute inset-0 bg-gradient-to-t from-slate-950/40 via-transparent to-transparent" />
+          <div className="absolute inset-0 bg-sky-950/0 transition-colors duration-300 group-hover:bg-sky-950/5" />
 
-          <div className="absolute bottom-3 left-3 z-20 rounded-full border border-amber-300/20 bg-slate-950/70 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-amber-200 backdrop-blur-md">
-            {project.uploadedAt}
+          <div className="absolute bottom-3 left-3 z-20 rounded-full border border-sky-200 bg-white/92 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.14em] text-sky-700 shadow-sm backdrop-blur-md">
+            {projectCategoryLabels[project.category]}
           </div>
 
-          <div className="absolute bottom-3 right-3 z-20 rounded-full border border-white/15 bg-black/45 px-3 py-1 text-[11px] font-medium text-white/85 opacity-0 backdrop-blur-md transition-opacity duration-300 group-hover:opacity-100">
+          <div className="absolute bottom-3 right-3 z-20 rounded-full border border-white/70 bg-slate-950/70 px-3 py-1 text-[11px] font-medium text-white opacity-0 shadow-sm backdrop-blur-md transition-opacity duration-300 group-hover:opacity-100">
             Click to preview
           </div>
         </button>
 
         <div className="relative z-10 flex flex-1 flex-col p-5">
-          <h3 className="min-h-[54px] text-[17px] font-bold leading-snug tracking-tight text-white transition group-hover:text-amber-100">
+          <h3 className="min-h-[54px] text-[17px] font-bold leading-snug tracking-tight text-slate-950 transition group-hover:text-sky-700">
             {project.title}
           </h3>
 
-          <p className="mt-3 flex-1 text-sm leading-relaxed text-slate-300">
+          <p className="mt-3 flex-1 text-sm leading-relaxed text-slate-600">
             {project.description}
           </p>
 
-          <div className="my-5 h-px bg-gradient-to-r from-amber-300/25 via-slate-600/20 to-transparent" />
+          <div className="my-5 h-px bg-gradient-to-r from-sky-200 via-slate-200 to-transparent" />
 
-          <div className="flex min-h-[30px] items-center justify-between gap-3">
-            <span className="rounded-full border border-slate-500/25 bg-white/[0.04] px-3 py-1 text-[11px] font-medium uppercase tracking-[0.12em] text-slate-400">
-              Project
-            </span>
+          <div className="flex min-h-[34px] flex-wrap items-center justify-between gap-3">
+            <Link
+              href={getProjectPath(project)}
+              className="inline-flex items-center justify-center rounded-full border border-slate-200 bg-slate-950 px-4 py-2 text-[12px] font-bold uppercase tracking-[0.08em] text-white shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-slate-950 hover:bg-sky-700 hover:shadow-md"
+            >
+              See Details
+            </Link>
 
             {project.link ? (
               <a
                 href={project.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-full border border-sky-300/20 bg-sky-400/10 px-3 py-1.5 text-[12px] font-semibold text-sky-200 transition-all duration-300 hover:border-sky-300/45 hover:bg-sky-400/20 hover:text-white"
+                className="inline-flex items-center justify-center gap-2 rounded-full border border-sky-500 bg-sky-500 px-4 py-2 text-[12px] font-bold uppercase tracking-[0.08em] text-white shadow-[0_10px_24px_rgba(14,165,233,0.28)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-cyan-500 hover:shadow-[0_14px_30px_rgba(6,182,212,0.32)]"
               >
                 Visit
                 <ExternalLink size={14} />
               </a>
             ) : (
-              <span className="h-[30px]" />
+              <span className="h-[34px]" aria-hidden="true" />
             )}
           </div>
         </div>
-      </div>
+      </article>
     </div>
   )
 }
@@ -356,10 +288,9 @@ export default function ProjectsSection() {
     <section
       ref={sectionRef}
       id="projects"
-      className="section-transition-soft relative flex min-h-screen scroll-mt-16 items-center overflow-hidden py-20"
-      style={{ background: "#07091a" }}
+      className="section-transition-soft relative flex min-h-screen scroll-mt-16 items-center overflow-hidden py-20 text-slate-950"
     >
-      <SpaceBackground />
+      <ProjectsLightBackground />
 
       <div className="relative z-10 mx-auto w-full max-w-6xl px-4">
         <div
@@ -368,32 +299,32 @@ export default function ProjectsSection() {
           }`}
         >
           <div className="flex items-start justify-between gap-4">
-            <h2 className="min-w-0 bg-gradient-to-r from-white via-amber-100 to-[#d4a843] bg-clip-text pb-1 text-4xl font-bold leading-[1.15] tracking-tight text-transparent md:pb-1.5 md:text-5xl md:leading-[1.15]">
+            <h2 className="min-w-0 bg-gradient-to-r from-slate-950 via-sky-700 to-cyan-500 bg-clip-text pb-1 text-4xl font-bold leading-[1.15] tracking-tight text-transparent md:pb-1.5 md:text-5xl md:leading-[1.15]">
               Projects
             </h2>
 
             <Link href="/projects" className="mt-1 shrink-0 no-underline md:mt-2">
-              <div className="group flex overflow-hidden rounded-[12px] border border-amber-300/30 bg-slate-950/70 shadow-lg shadow-amber-500/10 backdrop-blur-md transition-all duration-300 hover:scale-[1.03] hover:border-amber-300/60 hover:shadow-amber-500/20">
-                <div className="flex items-center justify-center gap-2 bg-slate-950/60 px-3 py-[12px] text-[13px] font-semibold tracking-[0.02em] text-amber-200 transition-colors duration-300 group-hover:bg-amber-400 group-hover:text-slate-950 sm:px-5">
+              <div className="group flex overflow-hidden rounded-[12px] border border-sky-200 bg-white shadow-lg shadow-sky-200/40 transition-all duration-300 hover:scale-[1.03] hover:border-sky-400 hover:shadow-sky-300/50">
+                <div className="flex items-center justify-center gap-2 bg-white px-3 py-[12px] text-[13px] font-semibold tracking-[0.02em] text-sky-700 transition-colors duration-300 group-hover:bg-sky-500 group-hover:text-white sm:px-5">
                   <span className="hidden sm:inline">View All</span>
                   <ExternalLink className="h-4 w-4 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                 </div>
 
-                <div className="flex min-w-[52px] flex-col items-center justify-center bg-amber-400 px-3 py-[8px] leading-none text-slate-950 sm:min-w-[72px] sm:px-4">
+                <div className="flex min-w-[52px] flex-col items-center justify-center bg-sky-500 px-3 py-[8px] leading-none text-white sm:min-w-[72px] sm:px-4">
                   <span className="text-[18px] font-bold leading-none sm:text-[21px]">
                     {projects.length}
                   </span>
 
-                  <span className="mt-[3px] text-[8px] uppercase tracking-widest opacity-70 sm:text-[9px]">
-                    Projects
+                  <span className="mt-[3px] text-[8px] uppercase tracking-widest opacity-80 sm:text-[9px]">
+                    Items
                   </span>
                 </div>
               </div>
             </Link>
           </div>
 
-          <p className="mt-3 w-full max-w-none text-sm leading-relaxed text-slate-300 md:max-w-4xl md:text-base lg:max-w-5xl">
-            A curated collection of web, system, and digital product projects built with a focus on usability, performance, and real business needs.
+          <p className="mt-3 w-full max-w-none text-sm leading-relaxed text-slate-600 md:max-w-4xl md:text-base lg:max-w-5xl">
+            A curated collection of web, application, documentation, and video projects built with a focus on usability, performance, and real business needs.
           </p>
         </div>
 
@@ -407,7 +338,7 @@ export default function ProjectsSection() {
             onClick={() => slide(-1)}
             disabled={currentPage === 0}
             aria-label="Previous projects"
-            className="absolute -left-2 top-1/2 z-20 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-amber-300/30 bg-slate-950/80 text-amber-300 shadow-xl backdrop-blur-md transition hover:bg-amber-400 hover:text-slate-950 disabled:cursor-default disabled:opacity-25 md:-left-5 sm:flex"
+            className="absolute -left-2 top-1/2 z-20 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-sky-200 bg-white text-sky-700 shadow-xl transition hover:bg-sky-500 hover:text-white disabled:cursor-default disabled:opacity-25 md:-left-5 sm:flex"
           >
             <ChevronLeft size={20} />
           </button>
@@ -417,7 +348,7 @@ export default function ProjectsSection() {
             onClick={() => slide(1)}
             disabled={currentPage === totalPages - 1}
             aria-label="Next projects"
-            className="absolute -right-2 top-1/2 z-20 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-amber-300/30 bg-slate-950/80 text-amber-300 shadow-xl backdrop-blur-md transition hover:bg-amber-400 hover:text-slate-950 disabled:cursor-default disabled:opacity-25 md:-right-5 sm:flex"
+            className="absolute -right-2 top-1/2 z-20 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-sky-200 bg-white text-sky-700 shadow-xl transition hover:bg-sky-500 hover:text-white disabled:cursor-default disabled:opacity-25 md:-right-5 sm:flex"
           >
             <ChevronRight size={20} />
           </button>
@@ -449,9 +380,9 @@ export default function ProjectsSection() {
                       ))}
 
                       {visibleProjects.length < cardsPerPage &&
-                        Array.from({
-                          length: cardsPerPage - visibleProjects.length,
-                        }).map((_, i) => <div key={i} className="hidden min-w-0 flex-1 md:block" />)}
+                        Array.from({ length: cardsPerPage - visibleProjects.length }).map((_, i) => (
+                          <div key={i} className="hidden min-w-0 flex-1 md:block" />
+                        ))}
                     </div>
                   )
                 })}
@@ -469,7 +400,7 @@ export default function ProjectsSection() {
             onClick={() => slide(-1)}
             disabled={currentPage === 0}
             aria-label="Previous projects"
-            className="flex h-9 w-9 items-center justify-center rounded-full border border-amber-300/30 bg-slate-950/80 text-amber-300 shadow-lg backdrop-blur-md transition hover:bg-amber-400 hover:text-slate-950 disabled:cursor-default disabled:opacity-25 sm:hidden"
+            className="flex h-9 w-9 items-center justify-center rounded-full border border-sky-200 bg-white text-sky-700 shadow-lg transition hover:bg-sky-500 hover:text-white disabled:cursor-default disabled:opacity-25 sm:hidden"
           >
             <ChevronLeft size={18} />
           </button>
@@ -485,13 +416,13 @@ export default function ProjectsSection() {
                   onClick={() => setCurrentPage(i)}
                   aria-label={`Go to project page ${i + 1}`}
                   className={`h-2 rounded-full transition-all duration-300 ${
-                    active ? "w-8 bg-amber-400" : "w-2 bg-slate-500 hover:bg-slate-300"
+                    active ? "w-8 bg-sky-500" : "w-2 bg-slate-300 hover:bg-sky-300"
                   }`}
                 />
               )
             })}
 
-            <span className="ml-1 min-w-8 font-mono text-[11px] text-slate-400">
+            <span className="ml-1 min-w-8 font-mono text-[11px] text-slate-500">
               {currentPage + 1}/{totalPages}
             </span>
           </div>
@@ -501,7 +432,7 @@ export default function ProjectsSection() {
             onClick={() => slide(1)}
             disabled={currentPage === totalPages - 1}
             aria-label="Next projects"
-            className="flex h-9 w-9 items-center justify-center rounded-full border border-amber-300/30 bg-slate-950/80 text-amber-300 shadow-lg backdrop-blur-md transition hover:bg-amber-400 hover:text-slate-950 disabled:cursor-default disabled:opacity-25 sm:hidden"
+            className="flex h-9 w-9 items-center justify-center rounded-full border border-sky-200 bg-white text-sky-700 shadow-lg transition hover:bg-sky-500 hover:text-white disabled:cursor-default disabled:opacity-25 sm:hidden"
           >
             <ChevronRight size={18} />
           </button>
