@@ -119,7 +119,7 @@ export default function CertificatesArchiveClient() {
                     type="button"
                     onClick={() => setSelectedCertificate(certificate)}
                     aria-label={`Preview ${certificate.title}`}
-                    className="relative aspect-[16/10] w-full flex-shrink-0 overflow-hidden border-b border-emerald-100 bg-white p-2 text-left"
+                    className="relative aspect-[16/10] w-full flex-shrink-0 overflow-hidden border-b border-slate-200 bg-slate-100 text-left"
                   >
                     <Image
                       src={certificate.image || "/placeholder.svg"}
@@ -127,7 +127,7 @@ export default function CertificatesArchiveClient() {
                       width={500}
                       height={320}
                       sizes="(max-width: 768px) 92vw, (max-width: 1024px) 45vw, 30vw"
-                      className="h-full w-full rounded-xl object-contain transition duration-500 group-hover:scale-105"
+                      className="h-full w-full object-cover object-center transition duration-500 group-hover:scale-105"
                     />
 
                     <div className="absolute inset-0 bg-gradient-to-t from-slate-950/75 via-transparent to-transparent opacity-80" />

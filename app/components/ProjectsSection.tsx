@@ -38,31 +38,13 @@ function ProjectsLightBackground() {
 // ============================================================
 
 function ProjectPreviewImage({ project }: { project: Project }) {
-  if (project.gallery?.length) {
-    return (
-      <div className="flex h-full w-full items-center justify-center gap-1 bg-white p-2">
-        {project.gallery.slice(0, 3).map((src, imageIndex) => (
-          <div key={src} className="relative h-full flex-1 overflow-hidden rounded-xl border border-slate-100 bg-slate-50">
-            <Image
-              src={src}
-              alt={`${project.title} preview ${imageIndex + 1}`}
-              fill
-              sizes="(max-width: 768px) 30vw, 12vw"
-              className="object-contain p-1 transition-transform duration-700 group-hover:scale-105"
-            />
-          </div>
-        ))}
-      </div>
-    )
-  }
-
   return (
     <Image
       src={project.image}
       alt={project.title}
       fill
       sizes="(max-width: 768px) 100vw, (max-width: 1100px) 45vw, 30vw"
-      className="object-contain p-2 transition-transform duration-700 ease-out group-hover:scale-105"
+      className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
     />
   )
 }
@@ -100,7 +82,7 @@ function ProjectCard({
           type="button"
           onClick={() => onPreview(project)}
           aria-label={`Preview ${project.title}`}
-          className="relative aspect-[16/10] w-full overflow-hidden border-b border-slate-200 bg-white text-left"
+          className="relative aspect-[16/10] w-full overflow-hidden border-b border-slate-200 bg-slate-100 text-left"
         >
           <ProjectPreviewImage project={project} />
 

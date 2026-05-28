@@ -37,31 +37,13 @@ function ArchiveBackground() {
 // ============================================================
 
 function ProjectImage({ project }: { project: Project }) {
-  if (project.gallery?.length) {
-    return (
-      <div className="flex h-full w-full items-center justify-center gap-1.5 bg-white p-2">
-        {project.gallery.slice(0, 3).map((src, index) => (
-          <div key={src} className="relative h-full flex-1 overflow-hidden rounded-xl border border-slate-100 bg-slate-50">
-            <Image
-              src={src}
-              alt={`${project.title} preview ${index + 1}`}
-              fill
-              sizes="(max-width: 768px) 30vw, 12vw"
-              className="object-contain p-1 transition-transform duration-700 group-hover:scale-105"
-            />
-          </div>
-        ))}
-      </div>
-    )
-  }
-
   return (
     <Image
       src={project.image}
       alt={project.title}
       fill
       sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
-      className="object-contain p-2 transition-transform duration-700 group-hover:scale-105"
+      className="object-cover object-center transition-transform duration-700 group-hover:scale-105"
     />
   )
 }
@@ -151,7 +133,7 @@ function ProjectCard({
       <button
         type="button"
         onClick={() => onOpen(project)}
-        className="relative aspect-[16/10] overflow-hidden border-b border-slate-200 bg-white text-left"
+        className="relative aspect-[16/10] overflow-hidden border-b border-slate-200 bg-slate-100 text-left"
       >
         <ProjectImage project={project} />
 
