@@ -216,7 +216,7 @@ export const projects: Project[] = [
     description: "Mobile application for customers and staff, covering loan management, disbursement tracking, customer monitoring, and financial services.",
     detailDescription:
       "A mobile application designed for Topas Multi Finance customers and internal staff, featuring a modern interface for financing application submission, contract management, payment guidance, outlet location access, profile management, loan simulation, and secure financial service navigation.",
-    image: "/assets/projects/mobile-app/mobile-app.png",
+    image: "/assets/projects/mobile-app.png",
     uploadedAt: "June 2025",
   },
   {
