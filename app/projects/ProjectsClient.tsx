@@ -1,9 +1,8 @@
 "use client"
 
 import { useMemo, useState } from "react"
-import Image from "next/image"
 import Link from "next/link"
-import { ArrowUpRight, Search, X } from "lucide-react"
+import { ArrowUpRight, Search } from "lucide-react"
 
 import ArchiveHeader from "../components/ArchiveHeader"
 
@@ -35,96 +34,14 @@ function ArchiveBackground() {
 }
 
 // ============================================================
-// PROJECT IMAGE
-// ============================================================
-
-function ProjectImage({ project }: { project: Project }) {
-  return (
-    <Image
-      src={project.image}
-      alt={project.title}
-      fill
-      sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
-      className="object-cover object-center transition-transform duration-700 group-hover:scale-105"
-    />
-  )
-}
-
-// ============================================================
-// IMAGE MODAL
-// ============================================================
-
-function ImageModal({
-  project,
-  onClose,
-}: {
-  project: Project | null
-  onClose: () => void
-}) {
-  if (!project) return null
-
-  const images = project.gallery?.length ? project.gallery : [project.image]
-
-  return (
-    <div
-      className="fixed inset-0 z-[999] flex items-center justify-center bg-slate-950/90 p-3 backdrop-blur-md sm:p-4"
-      onClick={onClose}
-    >
-      <div
-        className="relative flex max-h-[94vh] w-[min(96vw,1040px)] flex-col overflow-hidden rounded-[24px] border border-white/20 bg-white p-2 shadow-[0_25px_80px_rgba(0,0,0,0.35)]"
-        onClick={(event) => event.stopPropagation()}
-      >
-        <button
-          type="button"
-          onClick={onClose}
-          aria-label="Close project preview"
-          className="absolute right-4 top-4 z-50 flex h-11 w-11 items-center justify-center rounded-full border border-slate-200 bg-white/90 text-slate-700 shadow-lg backdrop-blur-md transition-all duration-300 hover:border-sky-300 hover:bg-sky-500 hover:text-white"
-        >
-          <X size={18} />
-        </button>
-
-        <div className="no-card-scrollbar min-h-0 max-h-[90vh] max-w-full overflow-auto rounded-[18px] bg-slate-100 p-2">
-          {images.length > 1 ? (
-            <div className="no-card-scrollbar flex max-h-[88vh] gap-4 overflow-x-auto pb-2 pr-11">
-              {images.map((src, index) => (
-                <Image
-                  key={src}
-                  src={src}
-                  alt={`${project.title} preview ${index + 1}`}
-                  width={1100}
-                  height={1600}
-                  sizes="(max-width: 768px) 82vw, 470px"
-                  className="block h-auto max-h-[86vh] w-auto max-w-[82vw] rounded-2xl object-contain sm:max-w-[470px]"
-                />
-              ))}
-            </div>
-          ) : (
-            <Image
-              src={project.image}
-              alt={project.title}
-              width={1800}
-              height={1200}
-              sizes="(max-width: 768px) 96vw, 1200px"
-              className="block h-auto max-h-[88vh] w-auto max-w-[calc(100vw-1.75rem)] rounded-2xl object-contain sm:max-w-[calc(100vw-3rem)] lg:max-w-[1200px]"
-            />
-          )}
-        </div>
-      </div>
-    </div>
-  )
-}
-
-// ============================================================
 // PROJECT CARD
 // ============================================================
 
 function ProjectCard({
   project,
-  onOpen,
   index,
 }: {
   project: Project
-  onOpen: (project: Project) => void
   index: number
 }) {
   return (
@@ -132,27 +49,13 @@ function ProjectCard({
       style={{ animationDelay: `${index * 80}ms` }}
       className="project-archive-card group flex h-full flex-col overflow-hidden rounded-[26px] border border-slate-200 bg-white shadow-[0_18px_45px_rgba(15,23,42,0.10)] transition-all duration-500 hover:-translate-y-[3px] hover:border-sky-300 hover:shadow-[0_24px_60px_rgba(14,165,233,0.18)]"
     >
-      <button
-        type="button"
-        onClick={() => onOpen(project)}
-        className="relative aspect-[16/10] overflow-hidden border-b border-slate-200 bg-slate-100 text-left"
-      >
-        <ProjectImage project={project} />
-
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-950/40 via-transparent to-transparent" />
-
-        <div className="absolute bottom-4 left-4 flex flex-wrap gap-2">
-          <span className="rounded-full border border-sky-200 bg-sky-100/95 px-3 py-[6px] text-[10px] font-bold uppercase tracking-[0.14em] text-sky-700 shadow-sm backdrop-blur-md">
+      <div className="flex flex-1 flex-col p-6">
+        <div className="mb-4 flex flex-wrap items-center gap-2">
+          <span className="rounded-full border border-sky-200 bg-sky-100 px-3 py-[6px] text-[10px] font-bold uppercase tracking-[0.14em] text-sky-700 shadow-sm">
             {projectCategoryLabels[project.category]}
           </span>
         </div>
 
-        <div className="absolute bottom-4 right-4 rounded-full border border-white/70 bg-slate-950/70 px-3 py-[6px] text-[11px] font-medium text-white opacity-0 shadow-sm backdrop-blur-md transition-opacity duration-300 group-hover:opacity-100">
-          Click to preview
-        </div>
-      </button>
-
-      <div className="flex flex-1 flex-col p-6">
         <h3 className="min-h-[58px] text-[18px] font-bold leading-[1.45] tracking-[-0.01em] text-slate-950 transition-colors duration-300 group-hover:text-sky-700">
           {project.title}
         </h3>
@@ -197,7 +100,6 @@ function ProjectCard({
 // ============================================================
 
 export default function AllProjects() {
-  const [selectedProject, setSelectedProject] = useState<Project | null>(null)
   const [searchTerm, setSearchTerm] = useState("")
   const [selectedCategory, setSelectedCategory] = useState<ProjectCategory | "all">("all")
 
@@ -284,7 +186,7 @@ export default function AllProjects() {
         {filteredProjects.length ? (
           <div className="grid grid-cols-1 gap-7 md:grid-cols-2 xl:grid-cols-3">
             {filteredProjects.map((project, index) => (
-              <ProjectCard key={project.id} project={project} onOpen={setSelectedProject} index={index} />
+              <ProjectCard key={project.id} project={project} index={index} />
             ))}
           </div>
         ) : (
@@ -293,8 +195,6 @@ export default function AllProjects() {
           </div>
         )}
       </div>
-
-      <ImageModal project={selectedProject} onClose={() => setSelectedProject(null)} />
     </main>
   )
 }

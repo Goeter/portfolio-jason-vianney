@@ -49,7 +49,7 @@ export async function generateMetadata({ params }: ProjectPageProps): Promise<Me
       type: "article",
       url,
       siteName: `${siteConfig.shortName} Portfolio`,
-      images: [{ url: image, alt: `${project.title} project preview` }],
+      images: [{ url: image, alt: `${project.title} project image` }],
     },
     twitter: {
       card: "summary_large_image",

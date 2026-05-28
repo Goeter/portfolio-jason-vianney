@@ -7,7 +7,6 @@ import Link from "next/link"
 import { ChevronLeft, ChevronRight, ExternalLink } from "lucide-react"
 
 import ArchiveHeader from "@/app/components/ArchiveHeader"
-import ImagePreviewDialog from "@/app/components/ImagePreviewDialog"
 import {
   getProjectPath,
   projectCategoryLabels,
@@ -61,51 +60,33 @@ function ProjectImage({
 }
 
 function LatestProjectCard({ project }: { project: Project }) {
-  const imageFit = project.imageFit ?? "cover"
-
   return (
     <Link
       href={getProjectPath(project)}
-      className="group block overflow-hidden rounded-[24px] border border-slate-200 bg-white shadow-[0_16px_40px_rgba(15,23,42,0.08)] transition-all duration-300 hover:-translate-y-1 hover:border-sky-300 hover:shadow-[0_22px_55px_rgba(14,165,233,0.16)]"
+      className="group block h-full rounded-[24px] border border-slate-200 bg-white p-5 shadow-[0_16px_40px_rgba(15,23,42,0.08)] transition-all duration-300 hover:-translate-y-1 hover:border-sky-300 hover:shadow-[0_22px_55px_rgba(14,165,233,0.16)]"
     >
-      <div className="relative aspect-[16/10] overflow-hidden bg-slate-100">
-        <Image
-          src={project.image}
-          alt={`${project.title} preview`}
-          fill
-          sizes="(max-width: 768px) 100vw, 33vw"
-          className={`transition-transform duration-700 group-hover:scale-105 ${
-            imageFit === "cover" ? "object-cover" : "object-contain"
-          }`}
-        />
-        <span className="absolute bottom-3 left-3 rounded-full border border-sky-200 bg-white/90 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.12em] text-sky-700 shadow-sm backdrop-blur-md">
-          {projectCategoryLabels[project.category]}
-        </span>
-      </div>
-      <div className="p-5">
-        <h3 className="text-base font-bold leading-snug text-slate-950 transition-colors duration-300 group-hover:text-sky-700 break-words">
-          {project.title}
-        </h3>
-        <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-slate-600">
-          {project.description}
-        </p>
-      </div>
+      <span className="inline-flex rounded-full border border-sky-200 bg-sky-100 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.12em] text-sky-700 shadow-sm">
+        {projectCategoryLabels[project.category]}
+      </span>
+
+      <h3 className="mt-4 text-base font-bold leading-snug text-slate-950 transition-colors duration-300 group-hover:text-sky-700 break-words">
+        {project.title}
+      </h3>
+
+      <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-slate-600">
+        {project.description}
+      </p>
     </Link>
   )
 }
 
 export default function ProjectDetailClient({ project }: ProjectDetailClientProps) {
   const [activeIndex, setActiveIndex] = useState(0)
-  const [isPreviewOpen, setIsPreviewOpen] = useState(false)
   const [touchStartX, setTouchStartX] = useState<number | null>(null)
   const [touchEndX, setTouchEndX] = useState<number | null>(null)
 
   const images = useMemo(() => project.gallery?.length ? project.gallery : [project.image], [project])
 
-  const previewImages = useMemo(
-    () => images.map((src, index) => ({ src, alt: `${project.title} preview ${index + 1}` })),
-    [images, project.title]
-  )
 
   const latestProjects = useMemo(
     () => projectsLatestFirst.filter((item) => item.slug !== project.slug).slice(0, 3),
@@ -195,18 +176,10 @@ export default function ProjectDetailClient({ project }: ProjectDetailClientProp
             onTouchMove={handleTouchMove}
             onTouchEnd={handleTouchEnd}
           >
-            <button
-              type="button"
-              onClick={() => setIsPreviewOpen(true)}
-              aria-label={`Preview ${project.title}`}
-              className="relative h-full w-full text-left"
-            >
+            <div className="relative h-full w-full">
               <ProjectImage project={project} src={images[activeIndex]} index={activeIndex} priority />
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/28 via-transparent to-transparent" />
-              <span className="absolute bottom-4 right-4 rounded-full border border-white/70 bg-slate-950/70 px-4 py-2 text-sm font-medium text-white shadow-sm backdrop-blur-md">
-                Click to preview
-              </span>
-            </button>
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/24 via-transparent to-transparent" />
+            </div>
 
             {images.length > 1 ? (
               <>
@@ -289,12 +262,6 @@ export default function ProjectDetailClient({ project }: ProjectDetailClientProp
           </section>
         ) : null}
       </main>
-
-      <ImagePreviewDialog
-        images={isPreviewOpen ? previewImages : null}
-        title={project.title}
-        onClose={() => setIsPreviewOpen(false)}
-      />
     </div>
   )
 }

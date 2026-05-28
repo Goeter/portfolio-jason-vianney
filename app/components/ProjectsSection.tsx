@@ -2,11 +2,9 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import type { TouchEvent } from "react"
-import Image from "next/image"
 import Link from "next/link"
 import { ChevronLeft, ChevronRight, ExternalLink } from "lucide-react"
 
-import ImagePreviewDialog from "./ImagePreviewDialog"
 import {
   getProjectPath,
   projectCategoryLabels,
@@ -34,22 +32,6 @@ function ProjectsLightBackground() {
 }
 
 // ============================================================
-// PROJECT PREVIEW IMAGE
-// ============================================================
-
-function ProjectPreviewImage({ project }: { project: Project }) {
-  return (
-    <Image
-      src={project.image}
-      alt={project.title}
-      fill
-      sizes="(max-width: 768px) 100vw, (max-width: 1100px) 45vw, 30vw"
-      className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
-    />
-  )
-}
-
-// ============================================================
 // PROJECT CARD
 // ============================================================
 
@@ -57,12 +39,10 @@ function ProjectCard({
   project,
   index,
   isVisible,
-  onPreview,
 }: {
   project: Project
   index: number
   isVisible: boolean
-  onPreview: (project: Project) => void
 }) {
   return (
     <div
@@ -78,27 +58,13 @@ function ProjectCard({
           <div className="absolute -bottom-24 -left-24 h-52 w-52 rounded-full bg-amber-300/20 blur-3xl" />
         </div>
 
-        <button
-          type="button"
-          onClick={() => onPreview(project)}
-          aria-label={`Preview ${project.title}`}
-          className="relative aspect-[16/10] w-full overflow-hidden border-b border-slate-200 bg-slate-100 text-left"
-        >
-          <ProjectPreviewImage project={project} />
-
-          <div className="absolute inset-0 bg-gradient-to-t from-slate-950/40 via-transparent to-transparent" />
-          <div className="absolute inset-0 bg-sky-950/0 transition-colors duration-300 group-hover:bg-sky-950/5" />
-
-          <div className="absolute bottom-3 left-3 z-20 rounded-full border border-sky-200 bg-sky-100/95 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.14em] text-sky-700 shadow-sm backdrop-blur-md">
-            {projectCategoryLabels[project.category]}
-          </div>
-
-          <div className="absolute bottom-3 right-3 z-20 rounded-full border border-white/70 bg-slate-950/70 px-3 py-1 text-[11px] font-medium text-white opacity-0 shadow-sm backdrop-blur-md transition-opacity duration-300 group-hover:opacity-100">
-            Click to preview
-          </div>
-        </button>
-
         <div className="relative z-10 flex flex-1 flex-col p-5">
+          <div className="mb-4 flex items-center justify-between gap-3">
+            <span className="rounded-full border border-sky-200 bg-sky-100 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.14em] text-sky-700 shadow-sm">
+              {projectCategoryLabels[project.category]}
+            </span>
+          </div>
+
           <h3 className="min-h-[54px] text-[17px] font-bold leading-snug tracking-tight text-slate-950 transition group-hover:text-sky-700">
             {project.title}
           </h3>
@@ -150,7 +116,6 @@ export default function ProjectsSection() {
   const [isVisible, setIsVisible] = useState(false)
   const [touchStartX, setTouchStartX] = useState<number | null>(null)
   const [touchEndX, setTouchEndX] = useState<number | null>(null)
-  const [previewProject, setPreviewProject] = useState<Project | null>(null)
 
   useEffect(() => {
     setIsClient(true)
@@ -224,17 +189,6 @@ export default function ProjectsSection() {
       ),
     [cardsPerPage, totalPages]
   )
-
-  const previewImages = useMemo(() => {
-    if (!previewProject) return null
-
-    const sources = previewProject.gallery?.length ? previewProject.gallery : [previewProject.image]
-
-    return sources.map((src, index) => ({
-      src,
-      alt: `${previewProject.title} preview ${index + 1}`,
-    }))
-  }, [previewProject])
 
   const handleTouchStart = (event: TouchEvent<HTMLDivElement>) => {
     const firstTouch = event.targetTouches.item(0)
@@ -355,7 +309,6 @@ export default function ProjectsSection() {
                           project={project}
                           index={pageIdx * cardsPerPage + projectIndex}
                           isVisible={isVisible}
-                          onPreview={setPreviewProject}
                         />
                       ))}
 
@@ -418,12 +371,6 @@ export default function ProjectsSection() {
           </button>
         </div>
       </div>
-
-      <ImagePreviewDialog
-        images={previewImages}
-        title={previewProject?.title}
-        onClose={() => setPreviewProject(null)}
-      />
     </section>
   )
 }
