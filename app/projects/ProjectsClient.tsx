@@ -220,18 +220,18 @@ export default function AllProjects() {
     <main className="relative min-h-screen overflow-x-hidden text-slate-950">
       <ArchiveBackground />
 
-      <header className="sticky top-0 z-50 border-b border-slate-200/80 bg-white/90 shadow-sm backdrop-blur-xl">
+      <header className="sticky top-0 z-50 border-b border-zinc-800 bg-black shadow-[0_12px_45px_rgba(0,0,0,0.35)] backdrop-blur-xl">
         <div className="relative mx-auto flex h-[68px] w-full max-w-7xl items-center px-4 sm:px-8 lg:px-12">
           <Link
             href="/#projects"
-            className="group relative z-10 inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-3 py-[10px] text-slate-700 shadow-sm transition-all duration-300 hover:border-sky-300 hover:bg-sky-50 hover:text-sky-700"
+            className="group relative z-10 inline-flex items-center gap-2 rounded-full border border-white/10 bg-zinc-950 px-3 py-[10px] text-zinc-100 shadow-sm transition-all duration-300 hover:border-white hover:bg-white hover:text-black"
           >
             <ChevronLeft size={18} className="transition-transform duration-300 group-hover:-translate-x-[2px]" />
             <span className="hidden text-[13px] font-semibold sm:inline">Back</span>
           </Link>
 
           <div className="pointer-events-none absolute inset-0 flex items-center justify-center px-24 text-center">
-            <h1 className="truncate text-[11px] font-semibold uppercase tracking-[0.28em] text-sky-700">
+            <h1 className="truncate text-[11px] font-semibold uppercase tracking-[0.28em] text-white">
               Project Archive
             </h1>
           </div>

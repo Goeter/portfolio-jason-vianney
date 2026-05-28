@@ -47,7 +47,7 @@ export default function Navbar({ activeSection }: NavbarProps) {
       {/* Navbar */}
       <nav
         aria-label="Main Navigation"
-        className="fixed inset-x-0 top-0 z-50 border-b border-zinc-800/90 bg-[#050505]/94 shadow-[0_18px_70px_rgba(0,0,0,0.48)] backdrop-blur-2xl"
+        className="fixed inset-x-0 top-0 z-50 border-b border-zinc-800 bg-black shadow-[0_18px_70px_rgba(0,0,0,0.55)] backdrop-blur-2xl"
       >
         {/* Soft top accent */}
         <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/24 to-transparent" />
@@ -83,7 +83,7 @@ export default function Navbar({ activeSection }: NavbarProps) {
           </button>
 
           {/* Desktop Navigation */}
-          <div className="hidden items-center gap-1 rounded-2xl border border-white/[0.06] bg-white/[0.035] p-1 lg:flex">
+          <div className="hidden items-center gap-1 rounded-2xl border border-white/10 bg-zinc-950 p-1 lg:flex">
             {navItems.map((item) => {
               const Icon = item.icon
               const isActive = activeSection === item.id
@@ -149,7 +149,7 @@ export default function Navbar({ activeSection }: NavbarProps) {
             size="icon"
             aria-label="Toggle Menu"
             onClick={toggleMobileMenu}
-            className="relative flex h-10 w-10 items-center justify-center rounded-2xl bg-white/[0.075] text-white shadow-inner shadow-white/5 transition-all duration-300 hover:scale-105 hover:bg-white/[0.16] hover:text-white lg:hidden"
+            className="relative flex h-10 w-10 items-center justify-center rounded-2xl bg-zinc-900 text-white shadow-inner shadow-white/5 transition-all duration-300 hover:scale-105 hover:bg-white hover:text-black lg:hidden"
           >
             <div className="relative flex h-5 w-6 items-center justify-center">
               <span
@@ -193,7 +193,7 @@ export default function Navbar({ activeSection }: NavbarProps) {
         {/* Sidebar */}
         <aside
           aria-label="Mobile Navigation"
-          className={`absolute right-0 top-0 h-full w-[min(300px,82vw)] border-l border-white/10 bg-[#050505]/96 p-5 shadow-2xl shadow-black/50 backdrop-blur-2xl transition-transform duration-500 ease-out ${
+          className={`absolute right-0 top-0 h-full w-[min(300px,82vw)] border-l border-white/10 bg-black p-5 shadow-2xl shadow-black/50 backdrop-blur-2xl transition-transform duration-500 ease-out ${
             isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
           }`}
         >
@@ -221,7 +221,7 @@ export default function Navbar({ activeSection }: NavbarProps) {
               size="icon"
               aria-label="Close Menu"
               onClick={closeMobileMenu}
-              className="rounded-2xl bg-white/[0.075] text-white transition-all duration-300 hover:bg-white/[0.16] hover:text-white"
+              className="rounded-2xl bg-zinc-900 text-white transition-all duration-300 hover:bg-white hover:text-black"
             >
               <X className="h-5 w-5" />
             </Button>
