@@ -20,11 +20,13 @@ interface ProjectDetailClientProps {
 
 function DetailBackground() {
   return (
-    <div className="pointer-events-none fixed inset-0 overflow-hidden bg-gradient-to-br from-white via-sky-50 to-slate-100">
-      <div className="absolute -left-32 top-20 h-[28rem] w-[28rem] rounded-full bg-sky-200/65 blur-3xl" />
-      <div className="absolute -right-28 top-56 h-[30rem] w-[30rem] rounded-full bg-cyan-100/85 blur-3xl" />
-      <div className="absolute bottom-[-12rem] left-1/2 h-[36rem] w-[36rem] -translate-x-1/2 rounded-full bg-amber-100/75 blur-3xl" />
-      <div className="absolute inset-0 opacity-[0.42] bg-[linear-gradient(to_right,rgba(14,165,233,0.11)_1px,transparent_1px),linear-gradient(to_bottom,rgba(14,165,233,0.11)_1px,transparent_1px)] bg-[size:72px_72px]" />
+    <div className="pointer-events-none fixed inset-0 overflow-hidden bg-[radial-gradient(circle_at_15%_18%,rgba(125,211,252,0.34),transparent_32%),radial-gradient(circle_at_84%_28%,rgba(253,186,116,0.26),transparent_34%),linear-gradient(135deg,#ffffff_0%,#eef9ff_48%,#fff7ed_100%)]">
+      <div className="portfolio-orb absolute -left-32 top-20 h-[28rem] w-[28rem] rounded-full bg-sky-300/40 blur-[125px]" />
+      <div className="portfolio-orb-delay absolute -right-28 top-56 h-[30rem] w-[30rem] rounded-full bg-cyan-200/40 blur-[150px]" />
+      <div className="portfolio-orb-slow absolute bottom-[-12rem] left-1/2 h-[36rem] w-[36rem] -translate-x-1/2 rounded-full bg-amber-200/40 blur-[160px]" />
+      <span className="portfolio-line left-[12%] top-[24%]" />
+      <span className="portfolio-line portfolio-line-delay right-[12%] top-[56%]" />
+      <div className="portfolio-light-sweep absolute inset-0 bg-[linear-gradient(115deg,transparent_0%,rgba(14,165,233,0.10)_42%,transparent_68%)]" />
     </div>
   )
 }
@@ -75,7 +77,7 @@ function LatestProjectCard({ project }: { project: Project }) {
             imageFit === "cover" ? "object-cover" : "object-contain"
           }`}
         />
-        <span className="absolute bottom-3 left-3 rounded-full border border-sky-200 bg-white/92 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.12em] text-sky-700 shadow-sm backdrop-blur-md">
+        <span className="absolute bottom-3 left-3 rounded-full border border-sky-200 bg-white/90 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.12em] text-sky-700 shadow-sm backdrop-blur-md">
           {projectCategoryLabels[project.category]}
         </span>
       </div>
@@ -150,7 +152,7 @@ export default function ProjectDetailClient({ project }: ProjectDetailClientProp
     <div className="relative min-h-screen overflow-x-hidden text-slate-950">
       <DetailBackground />
 
-      <header className="sticky top-0 z-50 border-b border-slate-200/80 bg-white/86 shadow-sm backdrop-blur-xl">
+      <header className="sticky top-0 z-50 border-b border-slate-200/80 bg-white/90 shadow-sm backdrop-blur-xl">
         <div className="relative mx-auto flex h-[68px] w-full max-w-7xl items-center px-4 sm:px-8 lg:px-12">
           <Link
             href="/#projects"
@@ -170,7 +172,7 @@ export default function ProjectDetailClient({ project }: ProjectDetailClientProp
 
       <main className="relative z-10 mx-auto w-full max-w-7xl px-5 pb-16 pt-9 sm:px-8 lg:px-12">
         <section className="mx-auto max-w-5xl text-center">
-          <span className="inline-flex rounded-full border border-sky-200 bg-white/85 px-4 py-2 text-[11px] font-bold uppercase tracking-[0.16em] text-sky-700 shadow-sm backdrop-blur-md">
+          <span className="inline-flex rounded-full border border-sky-200 bg-white/90 px-4 py-2 text-[11px] font-bold uppercase tracking-[0.16em] text-sky-700 shadow-sm backdrop-blur-md">
             {projectCategoryLabels[project.category]}
           </span>
 
@@ -195,7 +197,7 @@ export default function ProjectDetailClient({ project }: ProjectDetailClientProp
           ) : null}
         </section>
 
-        <section className="mx-auto mt-10 max-w-6xl overflow-hidden rounded-[32px] border border-slate-200 bg-white/88 p-3 shadow-[0_24px_70px_rgba(15,23,42,0.12)] backdrop-blur-xl md:p-4">
+        <section className="mx-auto mt-10 max-w-6xl overflow-hidden rounded-[32px] border border-slate-200 bg-white/90 p-3 shadow-[0_24px_70px_rgba(15,23,42,0.12)] backdrop-blur-xl md:p-4">
           <div
             className="relative aspect-[16/9] overflow-hidden rounded-[24px] bg-slate-100"
             onTouchStart={handleTouchStart}
@@ -266,7 +268,7 @@ export default function ProjectDetailClient({ project }: ProjectDetailClientProp
           </div>
         </section>
 
-        <section className="mx-auto mt-8 max-w-5xl rounded-[30px] border border-slate-200 bg-white/88 p-6 text-base leading-relaxed text-slate-700 shadow-[0_18px_55px_rgba(15,23,42,0.10)] backdrop-blur-xl md:p-8 md:text-lg">
+        <section className="mx-auto mt-8 max-w-5xl rounded-[30px] border border-slate-200 bg-white/90 p-6 text-base leading-relaxed text-slate-700 shadow-[0_18px_55px_rgba(15,23,42,0.10)] backdrop-blur-xl md:p-8 md:text-lg">
           <h3 className="mb-4 text-xl font-bold tracking-[-0.02em] text-slate-950 md:text-2xl">
             Project Overview
           </h3>

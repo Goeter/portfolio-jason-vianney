@@ -115,38 +115,32 @@ export default function CertificatesSection() {
   return (
     <section
       id="certificates"
-      className="section-transition-soft relative flex min-h-screen items-center overflow-hidden py-20"
+      className="section-transition-soft section-transition-light relative flex min-h-screen items-center overflow-hidden py-20"
     >
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_18%,rgba(34,197,94,0.22),transparent_30%),radial-gradient(circle_at_82%_20%,rgba(45,212,191,0.18),transparent_32%),radial-gradient(circle_at_48%_88%,rgba(16,185,129,0.16),transparent_34%),linear-gradient(135deg,#020617_0%,#05231c_44%,#062c2c_100%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_18%,rgba(134,239,172,0.34),transparent_32%),radial-gradient(circle_at_82%_20%,rgba(45,212,191,0.26),transparent_34%),linear-gradient(135deg,#ffffff_0%,#effdf5_48%,#ecfeff_100%)]" />
 
-      <div className="absolute inset-0 opacity-[0.11]">
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(34,197,94,0.28)_1px,transparent_1px),linear-gradient(to_bottom,rgba(45,212,191,0.22)_1px,transparent_1px)] bg-[size:84px_84px]" />
-      </div>
-
-      <div className="absolute inset-0 opacity-[0.12]">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(134,239,172,0.32)_1px,transparent_1.5px)] bg-[size:34px_34px]" />
-      </div>
-
-      <div className="absolute -left-24 top-24 h-80 w-80 rounded-full bg-green-500/16 blur-[130px]" />
-      <div className="absolute -right-24 bottom-16 h-96 w-96 rounded-full bg-teal-400/16 blur-[150px]" />
-      <div className="absolute left-1/2 top-1/2 h-[32rem] w-[32rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-emerald-400/8 blur-[180px]" />
-      <div className="absolute inset-0 bg-[linear-gradient(115deg,transparent_0%,rgba(34,197,94,0.055)_42%,transparent_68%)]" />
+      <div className="certificate-orb absolute -left-24 top-24 h-80 w-80 rounded-full bg-emerald-300/30 blur-[130px]" />
+      <div className="certificate-orb-delay absolute -right-24 bottom-16 h-96 w-96 rounded-full bg-teal-200/30 blur-[150px]" />
+      <div className="certificate-orb-slow absolute left-1/2 top-1/2 h-[32rem] w-[32rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-lime-200/25 blur-[180px]" />
+      <span className="certificate-line left-[10%] top-[28%]" />
+      <span className="certificate-line certificate-line-delay right-[12%] top-[52%]" />
+      <div className="portfolio-light-sweep absolute inset-0 bg-[linear-gradient(115deg,transparent_0%,rgba(16,185,129,0.095)_42%,transparent_68%)]" />
 
       <div className="container relative z-10 mx-auto max-w-6xl px-4">
         <div className="mb-10 animate-[fadeInUp_0.8s_ease-out]">
           <div className="flex items-start justify-between gap-4">
-            <h2 className="min-w-0 bg-gradient-to-r from-white via-green-100 to-emerald-300 bg-clip-text text-4xl font-bold tracking-tight text-transparent md:text-5xl">
+            <h2 className="min-w-0 bg-gradient-to-r from-slate-950 via-emerald-700 to-teal-500 bg-clip-text pb-1 text-4xl font-bold tracking-tight text-transparent md:text-5xl">
               Certificates
             </h2>
 
             <Link href="/certificates" className="mt-1 shrink-0 no-underline md:mt-2">
-              <div className="group flex overflow-hidden rounded-[12px] border border-green-300/30 bg-slate-950/70 shadow-lg shadow-green-500/10 backdrop-blur-md transition-all duration-300 hover:scale-[1.03] hover:border-green-300/60 hover:shadow-green-500/20">
-                <div className="flex items-center justify-center gap-2 bg-slate-950/60 px-3 py-[12px] text-[13px] font-semibold tracking-[0.02em] text-green-200 transition-colors duration-300 group-hover:bg-green-400 group-hover:text-slate-950 sm:px-5">
+              <div className="group flex overflow-hidden rounded-[12px] border border-emerald-200 bg-white shadow-lg shadow-emerald-200/40 backdrop-blur-md transition-all duration-300 hover:scale-[1.03] hover:border-emerald-400 hover:shadow-emerald-300/50">
+                <div className="flex items-center justify-center gap-2 bg-white px-3 py-[12px] text-[13px] font-semibold tracking-[0.02em] text-emerald-700 transition-colors duration-300 group-hover:bg-emerald-500 group-hover:text-white sm:px-5">
                   <span className="hidden sm:inline">View All</span>
                   <ExternalLink className="h-4 w-4 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                 </div>
 
-                <div className="flex min-w-[52px] flex-col items-center justify-center bg-green-400 px-3 py-[8px] leading-none text-slate-950 sm:min-w-[64px] sm:px-4">
+                <div className="flex min-w-[52px] flex-col items-center justify-center bg-emerald-500 px-3 py-[8px] leading-none text-white sm:min-w-[64px] sm:px-4">
                   <span className="text-[18px] font-bold leading-none sm:text-[21px]">
                     {certificates.length}
                   </span>
@@ -159,7 +153,7 @@ export default function CertificatesSection() {
             </Link>
           </div>
 
-          <p className="mt-3 w-full max-w-none text-sm leading-relaxed text-slate-300 md:max-w-4xl md:text-base lg:max-w-5xl">
+          <p className="mt-3 w-full max-w-none text-sm leading-relaxed text-slate-600 md:max-w-4xl md:text-base lg:max-w-5xl">
             A complete collection of certifications and learning achievements that support my professional development journey.
           </p>
         </div>
@@ -172,7 +166,7 @@ export default function CertificatesSection() {
             onClick={() => slide(-1)}
             disabled={currentPage === 0}
             aria-label="Previous certificates"
-            className="absolute -left-2 top-1/2 z-20 hidden h-10 w-10 -translate-y-1/2 rounded-full border-green-400/30 bg-slate-950/80 text-green-300 shadow-xl backdrop-blur-md transition hover:bg-green-500 hover:text-white disabled:cursor-default disabled:opacity-25 md:-left-5 sm:flex"
+            className="absolute -left-2 top-1/2 z-20 hidden h-10 w-10 -translate-y-1/2 rounded-full border-emerald-200 bg-white text-emerald-700 shadow-xl backdrop-blur-md transition hover:bg-emerald-500 hover:text-white disabled:cursor-default disabled:opacity-25 md:-left-5 sm:flex"
           >
             <ChevronLeft className="h-5 w-5" />
           </Button>
@@ -184,7 +178,7 @@ export default function CertificatesSection() {
             onClick={() => slide(1)}
             disabled={currentPage === totalPages - 1}
             aria-label="Next certificates"
-            className="absolute -right-2 top-1/2 z-20 hidden h-10 w-10 -translate-y-1/2 rounded-full border-green-400/30 bg-slate-950/80 text-green-300 shadow-xl backdrop-blur-md transition hover:bg-green-500 hover:text-white disabled:cursor-default disabled:opacity-25 md:-right-5 sm:flex"
+            className="absolute -right-2 top-1/2 z-20 hidden h-10 w-10 -translate-y-1/2 rounded-full border-emerald-200 bg-white text-emerald-700 shadow-xl backdrop-blur-md transition hover:bg-emerald-500 hover:text-white disabled:cursor-default disabled:opacity-25 md:-right-5 sm:flex"
           >
             <ChevronRight className="h-5 w-5" />
           </Button>
@@ -204,13 +198,13 @@ export default function CertificatesSection() {
                   <div key={pageIndex} className="flex min-w-full items-stretch gap-5 px-1 pb-4">
                     {pageCertificates.map((certificate) => (
                       <div key={certificate.id} className="min-w-0 flex-1">
-                        <Card className="group h-full overflow-hidden rounded-3xl border border-green-400/20 bg-slate-950/58 shadow-xl shadow-black/30 backdrop-blur-md transition-all duration-300 hover:-translate-y-2 hover:border-green-300/50 hover:shadow-green-500/20">
+                        <Card className="group h-full overflow-hidden rounded-3xl border border-emerald-200 bg-white shadow-[0_18px_45px_rgba(15,118,110,0.10)] backdrop-blur-md transition-all duration-300 hover:-translate-y-2 hover:border-emerald-300 hover:shadow-[0_24px_60px_rgba(16,185,129,0.18)]">
                           <CardContent className="flex h-full flex-col p-0">
                             <button
                               type="button"
                               onClick={() => setSelectedImage(certificate.image)}
                               aria-label={`Preview ${certificate.title} certificate`}
-                              className="relative aspect-[16/10] w-full overflow-hidden border-b border-green-300/10 bg-white p-2 text-left"
+                              className="relative aspect-[16/10] w-full overflow-hidden border-b border-emerald-100 bg-white p-2 text-left"
                             >
                               <Image
                                 src={certificate.image || "/placeholder.svg"}
@@ -228,23 +222,23 @@ export default function CertificatesSection() {
                               </div>
                             </button>
 
-                            <div className="flex flex-1 flex-col p-5">
+                            <div className="flex flex-1 flex-col border-t border-emerald-100 bg-white p-5">
                               <div className="mb-4 flex flex-wrap items-center gap-2 text-xs">
-                                <span className="inline-flex items-center gap-1 rounded-full border border-green-400/25 bg-green-400/10 px-3 py-1 font-medium text-green-300">
+                                <span className="inline-flex items-center gap-1 rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 font-medium text-emerald-700">
                                   <Award className="h-3.5 w-3.5" />
                                   {certificate.issuer}
                                 </span>
 
-                                <span className="rounded-full border border-slate-500/30 bg-white/5 px-3 py-1 text-slate-300">
+                                <span className="rounded-full border border-slate-200 bg-slate-50 px-3 py-1 text-slate-600">
                                   {certificate.date}
                                 </span>
                               </div>
 
-                              <h3 className="mb-3 text-lg font-bold leading-snug text-white transition group-hover:text-green-200">
+                              <h3 className="mb-3 text-lg font-bold leading-snug text-slate-950 transition group-hover:text-emerald-700">
                                 {certificate.title}
                               </h3>
 
-                              <p className="flex-1 text-sm leading-relaxed text-slate-300">
+                              <p className="flex-1 text-sm leading-relaxed text-slate-600">
                                 {certificate.description}
                               </p>
                             </div>
@@ -271,7 +265,7 @@ export default function CertificatesSection() {
               onClick={() => slide(-1)}
               disabled={currentPage === 0}
               aria-label="Previous certificates"
-              className="h-9 w-9 rounded-full border-green-400/30 bg-slate-950/80 text-green-300 shadow-lg backdrop-blur-md transition hover:bg-green-500 hover:text-white disabled:cursor-default disabled:opacity-25 sm:hidden"
+              className="h-9 w-9 rounded-full border-emerald-200 bg-white text-emerald-700 shadow-lg backdrop-blur-md transition hover:bg-emerald-500 hover:text-white disabled:cursor-default disabled:opacity-25 sm:hidden"
             >
               <ChevronLeft className="h-4 w-4" />
             </Button>
@@ -287,13 +281,13 @@ export default function CertificatesSection() {
                     onClick={() => setCurrentPage(index)}
                     aria-label={`Go to certificate page ${index + 1}`}
                     className={`h-2 rounded-full transition-all duration-300 ${
-                      active ? "w-8 bg-green-400" : "w-2 bg-slate-500 hover:bg-slate-300"
+                      active ? "w-8 bg-emerald-500" : "w-2 bg-emerald-200 hover:bg-emerald-300"
                     }`}
                   />
                 )
               })}
 
-              <span className="ml-1 min-w-8 font-mono text-[11px] text-slate-400">
+              <span className="ml-1 min-w-8 font-mono text-[11px] text-slate-500">
                 {currentPage + 1}/{totalPages}
               </span>
             </div>
@@ -305,7 +299,7 @@ export default function CertificatesSection() {
               onClick={() => slide(1)}
               disabled={currentPage === totalPages - 1}
               aria-label="Next certificates"
-              className="h-9 w-9 rounded-full border-green-400/30 bg-slate-950/80 text-green-300 shadow-lg backdrop-blur-md transition hover:bg-green-500 hover:text-white disabled:cursor-default disabled:opacity-25 sm:hidden"
+              className="h-9 w-9 rounded-full border-emerald-200 bg-white text-emerald-700 shadow-lg backdrop-blur-md transition hover:bg-emerald-500 hover:text-white disabled:cursor-default disabled:opacity-25 sm:hidden"
             >
               <ChevronRight className="h-4 w-4" />
             </Button>

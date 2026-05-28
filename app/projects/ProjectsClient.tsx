@@ -20,11 +20,13 @@ import {
 
 function ArchiveBackground() {
   return (
-    <div className="pointer-events-none absolute inset-0 overflow-hidden bg-gradient-to-br from-white via-sky-50 to-slate-100">
-      <div className="absolute -left-32 top-16 h-[26rem] w-[26rem] rounded-full bg-sky-200/60 blur-3xl" />
-      <div className="absolute -right-28 top-52 h-[28rem] w-[28rem] rounded-full bg-cyan-100/80 blur-3xl" />
-      <div className="absolute bottom-[-10rem] left-1/2 h-[34rem] w-[34rem] -translate-x-1/2 rounded-full bg-amber-100/75 blur-3xl" />
-      <div className="absolute inset-0 opacity-[0.40] bg-[linear-gradient(to_right,rgba(14,165,233,0.11)_1px,transparent_1px),linear-gradient(to_bottom,rgba(14,165,233,0.11)_1px,transparent_1px)] bg-[size:72px_72px]" />
+    <div className="pointer-events-none absolute inset-0 overflow-hidden bg-[radial-gradient(circle_at_14%_16%,rgba(125,211,252,0.34),transparent_32%),radial-gradient(circle_at_86%_24%,rgba(253,186,116,0.26),transparent_34%),linear-gradient(135deg,#ffffff_0%,#eef9ff_48%,#fff7ed_100%)]">
+      <div className="portfolio-orb absolute -left-32 top-16 h-[26rem] w-[26rem] rounded-full bg-sky-300/40 blur-[120px]" />
+      <div className="portfolio-orb-delay absolute -right-28 top-52 h-[28rem] w-[28rem] rounded-full bg-cyan-200/40 blur-[145px]" />
+      <div className="portfolio-orb-slow absolute bottom-[-10rem] left-1/2 h-[34rem] w-[34rem] -translate-x-1/2 rounded-full bg-amber-200/40 blur-[155px]" />
+      <span className="portfolio-line left-[11%] top-[24%]" />
+      <span className="portfolio-line portfolio-line-delay right-[14%] top-[58%]" />
+      <div className="portfolio-light-sweep absolute inset-0 bg-[linear-gradient(115deg,transparent_0%,rgba(14,165,233,0.10)_42%,transparent_68%)]" />
       <div className="absolute inset-x-0 top-0 h-44 bg-gradient-to-b from-white to-transparent" />
     </div>
   )
@@ -81,7 +83,7 @@ function ImageModal({
 
   return (
     <div
-      className="fixed inset-0 z-[999] flex items-center justify-center bg-slate-950/85 p-3 backdrop-blur-md sm:p-4"
+      className="fixed inset-0 z-[999] flex items-center justify-center bg-slate-950/90 p-3 backdrop-blur-md sm:p-4"
       onClick={onClose}
     >
       <div
@@ -153,7 +155,7 @@ function ProjectCard({
       >
         <ProjectImage project={project} />
 
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-950/38 via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-slate-950/40 via-transparent to-transparent" />
 
         <div className="absolute bottom-4 left-4 flex flex-wrap gap-2">
           <span className="rounded-full border border-sky-200 bg-sky-100/95 px-3 py-[6px] text-[10px] font-bold uppercase tracking-[0.14em] text-sky-700 shadow-sm backdrop-blur-md">
@@ -236,7 +238,7 @@ export default function AllProjects() {
     <main className="relative min-h-screen overflow-x-hidden text-slate-950">
       <ArchiveBackground />
 
-      <header className="sticky top-0 z-50 border-b border-slate-200/80 bg-white/86 shadow-sm backdrop-blur-xl">
+      <header className="sticky top-0 z-50 border-b border-slate-200/80 bg-white/90 shadow-sm backdrop-blur-xl">
         <div className="relative mx-auto flex h-[68px] w-full max-w-7xl items-center px-4 sm:px-8 lg:px-12">
           <Link
             href="/#projects"
@@ -255,7 +257,7 @@ export default function AllProjects() {
       </header>
 
       <div className="relative z-10 mx-auto w-full max-w-7xl px-5 pb-16 pt-8 sm:px-8 lg:px-12">
-        <section className="mb-6 animate-[fadeInUp_0.75s_ease-out_both] rounded-[28px] border border-slate-200 bg-white/88 p-5 shadow-[0_22px_70px_rgba(15,23,42,0.10)] backdrop-blur-xl md:p-7">
+        <section className="mb-6 animate-[fadeInUp_0.75s_ease-out_both] rounded-[28px] border border-slate-200 bg-white/90 p-5 shadow-[0_22px_70px_rgba(15,23,42,0.10)] backdrop-blur-xl md:p-7">
           <div className="flex flex-col gap-3">
             <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-sky-700">Latest projects first</p>
 
@@ -275,7 +277,7 @@ export default function AllProjects() {
           </div>
         </section>
 
-        <section className="mb-8 animate-[fadeInUp_0.85s_ease-out_both] rounded-[24px] border border-slate-200 bg-white/86 p-4 shadow-[0_18px_45px_rgba(15,23,42,0.08)] backdrop-blur-xl">
+        <section className="mb-8 animate-[fadeInUp_0.85s_ease-out_both] rounded-[24px] border border-slate-200 bg-white/90 p-4 shadow-[0_18px_45px_rgba(15,23,42,0.08)] backdrop-blur-xl">
           <div className="flex flex-col gap-4">
             <label className="relative flex min-h-[46px] w-full items-center">
               <Search className="pointer-events-none absolute left-4 h-4 w-4 text-slate-400" />

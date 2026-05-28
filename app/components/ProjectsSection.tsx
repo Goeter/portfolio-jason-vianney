@@ -21,11 +21,13 @@ import {
 
 function ProjectsLightBackground() {
   return (
-    <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden bg-gradient-to-br from-slate-50 via-sky-50 to-white">
-      <div className="absolute -left-32 top-20 h-96 w-96 rounded-full bg-sky-200/55 blur-3xl" />
-      <div className="absolute -right-28 top-40 h-[26rem] w-[26rem] rounded-full bg-amber-100/70 blur-3xl" />
-      <div className="absolute bottom-[-9rem] left-1/2 h-[30rem] w-[30rem] -translate-x-1/2 rounded-full bg-cyan-100/70 blur-3xl" />
-      <div className="absolute inset-0 opacity-[0.45] bg-[linear-gradient(to_right,rgba(14,165,233,0.10)_1px,transparent_1px),linear-gradient(to_bottom,rgba(14,165,233,0.10)_1px,transparent_1px)] bg-[size:72px_72px]" />
+    <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden bg-[radial-gradient(circle_at_16%_18%,rgba(125,211,252,0.34),transparent_32%),radial-gradient(circle_at_84%_22%,rgba(253,186,116,0.28),transparent_34%),linear-gradient(135deg,#f8fbff_0%,#edf8ff_48%,#fff8ed_100%)]">
+      <div className="portfolio-orb absolute -left-32 top-20 h-96 w-96 rounded-full bg-sky-300/40 blur-[120px]" />
+      <div className="portfolio-orb-delay absolute -right-28 top-40 h-[28rem] w-[28rem] rounded-full bg-cyan-200/40 blur-[140px]" />
+      <div className="portfolio-orb-slow absolute bottom-[-10rem] left-1/2 h-[32rem] w-[32rem] -translate-x-1/2 rounded-full bg-amber-200/40 blur-[150px]" />
+      <span className="portfolio-line left-[10%] top-[28%]" />
+      <span className="portfolio-line portfolio-line-delay right-[12%] top-[48%]" />
+      <div className="portfolio-light-sweep absolute inset-0 bg-[linear-gradient(115deg,transparent_0%,rgba(14,165,233,0.105)_42%,transparent_68%)]" />
       <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-white to-transparent" />
     </div>
   )
@@ -90,8 +92,8 @@ function ProjectCard({
       <article className="group relative flex h-full min-w-0 flex-1 flex-col overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-[0_18px_45px_rgba(15,23,42,0.10)] transition-all duration-500 ease-fluid hover:-translate-y-2 hover:border-sky-300 hover:shadow-[0_24px_60px_rgba(14,165,233,0.20)]">
         <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100">
           <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-sky-400/70 to-transparent" />
-          <div className="absolute -right-20 -top-20 h-44 w-44 rounded-full bg-sky-300/18 blur-3xl" />
-          <div className="absolute -bottom-24 -left-24 h-52 w-52 rounded-full bg-amber-300/18 blur-3xl" />
+          <div className="absolute -right-20 -top-20 h-44 w-44 rounded-full bg-sky-300/20 blur-3xl" />
+          <div className="absolute -bottom-24 -left-24 h-52 w-52 rounded-full bg-amber-300/20 blur-3xl" />
         </div>
 
         <button
@@ -284,7 +286,7 @@ export default function ProjectsSection() {
     <section
       ref={sectionRef}
       id="projects"
-      className="section-transition-soft relative flex min-h-screen scroll-mt-16 items-center overflow-hidden py-20 text-slate-950"
+      className="section-transition-soft section-transition-light relative flex min-h-screen scroll-mt-16 items-center overflow-hidden py-20 text-slate-950"
     >
       <ProjectsLightBackground />
 

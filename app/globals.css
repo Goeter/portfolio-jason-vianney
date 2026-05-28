@@ -136,6 +136,14 @@
     background: linear-gradient(to top, rgba(2, 6, 23, 0.52), transparent);
   }
 
+  .section-transition-light::before {
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.72), transparent);
+  }
+
+  .section-transition-light::after {
+    background: linear-gradient(to top, rgba(255, 255, 255, 0.72), transparent);
+  }
+
   .portfolio-preview-scroll,
   .no-card-scrollbar,
   .no-card-scrollbar * {
@@ -168,8 +176,39 @@
   animation: fadeInUp 0.78s ease-out both;
 }
 
-.certificate-grid {
-  animation: certificateGridMove 20s linear infinite;
+.portfolio-orb {
+  animation: portfolioOrbFloat 10s ease-in-out infinite;
+  will-change: transform;
+}
+
+.portfolio-orb-delay {
+  animation: portfolioOrbFloat 12s ease-in-out infinite;
+  animation-delay: 1.4s;
+  will-change: transform;
+}
+
+.portfolio-orb-slow {
+  animation: portfolioOrbPulse 14s ease-in-out infinite;
+  animation-delay: 0.8s;
+  will-change: transform, opacity;
+}
+
+.portfolio-light-sweep {
+  animation: portfolioLightSweep 8.5s ease-in-out infinite;
+  will-change: opacity, transform;
+}
+
+.portfolio-line {
+  position: absolute;
+  width: 180px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(14, 165, 233, 0.45), transparent);
+  transform: rotate(-20deg);
+  animation: portfolioLineMove 6.5s ease-in-out infinite;
+}
+
+.portfolio-line-delay {
+  animation-delay: 2s;
 }
 
 .certificate-orb {
@@ -181,11 +220,17 @@
   animation-delay: 1.5s;
 }
 
+.certificate-orb-slow {
+  animation: certificateOrbPulse 13s ease-in-out infinite;
+  animation-delay: 0.8s;
+  will-change: transform, opacity;
+}
+
 .certificate-line {
   position: absolute;
   width: 170px;
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(134, 239, 172, 0.85), transparent);
+  background: linear-gradient(90deg, transparent, rgba(16, 185, 129, 0.48), transparent);
   transform: rotate(-22deg);
   animation: certificateLineMove 5.5s ease-in-out infinite;
 }
@@ -313,15 +358,6 @@
   }
 }
 
-@keyframes certificateGridMove {
-  from {
-    transform: translate3d(0, 0, 0);
-  }
-  to {
-    transform: translate3d(78px, 78px, 0);
-  }
-}
-
 @keyframes certificateOrbFloat {
   0%,
   100% {
@@ -354,6 +390,66 @@
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@keyframes portfolioOrbFloat {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(24px, -18px, 0) scale(1.06);
+  }
+}
+
+@keyframes portfolioOrbPulse {
+  0%,
+  100% {
+    opacity: 0.78;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: translate3d(-18px, 16px, 0) scale(1.08);
+  }
+}
+
+@keyframes portfolioLightSweep {
+  0%,
+  100% {
+    opacity: 0.5;
+    transform: translateX(-4%);
+  }
+  50% {
+    opacity: 0.95;
+    transform: translateX(4%);
+  }
+}
+
+@keyframes portfolioLineMove {
+  0% {
+    opacity: 0;
+    transform: translate3d(-56px, 36px, 0) rotate(-20deg);
+  }
+  35% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(110px, -58px, 0) rotate(-20deg);
+  }
+}
+
+@keyframes certificateOrbPulse {
+  0%,
+  100% {
+    opacity: 0.68;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.08);
   }
 }
 
@@ -519,10 +615,15 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .certificate-grid,
   .certificate-orb,
   .certificate-orb-delay,
+  .certificate-orb-slow,
   .certificate-line,
+  .portfolio-orb,
+  .portfolio-orb-delay,
+  .portfolio-orb-slow,
+  .portfolio-light-sweep,
+  .portfolio-line,
   .experience-grid,
   .experience-orb,
   .experience-orb-delay,
