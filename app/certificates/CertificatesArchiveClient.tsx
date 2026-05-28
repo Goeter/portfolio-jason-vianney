@@ -3,7 +3,7 @@
 import { useMemo, useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
-import { Award, CalendarDays, ChevronLeft, Eye, GraduationCap } from "lucide-react"
+import { Award, CalendarDays, ChevronLeft, Eye, GraduationCap, Search } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
@@ -12,6 +12,20 @@ import ImagePreviewDialog from "../components/ImagePreviewDialog"
 
 export default function CertificatesArchiveClient() {
   const [selectedCertificate, setSelectedCertificate] = useState<Certificate | null>(null)
+  const [searchTerm, setSearchTerm] = useState("")
+
+  const filteredCertificates = useMemo(() => {
+    const normalizedSearch = searchTerm.trim().toLowerCase()
+
+    if (!normalizedSearch) return certificatesLatestFirst
+
+    return certificatesLatestFirst.filter((certificate) =>
+      [certificate.title, certificate.description, certificate.issuer, certificate.date]
+        .join(" ")
+        .toLowerCase()
+        .includes(normalizedSearch)
+    )
+  }, [searchTerm])
 
   const previewImages = useMemo(() => {
     if (!selectedCertificate) return null
@@ -58,98 +72,109 @@ export default function CertificatesArchiveClient() {
       </header>
 
       <main className="container relative z-10 mx-auto max-w-6xl px-4 py-12 md:py-16">
-        <section className="mb-12 overflow-hidden rounded-[32px] border border-green-300/20 bg-slate-950/55 p-6 shadow-2xl shadow-black/30 backdrop-blur-xl md:p-8">
-          <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
-            <div className="max-w-3xl">
-              <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-green-300/25 bg-green-400/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-green-200">
-                <GraduationCap className="h-4 w-4" />
-                Professional Learning Record
-              </div>
+        <section className="mb-8 overflow-hidden rounded-[28px] border border-green-300/20 bg-slate-950/55 p-5 shadow-2xl shadow-black/30 backdrop-blur-xl md:p-7">
+          <div className="flex flex-col gap-3">
+            <div className="inline-flex w-fit items-center gap-2 rounded-full border border-green-300/25 bg-green-400/10 px-4 py-2 text-[11px] font-bold uppercase tracking-[0.22em] text-green-200">
+              <GraduationCap className="h-4 w-4" />
+              Professional Learning Record
+            </div>
 
-              <h1 className="bg-gradient-to-r from-white via-green-100 to-emerald-300 bg-clip-text pb-2 text-4xl font-bold leading-tight tracking-tight text-transparent md:text-5xl lg:text-6xl">
+            <div className="flex w-full items-center justify-between gap-4">
+              <h1 className="min-w-0 text-2xl font-bold tracking-[-0.02em] text-white md:text-3xl">
                 Certificates
               </h1>
 
-              <p className="mt-3 max-w-2xl text-sm leading-relaxed text-slate-300 md:text-base">
-                A complete collection of certifications and learning achievements that support my professional development journey.
-              </p>
+              <span className="shrink-0 rounded-full border border-green-300/25 bg-green-400/10 px-3 py-1.5 text-[12px] font-bold uppercase tracking-[0.12em] text-green-200 sm:px-4">
+                {filteredCertificates.length} items
+              </span>
             </div>
 
-            <div className="grid grid-cols-2 gap-3 sm:min-w-[260px]">
-              <div className="rounded-2xl border border-green-300/20 bg-white/5 p-4 text-center">
-                <div className="text-3xl font-bold text-green-200">{certificatesLatestFirst.length}</div>
-                <div className="mt-1 text-[11px] uppercase tracking-[0.18em] text-slate-400">Certificates</div>
-              </div>
-
-              <div className="rounded-2xl border border-green-300/20 bg-white/5 p-4 text-center">
-                <div className="text-3xl font-bold text-green-200">2025</div>
-                <div className="mt-1 text-[11px] uppercase tracking-[0.18em] text-slate-400">Latest Year</div>
-              </div>
-            </div>
+            <p className="max-w-2xl text-sm leading-relaxed text-slate-300">
+              A complete collection of certifications and learning achievements that support my professional development journey.
+            </p>
           </div>
         </section>
 
-        <section className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {certificatesLatestFirst.map((certificate, index) => (
-            <Card
-              key={certificate.id}
-              id={`certificate-${certificate.id}`}
-              className="group certificate-card h-full overflow-hidden rounded-3xl border border-green-400/20 bg-slate-950/58 shadow-xl shadow-black/30 backdrop-blur-md transition-all duration-300 hover:-translate-y-2 hover:border-green-300/50 hover:shadow-green-500/20"
-              style={{ animationDelay: `${index * 120}ms` }}
-            >
-              <CardContent className="flex h-full flex-col p-0">
-                <button
-                  type="button"
-                  onClick={() => setSelectedCertificate(certificate)}
-                  aria-label={`Preview ${certificate.title}`}
-                  className="relative aspect-[16/10] w-full flex-shrink-0 overflow-hidden bg-white p-2 text-left"
-                >
-                  <Image
-                    src={certificate.image || "/placeholder.svg"}
-                    alt={`${certificate.title} certificate`}
-                    width={500}
-                    height={320}
-                    sizes="(max-width: 768px) 92vw, (max-width: 1024px) 45vw, 30vw"
-                    className="h-full w-full rounded-xl object-contain transition duration-500 group-hover:scale-105"
-                  />
-
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/75 via-transparent to-transparent opacity-80" />
-
-                  <div className="absolute left-3 top-3 rounded-full border border-white/20 bg-black/40 p-2 text-green-200 backdrop-blur-md">
-                    <Award className="h-4 w-4" />
-                  </div>
-
-                  <div className="absolute bottom-3 right-3 inline-flex items-center gap-1 rounded-full border border-white/20 bg-black/45 px-3 py-1 text-xs font-medium text-white backdrop-blur-md opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-                    <Eye className="h-3.5 w-3.5" />
-                    Preview
-                  </div>
-                </button>
-
-                <div className="flex flex-grow flex-col border-t border-green-300/10 bg-slate-950/72 p-5">
-                  <div className="mb-4 flex flex-wrap items-center gap-2 text-xs">
-                    <span className="inline-flex items-center gap-1 rounded-full border border-green-400/25 bg-green-400/10 px-3 py-1 font-medium text-green-300">
-                      <Award className="h-3.5 w-3.5" />
-                      {certificate.issuer}
-                    </span>
-
-                    <span className="inline-flex items-center gap-1 rounded-full border border-slate-500/30 bg-white/5 px-3 py-1 text-slate-300">
-                      <CalendarDays className="h-3.5 w-3.5" />
-                      {certificate.date}
-                    </span>
-                  </div>
-
-                  <h2 className="mb-3 text-lg font-bold leading-snug text-white transition group-hover:text-green-200">
-                    {certificate.title}
-                  </h2>
-
-                  <p className="flex-1 text-sm leading-relaxed text-slate-300">
-                    {certificate.description}
-                  </p>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
+        <section className="mb-8 rounded-[24px] border border-green-300/20 bg-slate-950/55 p-4 shadow-xl shadow-black/20 backdrop-blur-xl">
+          <label className="relative flex min-h-[46px] w-full items-center">
+            <Search className="pointer-events-none absolute left-4 h-4 w-4 text-slate-400" />
+            <input
+              type="search"
+              value={searchTerm}
+              onChange={(event) => setSearchTerm(event.target.value)}
+              placeholder="Search certificate title, issuer, description, or date..."
+              className="h-12 w-full rounded-2xl border border-green-300/20 bg-white/95 pl-11 pr-4 text-sm text-slate-800 shadow-sm outline-none transition-all duration-300 placeholder:text-slate-400 focus:border-green-400 focus:ring-4 focus:ring-green-400/15"
+            />
+          </label>
         </section>
+
+        {filteredCertificates.length ? (
+          <section className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {filteredCertificates.map((certificate, index) => (
+              <Card
+                key={certificate.id}
+                id={`certificate-${certificate.id}`}
+                className="group certificate-card h-full overflow-hidden rounded-3xl border border-green-400/20 bg-slate-950/58 shadow-xl shadow-black/30 backdrop-blur-md transition-all duration-300 hover:-translate-y-2 hover:border-green-300/50 hover:shadow-green-500/20"
+                style={{ animationDelay: `${index * 120}ms` }}
+              >
+                <CardContent className="flex h-full flex-col p-0">
+                  <button
+                    type="button"
+                    onClick={() => setSelectedCertificate(certificate)}
+                    aria-label={`Preview ${certificate.title}`}
+                    className="relative aspect-[16/10] w-full flex-shrink-0 overflow-hidden border-b border-green-300/10 bg-white p-2 text-left"
+                  >
+                    <Image
+                      src={certificate.image || "/placeholder.svg"}
+                      alt={`${certificate.title} certificate`}
+                      width={500}
+                      height={320}
+                      sizes="(max-width: 768px) 92vw, (max-width: 1024px) 45vw, 30vw"
+                      className="h-full w-full rounded-xl object-contain transition duration-500 group-hover:scale-105"
+                    />
+
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/75 via-transparent to-transparent opacity-80" />
+
+                    <div className="absolute left-3 top-3 rounded-full border border-white/20 bg-black/40 p-2 text-green-200 backdrop-blur-md">
+                      <Award className="h-4 w-4" />
+                    </div>
+
+                    <div className="absolute bottom-3 right-3 inline-flex items-center gap-1 rounded-full border border-white/20 bg-black/45 px-3 py-1 text-xs font-medium text-white opacity-0 backdrop-blur-md transition-opacity duration-300 group-hover:opacity-100">
+                      <Eye className="h-3.5 w-3.5" />
+                      Preview
+                    </div>
+                  </button>
+
+                  <div className="flex flex-grow flex-col border-t border-green-300/10 bg-slate-950/72 p-5">
+                    <div className="mb-4 flex flex-wrap items-center gap-2 text-xs">
+                      <span className="inline-flex items-center gap-1 rounded-full border border-green-400/25 bg-green-400/10 px-3 py-1 font-medium text-green-300">
+                        <Award className="h-3.5 w-3.5" />
+                        {certificate.issuer}
+                      </span>
+
+                      <span className="inline-flex items-center gap-1 rounded-full border border-slate-500/30 bg-white/5 px-3 py-1 text-slate-300">
+                        <CalendarDays className="h-3.5 w-3.5" />
+                        {certificate.date}
+                      </span>
+                    </div>
+
+                    <h2 className="mb-3 text-lg font-bold leading-snug text-white transition group-hover:text-green-200">
+                      {certificate.title}
+                    </h2>
+
+                    <p className="flex-1 text-sm leading-relaxed text-slate-300">
+                      {certificate.description}
+                    </p>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </section>
+        ) : (
+          <div className="rounded-[26px] border border-dashed border-green-300/25 bg-slate-950/55 p-8 text-center text-slate-300 shadow-xl shadow-black/20 backdrop-blur-xl">
+            No certificates match the selected search.
+          </div>
+        )}
       </main>
 
       <ImagePreviewDialog

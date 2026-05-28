@@ -3,13 +3,12 @@
 import { useMemo, useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
-import { ArrowUpRight, ChevronLeft, ExternalLink, Search, X } from "lucide-react"
+import { ArrowUpRight, ChevronLeft, Search, X } from "lucide-react"
 
 import {
   getProjectPath,
   projectCategoryLabels,
   projectCategoryOptions,
-  projects,
   projectsLatestFirst,
   type Project,
   type ProjectCategory,
@@ -36,19 +35,17 @@ function ArchiveBackground() {
 // ============================================================
 
 function ProjectImage({ project }: { project: Project }) {
-  const imageFit = project.imageFit ?? "cover"
-
   if (project.gallery?.length) {
     return (
-      <div className="flex h-full gap-1.5 bg-slate-100 p-1.5">
+      <div className="flex h-full w-full items-center justify-center gap-1.5 bg-white p-2">
         {project.gallery.slice(0, 3).map((src, index) => (
-          <div key={src} className="relative h-full flex-1 overflow-hidden rounded-xl bg-white shadow-sm">
+          <div key={src} className="relative h-full flex-1 overflow-hidden rounded-xl border border-slate-100 bg-slate-50">
             <Image
               src={src}
               alt={`${project.title} preview ${index + 1}`}
               fill
               sizes="(max-width: 768px) 30vw, 12vw"
-              className="object-cover transition-transform duration-700 group-hover:scale-105"
+              className="object-contain p-1 transition-transform duration-700 group-hover:scale-105"
             />
           </div>
         ))}
@@ -62,9 +59,7 @@ function ProjectImage({ project }: { project: Project }) {
       alt={project.title}
       fill
       sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
-      className={`transition-transform duration-700 group-hover:scale-105 ${
-        imageFit === "cover" ? "object-cover" : "object-contain"
-      }`}
+      className="object-contain p-2 transition-transform duration-700 group-hover:scale-105"
     />
   )
 }
@@ -154,14 +149,14 @@ function ProjectCard({
       <button
         type="button"
         onClick={() => onOpen(project)}
-        className="relative aspect-[16/10] overflow-hidden border-b border-slate-200 bg-slate-100 text-left"
+        className="relative aspect-[16/10] overflow-hidden border-b border-slate-200 bg-white text-left"
       >
         <ProjectImage project={project} />
 
         <div className="absolute inset-0 bg-gradient-to-t from-slate-950/38 via-transparent to-transparent" />
 
         <div className="absolute bottom-4 left-4 flex flex-wrap gap-2">
-          <span className="rounded-full border border-sky-200 bg-white/92 px-3 py-[6px] text-[10px] font-bold uppercase tracking-[0.14em] text-sky-700 shadow-sm backdrop-blur-md">
+          <span className="rounded-full border border-sky-200 bg-sky-100/95 px-3 py-[6px] text-[10px] font-bold uppercase tracking-[0.14em] text-sky-700 shadow-sm backdrop-blur-md">
             {projectCategoryLabels[project.category]}
           </span>
         </div>
@@ -236,7 +231,6 @@ export default function AllProjects() {
     })
   }, [searchTerm, selectedCategory])
 
-  const latestProject = projectsLatestFirst[0]
 
   return (
     <main className="relative min-h-screen overflow-x-hidden text-slate-950">
@@ -262,32 +256,28 @@ export default function AllProjects() {
 
       <div className="relative z-10 mx-auto w-full max-w-7xl px-5 pb-16 pt-8 sm:px-8 lg:px-12">
         <section className="mb-6 animate-[fadeInUp_0.75s_ease-out_both] rounded-[28px] border border-slate-200 bg-white/88 p-5 shadow-[0_22px_70px_rgba(15,23,42,0.10)] backdrop-blur-xl md:p-7">
-          <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
-            <div>
-              <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-sky-700">Latest projects first</p>
-              <h2 className="mt-2 text-2xl font-bold tracking-[-0.02em] text-slate-950 md:text-3xl">Project Collection</h2>
-              <p className="mt-3 max-w-2xl text-sm leading-relaxed text-slate-600">
-                {projects.length} total projects. Newest items appear first, with filters for website, application, documentation, and video.
-                {latestProject ? ` Latest: ${latestProject.title}.` : ""}
-              </p>
+          <div className="flex flex-col gap-3">
+            <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-sky-700">Latest projects first</p>
+
+            <div className="flex w-full items-center justify-between gap-4">
+              <h2 className="min-w-0 text-2xl font-bold tracking-[-0.02em] text-slate-950 md:text-3xl">
+                Project Collection
+              </h2>
+
+              <span className="shrink-0 rounded-full border border-sky-200 bg-sky-50 px-3 py-1.5 text-[12px] font-bold uppercase tracking-[0.12em] text-sky-700 sm:px-4">
+                {filteredProjects.length} shown
+              </span>
             </div>
 
-            <div className="grid w-full max-w-[340px] grid-cols-2 gap-3 sm:max-w-[420px]">
-              <div className="rounded-2xl border border-sky-100 bg-sky-50 px-4 py-3">
-                <div className="text-3xl font-bold text-sky-700">{projects.length}</div>
-                <div className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-500">Total</div>
-              </div>
-              <div className="rounded-2xl border border-slate-200 bg-white px-4 py-3">
-                <div className="text-3xl font-bold text-slate-950">{filteredProjects.length}</div>
-                <div className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-500">Shown</div>
-              </div>
-            </div>
+            <p className="max-w-2xl text-sm leading-relaxed text-slate-600">
+              Newest items appear first, with filters for website, application, documentation, and video.
+            </p>
           </div>
         </section>
 
         <section className="mb-8 animate-[fadeInUp_0.85s_ease-out_both] rounded-[24px] border border-slate-200 bg-white/86 p-4 shadow-[0_18px_45px_rgba(15,23,42,0.08)] backdrop-blur-xl">
-          <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
-            <label className="relative flex min-h-[46px] w-full flex-1 items-center">
+          <div className="flex flex-col gap-4">
+            <label className="relative flex min-h-[46px] w-full items-center">
               <Search className="pointer-events-none absolute left-4 h-4 w-4 text-slate-400" />
               <input
                 type="search"
@@ -298,7 +288,7 @@ export default function AllProjects() {
               />
             </label>
 
-            <div className="no-card-scrollbar flex gap-2 overflow-x-auto pb-1 lg:max-w-[560px]">
+            <div className="flex flex-wrap items-center gap-2">
               {projectCategoryOptions.map((option) => {
                 const active = selectedCategory === option.value
 
@@ -307,9 +297,9 @@ export default function AllProjects() {
                     key={option.value}
                     type="button"
                     onClick={() => setSelectedCategory(option.value)}
-                    className={`whitespace-nowrap rounded-full px-4 py-2 text-[12px] font-bold uppercase tracking-[0.08em] transition-all duration-300 ${
+                    className={`rounded-full px-3.5 py-2 text-[11px] font-bold uppercase tracking-[0.08em] transition-all duration-300 sm:px-4 sm:text-[12px] ${
                       active
-                        ? "bg-sky-500 text-white shadow-[0_10px_24px_rgba(14,165,233,0.28)]"
+                        ? "border border-sky-500 bg-sky-500 text-white shadow-[0_10px_24px_rgba(14,165,233,0.24)]"
                         : "border border-slate-200 bg-white text-slate-600 hover:border-sky-300 hover:bg-sky-50 hover:text-sky-700"
                     }`}
                   >

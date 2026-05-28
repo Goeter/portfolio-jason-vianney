@@ -152,7 +152,7 @@ export default function CertificatesSection() {
                   </span>
 
                   <span className="mt-[3px] text-[8px] uppercase tracking-widest opacity-70 sm:text-[9px]">
-                    Certs
+                    Items
                   </span>
                 </div>
               </div>
@@ -210,7 +210,7 @@ export default function CertificatesSection() {
                               type="button"
                               onClick={() => setSelectedImage(certificate.image)}
                               aria-label={`Preview ${certificate.title} certificate`}
-                              className="relative aspect-[16/10] w-full overflow-hidden bg-white p-2 text-left"
+                              className="relative aspect-[16/10] w-full overflow-hidden border-b border-green-300/10 bg-white p-2 text-left"
                             >
                               <Image
                                 src={certificate.image || "/placeholder.svg"}

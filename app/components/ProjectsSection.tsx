@@ -36,19 +36,17 @@ function ProjectsLightBackground() {
 // ============================================================
 
 function ProjectPreviewImage({ project }: { project: Project }) {
-  const imageFit = project.imageFit ?? "cover"
-
   if (project.gallery?.length) {
     return (
-      <div className="flex h-full w-full gap-1 bg-slate-100 p-1.5">
+      <div className="flex h-full w-full items-center justify-center gap-1 bg-white p-2">
         {project.gallery.slice(0, 3).map((src, imageIndex) => (
-          <div key={src} className="relative h-full flex-1 overflow-hidden rounded-xl bg-white">
+          <div key={src} className="relative h-full flex-1 overflow-hidden rounded-xl border border-slate-100 bg-slate-50">
             <Image
               src={src}
               alt={`${project.title} preview ${imageIndex + 1}`}
               fill
               sizes="(max-width: 768px) 30vw, 12vw"
-              className="object-cover transition-transform duration-700 group-hover:scale-105"
+              className="object-contain p-1 transition-transform duration-700 group-hover:scale-105"
             />
           </div>
         ))}
@@ -62,9 +60,7 @@ function ProjectPreviewImage({ project }: { project: Project }) {
       alt={project.title}
       fill
       sizes="(max-width: 768px) 100vw, (max-width: 1100px) 45vw, 30vw"
-      className={`transition-transform duration-700 ease-out group-hover:scale-105 ${
-        imageFit === "cover" ? "object-cover" : "object-contain"
-      }`}
+      className="object-contain p-2 transition-transform duration-700 ease-out group-hover:scale-105"
     />
   )
 }
@@ -102,14 +98,14 @@ function ProjectCard({
           type="button"
           onClick={() => onPreview(project)}
           aria-label={`Preview ${project.title}`}
-          className="relative aspect-[16/10] w-full overflow-hidden border-b border-slate-200 bg-slate-100 text-left"
+          className="relative aspect-[16/10] w-full overflow-hidden border-b border-slate-200 bg-white text-left"
         >
           <ProjectPreviewImage project={project} />
 
           <div className="absolute inset-0 bg-gradient-to-t from-slate-950/40 via-transparent to-transparent" />
           <div className="absolute inset-0 bg-sky-950/0 transition-colors duration-300 group-hover:bg-sky-950/5" />
 
-          <div className="absolute bottom-3 left-3 z-20 rounded-full border border-sky-200 bg-white/92 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.14em] text-sky-700 shadow-sm backdrop-blur-md">
+          <div className="absolute bottom-3 left-3 z-20 rounded-full border border-sky-200 bg-sky-100/95 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.14em] text-sky-700 shadow-sm backdrop-blur-md">
             {projectCategoryLabels[project.category]}
           </div>
 
