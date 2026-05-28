@@ -1,6 +1,7 @@
 "use client"
 
 import { useMemo, useState } from "react"
+import Image from "next/image"
 import Link from "next/link"
 import { ArrowUpRight, Search } from "lucide-react"
 
@@ -34,6 +35,22 @@ function ArchiveBackground() {
 }
 
 // ============================================================
+// PROJECT CARD IMAGE
+// ============================================================
+
+function ProjectCardImage({ project }: { project: Project }) {
+  return (
+    <Image
+      src={project.image}
+      alt={`${project.title} preview`}
+      fill
+      sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
+      className="object-cover object-center transition-transform duration-700 group-hover:scale-105"
+    />
+  )
+}
+
+// ============================================================
 // PROJECT CARD
 // ============================================================
 
@@ -49,13 +66,15 @@ function ProjectCard({
       style={{ animationDelay: `${index * 80}ms` }}
       className="project-archive-card group flex h-full flex-col overflow-hidden rounded-[26px] border border-slate-200 bg-white shadow-[0_18px_45px_rgba(15,23,42,0.10)] transition-all duration-500 hover:-translate-y-[3px] hover:border-sky-300 hover:shadow-[0_24px_60px_rgba(14,165,233,0.18)]"
     >
-      <div className="flex flex-1 flex-col p-6">
-        <div className="mb-4 flex flex-wrap items-center gap-2">
-          <span className="rounded-full border border-sky-200 bg-sky-100 px-3 py-[6px] text-[10px] font-bold uppercase tracking-[0.14em] text-sky-700 shadow-sm">
-            {projectCategoryLabels[project.category]}
-          </span>
-        </div>
+      <div className="relative aspect-[16/10] overflow-hidden border-b border-slate-200 bg-slate-100">
+        <ProjectCardImage project={project} />
+        <div className="absolute inset-0 bg-gradient-to-t from-slate-950/35 via-transparent to-transparent" />
+        <span className="absolute bottom-4 left-4 rounded-full border border-sky-200 bg-sky-100/95 px-3 py-[6px] text-[10px] font-bold uppercase tracking-[0.14em] text-sky-700 shadow-sm backdrop-blur-md">
+          {projectCategoryLabels[project.category]}
+        </span>
+      </div>
 
+      <div className="flex flex-1 flex-col p-6">
         <h3 className="min-h-[58px] text-[18px] font-bold leading-[1.45] tracking-[-0.01em] text-slate-950 transition-colors duration-300 group-hover:text-sky-700">
           {project.title}
         </h3>

@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import type { TouchEvent } from "react"
+import Image from "next/image"
 import Link from "next/link"
 import { ChevronLeft, ChevronRight, ExternalLink } from "lucide-react"
 
@@ -32,6 +33,22 @@ function ProjectsLightBackground() {
 }
 
 // ============================================================
+// PROJECT CARD IMAGE
+// ============================================================
+
+function ProjectCardImage({ project }: { project: Project }) {
+  return (
+    <Image
+      src={project.image}
+      alt={project.title}
+      fill
+      sizes="(max-width: 768px) 100vw, (max-width: 1100px) 45vw, 30vw"
+      className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
+    />
+  )
+}
+
+// ============================================================
 // PROJECT CARD
 // ============================================================
 
@@ -58,13 +75,15 @@ function ProjectCard({
           <div className="absolute -bottom-24 -left-24 h-52 w-52 rounded-full bg-amber-300/20 blur-3xl" />
         </div>
 
-        <div className="relative z-10 flex flex-1 flex-col p-5">
-          <div className="mb-4 flex items-center justify-between gap-3">
-            <span className="rounded-full border border-sky-200 bg-sky-100 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.14em] text-sky-700 shadow-sm">
-              {projectCategoryLabels[project.category]}
-            </span>
-          </div>
+        <div className="relative aspect-[16/10] w-full overflow-hidden border-b border-slate-200 bg-slate-100">
+          <ProjectCardImage project={project} />
+          <div className="absolute inset-0 bg-gradient-to-t from-slate-950/35 via-transparent to-transparent" />
+          <span className="absolute bottom-3 left-3 z-20 rounded-full border border-sky-200 bg-sky-100/95 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.14em] text-sky-700 shadow-sm backdrop-blur-md">
+            {projectCategoryLabels[project.category]}
+          </span>
+        </div>
 
+        <div className="relative z-10 flex flex-1 flex-col p-5">
           <h3 className="min-h-[54px] text-[17px] font-bold leading-snug tracking-tight text-slate-950 transition group-hover:text-sky-700">
             {project.title}
           </h3>

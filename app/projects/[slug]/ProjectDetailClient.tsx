@@ -60,22 +60,38 @@ function ProjectImage({
 }
 
 function LatestProjectCard({ project }: { project: Project }) {
+  const imageFit = project.imageFit ?? "cover"
+
   return (
     <Link
       href={getProjectPath(project)}
-      className="group block h-full rounded-[24px] border border-slate-200 bg-white p-5 shadow-[0_16px_40px_rgba(15,23,42,0.08)] transition-all duration-300 hover:-translate-y-1 hover:border-sky-300 hover:shadow-[0_22px_55px_rgba(14,165,233,0.16)]"
+      className="group block overflow-hidden rounded-[24px] border border-slate-200 bg-white shadow-[0_16px_40px_rgba(15,23,42,0.08)] transition-all duration-300 hover:-translate-y-1 hover:border-sky-300 hover:shadow-[0_22px_55px_rgba(14,165,233,0.16)]"
     >
-      <span className="inline-flex rounded-full border border-sky-200 bg-sky-100 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.12em] text-sky-700 shadow-sm">
-        {projectCategoryLabels[project.category]}
-      </span>
+      <div className="relative aspect-[16/10] overflow-hidden border-b border-slate-200 bg-slate-100">
+        <Image
+          src={project.image}
+          alt={`${project.title} preview`}
+          fill
+          sizes="(max-width: 768px) 100vw, 33vw"
+          className={`transition-transform duration-700 group-hover:scale-105 ${
+            imageFit === "cover" ? "object-cover" : "object-contain"
+          }`}
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-slate-950/35 via-transparent to-transparent" />
+        <span className="absolute bottom-3 left-3 rounded-full border border-sky-200 bg-sky-100/95 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.12em] text-sky-700 shadow-sm backdrop-blur-md">
+          {projectCategoryLabels[project.category]}
+        </span>
+      </div>
 
-      <h3 className="mt-4 text-base font-bold leading-snug text-slate-950 transition-colors duration-300 group-hover:text-sky-700 break-words">
-        {project.title}
-      </h3>
+      <div className="p-5">
+        <h3 className="text-base font-bold leading-snug text-slate-950 transition-colors duration-300 group-hover:text-sky-700 break-words">
+          {project.title}
+        </h3>
 
-      <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-slate-600">
-        {project.description}
-      </p>
+        <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-slate-600">
+          {project.description}
+        </p>
+      </div>
     </Link>
   )
 }
