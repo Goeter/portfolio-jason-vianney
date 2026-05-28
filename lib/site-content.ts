@@ -273,7 +273,7 @@ export const projects: Project[] = [
     detailDescription:
       "A comprehensive corporate website for PT Topas Multi Finance that serves as the primary digital touchpoint for customers and stakeholders. This public-facing platform showcases the company's financial products and services while building strong brand awareness and customer trust. Key features include product information, financing options, job vacancy publication, customer-facing content, and regulatory trust signals for Indonesian financial services customers.",
     category: "website",
-    image: "/assets/projects/topas-website.webp",
+    image: "/assets/projects/topas-website.png",
     uploadedAt: "June 2025",
     link: "https://frontend.topasmultifinance.co.id",
   },
