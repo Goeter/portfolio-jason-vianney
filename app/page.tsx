@@ -5,12 +5,13 @@ import { useEffect, useMemo, useState } from "react"
 import CertificatesSection from "./components/CertificatesSection"
 import ExperienceSection from "./components/ExperienceSection"
 import FloatingContact from "./components/FloatingContact"
+import Footer from "./components/Footer"
 import HomeSection from "./components/HomeSection"
 import Navbar from "./components/Navbar"
 import ProjectsSection from "./components/ProjectsSection"
 import RolesShowcase from "./components/RolesShowcase"
 import SplashLoader from "./components/SplashLoader"
-import { navItems, siteConfig } from "@/lib/site-content"
+import { navItems } from "@/lib/site-content"
 
 const SPLASH_STORAGE_KEY = "hasShownSplash"
 const NAVBAR_SCROLL_OFFSET = 100
@@ -99,24 +100,7 @@ export default function Home() {
       </main>
 
       <FloatingContact />
-
-      <footer className="relative z-10 w-full border-t border-white/10 bg-slate-950/80 py-6 backdrop-blur-2xl">
-        <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-300/35 to-transparent" />
-
-        <div className="container mx-auto px-5 sm:px-6 lg:px-10">
-          <div className="flex flex-col items-center justify-center gap-3 text-center sm:flex-row sm:justify-between sm:text-left">
-            <p className="text-[13px] leading-relaxed tracking-[0.015em] text-slate-300/90 sm:text-sm">
-              {siteConfig.footer}
-            </p>
-
-            <div className="flex items-center gap-2 text-[11px] font-medium tracking-[0.18em] text-cyan-200/70">
-              <span className="h-px w-8 bg-gradient-to-r from-transparent to-cyan-300/50" />
-              <span>PORTFOLIO</span>
-              <span className="h-px w-8 bg-gradient-to-l from-transparent to-cyan-300/50" />
-            </div>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   )
 }

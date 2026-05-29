@@ -7,6 +7,7 @@ import Link from "next/link"
 import { ChevronLeft, ChevronRight, ExternalLink } from "lucide-react"
 
 import ArchiveHeader from "@/app/components/ArchiveHeader"
+import Footer from "@/app/components/Footer"
 import {
   getProjectPath,
   projectCategoryLabels,
@@ -147,7 +148,7 @@ export default function ProjectDetailClient({ project }: ProjectDetailClientProp
   }
 
   return (
-    <div className="relative min-h-screen overflow-x-hidden text-slate-950">
+    <div className="relative flex min-h-screen flex-col overflow-x-hidden text-slate-950">
       <DetailBackground />
 
       <ArchiveHeader title="Detail Project" backHref="/#projects" />
@@ -278,6 +279,8 @@ export default function ProjectDetailClient({ project }: ProjectDetailClientProp
           </section>
         ) : null}
       </main>
+
+      <Footer />
     </div>
   )
 }

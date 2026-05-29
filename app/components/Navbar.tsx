@@ -20,7 +20,7 @@ function BrandMark({ compact = false }: { compact?: boolean }) {
       <span
         className={`${
           compact ? "h-10 w-10" : "h-11 w-11"
-        } relative flex shrink-0 items-center justify-center overflow-hidden rounded-2xl border border-amber-200/18 bg-white/95 p-1.5 shadow-[0_0_24px_rgba(200,169,110,0.16)]`}
+        } relative flex shrink-0 items-center justify-center overflow-visible bg-transparent drop-shadow-[0_0_18px_rgba(200,169,110,0.28)]`}
       >
         <Image
           src={BRAND_LOGO_SRC}

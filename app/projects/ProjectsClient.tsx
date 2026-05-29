@@ -6,7 +6,7 @@ import Link from "next/link"
 import { ArrowUpRight, Search } from "lucide-react"
 
 import ArchiveHeader from "../components/ArchiveHeader"
-
+import Footer from "../components/Footer"
 import {
   getProjectPath,
   projectCategoryLabels,
@@ -16,27 +16,19 @@ import {
   type ProjectCategory,
 } from "@/lib/site-content"
 
-// ============================================================
-// LIGHT ARCHIVE BACKGROUND
-// ============================================================
-
 function ArchiveBackground() {
   return (
-    <div className="pointer-events-none absolute inset-0 overflow-hidden bg-[radial-gradient(circle_at_14%_16%,rgba(125,211,252,0.34),transparent_32%),radial-gradient(circle_at_86%_24%,rgba(253,186,116,0.26),transparent_34%),linear-gradient(135deg,#ffffff_0%,#eef9ff_48%,#fff7ed_100%)]">
-      <div className="portfolio-orb absolute -left-32 top-16 h-[26rem] w-[26rem] rounded-full bg-sky-300/40 blur-[120px]" />
-      <div className="portfolio-orb-delay absolute -right-28 top-52 h-[28rem] w-[28rem] rounded-full bg-cyan-200/40 blur-[145px]" />
-      <div className="portfolio-orb-slow absolute bottom-[-10rem] left-1/2 h-[34rem] w-[34rem] -translate-x-1/2 rounded-full bg-amber-200/40 blur-[155px]" />
-      <span className="portfolio-line left-[11%] top-[24%]" />
-      <span className="portfolio-line portfolio-line-delay right-[14%] top-[58%]" />
-      <div className="portfolio-light-sweep absolute inset-0 bg-[linear-gradient(115deg,transparent_0%,rgba(14,165,233,0.10)_42%,transparent_68%)]" />
-      <div className="absolute inset-x-0 top-0 h-44 bg-gradient-to-b from-white to-transparent" />
+    <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden bg-[radial-gradient(circle_at_16%_16%,rgba(14,165,233,0.24),transparent_30%),radial-gradient(circle_at_84%_24%,rgba(245,158,11,0.12),transparent_32%),radial-gradient(circle_at_50%_96%,rgba(34,211,238,0.10),transparent_34%),linear-gradient(135deg,#020617_0%,#07111f_46%,#0d1829_100%)]">
+      <div className="absolute inset-0 opacity-[0.10] bg-[linear-gradient(to_right,rgba(125,211,252,0.45)_1px,transparent_1px),linear-gradient(to_bottom,rgba(125,211,252,0.30)_1px,transparent_1px)] bg-[size:82px_82px]" />
+      <div className="portfolio-orb absolute -left-32 top-20 h-96 w-96 rounded-full bg-sky-500/18 blur-[130px]" />
+      <div className="portfolio-orb-delay absolute -right-28 top-40 h-[28rem] w-[28rem] rounded-full bg-cyan-300/14 blur-[145px]" />
+      <div className="portfolio-orb-slow absolute bottom-[-11rem] left-1/2 h-[32rem] w-[32rem] -translate-x-1/2 rounded-full bg-amber-300/10 blur-[155px]" />
+      <span className="portfolio-line left-[10%] top-[28%]" />
+      <span className="portfolio-line portfolio-line-delay right-[12%] top-[48%]" />
+      <div className="portfolio-light-sweep absolute inset-0 bg-[linear-gradient(115deg,transparent_0%,rgba(56,189,248,0.075)_42%,transparent_68%)]" />
     </div>
   )
 }
-
-// ============================================================
-// PROJECT CARD IMAGE
-// ============================================================
 
 function ProjectCardImage({ project }: { project: Project }) {
   return (
@@ -45,78 +37,68 @@ function ProjectCardImage({ project }: { project: Project }) {
       alt={`${project.title} preview`}
       fill
       sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
-      className="object-cover object-center transition-transform duration-700 group-hover:scale-105"
+      className="object-cover object-center transition-transform duration-700 group-hover:scale-[1.035]"
     />
   )
 }
 
-// ============================================================
-// PROJECT CARD
-// ============================================================
-
-function ProjectCard({
-  project,
-  index,
-}: {
-  project: Project
-  index: number
-}) {
+function ProjectCard({ project, index }: { project: Project; index: number }) {
   return (
     <article
       style={{ animationDelay: `${index * 80}ms` }}
-      className="project-archive-card group flex h-full flex-col overflow-hidden rounded-[26px] border border-slate-200 bg-white shadow-[0_18px_45px_rgba(15,23,42,0.10)] transition-all duration-500 hover:-translate-y-[3px] hover:border-sky-300 hover:shadow-[0_24px_60px_rgba(14,165,233,0.18)]"
+      className="project-archive-card group relative flex h-full flex-col overflow-hidden rounded-[28px] border border-cyan-200/28 bg-[#0B1220]/95 shadow-[0_26px_70px_rgba(0,0,0,0.55),0_0_0_1px_rgba(103,232,249,0.10)] ring-1 ring-white/[0.06] backdrop-blur-md transition-all duration-500 ease-fluid hover:-translate-y-1 hover:border-cyan-200/65 hover:bg-[#0F1B2E]/98 hover:shadow-[0_30px_86px_rgba(14,165,233,0.25),0_0_0_1px_rgba(103,232,249,0.22)]"
     >
-      <div className="relative aspect-[16/10] overflow-hidden border-b border-slate-200 bg-slate-100">
+      <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100">
+        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-300/80 to-transparent" />
+        <div className="absolute -right-20 -top-20 h-44 w-44 rounded-full bg-cyan-300/12 blur-3xl" />
+        <div className="absolute -bottom-24 -left-24 h-52 w-52 rounded-full bg-amber-300/10 blur-3xl" />
+      </div>
+
+      <div className="relative aspect-[16/10] overflow-hidden border-b border-cyan-200/18 bg-slate-950">
         <ProjectCardImage project={project} />
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-950/35 via-transparent to-transparent" />
-        <span className="absolute bottom-4 left-4 rounded-full border border-sky-200 bg-sky-100/95 px-3 py-[6px] text-[10px] font-bold uppercase tracking-[0.14em] text-sky-700 shadow-sm backdrop-blur-md">
+        <div className="absolute inset-0 bg-gradient-to-t from-slate-950/82 via-slate-950/12 to-transparent" />
+        <span className="absolute bottom-3 left-3 z-20 rounded-full border border-cyan-200/25 bg-cyan-300/12 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.14em] text-cyan-100 shadow-sm backdrop-blur-md">
           {projectCategoryLabels[project.category]}
         </span>
       </div>
 
-      <div className="flex flex-1 flex-col p-6">
-        <h3 className="min-h-[58px] text-[18px] font-bold leading-[1.45] tracking-[-0.01em] text-slate-950 transition-colors duration-300 group-hover:text-sky-700">
+      <div className="relative z-10 flex flex-1 flex-col border-t border-white/[0.03] p-5">
+        <h3 className="min-h-[54px] text-[17px] font-bold leading-snug tracking-tight text-slate-50 transition group-hover:text-cyan-100">
           {project.title}
         </h3>
 
-        <p className="mt-3 flex-1 text-[14px] leading-[1.8] text-slate-600">
+        <p className="mt-3 flex-1 text-sm leading-relaxed text-slate-300/90">
           {project.description}
         </p>
 
-        <div className="mt-6">
-          <div className="mb-4 h-px bg-slate-200" />
+        <div className="my-5 h-px bg-gradient-to-r from-cyan-200/55 via-white/14 to-transparent" />
 
-          <div className="flex min-h-[36px] flex-wrap items-center justify-between gap-3">
-            <Link
-              href={getProjectPath(project)}
-              className="inline-flex items-center justify-center rounded-full border border-slate-200 bg-slate-950 px-4 py-2 text-[12px] font-bold uppercase tracking-[0.08em] text-white shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:bg-sky-700 hover:shadow-md"
+        <div className="flex min-h-[34px] flex-wrap items-center justify-between gap-3">
+          <Link
+            href={getProjectPath(project)}
+            className="inline-flex items-center justify-center rounded-full border border-white/12 bg-white px-4 py-2 text-[12px] font-bold uppercase tracking-[0.08em] text-slate-950 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-cyan-200 hover:bg-cyan-100 hover:shadow-md"
+          >
+            See Details
+          </Link>
+
+          {project.link ? (
+            <a
+              href={project.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-2 rounded-full border border-cyan-400/70 bg-cyan-400/14 px-4 py-2 text-[12px] font-bold uppercase tracking-[0.08em] text-cyan-100 shadow-[0_10px_24px_rgba(14,165,233,0.15)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-cyan-400 hover:text-slate-950 hover:shadow-[0_14px_30px_rgba(6,182,212,0.26)]"
             >
-              See Details
-            </Link>
-
-            {project.link ? (
-              <a
-                href={project.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 rounded-full border border-sky-500 bg-sky-500 px-4 py-2 text-[12px] font-bold uppercase tracking-[0.08em] text-white shadow-[0_10px_24px_rgba(14,165,233,0.28)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-cyan-500 hover:shadow-[0_14px_30px_rgba(6,182,212,0.32)]"
-              >
-                Visit
-                <ArrowUpRight size={14} />
-              </a>
-            ) : (
-              <span className="h-[36px]" aria-hidden="true" />
-            )}
-          </div>
+              Visit
+              <ArrowUpRight size={14} />
+            </a>
+          ) : (
+            <span className="h-[34px]" aria-hidden="true" />
+          )}
         </div>
       </div>
     </article>
   )
 }
-
-// ============================================================
-// PAGE
-// ============================================================
 
 export default function AllProjects() {
   const [searchTerm, setSearchTerm] = useState("")
@@ -138,82 +120,90 @@ export default function AllProjects() {
     })
   }, [searchTerm, selectedCategory])
 
-
   return (
-    <main className="relative min-h-screen overflow-x-hidden text-slate-950">
+    <div className="relative flex min-h-screen flex-col overflow-x-hidden bg-[#020617] text-slate-50">
       <ArchiveBackground />
-
       <ArchiveHeader title="Project Archive" backHref="/#projects" />
 
-      <div className="relative z-10 mx-auto w-full max-w-7xl px-5 pb-16 pt-8 sm:px-8 lg:px-12">
-        <section className="mb-6 animate-[fadeInUp_0.75s_ease-out_both] rounded-[28px] border border-slate-200 bg-white/90 p-5 shadow-[0_22px_70px_rgba(15,23,42,0.10)] backdrop-blur-xl md:p-7">
+      <main className="relative z-10 mx-auto w-full max-w-7xl flex-1 px-5 pb-16 pt-8 sm:px-8 lg:px-12">
+        <section className="mb-6 animate-[fadeInUp_0.75s_ease-out_both] rounded-[28px] border border-cyan-200/20 bg-slate-950/65 p-5 shadow-[0_22px_70px_rgba(0,0,0,0.34)] backdrop-blur-xl md:p-7">
           <div className="flex flex-col gap-3">
-            <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-sky-700">Latest projects first</p>
+            <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-cyan-200">
+              Latest projects first
+            </p>
 
-            <div className="flex w-full items-center justify-between gap-4">
-              <h2 className="min-w-0 text-2xl font-bold tracking-[-0.02em] text-slate-950 md:text-3xl">
+            <div className="flex w-full flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+              <h1 className="min-w-0 bg-gradient-to-r from-slate-50 via-cyan-100 to-[#C8A96E] bg-clip-text text-2xl font-bold tracking-[-0.02em] text-transparent md:text-3xl">
                 Project Collection
-              </h2>
+              </h1>
 
-              <span className="shrink-0 rounded-full border border-sky-200 bg-sky-50 px-3 py-1.5 text-[12px] font-bold uppercase tracking-[0.12em] text-sky-700 sm:px-4">
+              <span className="w-fit shrink-0 rounded-full border border-cyan-200/25 bg-cyan-300/12 px-3 py-1.5 text-[12px] font-bold uppercase tracking-[0.12em] text-cyan-100 sm:px-4">
                 {filteredProjects.length} shown
               </span>
             </div>
 
-            <p className="max-w-2xl text-sm leading-relaxed text-slate-600">
-              Newest items appear first, with filters for website, application, documentation, and video.
+            <p className="max-w-3xl text-sm leading-relaxed text-slate-300">
+              Newest items appear first. Search by title, description, or category, then refine the result with the category filter.
             </p>
           </div>
         </section>
 
-        <section className="mb-8 animate-[fadeInUp_0.85s_ease-out_both] rounded-[24px] border border-slate-200 bg-white/90 p-4 shadow-[0_18px_45px_rgba(15,23,42,0.08)] backdrop-blur-xl">
+        <section className="mb-8 animate-[fadeInUp_0.85s_ease-out_both] rounded-[24px] border border-cyan-200/18 bg-slate-950/60 p-4 shadow-[0_18px_45px_rgba(0,0,0,0.28)] backdrop-blur-xl">
           <div className="flex flex-col gap-4">
             <label className="relative flex min-h-[46px] w-full items-center">
-              <Search className="pointer-events-none absolute left-4 h-4 w-4 text-slate-400" />
+              <Search className="pointer-events-none absolute left-4 h-4 w-4 text-cyan-100/65" />
               <input
                 type="search"
                 value={searchTerm}
                 onChange={(event) => setSearchTerm(event.target.value)}
                 placeholder="Search project title, description, or category..."
-                className="h-12 w-full rounded-2xl border border-slate-200 bg-white pl-11 pr-4 text-sm text-slate-800 shadow-sm outline-none transition-all duration-300 placeholder:text-slate-400 focus:border-sky-400 focus:ring-4 focus:ring-sky-100"
+                className="h-12 w-full rounded-2xl border border-cyan-200/18 bg-slate-950/80 pl-11 pr-4 text-sm text-slate-100 shadow-sm outline-none transition-all duration-300 placeholder:text-slate-500 focus:border-cyan-300/65 focus:ring-4 focus:ring-cyan-300/10"
               />
             </label>
 
-            <div className="flex flex-wrap items-center gap-2">
-              {projectCategoryOptions.map((option) => {
-                const active = selectedCategory === option.value
+            <div className="flex flex-col gap-3 lg:flex-row lg:items-center">
+              <p className="shrink-0 text-[11px] font-bold uppercase tracking-[0.20em] text-cyan-100/80">
+                Filter Category
+              </p>
 
-                return (
-                  <button
-                    key={option.value}
-                    type="button"
-                    onClick={() => setSelectedCategory(option.value)}
-                    className={`rounded-full px-3.5 py-2 text-[11px] font-bold uppercase tracking-[0.08em] transition-all duration-300 sm:px-4 sm:text-[12px] ${
-                      active
-                        ? "border border-sky-500 bg-sky-500 text-white shadow-[0_10px_24px_rgba(14,165,233,0.24)]"
-                        : "border border-slate-200 bg-white text-slate-600 hover:border-sky-300 hover:bg-sky-50 hover:text-sky-700"
-                    }`}
-                  >
-                    {option.label}
-                  </button>
-                )
-              })}
+              <div className="flex flex-wrap items-center gap-2">
+                {projectCategoryOptions.map((option) => {
+                  const active = selectedCategory === option.value
+
+                  return (
+                    <button
+                      key={option.value}
+                      type="button"
+                      onClick={() => setSelectedCategory(option.value)}
+                      className={`rounded-full px-3.5 py-2 text-[11px] font-bold uppercase tracking-[0.08em] transition-all duration-300 sm:px-4 sm:text-[12px] ${
+                        active
+                          ? "border border-cyan-300 bg-cyan-300 text-slate-950 shadow-[0_10px_24px_rgba(14,165,233,0.24)]"
+                          : "border border-cyan-200/18 bg-white/[0.06] text-slate-300 hover:border-cyan-300/55 hover:bg-cyan-300/12 hover:text-cyan-100"
+                      }`}
+                    >
+                      {option.label}
+                    </button>
+                  )
+                })}
+              </div>
             </div>
           </div>
         </section>
 
         {filteredProjects.length ? (
-          <div className="grid grid-cols-1 gap-7 md:grid-cols-2 xl:grid-cols-3">
+          <section className="grid grid-cols-1 gap-7 md:grid-cols-2 xl:grid-cols-3">
             {filteredProjects.map((project, index) => (
               <ProjectCard key={project.id} project={project} index={index} />
             ))}
-          </div>
+          </section>
         ) : (
-          <div className="rounded-[26px] border border-dashed border-slate-300 bg-white/80 p-8 text-center text-slate-600 shadow-sm">
+          <div className="rounded-[26px] border border-dashed border-cyan-300/35 bg-slate-950/65 p-8 text-center text-slate-300 shadow-sm backdrop-blur-xl">
             No projects match the selected search and category.
           </div>
         )}
-      </div>
-    </main>
+      </main>
+
+      <Footer />
+    </div>
   )
 }
