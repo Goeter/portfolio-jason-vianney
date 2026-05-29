@@ -1,5 +1,6 @@
 "use client"
 
+import Image from "next/image"
 import { useCallback, useState } from "react"
 import { X } from "lucide-react"
 
@@ -11,6 +12,47 @@ interface NavbarProps {
 }
 
 const NAVBAR_HEIGHT = 64
+const BRAND_LOGO_SRC = "/assets/company-logos/icon_freelance_it.webp"
+
+function BrandMark({ compact = false }: { compact?: boolean }) {
+  return (
+    <span className="relative z-10 flex items-center gap-3">
+      <span
+        className={`${
+          compact ? "h-10 w-10" : "h-11 w-11"
+        } relative flex shrink-0 items-center justify-center overflow-hidden rounded-2xl border border-amber-200/18 bg-white/95 p-1.5 shadow-[0_0_24px_rgba(200,169,110,0.16)]`}
+      >
+        <Image
+          src={BRAND_LOGO_SRC}
+          alt="Freelance IT logo"
+          width={44}
+          height={44}
+          className="h-full w-full object-contain"
+          priority
+        />
+      </span>
+
+      <span className="flex flex-col items-start leading-none">
+        <span
+          className={`${
+            compact ? "text-[22px]" : "text-[25px]"
+          } bg-gradient-to-r from-[#F4EDD8] via-[#FFF7E2] to-[#C8A96E] bg-clip-text tracking-[0.10em] text-transparent transition-all duration-500`}
+          style={{
+            fontFamily: "'Cormorant Garamond', serif",
+            fontWeight: 600,
+            textShadow:
+              "0 0 18px rgba(251,191,36,0.24), 0 0 36px rgba(255,255,255,0.10)",
+          }}
+        >
+          Fiat lux
+        </span>
+        <span className="mt-1 text-[9px] font-semibold uppercase tracking-[0.24em] text-amber-100/70">
+          IT Professional
+        </span>
+      </span>
+    </span>
+  )
+}
 
 export default function Navbar({ activeSection }: NavbarProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
@@ -26,14 +68,10 @@ export default function Navbar({ activeSection }: NavbarProps) {
   const scrollToSection = useCallback(
     (sectionId: string) => {
       const element = document.getElementById(sectionId)
-
       if (!element) return
 
-      const targetPosition =
-        element.getBoundingClientRect().top + window.scrollY - NAVBAR_HEIGHT
-
       window.scrollTo({
-        top: targetPosition,
+        top: element.getBoundingClientRect().top + window.scrollY - NAVBAR_HEIGHT,
         behavior: "smooth",
       })
 
@@ -46,7 +84,7 @@ export default function Navbar({ activeSection }: NavbarProps) {
     <>
       <nav
         aria-label="Main Navigation"
-        className="fixed inset-x-0 top-0 z-50 border-b border-zinc-800 bg-black shadow-[0_18px_70px_rgba(0,0,0,0.55)] backdrop-blur-2xl"
+        className="fixed inset-x-0 top-0 z-50 border-b border-zinc-800 bg-black/95 shadow-[0_18px_70px_rgba(0,0,0,0.55)] backdrop-blur-2xl"
       >
         <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-amber-200/45 to-transparent" />
         <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-white/16 to-transparent" />
@@ -57,20 +95,8 @@ export default function Navbar({ activeSection }: NavbarProps) {
             aria-label="Go to Home"
             className="group relative flex items-center rounded-2xl px-1 py-2 outline-none transition-transform duration-300 hover:scale-[1.015] focus-visible:ring-2 focus-visible:ring-amber-200/50"
           >
-            <div className="pointer-events-none absolute -inset-3 rounded-full bg-gradient-to-r from-amber-200/10 via-white/10 to-sky-300/10 opacity-70 blur-2xl transition-opacity duration-500 group-hover:opacity-100" />
-
-            <span
-              className="relative block text-[25px] leading-none tracking-[0.10em] transition-all duration-500"
-              style={{
-                fontFamily: "'Cormorant Garamond', serif",
-                fontWeight: 600,
-                textShadow: "0 0 18px rgba(251,191,36,0.24), 0 0 36px rgba(255,255,255,0.10)",
-              }}
-            >
-              <span className="bg-gradient-to-r from-[#F4EDD8] via-[#FFF7E2] to-[#C8A96E] bg-clip-text text-transparent">
-                Fiat lux
-              </span>
-            </span>
+            <span className="pointer-events-none absolute -inset-3 rounded-full bg-gradient-to-r from-amber-200/10 via-white/10 to-sky-300/10 opacity-70 blur-2xl transition-opacity duration-500 group-hover:opacity-100" />
+            <BrandMark />
           </button>
 
           <div className="hidden items-center gap-5 lg:flex">
@@ -90,7 +116,9 @@ export default function Navbar({ activeSection }: NavbarProps) {
                 >
                   <span
                     className={`pointer-events-none absolute -inset-x-3 -inset-y-2 rounded-full bg-amber-300/0 blur-xl transition-all duration-500 ${
-                      isActive ? "bg-amber-300/20 opacity-100" : "opacity-0 group-hover:bg-white/10 group-hover:opacity-100"
+                      isActive
+                        ? "bg-amber-300/20 opacity-100"
+                        : "opacity-0 group-hover:bg-white/10 group-hover:opacity-100"
                     }`}
                   />
 
@@ -131,25 +159,23 @@ export default function Navbar({ activeSection }: NavbarProps) {
             onClick={toggleMobileMenu}
             className="relative flex h-10 w-10 items-center justify-center rounded-2xl bg-zinc-900 text-white shadow-inner shadow-white/5 transition-all duration-300 hover:scale-105 hover:bg-white hover:text-black lg:hidden"
           >
-            <div className="relative flex h-5 w-6 items-center justify-center">
+            <span className="relative flex h-5 w-6 items-center justify-center">
               <span
                 className={`absolute h-[2px] w-6 rounded-full bg-current transition-all duration-300 ease-out ${
                   isMobileMenuOpen ? "rotate-45" : "-translate-y-2"
                 }`}
               />
-
               <span
                 className={`absolute h-[2px] w-6 rounded-full bg-current transition-all duration-200 ${
                   isMobileMenuOpen ? "scale-0 opacity-0" : "scale-100 opacity-100"
                 }`}
               />
-
               <span
                 className={`absolute h-[2px] w-6 rounded-full bg-current transition-all duration-300 ease-out ${
                   isMobileMenuOpen ? "-rotate-45" : "translate-y-2"
                 }`}
               />
-            </div>
+            </span>
           </Button>
         </div>
       </nav>
@@ -174,18 +200,13 @@ export default function Navbar({ activeSection }: NavbarProps) {
         >
           <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-amber-200/45 to-transparent" />
 
-          <div className="mb-8 flex items-center justify-between">
+          <div className="mb-8 flex items-center justify-between gap-3">
             <button
               onClick={() => scrollToSection("home")}
               aria-label="Go to Home"
-              className="group rounded-xl outline-none focus-visible:ring-2 focus-visible:ring-amber-200/50"
+              className="group rounded-xl outline-none transition-opacity duration-300 hover:opacity-90 focus-visible:ring-2 focus-visible:ring-amber-200/50"
             >
-              <span
-                className="bg-gradient-to-r from-[#F4EDD8] via-[#FFF7E2] to-[#C8A96E] bg-clip-text text-[22px] font-semibold tracking-[0.10em] text-transparent transition-opacity duration-300 group-hover:opacity-90"
-                style={{ fontFamily: "'Cormorant Garamond', serif" }}
-              >
-                Fiat lux
-              </span>
+              <BrandMark compact />
             </button>
 
             <Button
@@ -217,7 +238,9 @@ export default function Navbar({ activeSection }: NavbarProps) {
                 >
                   <span
                     className={`pointer-events-none absolute -inset-y-1 left-0 w-24 rounded-full blur-xl transition-all duration-500 ${
-                      isActive ? "bg-amber-300/20 opacity-100" : "opacity-0 group-hover:bg-white/10 group-hover:opacity-100"
+                      isActive
+                        ? "bg-amber-300/20 opacity-100"
+                        : "opacity-0 group-hover:bg-white/10 group-hover:opacity-100"
                     }`}
                   />
 

@@ -91,7 +91,7 @@ export const siteConfig = {
     "Portfolio of Jason Vianney Sugiarto, an IT professional experienced in system analysis, UI/UX design, data analytics, fullstack development, freelance IT projects, tutoring, HR systems, corporate websites, CMS websites, mobile applications, and business process digitalization.",
   url: "https://jasonvianney.com",
   locale: "en_US",
-  defaultOgImage: "/assets/profile/photo.jpeg",
+  defaultOgImage: "/assets/profile/photo.webp",
   seoTitle: "Jason Vianney Sugiarto - System Analyst, UI/UX Designer, Data Analyst & Fullstack Developer",
   seoDescription:
     "Explore Jason Vianney Sugiarto's professional portfolio featuring system analysis, UI/UX design, data analysis, fullstack development, CMS websites, corporate profiles, mobile applications, HR systems, and digital business solutions.",
@@ -237,7 +237,7 @@ export const projects: Project[] = [
     detailDescription:
       "A mobile application designed for Topas Multi Finance customers and internal staff, featuring a modern interface for financing application submission, contract management, payment guidance, outlet location access, profile management, loan simulation, and secure financial service navigation.",
     category: "application",
-    image: "/assets/projects/mobile-app.png",
+    image: "/assets/projects/mobile-app.webp",
     uploadedAt: "June 2025",
   },
   {
@@ -248,7 +248,7 @@ export const projects: Project[] = [
     detailDescription:
       "A mobile survey application for debtor home visits, designed to centralize survey data, standardize field input, and improve the accuracy of loan-related customer verification processes.",
     category: "application",
-    image: "/assets/projects/flow-survey-pinjaman.jpg",
+    image: "/assets/projects/flow-survey-pinjaman.webp",
     uploadedAt: "June 2025",
   },
   {
@@ -319,7 +319,7 @@ export const certificates: Certificate[] = [
     slug: "intro-to-data-analytics",
     title: "Intro to Data Analytics",
     description: "Fundamentals of data analysis, including organizing and interpreting data using spreadsheets.",
-    image: "/assets/certificates/data-analyst-revou.jpeg",
+    image: "/assets/certificates/data-analyst-revou.webp",
     issuer: "RevoU",
     date: "18 July 2025",
     uploadedAt: "18 July 2025",
@@ -329,7 +329,7 @@ export const certificates: Certificate[] = [
     slug: "data-analyst-certification",
     title: "Data Analyst Certification",
     description: "In-depth training in Python for data analysis, data organization, and SQL database management.",
-    image: "/assets/certificates/data-analyst-udemy.jpeg",
+    image: "/assets/certificates/data-analyst-udemy.webp",
     issuer: "Udemy",
     date: "02 August 2025",
     uploadedAt: "02 August 2025",
@@ -349,7 +349,7 @@ export const certificates: Certificate[] = [
     slug: "english-certificate",
     title: "English Certificate",
     description: "English proficiency certification demonstrating communication and academic language capability.",
-    image: "/assets/certificates/English Certificate Gabung_1.jpg",
+    image: "/assets/certificates/English Certificate Gabung_1.webp",
     issuer: "English Test Center",
     date: "09 October 2025",
     uploadedAt: "09 October 2025",
@@ -401,7 +401,7 @@ export const experiences: Experience[] = [
     period: "September 2024 – Now",
     location: "Jakarta - Surabaya, Indonesia",
     workMode: "On-Site",
-    logo: "/assets/company-logos/icon_student_center.png",
+    logo: "/assets/company-logos/icon_student_center.webp",
     details: [
       "Taught Mathematics, Physics, and English to elementary and high school students through interactive learning methods, helping strengthen fundamentals, improve comprehension, and prepare for exams.",
     ],
@@ -413,7 +413,7 @@ export const experiences: Experience[] = [
     period: "March 2024 - June 2025",
     location: "Jakarta, Indonesia",
     workMode: "On-Site",
-    logo: "/assets/company-logos/icon_topas.png",
+    logo: "/assets/company-logos/icon_topas.webp",
     details: [
       "Developed systems that improved operational efficiency by up to 50% through integrated document and financial workflows.",
       "Developed a corporate website to improve product visibility, support secure oversight, engage customers, and publish job vacancies.",
@@ -428,7 +428,7 @@ export const experiences: Experience[] = [
     period: "February 2023 - February 2024",
     location: "Jakarta, Indonesia",
     workMode: "On-Site",
-    logo: "/assets/company-logos/icon_astra.png",
+    logo: "/assets/company-logos/icon_astra.webp",
     details: [
       "Developed an internal application for dealer motorcycle sales, order confirmation, delivery scheduling, and document validation.",
       "Modernized an outdated system to be more secure, user-friendly, and reliable.",
@@ -442,7 +442,7 @@ export const experiences: Experience[] = [
     period: "February 2022 - February 2023",
     location: "Surabaya, Indonesia",
     workMode: "On-Site",
-    logo: "/assets/company-logos/icon_wings.png",
+    logo: "/assets/company-logos/icon_wings.webp",
     details: [
       "Enhancing the international sales website for seamless inventory tracking and real time digital sales monitoring across Asia.",
       "Enhanced the mobile app with scanning features for accurate, real-time data capture.",
@@ -456,7 +456,7 @@ export const experiences: Experience[] = [
     period: "2017 – 2021",
     location: "Surabaya, Indonesia",
     workMode: "Academic",
-    logo: "/assets/company-logos/icon_ubaya.png",
+    logo: "/assets/company-logos/icon_ubaya.webp",
     details: [
       "Assisting professors by preparing programming exercises and reviewing assignments to reinforce programming fundamentals.",
       "Opened a Business Mathematics class that provided tutoring and exercises to strengthen mathematical logic for business contexts.",

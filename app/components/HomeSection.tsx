@@ -316,29 +316,6 @@ export default function HomeSection() {
           {/* LEFT CONTENT */}
           <div className="order-1 flex flex-col">
 
-            {/* Header */}
-            <motion.div
-              className="mb-5 flex flex-wrap items-center gap-3"
-              {...fadeSlideLeft(0.3)}
-            >
-              <span className="h-[1px] w-7 bg-[#C8A96E] opacity-70" />
-
-              <span
-                style={{
-                  fontFamily: "DM Sans, sans-serif",
-                  fontSize: "clamp(11px, 1vw, 12px)",
-                  fontWeight: 500,
-                  letterSpacing: "0.2em",
-                  textTransform: "uppercase",
-                  color: "#C8A96E",
-                }}
-              >
-                IT Professional
-              </span>
-
-              <span className="h-[1px] w-7 bg-[#C8A96E] opacity-70" />
-            </motion.div>
-
             {/* Greeting */}
             <motion.p
               className="mb-2"
@@ -383,7 +360,7 @@ export default function HomeSection() {
                   height: "min(88vw, 380px)",
                 }}
               >
-                <PhotoFrame src="/assets/profile/photo.jpeg" />
+                <PhotoFrame src="/assets/profile/photo.webp" />
               </div>
             </motion.div>
 
@@ -573,7 +550,7 @@ export default function HomeSection() {
                 height: "min(92vw, 520px)",
               }}
             >
-              <PhotoFrame src="/assets/profile/photo.jpeg" />
+              <PhotoFrame src="/assets/profile/photo.webp" />
             </div>
           </motion.div>
         </div>
