@@ -1,4 +1,4 @@
-const WHATSAPP_URL = "https://wa.me/"
+const WHATSAPP_URL = "https://wa.me/6283856681999"
 
 function WhatsAppIcon() {
   return (
