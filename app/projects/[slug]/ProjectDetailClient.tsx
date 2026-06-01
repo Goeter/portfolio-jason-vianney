@@ -64,36 +64,64 @@ function LatestProjectCard({ project }: { project: Project }) {
   const imageFit = project.imageFit ?? "cover"
 
   return (
-    <Link
-      href={getProjectPath(project)}
-      className="group block overflow-hidden rounded-[24px] border border-slate-200 bg-white shadow-[0_16px_40px_rgba(15,23,42,0.08)] transition-all duration-300 hover:-translate-y-1 hover:border-sky-300 hover:shadow-[0_22px_55px_rgba(14,165,233,0.16)]"
-    >
-      <div className="relative aspect-[16/10] overflow-hidden border-b border-slate-200 bg-slate-100">
+    <article className="group relative flex h-full flex-col overflow-hidden rounded-[28px] border border-cyan-200/28 bg-[#0B1220]/95 text-slate-50 shadow-[0_26px_70px_rgba(15,23,42,0.24),0_0_0_1px_rgba(103,232,249,0.10)] ring-1 ring-white/[0.06] backdrop-blur-md transition-all duration-500 ease-fluid hover:-translate-y-1 hover:border-cyan-200/65 hover:bg-[#0F1B2E]/98 hover:shadow-[0_30px_86px_rgba(14,165,233,0.22),0_0_0_1px_rgba(103,232,249,0.20)]">
+      <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100">
+        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-300/80 to-transparent" />
+        <div className="absolute -right-20 -top-20 h-44 w-44 rounded-full bg-cyan-300/12 blur-3xl" />
+        <div className="absolute -bottom-24 -left-24 h-52 w-52 rounded-full bg-amber-300/10 blur-3xl" />
+      </div>
+
+      <div className="relative aspect-[16/10] overflow-hidden border-b border-cyan-200/18 bg-slate-950">
         <Image
           src={project.image}
           alt={`${project.title} preview`}
           fill
           sizes="(max-width: 768px) 100vw, 33vw"
-          className={`transition-transform duration-700 group-hover:scale-105 ${
+          className={`object-center transition-transform duration-700 ease-out group-hover:scale-[1.035] ${
             imageFit === "cover" ? "object-cover" : "object-contain"
           }`}
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-950/35 via-transparent to-transparent" />
-        <span className="absolute bottom-3 left-3 rounded-full border border-sky-200 bg-sky-100/95 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.12em] text-sky-700 shadow-sm backdrop-blur-md">
+        <div className="absolute inset-0 bg-gradient-to-t from-slate-950/82 via-slate-950/12 to-transparent" />
+        <span className="absolute bottom-3 left-3 z-20 rounded-full border border-cyan-200/25 bg-cyan-300/12 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.14em] text-cyan-100 shadow-sm backdrop-blur-md">
           {projectCategoryLabels[project.category]}
         </span>
       </div>
 
-      <div className="p-5">
-        <h3 className="text-base font-bold leading-snug text-slate-950 transition-colors duration-300 group-hover:text-sky-700 break-words">
+      <div className="relative z-10 flex flex-1 flex-col border-t border-white/[0.03] p-5">
+        <h3 className="min-h-[54px] break-words text-[17px] font-bold leading-snug tracking-tight text-slate-50 transition group-hover:text-cyan-100">
           {project.title}
         </h3>
 
-        <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-slate-600">
+        <p className="mt-3 flex-1 text-sm leading-relaxed text-slate-300/90">
           {project.description}
         </p>
+
+        <div className="my-5 h-px bg-gradient-to-r from-cyan-200/55 via-white/14 to-transparent" />
+
+        <div className="flex min-h-[34px] flex-wrap items-center justify-between gap-3">
+          <Link
+            href={getProjectPath(project)}
+            className="inline-flex items-center justify-center rounded-full border border-white/12 bg-white px-4 py-2 text-[12px] font-bold uppercase tracking-[0.08em] text-slate-950 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-cyan-200 hover:bg-cyan-100 hover:shadow-md"
+          >
+            See Details
+          </Link>
+
+          {project.link ? (
+            <a
+              href={project.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-2 rounded-full border border-cyan-400/70 bg-cyan-400/14 px-4 py-2 text-[12px] font-bold uppercase tracking-[0.08em] text-cyan-100 shadow-[0_10px_24px_rgba(14,165,233,0.15)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-cyan-400 hover:text-slate-950 hover:shadow-[0_14px_30px_rgba(6,182,212,0.26)]"
+            >
+              View Project
+              <ExternalLink size={14} />
+            </a>
+          ) : (
+            <span className="h-[34px]" aria-hidden="true" />
+          )}
+        </div>
       </div>
-    </Link>
+    </article>
   )
 }
 
@@ -103,7 +131,6 @@ export default function ProjectDetailClient({ project }: ProjectDetailClientProp
   const [touchEndX, setTouchEndX] = useState<number | null>(null)
 
   const images = useMemo(() => project.gallery?.length ? project.gallery : [project.image], [project])
-
 
   const latestProjects = useMemo(
     () => projectsLatestFirst.filter((item) => item.slug !== project.slug).slice(0, 3),
@@ -179,7 +206,7 @@ export default function ProjectDetailClient({ project }: ProjectDetailClientProp
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center gap-2 rounded-full border border-sky-500 bg-sky-500 px-5 py-2.5 text-[12px] font-bold uppercase tracking-[0.12em] text-white shadow-[0_12px_30px_rgba(14,165,233,0.28)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-cyan-500 hover:shadow-[0_16px_36px_rgba(6,182,212,0.32)]"
               >
-                Visit
+                View Project
                 <ExternalLink className="h-4 w-4" />
               </a>
             ) : null}
@@ -258,16 +285,16 @@ export default function ProjectDetailClient({ project }: ProjectDetailClientProp
 
         {latestProjects.length ? (
           <section className="mt-12">
-            <div className="mb-5 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+            <div className="mb-5 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
               <div>
                 <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-sky-700">Latest Projects</p>
                 <h3 className="mt-2 text-2xl font-bold tracking-[-0.02em] text-slate-950">Explore More Work</h3>
               </div>
               <Link
                 href="/projects"
-                className="inline-flex w-fit items-center justify-center rounded-full border border-slate-200 bg-white px-4 py-2 text-[12px] font-bold uppercase tracking-[0.1em] text-slate-700 shadow-sm transition hover:border-sky-300 hover:bg-sky-50 hover:text-sky-700"
+                className="inline-flex w-fit items-center justify-center rounded-full border border-slate-200 bg-slate-950 px-5 py-2.5 text-[12px] font-bold uppercase tracking-[0.1em] text-white shadow-[0_12px_30px_rgba(15,23,42,0.16)] transition hover:-translate-y-0.5 hover:border-sky-300 hover:bg-sky-600"
               >
-                View Archive
+                View All Project
               </Link>
             </div>
 

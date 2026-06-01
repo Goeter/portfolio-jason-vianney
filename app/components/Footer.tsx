@@ -73,9 +73,8 @@ export default function Footer() {
               <Link
                 key={item.href}
                 href={item.href}
-                className="group inline-flex w-fit items-center gap-2 text-sm font-medium text-white/90 transition-colors duration-300 hover:text-[#D6B86A]"
+                className="inline-flex w-fit text-sm font-medium text-white/90 transition-colors duration-300 hover:text-[#D6B86A]"
               >
-                <span className="h-px w-5 bg-white/35 transition-all duration-300 group-hover:w-7 group-hover:bg-[#D6B86A]" />
                 {item.label}
               </Link>
             ))}

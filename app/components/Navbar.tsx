@@ -11,15 +11,21 @@ interface NavbarProps {
   activeSection: string
 }
 
-const NAVBAR_HEIGHT = 64
+const getNavbarOffset = () => {
+  if (typeof window === "undefined") return 64
+  if (window.innerWidth < 640) return 54
+  if (window.innerWidth < 1024) return 60
+  return 64
+}
+
 const BRAND_LOGO_SRC = "/assets/company-logos/icon_freelance_it.webp"
 
 function BrandMark({ compact = false }: { compact?: boolean }) {
   return (
-    <span className="relative z-10 flex items-center gap-3">
+    <span className="relative z-10 flex items-center gap-2 sm:gap-3">
       <span
         className={`${
-          compact ? "h-10 w-10" : "h-11 w-11"
+          compact ? "h-8 w-8 sm:h-9 sm:w-9" : "h-8 w-8 sm:h-10 sm:w-10 lg:h-11 lg:w-11"
         } relative flex shrink-0 items-center justify-center overflow-visible bg-transparent drop-shadow-[0_0_18px_rgba(200,169,110,0.28)]`}
       >
         <Image
@@ -35,7 +41,7 @@ function BrandMark({ compact = false }: { compact?: boolean }) {
       <span className="flex flex-col items-start leading-none">
         <span
           className={`${
-            compact ? "text-[22px]" : "text-[25px]"
+            compact ? "text-[18px] sm:text-[20px]" : "text-[19px] sm:text-[22px] lg:text-[25px]"
           } bg-gradient-to-r from-[#F4EDD8] via-[#FFF7E2] to-[#C8A96E] bg-clip-text tracking-[0.10em] text-transparent transition-all duration-500`}
           style={{
             fontFamily: "'Cormorant Garamond', serif",
@@ -46,7 +52,7 @@ function BrandMark({ compact = false }: { compact?: boolean }) {
         >
           Fiat lux
         </span>
-        <span className="mt-1 text-[9px] font-semibold uppercase tracking-[0.24em] text-amber-100/70">
+        <span className="mt-0.5 text-[7.5px] font-semibold uppercase tracking-[0.16em] text-amber-100/70 sm:mt-1 sm:text-[8.5px] sm:tracking-[0.22em] lg:text-[9px]">
           IT Professional
         </span>
       </span>
@@ -71,7 +77,7 @@ export default function Navbar({ activeSection }: NavbarProps) {
       if (!element) return
 
       window.scrollTo({
-        top: element.getBoundingClientRect().top + window.scrollY - NAVBAR_HEIGHT,
+        top: element.getBoundingClientRect().top + window.scrollY - getNavbarOffset(),
         behavior: "smooth",
       })
 
@@ -89,13 +95,13 @@ export default function Navbar({ activeSection }: NavbarProps) {
         <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-amber-200/45 to-transparent" />
         <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-white/16 to-transparent" />
 
-        <div className="mx-auto flex h-[64px] max-w-[1440px] items-center justify-between px-5 sm:px-6 lg:px-10">
+        <div className="mx-auto flex h-[54px] max-w-[1440px] items-center justify-between px-4 sm:h-[60px] sm:px-6 lg:h-[64px] lg:px-10">
           <button
             onClick={() => scrollToSection("home")}
             aria-label="Go to Home"
-            className="group relative flex items-center rounded-2xl px-1 py-2 outline-none transition-transform duration-300 hover:scale-[1.015] focus-visible:ring-2 focus-visible:ring-amber-200/50"
+            className="group relative flex items-center rounded-xl px-1 py-1.5 outline-none transition-transform duration-300 hover:scale-[1.015] focus-visible:ring-2 focus-visible:ring-amber-200/50 sm:rounded-2xl sm:py-2"
           >
-            <span className="pointer-events-none absolute -inset-3 rounded-full bg-gradient-to-r from-amber-200/10 via-white/10 to-sky-300/10 opacity-70 blur-2xl transition-opacity duration-500 group-hover:opacity-100" />
+            <span className="pointer-events-none absolute -inset-2 rounded-full bg-gradient-to-r from-amber-200/10 via-white/10 to-sky-300/10 opacity-70 blur-2xl transition-opacity duration-500 group-hover:opacity-100 sm:-inset-3" />
             <BrandMark />
           </button>
 
@@ -157,7 +163,7 @@ export default function Navbar({ activeSection }: NavbarProps) {
             size="icon"
             aria-label="Toggle Menu"
             onClick={toggleMobileMenu}
-            className="relative flex h-10 w-10 items-center justify-center rounded-2xl bg-zinc-900 text-white shadow-inner shadow-white/5 transition-all duration-300 hover:scale-105 hover:bg-white hover:text-black lg:hidden"
+            className="relative flex h-9 w-9 items-center justify-center rounded-xl bg-zinc-900 text-white shadow-inner shadow-white/5 transition-all duration-300 hover:scale-105 hover:bg-white hover:text-black sm:h-10 sm:w-10 sm:rounded-2xl lg:hidden"
           >
             <span className="relative flex h-5 w-6 items-center justify-center">
               <span
@@ -194,13 +200,13 @@ export default function Navbar({ activeSection }: NavbarProps) {
 
         <aside
           aria-label="Mobile Navigation"
-          className={`absolute right-0 top-0 h-full w-[min(300px,82vw)] border-l border-white/10 bg-black p-5 shadow-2xl shadow-black/50 backdrop-blur-2xl transition-transform duration-500 ease-out ${
+          className={`absolute right-0 top-0 h-full w-[min(300px,82vw)] border-l border-white/10 bg-black p-4 shadow-2xl sm:p-5 shadow-black/50 backdrop-blur-2xl transition-transform duration-500 ease-out ${
             isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
           }`}
         >
           <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-amber-200/45 to-transparent" />
 
-          <div className="mb-8 flex items-center justify-between gap-3">
+          <div className="mb-6 flex items-center justify-between gap-3">
             <button
               onClick={() => scrollToSection("home")}
               aria-label="Go to Home"
@@ -231,7 +237,7 @@ export default function Navbar({ activeSection }: NavbarProps) {
                   onClick={() => scrollToSection(item.id)}
                   aria-label={item.label}
                   aria-current={isActive ? "page" : undefined}
-                  className={`group relative flex w-full items-center gap-3 overflow-hidden rounded-xl border-b border-white/10 px-1 py-4 text-left outline-none transition-all duration-500 focus-visible:ring-2 focus-visible:ring-amber-200/50 ${
+                  className={`group relative flex w-full items-center gap-3 overflow-hidden rounded-xl border-b border-white/10 px-1 py-3 text-left outline-none transition-all duration-500 focus-visible:ring-2 focus-visible:ring-amber-200/50 ${
                     isMobileMenuOpen ? "translate-x-0 opacity-100" : "translate-x-8 opacity-0"
                   } ${isActive ? "text-amber-100" : "text-zinc-300 hover:text-white"}`}
                   style={{ transitionDelay: `${index * 70}ms` }}
