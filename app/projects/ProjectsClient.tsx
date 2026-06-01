@@ -137,20 +137,9 @@ export default function AllProjects() {
               Portfolio Work Library
             </p>
 
-            <div className="flex w-full flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-              <h1 className="min-w-0 bg-gradient-to-r from-slate-50 via-cyan-100 to-[#C8A96E] bg-clip-text text-2xl font-bold tracking-[-0.02em] text-transparent md:text-3xl">
-                Project Collection
-              </h1>
-
-              <div className="flex w-fit shrink-0 flex-wrap gap-2">
-                <span className="rounded-full border border-white/10 bg-white/[0.06] px-3 py-1.5 text-[12px] font-bold uppercase tracking-[0.12em] text-slate-300 sm:px-4">
-                  Sorted by Latest Upload
-                </span>
-                <span className="rounded-full border border-cyan-200/25 bg-cyan-300/12 px-3 py-1.5 text-[12px] font-bold uppercase tracking-[0.12em] text-cyan-100 sm:px-4">
-                  {filteredProjects.length} shown
-                </span>
-              </div>
-            </div>
+            <h1 className="min-w-0 bg-gradient-to-r from-slate-50 via-cyan-100 to-[#C8A96E] bg-clip-text pb-1 text-2xl font-bold leading-[1.16] tracking-[-0.02em] text-transparent md:text-3xl md:leading-[1.16]">
+              Project Collection
+            </h1>
 
             <p className="max-w-3xl text-sm leading-relaxed text-slate-300">
               Newest items appear first. Search by title, description, or category, then use the category filter to show Website or Application projects.
@@ -206,6 +195,16 @@ export default function AllProjects() {
             </div>
           </div>
         </section>
+
+
+        <div className="mb-4 flex animate-[fadeInUp_0.9s_ease-out_both] flex-wrap items-center justify-between gap-2">
+          <span className="rounded-full border border-white/10 bg-white/[0.06] px-3 py-1.5 text-[12px] font-bold uppercase tracking-[0.12em] text-slate-300 sm:px-4">
+            Sorted by Latest Upload
+          </span>
+          <span className="rounded-full border border-cyan-200/25 bg-cyan-300/12 px-3 py-1.5 text-[12px] font-bold uppercase tracking-[0.12em] text-cyan-100 sm:px-4">
+            {filteredProjects.length} shown
+          </span>
+        </div>
 
         {filteredProjects.length ? (
           <section className="grid grid-cols-1 gap-7 md:grid-cols-2 xl:grid-cols-3">
