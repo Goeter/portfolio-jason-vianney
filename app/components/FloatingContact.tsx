@@ -1,129 +1,32 @@
-"use client"
+const WHATSAPP_URL = "https://wa.me/6283856681999"
 
-import { useState } from "react"
-import { Github, Linkedin, Instagram, Mail } from "lucide-react"
-import { Button } from "@/components/ui/button"
+function WhatsAppIcon() {
+  return (
+    <svg
+      aria-hidden="true"
+      viewBox="0 0 32 32"
+      className="h-7 w-7"
+      fill="currentColor"
+    >
+      <path d="M16.02 3C8.86 3 3.04 8.82 3.04 15.98c0 2.28.6 4.52 1.73 6.5L3 29l6.68-1.75a12.86 12.86 0 0 0 6.34 1.62h.01c7.15 0 12.97-5.82 12.97-12.98C29 8.82 23.18 3 16.02 3Zm0 23.68h-.01a10.7 10.7 0 0 1-5.46-1.5l-.39-.23-3.96 1.04 1.06-3.86-.25-.4a10.76 10.76 0 1 1 9.01 4.95Zm5.9-8.05c-.32-.16-1.91-.94-2.2-1.05-.3-.11-.52-.16-.74.16-.21.32-.84 1.05-1.03 1.26-.19.21-.38.24-.7.08-.32-.16-1.36-.5-2.59-1.6-.96-.86-1.6-1.91-1.79-2.23-.19-.32-.02-.5.14-.66.15-.14.32-.38.48-.57.16-.19.21-.32.32-.53.11-.21.05-.4-.03-.56-.08-.16-.74-1.79-1.01-2.45-.27-.64-.54-.55-.74-.56h-.63c-.21 0-.56.08-.85.4-.3.32-1.12 1.1-1.12 2.67 0 1.57 1.15 3.1 1.31 3.31.16.21 2.27 3.46 5.49 4.86.77.33 1.37.53 1.84.68.77.25 1.47.21 2.02.13.62-.09 1.91-.78 2.18-1.53.27-.75.27-1.39.19-1.53-.08-.13-.29-.21-.61-.37Z" />
+    </svg>
+  )
+}
 
 export default function FloatingContact() {
-  const [isExpanded, setIsExpanded] = useState(false)
-
-  const contactLinks = [
-    {
-      icon: Github,
-      href: "https://github.com/Goeter",
-      color: "bg-gray-800 hover:bg-gray-700",
-      label: "GitHub",
-    },
-    {
-      icon: Linkedin,
-      href: "https://www.linkedin.com/in/jasonvianneysugiarto",
-      color: "bg-blue-600 hover:bg-blue-500",
-      label: "LinkedIn",
-    },
-    {
-      icon: Instagram,
-      href: "https://www.instagram.com/pixelnav.id/",
-      color:
-        "bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 hover:from-pink-600 hover:via-red-600 hover:to-yellow-600",
-      label: "Instagram",
-    },
-    {
-      icon: Mail,
-      href: "https://mail.google.com/mail/?view=cm&fs=1&to=jasonvianneys@gmail.com",
-      color: "bg-red-500 hover:bg-red-600",
-      label: "Gmail",
-    },
-  ]
-
   return (
-    <div className="fixed bottom-8 right-8 z-50">
-      <div className="flex flex-col items-end space-y-4">
-        
-        {/* Contact Icons */}
-        <div
-          className={`flex flex-col space-y-3 transition-all duration-500 ${
-            isExpanded
-              ? "opacity-100 translate-y-0"
-              : "opacity-0 translate-y-6 pointer-events-none"
-          }`}
-        >
-          {contactLinks.map((link, index) => {
-            const Icon = link.icon
-            return (
-              <a
-                key={index}
-                href={link.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`
-                  w-12 h-12 rounded-full ${link.color}
-                  flex items-center justify-center text-white
-                  shadow-lg backdrop-blur-md
-                  transform transition-all duration-500
-                  hover:scale-125 hover:-translate-y-1
-                  hover:shadow-2xl
-                `}
-                style={{
-                  transitionDelay: `${index * 80}ms`,
-                }}
-                aria-label={link.label}
-              >
-                <Icon className="w-5 h-5" />
-              </a>
-            )
-          })}
-        </div>
-
-        {/* Main Button */}
-        <div className="relative">
-          
-          {/* Glow Pulse */}
-          <div className="absolute inset-0 rounded-full bg-green-400 opacity-40 blur-xl animate-ping"></div>
-
-          <Button
-            onClick={() => setIsExpanded(!isExpanded)}
-            className="
-              relative
-              w-16 h-16 rounded-full
-              bg-green-400 hover:bg-green-300
-              text-black font-semibold text-sm
-              shadow-xl
-              flex items-center justify-center
-              transition-all duration-300
-              hover:scale-110
-              active:scale-95
-            "
-          >
-            {/* Floating effect */}
-            <div className="absolute inset-0 rounded-full animate-[float_3s_ease-in-out_infinite]"></div>
-
-            {/* Content */}
-            <div
-              className={`transition-all duration-300 ${
-                isExpanded ? "rotate-45 scale-110" : "scale-100"
-              }`}
-            >
-              {isExpanded ? (
-                <div className="relative w-6 h-6">
-                  <div className="absolute top-1/2 left-0 w-6 h-0.5 bg-black transform -translate-y-1/2"></div>
-                  <div className="absolute top-0 left-1/2 w-0.5 h-6 bg-black transform -translate-x-1/2"></div>
-                </div>
-              ) : (
-                <span className="tracking-wide">Contact</span>
-              )}
-            </div>
-          </Button>
-        </div>
-      </div>
-
-      {/* Custom animation */}
-      <style jsx>{`
-        @keyframes float {
-          0% { transform: translateY(0px); }
-          50% { transform: translateY(-6px); }
-          100% { transform: translateY(0px); }
-        }
-      `}</style>
-    </div>
+    <a
+      href={WHATSAPP_URL}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Open WhatsApp"
+      className="fixed bottom-7 right-7 z-50 flex h-16 w-16 items-center justify-center rounded-full bg-emerald-400 text-slate-950 shadow-[0_18px_42px_rgba(16,185,129,0.35)] transition-all duration-300 hover:scale-110 hover:bg-emerald-300 active:scale-95"
+    >
+      <span className="absolute inset-0 rounded-full bg-emerald-400/40 blur-xl animate-ping" />
+      <span className="absolute inset-0 rounded-full animate-[contactFloat_3s_ease-in-out_infinite]" />
+      <span className="relative flex h-16 w-16 items-center justify-center rounded-full border border-white/45 bg-emerald-400 text-slate-950 shadow-inner shadow-white/25">
+        <WhatsAppIcon />
+      </span>
+    </a>
   )
 }

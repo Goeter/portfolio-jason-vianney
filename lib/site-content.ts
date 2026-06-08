@@ -7,15 +7,37 @@ export type NavItem = {
   icon: LucideIcon
 }
 
+export type ProjectImageFit = "cover" | "contain" | "logo"
+
+export type ProjectCategory = "website" | "application" | "documentation" | "video"
+
+export const projectCategoryLabels: Record<ProjectCategory, string> = {
+  website: "Website",
+  application: "Application",
+  documentation: "Documentation",
+  video: "Video",
+}
+
+export const projectCategoryOptions: { value: ProjectCategory | "all"; label: string }[] = [
+  { value: "all", label: "All Projects" },
+  { value: "website", label: "Website" },
+  { value: "application", label: "Application" },
+  { value: "documentation", label: "Documentation" },
+  { value: "video", label: "Video" },
+]
+
 export type Project = {
   id: number
   slug: string
   title: string
   description: string
   detailDescription: string
+  category: ProjectCategory
   image: string
   link?: string | null
   gallery?: string[]
+  imageFit?: ProjectImageFit
+  logoImageIndexes?: number[]
   seoTitle?: string
   seoDescription?: string
   ogImage?: string
@@ -69,7 +91,7 @@ export const siteConfig = {
     "Portfolio of Jason Vianney Sugiarto, an IT professional experienced in system analysis, UI/UX design, data analytics, fullstack development, freelance IT projects, tutoring, HR systems, corporate websites, CMS websites, mobile applications, and business process digitalization.",
   url: "https://jasonvianney.com",
   locale: "en_US",
-  defaultOgImage: "/assets/profile/home.png",
+  defaultOgImage: "/assets/profile/photo.webp",
   seoTitle: "Jason Vianney Sugiarto - System Analyst, UI/UX Designer, Data Analyst & Fullstack Developer",
   seoDescription:
     "Explore Jason Vianney Sugiarto's professional portfolio featuring system analysis, UI/UX design, data analysis, fullstack development, CMS websites, corporate profiles, mobile applications, HR systems, and digital business solutions.",
@@ -95,12 +117,10 @@ export const siteConfig = {
     resumeFileId: "10Nllp8ydFAMENKFA0089aGdT5hCijCNd95oKo_DI3NU",
     github: "https://github.com/Goeter",
     linkedin: "https://www.linkedin.com/in/jasonvianneysugiarto",
-    instagram: "https://www.instagram.com/pixelnav.id/",
   },
   sameAs: [
     "https://github.com/Goeter",
     "https://www.linkedin.com/in/jasonvianneysugiarto",
-    "https://www.instagram.com/pixelnav.id/",
   ],
   footer: "Copyright © 2025 Jason Vianney S Portfolio Web Design. All rights reserved.",
 }
@@ -166,110 +186,15 @@ export const professionalRoles: ProfessionalRole[] = [
 
 export const projects: Project[] = [
   {
-    id: 11,
-    slug: "pemenang-konsultan-professional-consulting-website",
-    title: "Pemenang Konsultan Professional Website",
-    description:
-      "Professional consulting website designed to present services, credibility, and client-focused solutions with a clean digital presence.",
+    id: 1,
+    slug: "monitoring-feedback-prospect",
+    title: "Monitoring & Feedback Prospect",
+    description: "Internal application for recording dealer motorcycle sales, order confirmation, delivery schedules, and document completeness.",
     detailDescription:
-      "A professional consulting website for Pemenang Konsultan, built to communicate service expertise, strengthen business credibility, and guide potential clients toward consultation through a clear, responsive, and trustworthy digital experience. The website emphasizes concise messaging, structured service information, modern visual hierarchy, and a direct call-to-action for prospective clients.",
-    image: "/assets/projects/pemenang-konsultan.png",
-    uploadedAt: "May 2026",
-    link: "https://pemenangkonsultan.vercel.app/",
-  },
-  {
-    id: 10,
-    slug: "pt-steda-roaster-company-profile-cms",
-    title: "PT Steda Roaster Company Profile & CMS",
-    description:
-      "Responsive company profile website with CMS support to present Steda Roaster's coffee roasting services, products, and business information clearly.",
-    detailDescription:
-      "A responsive company profile website and CMS for PT Steda Roaster, designed to strengthen the brand's digital presence, present coffee roasting services and business offerings clearly, and make content updates easier through a structured content management workflow. The website focuses on clean visual hierarchy, accessible information, responsive layouts, and a professional user experience for customers and business partners.",
-    image: "/assets/projects/steda-roaster.png",
-    uploadedAt: "May 2026",
-    link: "https://stedaroaster.vercel.app/",
-  },
-  {
-    id: 9,
-    slug: "pt-topas-multi-finance-website",
-    title: "PT Topas Multi Finance Website",
-    description: "Public corporate website that builds customer trust and brand awareness through a professional digital presence.",
-    detailDescription:
-      "A comprehensive corporate website for PT Topas Multi Finance that serves as the primary digital touchpoint for customers and stakeholders. This public-facing platform showcases the company's financial products and services while building strong brand awareness and customer trust. Key features include product information, financing options, job vacancy publication, customer-facing content, and regulatory trust signals for Indonesian financial services customers.",
-    image: "/assets/projects/topas-website.png",
-    uploadedAt: "June 2025",
-    link: "https://frontend.topasmultifinance.co.id",
-  },
-  {
-    id: 8,
-    slug: "pt-alfa-berkat-sigma",
-    title: "PT Alfa Berkat Sigma",
-    description: "Professional plumbing product website that presents company information and product offerings clearly.",
-    detailDescription:
-      "A corporate website for PT. Alfa Berkat Sigma focused on company profile presentation, plumbing product visibility, and a clean digital brand identity. The project emphasizes responsive layout, clear product communication, and a professional user experience for prospective business customers.",
-    image: "/assets/projects/sigma-picture.png",
-    uploadedAt: "June 2025",
-    link: "https://sigma-andrew-ten.vercel.app",
-  },
-  {
-    id: 7,
-    slug: "topas-multi-finance-mobile-application",
-    title: "Topas Multi Finance Mobile Application",
-    description: "Mobile application for customers and staff, covering loan management, disbursement tracking, customer monitoring, and financial services.",
-    detailDescription:
-      "A mobile application designed for Topas Multi Finance customers and internal staff, featuring a modern interface for financing application submission, contract management, payment guidance, outlet location access, profile management, loan simulation, and secure financial service navigation.",
-    image: "/assets/projects/mobile-app/combined",
-    uploadedAt: "June 2025",
-    gallery: [
-      "/assets/projects/mobile-app/topas-mobile-dashboard.jpeg",
-      "/assets/projects/mobile-app/topas-mobile-menu.jpeg",
-      "/assets/projects/mobile-app/topas-mobile-profile.jpeg",
-    ],
-  },
-  {
-    id: 6,
-    slug: "mobile-loan-flow-survey",
-    title: "Mobile Loan Flow Survey",
-    description: "Mobile debtor home-visit survey application that centralizes field data and stores it neatly in the company database.",
-    detailDescription:
-      "A mobile survey application for debtor home visits, designed to centralize survey data, standardize field input, and improve the accuracy of loan-related customer verification processes.",
-    image: "/assets/projects/flow-survey-pinjaman.jpg",
-    uploadedAt: "June 2025",
-  },
-  {
-    id: 5,
-    slug: "hr-topas-application",
-    title: "HR Topas Application",
-    description: "Integrated HR system for attendance, payroll recap, KPI-based manpower planning, and end-to-end recruitment management.",
-    detailDescription:
-      "An integrated HR management system for PT Topas Multi Finance that streamlines attendance, payroll recap, employee records, manpower planning, recruitment workflows, and KPI-based workforce management through centralized digital modules.",
-    image: "/assets/projects/hr-topas-application.png",
-    uploadedAt: "June 2025",
-  },
-  {
-    id: 4,
-    slug: "mobile-mata-elang-subscribe",
-    title: "Mobile Mata Elang & Subscribe",
-    description: "Credit vehicle tracking application for field users and third-party partners, supported by subscription-based access.",
-    detailDescription:
-      "A field-oriented vehicle tracking mobile application for internal users and third-party partners. The solution supports credit vehicle monitoring, structured field reporting, and subscription-based access management.",
-    image: "/assets/projects/mobile-mata-elang/combined",
-    uploadedAt: "June 2025",
-    gallery: [
-      "/assets/projects/mobile-mata-elang/foto-1.png",
-      "/assets/projects/mobile-mata-elang/foto-2.png",
-      "/assets/projects/mobile-mata-elang/foto-3.png",
-    ],
-  },
-  {
-    id: 3,
-    slug: "dashboard-admin-ticketing",
-    title: "Dashboard Admin Ticketing",
-    description: "Web-based ticket monitoring dashboard for managing and tracking ticketing workflows in real time.",
-    detailDescription:
-      "A web-based admin dashboard for ticket management, operational monitoring, and real-time tracking of issue handling workflows across internal systems.",
-    image: "/assets/projects/dashboard_ticketing.png",
-    uploadedAt: "June 2025",
+      "An internal monitoring application for dealer motorcycle sales, order confirmation, delivery scheduling, document validation, and transaction tracking. The system improves operational visibility and reduces manual follow-up across dealer-related workflows.",
+    category: "application",
+    image: "/assets/projects/monitoring-server.webp",
+    uploadedAt: "February 2024",
   },
   {
     id: 2,
@@ -278,71 +203,156 @@ export const projects: Project[] = [
     description: "Digital disbursement note printing system that replaces manual writing with fast, neat, and securely stored documents.",
     detailDescription:
       "A digital system that modernizes vehicle registration certificate and disbursement note processes by replacing handwritten workflows with structured printing, centralized storage, validation, audit trails, and faster document retrieval.",
-    image: "/assets/projects/vehicle-registration-certificate-system.png",
+    category: "application",
+    image: "/assets/projects/vehicle-registration-certificate-system.webp",
     uploadedAt: "February 2024",
   },
   {
-    id: 1,
-    slug: "monitoring-feedback-prospect",
-    title: "Monitoring & Feedback Prospect",
-    description: "Internal application for recording dealer motorcycle sales, order confirmation, delivery schedules, and document completeness.",
+    id: 3,
+    slug: "dashboard-admin-ticketing",
+    title: "Dashboard Admin Ticketing",
+    description: "Web-based ticket monitoring dashboard for managing and tracking ticketing workflows in real time.",
     detailDescription:
-      "An internal monitoring application for dealer motorcycle sales, order confirmation, delivery scheduling, document validation, and transaction tracking. The system improves operational visibility and reduces manual follow-up across dealer-related workflows.",
-    image: "/assets/projects/monitoring-server.png",
-    uploadedAt: "February 2024",
+      "A web-based admin dashboard for ticket management, operational monitoring, and real-time tracking of issue handling workflows across internal systems.",
+    category: "application",
+    image: "/assets/projects/dashboard_ticketing.webp",
+    uploadedAt: "June 2025",
+  },
+  {
+    id: 4,
+    slug: "hr-topas-application",
+    title: "HR Topas Application",
+    description: "Integrated HR system for attendance, payroll recap, KPI-based manpower planning, and end-to-end recruitment management.",
+    detailDescription:
+      "An integrated HR management system for PT Topas Multi Finance that streamlines attendance, payroll recap, employee records, manpower planning, recruitment workflows, and KPI-based workforce management through centralized digital modules.",
+    category: "application",
+    image: "/assets/projects/hr-topas-application.webp",
+    uploadedAt: "June 2025",
+  },
+  {
+    id: 5,
+    slug: "topas-multi-finance-mobile-application",
+    title: "Topas Multi Finance Mobile Application",
+    description: "Mobile application for customers and staff, covering loan management, disbursement tracking, customer monitoring, and financial services.",
+    detailDescription:
+      "A mobile application designed for Topas Multi Finance customers and internal staff, featuring a modern interface for financing application submission, contract management, payment guidance, outlet location access, profile management, loan simulation, and secure financial service navigation.",
+    category: "application",
+    image: "/assets/projects/mobile-app.webp",
+    uploadedAt: "June 2025",
+  },
+  {
+    id: 6,
+    slug: "mobile-loan-flow-survey",
+    title: "Mobile Loan Flow Survey",
+    description: "Mobile debtor home-visit survey application that centralizes field data and stores it neatly in the company database.",
+    detailDescription:
+      "A mobile survey application for debtor home visits, designed to centralize survey data, standardize field input, and improve the accuracy of loan-related customer verification processes.",
+    category: "application",
+    image: "/assets/projects/flow-survey-pinjaman.webp",
+    uploadedAt: "June 2025",
+  },
+  {
+    id: 7,
+    slug: "pt-alfa-berkat-sigma",
+    title: "PT Alfa Berkat Sigma",
+    description: "Professional plumbing product website that presents company information and product offerings clearly.",
+    detailDescription:
+      "A corporate website for PT. Alfa Berkat Sigma focused on company profile presentation, plumbing product visibility, and a clean digital brand identity. The project emphasizes responsive layout, clear product communication, and a professional user experience for prospective business customers.",
+    category: "website",
+    image: "/assets/projects/sigma-picture.webp",
+    uploadedAt: "June 2025",
+    link: "https://sigma.indonetwork.co.id",
+  },
+  {
+    id: 8,
+    slug: "pt-topas-multi-finance-website",
+    title: "PT Topas Multi Finance Website",
+    description: "Public corporate website that builds customer trust and brand awareness through a professional digital presence.",
+    detailDescription:
+      "A comprehensive corporate website for PT Topas Multi Finance that serves as the primary digital touchpoint for customers and stakeholders. This public-facing platform showcases the company's financial products and services while building strong brand awareness and customer trust. Key features include product information, financing options, job vacancy publication, customer-facing content, and regulatory trust signals for Indonesian financial services customers.",
+    category: "website",
+    image: "/assets/projects/topas-website.webp",
+    uploadedAt: "June 2025",
+    link: "https://frontend.topasmultifinance.co.id",
+  },
+  {
+    id: 9,
+    slug: "pt-steda-roaster-company-profile-cms",
+    title: "PT Steda Roaster Company Profile & CMS",
+    description:
+      "Responsive company profile website with CMS support to present Steda Roaster's coffee roasting services, products, and business information clearly.",
+    detailDescription:
+      "A responsive company profile website and CMS for PT Steda Roaster, designed to strengthen the brand's digital presence, present coffee roasting services and business offerings clearly, and make content updates easier through a structured content management workflow. The website focuses on clean visual hierarchy, accessible information, responsive layouts, and a professional user experience for customers and business partners.",
+    category: "website",
+    image: "/assets/projects/steda-roaster.webp",
+    uploadedAt: "May 2026",
+    link: "https://stedaroaster.vercel.app/",
+  },
+  {
+    id: 10,
+    slug: "pemenang-konsultan-professional-consulting-website",
+    title: "Pemenang Konsultan Professional Website",
+    description:
+      "Professional consulting website designed to present services, credibility, and client-focused solutions with a clean digital presence.",
+    detailDescription:
+      "A professional consulting website for Pemenang Konsultan, built to communicate service expertise, strengthen business credibility, and guide potential clients toward consultation through a clear, responsive, and trustworthy digital experience. The website emphasizes concise messaging, structured service information, modern visual hierarchy, and a direct call-to-action for prospective clients.",
+    category: "website",
+    image: "/assets/projects/pemenang-konsultan.webp",
+    uploadedAt: "May 2026",
+    link: "https://pemenangkonsultan.vercel.app/",
   },
 ]
 
 export const certificates: Certificate[] = [
   {
-    id: 5,
-    slug: "english-certificate",
-    title: "English Certificate",
-    description: "English proficiency certification demonstrating communication and academic language capability.",
-    image: "/assets/certificates/English Certificate Gabung_1.jpg",
-    issuer: "English Test Center",
-    date: "09 October 2025",
-    uploadedAt: "09 October 2025",
-  },
-  {
-    id: 4,
-    slug: "teaching-certification",
-    title: "Teaching Certification",
-    description: "Certification for teaching and tutoring with structured learning methods.",
-    image: "/assets/certificates/Teaching Certification.png",
-    issuer: "Teaching Program",
-    date: "10 November 2025",
-    uploadedAt: "10 November 2025",
-  },
-  {
-    id: 3,
-    slug: "data-analyst-certification",
-    title: "Data Analyst Certification",
-    description: "In-depth training in Python for data analysis, data organization, and SQL database management.",
-    image: "/assets/certificates/data-analyst-udemy.jpeg",
-    issuer: "Udemy",
-    date: "02 August 2025",
-    uploadedAt: "02 August 2025",
+    id: 1,
+    slug: "ui-ux-webinar-participation",
+    title: "UI/UX Webinar Participation",
+    description: "Comprehensive training on UI/UX principles, design tools, and best practices.",
+    image: "/assets/certificates/ui-ux-webinar-ubaya.webp",
+    issuer: "Universitas Surabaya (UBAYA)",
+    date: "24 May 2025",
+    uploadedAt: "24 May 2025",
   },
   {
     id: 2,
     slug: "intro-to-data-analytics",
     title: "Intro to Data Analytics",
     description: "Fundamentals of data analysis, including organizing and interpreting data using spreadsheets.",
-    image: "/assets/certificates/data-analyst-revou.jpeg",
+    image: "/assets/certificates/data-analyst-revou.webp",
     issuer: "RevoU",
     date: "18 July 2025",
     uploadedAt: "18 July 2025",
   },
   {
-    id: 1,
-    slug: "ui-ux-webinar-participation",
-    title: "UI/UX Webinar Participation",
-    description: "Comprehensive training on UI/UX principles, design tools, and best practices.",
-    image: "/assets/certificates/ui-ux-webinar-ubaya.png",
-    issuer: "Universitas Surabaya (UBAYA)",
-    date: "24 May 2025",
-    uploadedAt: "24 May 2025",
+    id: 3,
+    slug: "data-analyst-certification",
+    title: "Data Analyst Certification",
+    description: "In-depth training in Python for data analysis, data organization, and SQL database management.",
+    image: "/assets/certificates/data-analyst-udemy.webp",
+    issuer: "Udemy",
+    date: "02 August 2025",
+    uploadedAt: "02 August 2025",
+  },
+   {
+    id: 4,
+    slug: "teaching-certification",
+    title: "Teaching Certification",
+    description: "Certification for teaching and tutoring with structured learning methods.",
+    image: "/assets/certificates/Teaching Certification.webp",
+    issuer: "Teaching Program",
+    date: "10 November 2025",
+    uploadedAt: "10 November 2025",
+  },
+  {
+    id: 5,
+    slug: "english-certificate",
+    title: "English Certificate",
+    description: "English proficiency certification demonstrating communication and academic language capability.",
+    image: "/assets/certificates/English Certificate Gabung_1.webp",
+    issuer: "English Test Center",
+    date: "09 October 2025",
+    uploadedAt: "09 October 2025",
   },
 ]
 
@@ -378,7 +388,7 @@ export const experiences: Experience[] = [
     period: "June 2025 – Now",
     location: "Surabaya, Indonesia",
     workMode: "On-Site",
-    logo: "/assets/company-logos/icon_freelance_it.png",
+    logo: "/assets/company-logos/icon_freelance_it.webp",
     details: [
       "Built a responsive front-end company profile website for PT Sigma to enhance digital credibility and improve customer access to company information.",
       "Built a responsive company profile website and CMS for PT Steda Roaster to streamline content updates and present business offerings clearly to customers.",
@@ -391,7 +401,7 @@ export const experiences: Experience[] = [
     period: "September 2024 – Now",
     location: "Jakarta - Surabaya, Indonesia",
     workMode: "On-Site",
-    logo: "/assets/company-logos/icon_student_center.png",
+    logo: "/assets/company-logos/icon_student_center.webp",
     details: [
       "Taught Mathematics, Physics, and English to elementary and high school students through interactive learning methods, helping strengthen fundamentals, improve comprehension, and prepare for exams.",
     ],
@@ -403,7 +413,7 @@ export const experiences: Experience[] = [
     period: "March 2024 - June 2025",
     location: "Jakarta, Indonesia",
     workMode: "On-Site",
-    logo: "/assets/company-logos/icon_topas.png",
+    logo: "/assets/company-logos/icon_topas.webp",
     details: [
       "Developed systems that improved operational efficiency by up to 50% through integrated document and financial workflows.",
       "Developed a corporate website to improve product visibility, support secure oversight, engage customers, and publish job vacancies.",
@@ -418,7 +428,7 @@ export const experiences: Experience[] = [
     period: "February 2023 - February 2024",
     location: "Jakarta, Indonesia",
     workMode: "On-Site",
-    logo: "/assets/company-logos/icon_astra.png",
+    logo: "/assets/company-logos/icon_astra.webp",
     details: [
       "Developed an internal application for dealer motorcycle sales, order confirmation, delivery scheduling, and document validation.",
       "Modernized an outdated system to be more secure, user-friendly, and reliable.",
@@ -432,7 +442,7 @@ export const experiences: Experience[] = [
     period: "February 2022 - February 2023",
     location: "Surabaya, Indonesia",
     workMode: "On-Site",
-    logo: "/assets/company-logos/icon_wings.png",
+    logo: "/assets/company-logos/icon_wings.webp",
     details: [
       "Enhancing the international sales website for seamless inventory tracking and real time digital sales monitoring across Asia.",
       "Enhanced the mobile app with scanning features for accurate, real-time data capture.",
@@ -446,7 +456,7 @@ export const experiences: Experience[] = [
     period: "2017 – 2021",
     location: "Surabaya, Indonesia",
     workMode: "Academic",
-    logo: "/assets/company-logos/icon_ubaya.png",
+    logo: "/assets/company-logos/icon_ubaya.webp",
     details: [
       "Assisting professors by preparing programming exercises and reviewing assignments to reinforce programming fundamentals.",
       "Opened a Business Mathematics class that provided tutoring and exercises to strengthen mathematical logic for business contexts.",
@@ -519,6 +529,7 @@ export const getProjectStructuredData = (project: Project) => ({
   description: getProjectSeoDescription(project),
   image: getAbsoluteImageUrl(getProjectOgImage(project)),
   url: getAbsoluteUrl(getProjectPath(project)),
+  genre: projectCategoryLabels[project.category],
   creator: {
     "@type": "Person",
     name: siteConfig.owner,
@@ -544,6 +555,7 @@ export const projectsCollectionStructuredData = {
     url: getAbsoluteUrl(getProjectPath(project)),
     description: getProjectSeoDescription(project),
     image: getAbsoluteImageUrl(getProjectOgImage(project)),
+    genre: projectCategoryLabels[project.category],
   })),
 }
 
@@ -570,29 +582,4 @@ export const certificatesCollectionStructuredData = {
       name: certificate.issuer,
     },
   })),
-}
-
-export const cmsContent = {
-  source: "local-typescript-content",
-  version: "1.0.0",
-  site: siteConfig,
-  navigation: navItems,
-  expertise,
-  professionalRoles,
-  projects,
-  projectsLatestFirst,
-  getProjectPath,
-  getProjectBySlug,
-  certificates,
-  certificatesLatestFirst,
-  experiences,
-  getAbsoluteUrl,
-  getAbsoluteImageUrl,
-  getProjectSeoTitle,
-  getProjectSeoDescription,
-  getProjectOgImage,
-  siteStructuredData,
-  getProjectStructuredData,
-  projectsCollectionStructuredData,
-  certificatesCollectionStructuredData,
 }

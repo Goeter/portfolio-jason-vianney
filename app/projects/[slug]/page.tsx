@@ -13,7 +13,7 @@ import {
   siteConfig,
 } from "@/lib/site-content"
 
-interface ProjectPageProps {
+type ProjectPageProps = {
   params: {
     slug: string
   }
@@ -23,8 +23,9 @@ export function generateStaticParams() {
   return projects.map((project) => ({ slug: project.slug }))
 }
 
-export function generateMetadata({ params }: ProjectPageProps): Metadata {
-  const project = getProjectBySlug(params.slug)
+export async function generateMetadata({ params }: ProjectPageProps): Promise<Metadata> {
+  const { slug } = params
+  const project = getProjectBySlug(slug)
 
   if (!project) {
     return {
@@ -48,7 +49,7 @@ export function generateMetadata({ params }: ProjectPageProps): Metadata {
       type: "article",
       url,
       siteName: `${siteConfig.shortName} Portfolio`,
-      images: [{ url: image, alt: `${project.title} project preview` }],
+      images: [{ url: image, alt: `${project.title} project image` }],
     },
     twitter: {
       card: "summary_large_image",
@@ -60,7 +61,8 @@ export function generateMetadata({ params }: ProjectPageProps): Metadata {
 }
 
 export default function ProjectPage({ params }: ProjectPageProps) {
-  const project = getProjectBySlug(params.slug)
+  const { slug } = params
+  const project = getProjectBySlug(slug)
 
   if (!project) {
     notFound()

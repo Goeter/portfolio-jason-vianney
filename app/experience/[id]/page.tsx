@@ -2,7 +2,7 @@ import { notFound, redirect } from "next/navigation"
 
 import { getProjectPath, projects } from "@/lib/site-content"
 
-interface ExperienceRedirectPageProps {
+type ExperienceRedirectPageProps = {
   params: {
     id: string
   }
@@ -13,7 +13,8 @@ export function generateStaticParams() {
 }
 
 export default function ExperienceRedirectPage({ params }: ExperienceRedirectPageProps) {
-  const project = projects.find((item) => String(item.id) === params.id || item.slug === params.id)
+  const { id } = params
+  const project = projects.find((item) => String(item.id) === id || item.slug === id)
 
   if (!project) {
     notFound()

@@ -28,3 +28,9 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
+# archives / local artifacts
+*.zip
+*.tar
+*.tgz
+# cache
+.cache

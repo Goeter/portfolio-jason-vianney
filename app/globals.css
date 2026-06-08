@@ -4,34 +4,6 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
-    --secondary: 210 40% 96%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-    --muted: 210 40% 96%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-    --accent: 210 40% 96%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
-    --radius: 0.5rem;
-    --chart-1: 12 76% 61%;
-    --chart-2: 173 58% 39%;
-    --chart-3: 197 37% 24%;
-    --chart-4: 43 74% 66%;
-    --chart-5: 27 87% 67%;
-  }
-
-  .dark {
     --background: 222.2 84% 4.9%;
     --foreground: 210 40% 98%;
     --card: 222.2 84% 4.9%;
@@ -51,562 +23,263 @@
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
     --ring: 212.7 26.8% 83.9%;
-    --chart-1: 220 70% 50%;
-    --chart-2: 160 60% 45%;
-    --chart-3: 30 80% 55%;
-    --chart-4: 280 65% 60%;
-    --chart-5: 340 75% 55%;
+    --radius: 0.5rem;
   }
-}
 
-@layer base {
   * {
     @apply border-border;
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
   }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
     @apply bg-background text-foreground;
   }
-}
 
-/* Custom scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.1);
-}
-
-::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.3);
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.5);
-}
-
-/* Smooth scroll behavior */
-html {
-  scroll-behavior: smooth;
-}
-
-/* Animation for floating contact */
-@keyframes float {
-  0%,
-  100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-10px);
+  *::-webkit-scrollbar {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+    background: transparent !important;
   }
 }
 
-.animate-float {
-  animation: float 3s ease-in-out infinite;
-}
-
-/* Scroll Animations */
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
+@layer utilities {
+  .section-transition-soft {
+    isolation: isolate;
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+
+  .section-transition-soft::before,
+  .section-transition-soft::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    z-index: 1;
+    pointer-events: none;
   }
-}
 
-@keyframes fadeInLeft {
-  from {
-    opacity: 0;
-    transform: translateX(-30px);
+  .section-transition-soft::before {
+    top: 0;
+    height: 96px;
+    background: linear-gradient(to bottom, rgba(2, 6, 23, 0.62), transparent);
   }
-  to {
-    opacity: 1;
-    transform: translateX(0);
+
+  .section-transition-soft::after {
+    bottom: 0;
+    height: 96px;
+    background: linear-gradient(to top, rgba(2, 6, 23, 0.62), transparent);
   }
-}
 
-@keyframes fadeInRight {
-  from {
-    opacity: 0;
-    transform: translateX(30px);
+  .portfolio-preview-scroll,
+  .no-card-scrollbar,
+  .no-card-scrollbar * {
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
   }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
 
-.animate-fade-in-up {
-  animation: fadeInUp 0.8s ease-out forwards;
-}
-
-.animate-fade-in-left {
-  animation: fadeInLeft 0.8s ease-out forwards;
-}
-
-.animate-fade-in-right {
-  animation: fadeInRight 0.8s ease-out forwards;
-}
-
-/* Scroll animate base class */
-.scroll-animate {
-  transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
-
-/* Enhanced shadows */
-.shadow-3xl {
-  box-shadow: 0 35px 60px -12px rgba(0, 0, 0, 0.25);
-}
-
-/* Gradient text */
-.gradient-text {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-/* Professional card hover effects */
-.card-hover {
-  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
-
-.card-hover:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-}
-
-/* Line clamp utilities for text truncation */
-.line-clamp-3 {
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-.line-clamp-4 {
-  display: -webkit-box;
-  -webkit-line-clamp: 4;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-@keyframes gradient {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-@keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
-}
-
-@keyframes float-delayed {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-15px); }
-}
-
-@keyframes scan {
-  0% { transform: translateX(-100%); }
-  100% { transform: translateX(100%); }
-}
-
-@keyframes spin-slow {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
-.animate-gradient {
-  background-size: 200% auto;
-  animation: gradient 3s ease infinite;
-}
-
-.animate-float {
-  animation: float 3s ease-in-out infinite;
-}
-
-.animate-float-delayed {
-  animation: float-delayed 4s ease-in-out infinite;
-}
-
-.animate-scan {
-  animation: scan 3s linear infinite;
-}
-
-.animate-spin-slow {
-  animation: spin-slow 20s linear infinite;
-}
-
-@keyframes gradient {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-@keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
-}
-
-@keyframes float-delayed {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-15px); }
-}
-
-@keyframes scan {
-  0% { transform: translateX(-100%); }
-  100% { transform: translateX(100%); }
-}
-
-@keyframes spin-slow {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
-@keyframes pop-in {
-  0% { transform: scale(0.8); opacity: 0; }
-  100% { transform: scale(1); opacity: 1; }
-}
-
-.animate-gradient {
-  background-size: 200% auto;
-  animation: gradient 3s ease infinite;
-}
-
-.animate-float {
-  animation: float 3s ease-in-out infinite;
-}
-
-.animate-float-delayed {
-  animation: float-delayed 4s ease-in-out infinite;
-}
-
-.animate-scan {
-  animation: scan 3s linear infinite;
-}
-
-.animate-spin-slow {
-  animation: spin-slow 20s linear infinite;
-}
-
-.animate-pop-in {
-  animation: pop-in 0.5s ease-out forwards;
-}
-
-@keyframes gradient {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-@keyframes float-bubble {
-  0%, 100% { 
-    transform: translateY(0) rotate(0deg); 
-  }
-  33% { 
-    transform: translateY(-10px) rotate(3deg); 
-  }
-  66% { 
-    transform: translateY(5px) rotate(-3deg); 
+  .portfolio-preview-scroll::-webkit-scrollbar,
+  .no-card-scrollbar::-webkit-scrollbar,
+  .no-card-scrollbar *::-webkit-scrollbar {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
   }
 }
 
-@keyframes pulse-glow {
-  0%, 100% { 
-    opacity: 0.5; 
-    transform: scale(1);
-  }
-  50% { 
-    opacity: 0.8; 
-    transform: scale(1.05);
-  }
+.project-archive-card {
+  animation: fadeInUp 0.78s ease-out both;
 }
 
-@keyframes shimmer {
-  0% { background-position: -1000px 0; }
-  100% { background-position: 1000px 0; }
+.certificate-card {
+  animation: certificateFadeInUp 0.8s ease-out both;
 }
 
-.animate-gradient {
-  background-size: 200% auto;
-  animation: gradient 3s ease infinite;
+.portfolio-orb {
+  animation: portfolioOrbFloat 10s ease-in-out infinite;
 }
 
-.animate-float-bubble {
-  animation: float-bubble 6s ease-in-out infinite;
+.portfolio-orb-delay {
+  animation: portfolioOrbFloat 12s ease-in-out infinite;
+  animation-delay: 1.4s;
 }
 
-.animate-pulse-glow {
-  animation: pulse-glow 4s ease-in-out infinite;
+.portfolio-orb-slow {
+  animation: portfolioOrbPulse 14s ease-in-out infinite;
+  animation-delay: 0.8s;
 }
 
-.animate-shimmer {
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
-  background-size: 1000px 100%;
-  animation: shimmer 3s infinite linear;
+.portfolio-light-sweep {
+  animation: portfolioLightSweep 8.5s ease-in-out infinite;
 }
 
-/* Custom scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.05);
-}
-
-::-webkit-scrollbar-thumb {
-  background: linear-gradient(to bottom, #06b6d4, #3b82f6);
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(to bottom, #22d3ee, #60a5fa);
-}
-
-/* Overlay Scrollbars: hidden while idle, visible during active scroll/edge hover. */
-html {
-  scrollbar-gutter: stable overlay;
-  scrollbar-width: thin;
-  scrollbar-color: transparent transparent;
-}
-
-html[data-scrolling="true"] {
-  scrollbar-color: rgba(212, 168, 67, 0.65) transparent;
-}
-
-html::-webkit-scrollbar,
-body::-webkit-scrollbar,
-*::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
-
-html::-webkit-scrollbar-track,
-body::-webkit-scrollbar-track,
-*::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-html::-webkit-scrollbar-thumb,
-body::-webkit-scrollbar-thumb,
-*::-webkit-scrollbar-thumb {
-  border-radius: 999px;
-  border: 2px solid transparent;
-  background-clip: content-box;
-  background-color: transparent;
-  transition: background-color 220ms ease;
-}
-
-html[data-scrolling="true"]::-webkit-scrollbar-thumb,
-html[data-scrolling="true"] body::-webkit-scrollbar-thumb,
-html[data-scrolling="true"] *::-webkit-scrollbar-thumb,
-*::-webkit-scrollbar-thumb:hover {
-  background-color: rgba(212, 168, 67, 0.72);
-}
-
-.section-transition-soft {
-  isolation: isolate;
-}
-
-.section-transition-soft::before,
-.section-transition-soft::after {
-  content: "";
+.portfolio-line,
+.certificate-line,
+.experience-line {
   position: absolute;
-  left: 0;
-  right: 0;
-  z-index: 1;
-  pointer-events: none;
+  height: 1px;
 }
 
-.section-transition-soft::before {
-  top: 0;
-  height: 96px;
-  background: linear-gradient(to bottom, rgba(2, 6, 23, 0.46), transparent);
+.portfolio-line {
+  width: 180px;
+  background: linear-gradient(90deg, transparent, rgba(14, 165, 233, 0.45), transparent);
+  transform: rotate(-20deg);
+  animation: portfolioLineMove 6.5s ease-in-out infinite;
 }
 
-.section-transition-soft::after {
-  bottom: 0;
-  height: 96px;
-  background: linear-gradient(to top, rgba(2, 6, 23, 0.52), transparent);
+.portfolio-line-delay,
+.certificate-line-delay,
+.experience-line-delay {
+  animation-delay: 1.6s;
 }
 
-
-/* Clean scrollbar: show only the thumb, never the white scrollbar track/gutter. */
-html {
-  scrollbar-gutter: auto !important;
-  scrollbar-width: thin;
-  scrollbar-color: rgba(212, 168, 67, 0.58) transparent !important;
+.certificate-orb {
+  animation: certificateOrbFloat 9s ease-in-out infinite;
 }
 
-body,
-* {
-  scrollbar-color: rgba(212, 168, 67, 0.58) transparent !important;
+.certificate-orb-delay {
+  animation: certificateOrbFloat 11s ease-in-out infinite;
+  animation-delay: 1.5s;
 }
 
-html::-webkit-scrollbar,
-body::-webkit-scrollbar,
-*::-webkit-scrollbar {
-  width: 8px !important;
-  height: 8px !important;
-  background: transparent !important;
+.certificate-orb-slow {
+  animation: certificateOrbPulse 13s ease-in-out infinite;
+  animation-delay: 0.8s;
 }
 
-html::-webkit-scrollbar-track,
-html::-webkit-scrollbar-track-piece,
-body::-webkit-scrollbar-track,
-body::-webkit-scrollbar-track-piece,
-*::-webkit-scrollbar-track,
-*::-webkit-scrollbar-track-piece {
-  background: transparent !important;
-  border: 0 !important;
-  box-shadow: none !important;
+.certificate-line {
+  width: 170px;
+  background: linear-gradient(90deg, transparent, rgba(16, 185, 129, 0.48), transparent);
+  transform: rotate(-22deg);
+  animation: certificateLineMove 5.5s ease-in-out infinite;
 }
 
-html::-webkit-scrollbar-thumb,
-body::-webkit-scrollbar-thumb,
-*::-webkit-scrollbar-thumb {
-  min-height: 48px;
-  border-radius: 999px !important;
-  border: 2px solid transparent !important;
-  background: rgba(212, 168, 67, 0.58) !important;
-  background-clip: content-box !important;
-  box-shadow: none !important;
+.certificate-line-slow {
+  animation-delay: 2.4s;
+  animation-duration: 7s;
 }
 
-html::-webkit-scrollbar-thumb:hover,
-body::-webkit-scrollbar-thumb:hover,
-*::-webkit-scrollbar-thumb:hover {
-  background: rgba(212, 168, 67, 0.82) !important;
-  background-clip: content-box !important;
+.experience-grid {
+  animation: experienceGridMove 20s linear infinite;
 }
 
-html::-webkit-scrollbar-corner,
-body::-webkit-scrollbar-corner,
-*::-webkit-scrollbar-corner {
-  background: transparent !important;
+.experience-orb {
+  animation: experienceOrbFloat 8s ease-in-out infinite;
 }
 
-.portfolio-preview-scroll {
-  scrollbar-color: rgba(212, 168, 67, 0.55) transparent !important;
+.experience-orb-delay {
+  animation: experienceOrbFloat 10s ease-in-out infinite;
+  animation-delay: 1.5s;
 }
 
-/* Hide scrollbars for carousel/card/preview surfaces to prevent the right-side blinking line glitch. */
-.no-card-scrollbar,
-.no-card-scrollbar * {
-  scrollbar-width: none !important;
-  -ms-overflow-style: none !important;
+.experience-orb-slow {
+  animation: experienceOrbPulse 7s ease-in-out infinite;
 }
 
-.no-card-scrollbar::-webkit-scrollbar,
-.no-card-scrollbar *::-webkit-scrollbar {
-  display: none !important;
-  width: 0 !important;
-  height: 0 !important;
-  background: transparent !important;
+.experience-line {
+  width: 160px;
+  background: linear-gradient(90deg, transparent, rgba(212, 168, 67, 0.76), transparent);
+  transform: rotate(-24deg);
+  animation: experienceLineMove 5s ease-in-out infinite;
 }
 
-.no-card-scrollbar::-webkit-scrollbar-track,
-.no-card-scrollbar::-webkit-scrollbar-track-piece,
-.no-card-scrollbar *::-webkit-scrollbar-track,
-.no-card-scrollbar *::-webkit-scrollbar-track-piece,
-.no-card-scrollbar::-webkit-scrollbar-thumb,
-.no-card-scrollbar *::-webkit-scrollbar-thumb,
-.no-card-scrollbar::-webkit-scrollbar-corner,
-.no-card-scrollbar *::-webkit-scrollbar-corner {
-  display: none !important;
-  background: transparent !important;
-  border: 0 !important;
-  box-shadow: none !important;
+.experience-line-slow {
+  animation-delay: 2.2s;
+  animation-duration: 7s;
 }
 
-/* Final scrollbar cleanup: remove the blinking scrollbar/indicator inside the Projects section and any nested card/carousel surface. Scrolling still works normally. */
-#projects,
-#projects *,
-.no-card-scrollbar,
-.no-card-scrollbar * {
-  scrollbar-width: none !important;
-  -ms-overflow-style: none !important;
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-#projects::-webkit-scrollbar,
-#projects *::-webkit-scrollbar,
-.no-card-scrollbar::-webkit-scrollbar,
-.no-card-scrollbar *::-webkit-scrollbar {
-  display: none !important;
-  width: 0 !important;
-  height: 0 !important;
-  background: transparent !important;
+@keyframes contactFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
 }
 
-#projects::-webkit-scrollbar-track,
-#projects::-webkit-scrollbar-track-piece,
-#projects *::-webkit-scrollbar-track,
-#projects *::-webkit-scrollbar-track-piece,
-#projects::-webkit-scrollbar-thumb,
-#projects *::-webkit-scrollbar-thumb,
-#projects::-webkit-scrollbar-corner,
-#projects *::-webkit-scrollbar-corner,
-.no-card-scrollbar::-webkit-scrollbar-track,
-.no-card-scrollbar::-webkit-scrollbar-track-piece,
-.no-card-scrollbar *::-webkit-scrollbar-track,
-.no-card-scrollbar *::-webkit-scrollbar-track-piece,
-.no-card-scrollbar::-webkit-scrollbar-thumb,
-.no-card-scrollbar *::-webkit-scrollbar-thumb,
-.no-card-scrollbar::-webkit-scrollbar-corner,
-.no-card-scrollbar *::-webkit-scrollbar-corner {
-  display: none !important;
-  background: transparent !important;
-  border: 0 !important;
-  box-shadow: none !important;
+@keyframes portfolioOrbFloat {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(24px, -18px, 0) scale(1.06); }
 }
 
-/* Disable the old global orange scrollbar indicator so it cannot appear beside cards during hover/animation repaints. */
-*::-webkit-scrollbar-thumb,
-*::-webkit-scrollbar-thumb:hover {
-  background: transparent !important;
-  background-color: transparent !important;
-  border-color: transparent !important;
-  box-shadow: none !important;
+@keyframes portfolioOrbPulse {
+  0%, 100% { opacity: 0.78; transform: translate3d(0, 0, 0) scale(1); }
+  50% { opacity: 1; transform: translate3d(-18px, 16px, 0) scale(1.08); }
 }
 
-
-/* Final global scrollbar removal: keep scrolling functional, hide every visual scrollbar/track/thumb. */
-html,
-body,
-* {
-  scrollbar-width: none !important;
-  -ms-overflow-style: none !important;
+@keyframes portfolioLightSweep {
+  0%, 100% { opacity: 0.5; transform: translateX(-4%); }
+  50% { opacity: 0.95; transform: translateX(4%); }
 }
 
-html::-webkit-scrollbar,
-body::-webkit-scrollbar,
-*::-webkit-scrollbar {
-  display: none !important;
-  width: 0 !important;
-  height: 0 !important;
-  background: transparent !important;
+@keyframes portfolioLineMove {
+  0% { opacity: 0; transform: translate3d(-56px, 36px, 0) rotate(-20deg); }
+  35% { opacity: 1; }
+  100% { opacity: 0; transform: translate3d(110px, -58px, 0) rotate(-20deg); }
 }
 
-html::-webkit-scrollbar-track,
-html::-webkit-scrollbar-track-piece,
-body::-webkit-scrollbar-track,
-body::-webkit-scrollbar-track-piece,
-*::-webkit-scrollbar-track,
-*::-webkit-scrollbar-track-piece,
-html::-webkit-scrollbar-thumb,
-body::-webkit-scrollbar-thumb,
-*::-webkit-scrollbar-thumb,
-html::-webkit-scrollbar-corner,
-body::-webkit-scrollbar-corner,
-*::-webkit-scrollbar-corner {
-  display: none !important;
-  background: transparent !important;
-  border: 0 !important;
-  box-shadow: none !important;
+@keyframes certificateOrbFloat {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(26px, -20px, 0) scale(1.08); }
+}
+
+@keyframes certificateOrbPulse {
+  0%, 100% { opacity: 0.68; transform: translate(-50%, -50%) scale(1); }
+  50% { opacity: 1; transform: translate(-50%, -50%) scale(1.08); }
+}
+
+@keyframes certificateLineMove {
+  0% { opacity: 0; transform: translate3d(-50px, 35px, 0) rotate(-22deg); }
+  35% { opacity: 1; }
+  100% { opacity: 0; transform: translate3d(100px, -50px, 0) rotate(-22deg); }
+}
+
+@keyframes certificateFadeInUp {
+  from { opacity: 0; transform: translateY(28px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes experienceGridMove {
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(84px, 84px, 0); }
+}
+
+@keyframes experienceOrbFloat {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(24px, -18px, 0) scale(1.08); }
+}
+
+@keyframes experienceOrbPulse {
+  0%, 100% { opacity: 0.7; transform: translate(-50%, -50%) scale(1); }
+  50% { opacity: 1; transform: translate(-50%, -50%) scale(1.08); }
+}
+
+@keyframes experienceLineMove {
+  0% { opacity: 0; transform: translate3d(-40px, 30px, 0) rotate(-24deg); }
+  35% { opacity: 1; }
+  100% { opacity: 0; transform: translate3d(90px, -45px, 0) rotate(-24deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .certificate-orb,
+  .certificate-orb-delay,
+  .certificate-orb-slow,
+  .certificate-line,
+  .portfolio-orb,
+  .portfolio-orb-delay,
+  .portfolio-orb-slow,
+  .portfolio-light-sweep,
+  .portfolio-line,
+  .experience-grid,
+  .experience-orb,
+  .experience-orb-delay,
+  .experience-orb-slow,
+  .experience-line {
+    animation: none;
+  }
 }
