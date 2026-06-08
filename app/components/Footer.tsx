@@ -35,8 +35,8 @@ export default function Footer() {
 
       <div className="relative mx-auto grid w-full max-w-7xl gap-9 px-5 py-10 sm:px-8 md:grid-cols-2 lg:grid-cols-[1.35fr_0.75fr_0.9fr] lg:px-12 lg:py-12">
         <div className="max-w-xl md:col-span-2 lg:col-span-1">
-          <Link href="/#home" className="group inline-flex items-center gap-4 no-underline">
-            <span className="relative flex h-12 w-12 shrink-0 items-center justify-center sm:h-14 sm:w-14">
+          <Link href="/#home" className="group inline-flex items-center gap-3 no-underline sm:gap-4">
+            <span className="relative flex h-11 w-11 shrink-0 items-center justify-center sm:h-14 sm:w-14">
               <Image
                 src={BRAND_LOGO_SRC}
                 alt="Fiat lux logo"
@@ -48,7 +48,7 @@ export default function Footer() {
 
             <span className="flex min-w-0 flex-col leading-none">
               <span
-                className="bg-gradient-to-r from-[#F4EDD8] via-[#FFF7E2] to-[#C8A96E] bg-clip-text text-[28px] font-semibold tracking-[0.10em] text-transparent"
+                className="bg-gradient-to-r from-[#F4EDD8] via-[#FFF7E2] to-[#C8A96E] bg-clip-text text-[24px] font-semibold tracking-[0.10em] text-transparent sm:text-[28px]"
                 style={{ fontFamily: "'Cormorant Garamond', serif" }}
               >
                 Fiat lux
