@@ -22,7 +22,7 @@ export default function ArchiveHeader({ title, backHref }: ArchiveHeaderProps) {
         </Link>
 
         <div className="pointer-events-none absolute inset-0 flex items-center justify-center px-24 text-center">
-          <p className="truncate text-[11px] font-semibold uppercase tracking-[0.28em] text-white">
+          <p className="truncate pb-0.5 text-[11px] font-semibold uppercase leading-[1.4] tracking-[0.28em] text-white">
             {title}
           </p>
         </div>

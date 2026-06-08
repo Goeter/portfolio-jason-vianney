@@ -137,7 +137,7 @@ export default function AllProjects() {
               Portfolio Work Library
             </p>
 
-            <h1 className="min-w-0 bg-gradient-to-r from-slate-50 via-cyan-100 to-[#C8A96E] bg-clip-text pb-1 text-2xl font-bold leading-[1.16] tracking-[-0.02em] text-transparent md:text-3xl md:leading-[1.16]">
+            <h1 className="min-w-0 bg-gradient-to-r from-slate-50 via-cyan-100 to-[#C8A96E] bg-clip-text pb-2 text-2xl font-bold leading-[1.22] tracking-[-0.02em] text-transparent md:text-3xl md:leading-[1.22]">
               Project Collection
             </h1>
 
@@ -167,7 +167,7 @@ export default function AllProjects() {
                     Filter Category
                   </p>
                   <p className="mt-1 text-xs leading-relaxed text-slate-400">
-                    Choose a category to narrow the project list. Available filters: Website and Application.
+                    Choose a category to narrow the project list.
                   </p>
                 </div>
               </div>
@@ -197,10 +197,7 @@ export default function AllProjects() {
         </section>
 
 
-        <div className="mb-4 flex animate-[fadeInUp_0.9s_ease-out_both] flex-wrap items-center justify-between gap-2">
-          <span className="rounded-full border border-white/10 bg-white/[0.06] px-3 py-1.5 text-[12px] font-bold uppercase tracking-[0.12em] text-slate-300 sm:px-4">
-            Sorted by Latest Upload
-          </span>
+        <div className="mb-4 flex animate-[fadeInUp_0.9s_ease-out_both] flex-wrap items-center justify-end gap-2">
           <span className="rounded-full border border-cyan-200/25 bg-cyan-300/12 px-3 py-1.5 text-[12px] font-bold uppercase tracking-[0.12em] text-cyan-100 sm:px-4">
             {filteredProjects.length} shown
           </span>

@@ -36,7 +36,7 @@ export default function Footer() {
       <div className="relative mx-auto grid w-full max-w-7xl gap-9 px-5 py-10 sm:px-8 md:grid-cols-2 lg:grid-cols-[1.35fr_0.75fr_0.9fr] lg:px-12 lg:py-12">
         <div className="max-w-xl md:col-span-2 lg:col-span-1">
           <Link href="/#home" className="group inline-flex items-center gap-4 no-underline">
-            <span className="relative flex h-14 w-14 shrink-0 items-center justify-center">
+            <span className="relative flex h-12 w-12 shrink-0 items-center justify-center sm:h-14 sm:w-14">
               <Image
                 src={BRAND_LOGO_SRC}
                 alt="Fiat lux logo"
