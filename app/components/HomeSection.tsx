@@ -418,13 +418,7 @@ export default function HomeSection() {
               }}
               {...fadeSlideLeft(0.65)}
             >
-              IT Professional with 4 years of experience in
-              fullstack development, system analysis, and
-              data analytics, focused on delivering efficient,
-              scalable, and user-centered digital solutions.
-              Also experienced as a Math and English Tutor
-              with strong analytical thinking and communication
-              skills.
+              Full-Stack Web Developer and System Analyst with 4+ years of experience building corporate websites, internal systems, and CMS-based platforms across finance, manufacturing, legal, and service industries. Skilled in translating business requirements into practical digital solutions that improve workflows, strengthen data management, and support efficient collaboration across teams. Also brings tutoring experience in Math, Physics, and English, with a structured and adaptive approach to communication, learning, and problem-solvings.
             </motion.p>
 
             {/* Buttons */}
