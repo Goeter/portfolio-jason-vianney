@@ -1,0 +1,8 @@
+Production fix applied.
+- Fixed HomeSection.tsx syntax error causing build failure.
+- Kept UI behaviour/animation intact except Download Resume action.
+- Resume button now same-tab direct PDF download.
+- Added light deploy/SEO hygiene files without touching UI.
+- Patched files:
+app/components/HomeSection.tsx
+lib/site-content.ts
