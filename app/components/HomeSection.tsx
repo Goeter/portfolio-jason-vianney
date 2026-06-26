@@ -278,7 +278,7 @@ const fadeSlideRight = {
 ───────────────────────────────────────────── */
 export default function HomeSection() {
   const handleDownloadPDF = () => {
-    window.location.href = "https://drive.google.com/uc?export=download&id=1o6p9lLNx5BpbMASjjv9kg9Bq4wpaF21p"
+    window.location.href = "https://drive.google.com/uc?export=download&id=1Mkwl_w5mq9ClCplY5Nh4xv8Oq6GYiRiL"
   }
 
   const handleViewProjects = () => {
