@@ -391,8 +391,8 @@ export const experiences: Experience[] = [
     workMode: "On-Site",
     logo: "/assets/company-logos/icon_freelance_it.webp",
     details: [
-      "Built a responsive front-end company profile website for PT Sigma to enhance digital credibility and improve customer access to company information.",
-      "Built a responsive company profile website and CMS for PT Steda Roaster to streamline content updates and present business offerings clearly to customers.",
+      "Developed corporate websites for PT Pemenang Konsultan Manajemen and Pemenang Mandiri Law Firm, covering system analysis, UI/UX design, full-stack development, and AI chatbot integration. Enhanced SEO, site performance, and user experience to improve online visibility, page speed, and client engagement.",
+      "Built a company profile website and CMS for PT Steda Roaster, combining responsive design, SEO, and maintainable code to streamline content management, simplify business updates, and improve content accessibility.",
     ],
   },
   {
@@ -404,7 +404,7 @@ export const experiences: Experience[] = [
     workMode: "On-Site",
     logo: "/assets/company-logos/icon_student_center.webp",
     details: [
-      "Taught Mathematics, Physics, and English to elementary and high school students through interactive learning methods, helping strengthen fundamentals, improve comprehension, and prepare for exams.",
+      "Taught Mathematics, Physics, and English to elementary and high school students, improving subject understanding, problem-solving skills, and exam preparation through structured and adaptive instruction.",
     ],
   },
   {
@@ -416,10 +416,9 @@ export const experiences: Experience[] = [
     workMode: "On-Site",
     logo: "/assets/company-logos/icon_topas.webp",
     details: [
-      "Developed systems that improved operational efficiency by up to 50% through integrated document and financial workflows.",
-      "Developed a corporate website to improve product visibility, support secure oversight, engage customers, and publish job vacancies.",
-      "Created an online loan mobile application to make financing services easier for customers to access.",
-      "Built a centralized HR system to manage payroll, attendance, performance, and employee records securely.",
+      "Analyzed business requirements and translated them into system solutions by preparing business and functional documents, mapping workflows in flowcharts and BPMN, and defining data and process requirements to support accurate, efficient operations across document and financial systems.",
+      "Designed a corporate website and mobile loan application with user-friendly UI/UX, clear user flows, and business-driven features to improve product visibility, simplify customer access, and support digital loan application and financing processes",
+      "Developed and enhanced a centralized HR management system covering payroll, attendance, performance tracking, and employee records, including validation rules, testing support, and data controls to improve reporting accuracy, strengthen data security, and reduce manual and human error.",
     ],
   },
   {
@@ -431,9 +430,8 @@ export const experiences: Experience[] = [
     workMode: "On-Site",
     logo: "/assets/company-logos/icon_astra.webp",
     details: [
-      "Developed an internal application for dealer motorcycle sales, order confirmation, delivery scheduling, and document validation.",
-      "Modernized an outdated system to be more secure, user-friendly, and reliable.",
-      "Performed unit testing to minimize bugs and human error, ensuring smooth deployment and user adoption.",
+      "Analyzed business requirements and translated them into functional solutions for an internal sales application, producing business documentation, process flows, and BPMN to improve workflow efficiency, process accuracy, and cross-functional alignment.",
+      "Supported legacy system modernization by enhancing usability, reliability, and security, strengthening validation controls, and conducting unit and functional testing to reduce manual errors and ensure deployment readiness.",
     ],
   },
   {
@@ -445,22 +443,8 @@ export const experiences: Experience[] = [
     workMode: "On-Site",
     logo: "/assets/company-logos/icon_wings.webp",
     details: [
-      "Enhancing the international sales website for seamless inventory tracking and real time digital sales monitoring across Asia.",
-      "Enhanced the mobile app with scanning features for accurate, real-time data capture.",
-      "Resolving critical bugs on the web and mobile platforms during live operations, restoring full functionality and uninterrupted use.",
-    ],
-  },
-  {
-    id: 6,
-    company: "Universitas Surabaya",
-    division: "Bachelor of Information Systems",
-    period: "2017 – 2021",
-    location: "Surabaya, Indonesia",
-    workMode: "Academic",
-    logo: "/assets/company-logos/icon_ubaya.webp",
-    details: [
-      "Assisting professors by preparing programming exercises and reviewing assignments to reinforce programming fundamentals.",
-      "Opened a Business Mathematics class that provided tutoring and exercises to strengthen mathematical logic for business contexts.",
+      "Enhanced an international sales web platform to support real-time inventory tracking and digital sales monitoring across Asia, while improving system workflows and data visibility for day-to-day sales operations.",
+      "Improved a mobile application by enhancing scanning and validation features and resolving critical web and mobile production issues, increasing data accuracy, system reliability, and operational continuity.",
     ],
   },
 ]
