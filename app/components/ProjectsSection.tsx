@@ -58,7 +58,7 @@ function ProjectCard({ project, index, isVisible }: { project: Project; index: n
             className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.035]"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-slate-950/82 via-slate-950/12 to-transparent" />
-          <span className="absolute bottom-3 left-3 z-20 rounded-full border border-cyan-200/25 bg-cyan-300/12 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.14em] text-cyan-100 shadow-sm backdrop-blur-md">
+          <span className="absolute bottom-3 left-3 z-20 rounded-full border border-white/20 bg-black px-3 py-1 text-[10px] font-bold uppercase tracking-[0.14em] text-white shadow-sm backdrop-blur-md">
             {projectCategoryLabels[project.category]}
           </span>
         </div>
