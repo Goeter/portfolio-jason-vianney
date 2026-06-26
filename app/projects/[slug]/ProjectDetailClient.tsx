@@ -109,8 +109,6 @@ function LatestProjectCard({ project }: { project: Project }) {
           {project.link ? (
             <a
               href={project.link}
-              target="_blank"
-              rel="noopener noreferrer"
               className="inline-flex items-center justify-center gap-2 rounded-full border border-cyan-400/70 bg-cyan-400/14 px-4 py-2 text-[12px] font-bold uppercase tracking-[0.08em] text-cyan-100 shadow-[0_10px_24px_rgba(14,165,233,0.15)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-cyan-400 hover:text-slate-950 hover:shadow-[0_14px_30px_rgba(6,182,212,0.26)]"
             >
               View Project
@@ -202,8 +200,6 @@ export default function ProjectDetailClient({ project }: ProjectDetailClientProp
             {project.link ? (
               <a
                 href={project.link}
-                target="_blank"
-                rel="noopener noreferrer"
                 className="inline-flex items-center justify-center gap-2 rounded-full border border-sky-500 bg-sky-500 px-5 py-2.5 text-[12px] font-bold uppercase tracking-[0.12em] text-white shadow-[0_12px_30px_rgba(14,165,233,0.28)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-cyan-500 hover:shadow-[0_16px_36px_rgba(6,182,212,0.32)]"
               >
                 View Project

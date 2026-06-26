@@ -17,8 +17,6 @@ export default function FloatingContact() {
   return (
     <a
       href={WHATSAPP_URL}
-      target="_blank"
-      rel="noopener noreferrer"
       aria-label="Open WhatsApp"
       className="fixed bottom-7 right-7 z-50 flex h-16 w-16 items-center justify-center rounded-full bg-emerald-400 text-slate-950 shadow-[0_18px_42px_rgba(16,185,129,0.35)] transition-all duration-300 hover:scale-110 hover:bg-emerald-300 active:scale-95"
     >

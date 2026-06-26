@@ -1,7 +1,7 @@
-.git
-.next
 node_modules
-.vercel
+.git
+.github
+.next/cache
+coverage
 *.log
 .DS_Store
-coverage

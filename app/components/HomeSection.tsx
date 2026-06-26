@@ -278,10 +278,8 @@ const fadeSlideRight = {
 ───────────────────────────────────────────── */
 export default function HomeSection() {
   const handleDownloadPDF = () => {
-    const fileId = siteConfig.contacts.resumeFileId
-
-    window.open(
-      `https://docs.google.com/document/d/${fileId}/export?format=pdf`,
+    window.location.href = "https://drive.google.com/uc?export=download&id=1X3l1DMvbzOeZ8C9ISJtk6pk8wMNxy_43"
+  }/export?format=pdf`,
       "_blank"
     )
   }

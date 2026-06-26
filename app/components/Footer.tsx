@@ -93,8 +93,6 @@ export default function Footer() {
                 <a
                   key={item.href}
                   href={item.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
                   aria-label={item.label}
                   className={`inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/[0.07] shadow-[0_12px_30px_rgba(0,0,0,0.28)] backdrop-blur-md transition-all duration-300 hover:-translate-y-1 ${item.className}`}
                 >
