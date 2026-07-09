@@ -18,14 +18,6 @@ export const projectCategoryLabels: Record<ProjectCategory, string> = {
   video: "Video",
 }
 
-export const projectCategoryOptions: { value: ProjectCategory | "all"; label: string }[] = [
-  { value: "all", label: "All Projects" },
-  { value: "website", label: "Website" },
-  { value: "application", label: "Application" },
-  { value: "documentation", label: "Documentation" },
-  { value: "video", label: "Video" },
-]
-
 export type Project = {
   id: number
   slug: string
@@ -118,6 +110,8 @@ export const siteConfig = {
     resumeFileId: "10Nllp8ydFAMENKFA0089aGdT5hCijCNd95oKo_DI3NU",
     github: "https://github.com/Goeter",
     linkedin: "https://www.linkedin.com/in/jasonvianneysugiarto",
+    whatsapp: "https://wa.me/6283856681999",
+    instagram: "https://www.instagram.com/pixelnav.id/",
   },
   sameAs: [
     "https://github.com/Goeter",

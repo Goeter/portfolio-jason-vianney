@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { professionalRoles, type ProfessionalRole, type ProfessionalRoleColor } from "@/lib/site-content"
+import { useScrollReveal } from "@/hooks/useScrollReveal"
 
 // ─────────────────────────────────────────────────────────────
 // Color Tokens
@@ -231,12 +232,14 @@ function RoleCard({ role }: { role: ProfessionalRole }) {
 // ─────────────────────────────────────────────────────────────
 
 export default function RolesShowcase() {
+  const { ref: headerRef, isVisible: headerVisible } = useScrollReveal<HTMLDivElement>({ threshold: 0.2 })
+
   const [current, setCurrent] = useState(0)
   const [visibleCount, setVisibleCount] = useState(3)
 
   const wrapRef = useRef<HTMLDivElement>(null)
   const touchStartX = useRef(0)
-  const timerRef = useRef<NodeJS.Timeout | null>(null)
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   const maxIndex = useMemo(
     () => Math.max(professionalRoles.length - visibleCount, 0),
@@ -321,7 +324,10 @@ export default function RolesShowcase() {
 
       <div className="relative z-10">
         {/* Header */}
-        <div className="px-6 pb-10 text-center">
+        <div
+          ref={headerRef}
+          className={`px-6 pb-10 text-center reveal-hidden ${headerVisible ? "reveal-visible" : ""}`}
+        >
           <h2
             className="m-0 text-[2.4rem] sm:text-[2.8rem] md:text-[3.15rem] font-bold leading-tight text-[#f0e8d4]"
             style={{
@@ -364,10 +370,20 @@ export default function RolesShowcase() {
               transition: "transform 0.65s cubic-bezier(.4,0,.2,1)",
             }}
           >
-            {professionalRoles.map((role) => (
+            {professionalRoles.map((role, roleIndex) => (
               <div
                 key={role.id}
-                className="flex justify-center px-3 pt-[0.35rem] pb-[0.45rem]"
+                className={`flex justify-center px-3 pt-[0.35rem] pb-[0.45rem] reveal-hidden ${
+                  headerVisible
+                    ? `reveal-visible ${
+                        roleIndex === 0
+                          ? ""
+                          : roleIndex === 1
+                          ? "reveal-delay-1"
+                          : "reveal-delay-2"
+                      }`
+                    : ""
+                }`}
                 style={{
                   flexBasis: `${cardWidth}%`,
                   minWidth: `${cardWidth}%`,

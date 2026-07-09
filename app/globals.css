@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ─────────────────────────────────────────────
+   Base Reset & Tokens
+───────────────────────────────────────────── */
 @layer base {
   :root {
     --background: 222.2 84% 4.9%;
@@ -48,6 +51,70 @@
   }
 }
 
+/* ─────────────────────────────────────────────
+   Scroll Reveal Animation System
+   Semua konten pakai class ini untuk muncul
+   satu persatu saat di-scroll.
+───────────────────────────────────────────── */
+@layer utilities {
+
+  /* State: hidden (sebelum masuk viewport) */
+  .reveal-hidden {
+    opacity: 0;
+    transform: translateY(36px);
+    transition:
+      opacity 0.72s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.72s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: opacity, transform;
+  }
+
+  .reveal-hidden-left {
+    opacity: 0;
+    transform: translateX(-36px);
+    transition:
+      opacity 0.72s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.72s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: opacity, transform;
+  }
+
+  .reveal-hidden-right {
+    opacity: 0;
+    transform: translateX(36px);
+    transition:
+      opacity 0.72s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.72s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: opacity, transform;
+  }
+
+  .reveal-hidden-scale {
+    opacity: 0;
+    transform: scale(0.94) translateY(20px);
+    transition:
+      opacity 0.72s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.72s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: opacity, transform;
+  }
+
+  /* State: visible (sudah masuk viewport) */
+  .reveal-visible {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  /* Delay utilities untuk stagger effect */
+  .reveal-delay-1 { transition-delay: 80ms !important; }
+  .reveal-delay-2 { transition-delay: 160ms !important; }
+  .reveal-delay-3 { transition-delay: 240ms !important; }
+  .reveal-delay-4 { transition-delay: 320ms !important; }
+  .reveal-delay-5 { transition-delay: 400ms !important; }
+  .reveal-delay-6 { transition-delay: 480ms !important; }
+  .reveal-delay-7 { transition-delay: 560ms !important; }
+  .reveal-delay-8 { transition-delay: 640ms !important; }
+}
+
+/* ─────────────────────────────────────────────
+   Section Transition (section border blend)
+───────────────────────────────────────────── */
 @layer utilities {
   .section-transition-soft {
     isolation: isolate;
@@ -75,6 +142,7 @@
     background: linear-gradient(to top, rgba(2, 6, 23, 0.62), transparent);
   }
 
+  /* Scrollbar hide untuk card/preview */
   .portfolio-preview-scroll,
   .no-card-scrollbar,
   .no-card-scrollbar * {
@@ -91,32 +159,33 @@
   }
 }
 
-.project-archive-card {
-  animation: fadeInUp 0.78s ease-out both;
-}
+/* ─────────────────────────────────────────────
+   Ambient Background Animations
+   (orbs, lines, sweeps — dekoratif saja)
+───────────────────────────────────────────── */
 
-.certificate-card {
-  animation: certificateFadeInUp 0.8s ease-out both;
-}
-
+/* Portfolio Section Orbs */
 .portfolio-orb {
   animation: portfolioOrbFloat 10s ease-in-out infinite;
+  transform: translateZ(0);
 }
-
 .portfolio-orb-delay {
   animation: portfolioOrbFloat 12s ease-in-out infinite;
   animation-delay: 1.4s;
+  transform: translateZ(0);
 }
-
 .portfolio-orb-slow {
   animation: portfolioOrbPulse 14s ease-in-out infinite;
   animation-delay: 0.8s;
+  transform: translateZ(0);
 }
 
 .portfolio-light-sweep {
   animation: portfolioLightSweep 8.5s ease-in-out infinite;
+  transform: translateZ(0);
 }
 
+/* Portfolio Lines */
 .portfolio-line,
 .certificate-line,
 .experience-line {
@@ -137,23 +206,25 @@
   animation-delay: 1.6s;
 }
 
+/* Certificate Section Orbs */
 .certificate-orb {
   animation: certificateOrbFloat 9s ease-in-out infinite;
+  transform: translateZ(0);
 }
-
 .certificate-orb-delay {
   animation: certificateOrbFloat 11s ease-in-out infinite;
   animation-delay: 1.5s;
+  transform: translateZ(0);
 }
-
 .certificate-orb-slow {
   animation: certificateOrbPulse 13s ease-in-out infinite;
   animation-delay: 0.8s;
+  transform: translateZ(0);
 }
 
 .certificate-line {
   width: 170px;
-  background: linear-gradient(90deg, transparent, rgba(16, 185, 129, 0.48), transparent);
+  background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.48), transparent);
   transform: rotate(-22deg);
   animation: certificateLineMove 5.5s ease-in-out infinite;
 }
@@ -163,60 +234,58 @@
   animation-duration: 7s;
 }
 
+/* Experience Section */
 .experience-grid {
   animation: experienceGridMove 20s linear infinite;
+  transform: translateZ(0);
 }
-
 .experience-orb {
   animation: experienceOrbFloat 8s ease-in-out infinite;
+  transform: translateZ(0);
 }
-
 .experience-orb-delay {
   animation: experienceOrbFloat 10s ease-in-out infinite;
   animation-delay: 1.5s;
+  transform: translateZ(0);
 }
-
 .experience-orb-slow {
   animation: experienceOrbPulse 7s ease-in-out infinite;
+  transform: translateZ(0);
 }
-
 .experience-line {
   width: 160px;
   background: linear-gradient(90deg, transparent, rgba(212, 168, 67, 0.76), transparent);
   transform: rotate(-24deg);
   animation: experienceLineMove 5s ease-in-out infinite;
 }
-
 .experience-line-slow {
   animation-delay: 2.2s;
   animation-duration: 7s;
 }
 
-@keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(30px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
+/* ─────────────────────────────────────────────
+   Floating Contact Button
+───────────────────────────────────────────── */
 @keyframes contactFloat {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-6px); }
 }
 
+/* ─────────────────────────────────────────────
+   Ambient Keyframes
+───────────────────────────────────────────── */
 @keyframes portfolioOrbFloat {
   0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
   50% { transform: translate3d(24px, -18px, 0) scale(1.06); }
 }
-
 @keyframes portfolioOrbPulse {
   0%, 100% { opacity: 0.78; transform: translate3d(0, 0, 0) scale(1); }
   50% { opacity: 1; transform: translate3d(-18px, 16px, 0) scale(1.08); }
 }
-
 @keyframes portfolioLightSweep {
   0%, 100% { opacity: 0.5; transform: translateX(-4%); }
   50% { opacity: 0.95; transform: translateX(4%); }
 }
-
 @keyframes portfolioLineMove {
   0% { opacity: 0; transform: translate3d(-56px, 36px, 0) rotate(-20deg); }
   35% { opacity: 1; }
@@ -227,45 +296,47 @@
   0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
   50% { transform: translate3d(26px, -20px, 0) scale(1.08); }
 }
-
 @keyframes certificateOrbPulse {
   0%, 100% { opacity: 0.68; transform: translate(-50%, -50%) scale(1); }
   50% { opacity: 1; transform: translate(-50%, -50%) scale(1.08); }
 }
-
 @keyframes certificateLineMove {
   0% { opacity: 0; transform: translate3d(-50px, 35px, 0) rotate(-22deg); }
   35% { opacity: 1; }
   100% { opacity: 0; transform: translate3d(100px, -50px, 0) rotate(-22deg); }
 }
 
-@keyframes certificateFadeInUp {
-  from { opacity: 0; transform: translateY(28px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
 @keyframes experienceGridMove {
   from { transform: translate3d(0, 0, 0); }
   to { transform: translate3d(84px, 84px, 0); }
 }
-
 @keyframes experienceOrbFloat {
   0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
   50% { transform: translate3d(24px, -18px, 0) scale(1.08); }
 }
-
 @keyframes experienceOrbPulse {
   0%, 100% { opacity: 0.7; transform: translate(-50%, -50%) scale(1); }
   50% { opacity: 1; transform: translate(-50%, -50%) scale(1.08); }
 }
-
 @keyframes experienceLineMove {
   0% { opacity: 0; transform: translate3d(-40px, 30px, 0) rotate(-24deg); }
   35% { opacity: 1; }
   100% { opacity: 0; transform: translate3d(90px, -45px, 0) rotate(-24deg); }
 }
 
+/* ─────────────────────────────────────────────
+   Reduced Motion Accessibility
+───────────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
+  .reveal-hidden,
+  .reveal-hidden-left,
+  .reveal-hidden-right,
+  .reveal-hidden-scale {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
   .certificate-orb,
   .certificate-orb-delay,
   .certificate-orb-slow,

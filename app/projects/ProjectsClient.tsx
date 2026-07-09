@@ -14,6 +14,7 @@ import {
   type Project,
   type ProjectCategory,
 } from "@/lib/site-content"
+import { BLUR_DATA_URL } from "@/lib/utils"
 
 const archiveFilterOptions: { value: ProjectCategory | "all"; label: string }[] = [
   { value: "all", label: "All Projects" },
@@ -23,8 +24,42 @@ const archiveFilterOptions: { value: ProjectCategory | "all"; label: string }[] 
 
 function ArchiveBackground() {
   return (
-    <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden bg-[radial-gradient(circle_at_16%_16%,rgba(14,165,233,0.24),transparent_30%),radial-gradient(circle_at_84%_24%,rgba(245,158,11,0.12),transparent_32%),radial-gradient(circle_at_50%_96%,rgba(34,211,238,0.10),transparent_34%),linear-gradient(135deg,#020617_0%,#07111f_46%,#0d1829_100%)]">
-      <div className="absolute inset-0 opacity-[0.10] bg-[linear-gradient(to_right,rgba(125,211,252,0.45)_1px,transparent_1px),linear-gradient(to_bottom,rgba(125,211,252,0.30)_1px,transparent_1px)] bg-[size:82px_82px]" />
+    <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden bg-[linear-gradient(135deg,#020617_0%,#07111f_46%,#0d1829_100%)]">
+      <svg
+        className="absolute inset-0 h-full w-full"
+        viewBox="0 0 1440 900"
+        preserveAspectRatio="xMidYMid slice"
+        xmlns="http://www.w3.org/2000/svg"
+        aria-hidden="true"
+      >
+        <defs>
+          <pattern id="archKawung" width="56" height="56" patternUnits="userSpaceOnUse">
+            <ellipse cx="28" cy="14" rx="11" ry="7" fill="none" stroke="#38bdf8" strokeWidth="0.4" opacity="0.18" />
+            <ellipse cx="28" cy="42" rx="11" ry="7" fill="none" stroke="#38bdf8" strokeWidth="0.4" opacity="0.18" />
+            <ellipse cx="14" cy="28" rx="7" ry="11" fill="none" stroke="#38bdf8" strokeWidth="0.4" opacity="0.18" />
+            <ellipse cx="42" cy="28" rx="7" ry="11" fill="none" stroke="#38bdf8" strokeWidth="0.4" opacity="0.18" />
+            <circle cx="28" cy="28" r="3" fill="none" stroke="#38bdf8" strokeWidth="0.35" opacity="0.14" />
+          </pattern>
+          <pattern id="archCircuit" width="64" height="64" patternUnits="userSpaceOnUse">
+            <line x1="0" y1="32" x2="64" y2="32" stroke="#7dd3fc" strokeWidth="0.25" opacity="0.12" />
+            <line x1="32" y1="0" x2="32" y2="64" stroke="#7dd3fc" strokeWidth="0.25" opacity="0.12" />
+            <circle cx="32" cy="32" r="2.5" fill="none" stroke="#7dd3fc" strokeWidth="0.3" opacity="0.16" />
+          </pattern>
+          <radialGradient id="archGlowL" cx="18%" cy="20%" r="42%">
+            <stop offset="0%" stopColor="#0ea5e9" stopOpacity="0.18" />
+            <stop offset="100%" stopColor="#0ea5e9" stopOpacity="0" />
+          </radialGradient>
+          <radialGradient id="archGlowR" cx="82%" cy="75%" r="38%">
+            <stop offset="0%" stopColor="#f59e0b" stopOpacity="0.10" />
+            <stop offset="100%" stopColor="#f59e0b" stopOpacity="0" />
+          </radialGradient>
+        </defs>
+        <rect width="1440" height="900" fill="url(#archKawung)" />
+        <rect width="1440" height="900" fill="url(#archCircuit)" />
+        <rect width="1440" height="900" fill="url(#archGlowL)" />
+        <rect width="1440" height="900" fill="url(#archGlowR)" />
+      </svg>
+      <div className="absolute inset-0 opacity-[0.07] bg-[linear-gradient(to_right,rgba(125,211,252,0.45)_1px,transparent_1px),linear-gradient(to_bottom,rgba(125,211,252,0.30)_1px,transparent_1px)] bg-[size:82px_82px]" />
       <div className="portfolio-orb absolute -left-32 top-20 h-96 w-96 rounded-full bg-sky-500/18 blur-[130px]" />
       <div className="portfolio-orb-delay absolute -right-28 top-40 h-[28rem] w-[28rem] rounded-full bg-cyan-300/14 blur-[145px]" />
       <div className="portfolio-orb-slow absolute bottom-[-11rem] left-1/2 h-[32rem] w-[32rem] -translate-x-1/2 rounded-full bg-amber-300/10 blur-[155px]" />
@@ -42,6 +77,8 @@ function ProjectCardImage({ project }: { project: Project }) {
       alt={`${project.title} preview`}
       fill
       sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
+      placeholder="blur"
+      blurDataURL={BLUR_DATA_URL}
       className="object-cover object-center transition-transform duration-700 group-hover:scale-[1.035]"
     />
   )

@@ -5,8 +5,7 @@ import { projectsCollectionStructuredData, siteConfig } from "@/lib/site-content
 
 export const metadata: Metadata = {
   title: `Projects | ${siteConfig.shortName} Portfolio`,
-  description:
-    "Explore Jason Vianney Sugiarto's portfolio projects across system analysis, UI/UX design, data analysis, fullstack development, CMS websites, HR systems, and mobile applications.",
+  description: `Explore ${siteConfig.owner}'s portfolio projects across system analysis, UI/UX design, data analysis, fullstack development, CMS websites, HR systems, and mobile applications.`,
   alternates: { canonical: "/projects" },
   openGraph: {
     title: `Projects | ${siteConfig.shortName} Portfolio`,

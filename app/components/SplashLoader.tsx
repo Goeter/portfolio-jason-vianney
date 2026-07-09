@@ -1,12 +1,13 @@
 "use client"
 
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, useCallback } from "react"
+import { siteConfig } from "@/lib/site-content"
 
 type Props = {
   onLoadingComplete: () => void
 }
 
-const FULL_NAME = "Jason Vianney Sugiarto"
+const FULL_NAME = siteConfig.owner
 
 const STATUS_MSGS = [
   "Loading Power Core...",
@@ -43,6 +44,11 @@ export default function SplashLoader({
   onLoadingComplete,
 }: Props) {
   const containerRef = useRef<HTMLDivElement>(null)
+
+  // Stable ref for callback — prevents useEffect re-runs on parent re-render
+  const onCompleteRef = useRef(onLoadingComplete)
+  onCompleteRef.current = onLoadingComplete
+  const stableOnComplete = useCallback(() => onCompleteRef.current(), [])
 
   const ph1Ref = useRef<HTMLDivElement>(null)
   const ph2Ref = useRef<HTMLDivElement>(null)
@@ -657,7 +663,7 @@ export default function SplashLoader({
                       )
 
                       setTimeout(() => {
-                        onLoadingComplete()
+                        stableOnComplete()
                       }, 1400)
                     }, 2600)
                   }
@@ -683,7 +689,7 @@ export default function SplashLoader({
         arcRafRef.current,
       ].forEach(cancelAnimationFrame)
     }
-  }, [onLoadingComplete])
+  }, [stableOnComplete])
 
   return (
     <>

@@ -5,13 +5,11 @@ import { certificatesCollectionStructuredData, siteConfig } from "@/lib/site-con
 
 export const metadata: Metadata = {
   title: `Certificates | ${siteConfig.shortName} Portfolio`,
-  description:
-    "A complete archive of Jason Vianney Sugiarto's certificates, professional training, and learning achievements in English, teaching, data analytics, and UI/UX design.",
+  description: `A complete archive of ${siteConfig.owner}'s certificates, professional training, and learning achievements in English, teaching, data analytics, and UI/UX design.`,
   alternates: { canonical: "/certificates" },
   openGraph: {
     title: `Certificates | ${siteConfig.shortName} Portfolio`,
-    description:
-      "Explore Jason Vianney Sugiarto's certificate archive and professional learning achievements.",
+    description: `Explore ${siteConfig.owner}'s certificate archive and professional learning achievements.`,
     url: `${siteConfig.url}/certificates`,
     images: [siteConfig.defaultOgImage],
   },

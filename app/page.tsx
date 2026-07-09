@@ -4,7 +4,7 @@ import { useEffect, useMemo, useState } from "react"
 
 import CertificatesSection from "./components/CertificatesSection"
 import ExperienceSection from "./components/ExperienceSection"
-import FloatingContact from "./components/FloatingContact"
+import AIChatbot from "./components/AIChatbot"
 import Footer from "./components/Footer"
 import HomeSection from "./components/HomeSection"
 import Navbar from "./components/Navbar"
@@ -27,20 +27,20 @@ function SiteBackdrop() {
 
 export default function Home() {
   const [activeSection, setActiveSection] = useState(navItems[0]?.id ?? "home")
-  const [isClient, setIsClient] = useState(false)
-  const [isLoading, setIsLoading] = useState(() => {
-    if (typeof window === "undefined") return true
-    return !sessionStorage.getItem(SPLASH_STORAGE_KEY)
-  })
+  const [isLoading, setIsLoading] = useState(true)
+  const [isMounted, setIsMounted] = useState(false)
 
   const sectionIds = useMemo(() => navItems.map((item) => item.id), [])
 
+  // After mount: check sessionStorage and mark as mounted to avoid hydration mismatch
   useEffect(() => {
-    setIsClient(true)
+    const alreadyShown = sessionStorage.getItem(SPLASH_STORAGE_KEY)
+    if (alreadyShown) setIsLoading(false)
+    setIsMounted(true)
   }, [])
 
   useEffect(() => {
-    if (!isClient || isLoading) return
+    if (isLoading) return
 
     let scrollFrame = 0
 
@@ -75,12 +75,15 @@ export default function Home() {
       cancelAnimationFrame(scrollFrame)
       window.removeEventListener("scroll", updateActiveSection)
     }
-  }, [isClient, isLoading, sectionIds])
+  }, [isLoading, sectionIds])
 
   const handleLoadingComplete = () => {
     setIsLoading(false)
     sessionStorage.setItem(SPLASH_STORAGE_KEY, "true")
   }
+
+  // Render nothing until mounted to prevent hydration mismatch
+  if (!isMounted) return null
 
   if (isLoading) {
     return <SplashLoader onLoadingComplete={handleLoadingComplete} />
@@ -99,7 +102,7 @@ export default function Home() {
         <ExperienceSection />
       </main>
 
-      <FloatingContact />
+      <AIChatbot />
       <Footer />
     </div>
   )

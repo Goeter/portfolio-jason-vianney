@@ -1,51 +1,14 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react"
 import Image from "next/image"
 import { BriefcaseBusiness, CalendarDays, MapPin } from "lucide-react"
 import { experiences } from "@/lib/site-content"
+import { BLUR_DATA_URL } from "@/lib/utils"
+import { useScrollReveal } from "@/hooks/useScrollReveal"
 
 export default function ExperienceSection() {
-  const sectionRef = useRef<HTMLElement | null>(null)
-  const [isVisible, setIsVisible] = useState(false)
+  const { ref: sectionRef, isVisible } = useScrollReveal<HTMLElement>({ threshold: 0.06 })
 
-  useEffect(() => {
-    const section = sectionRef.current
-
-    if (!section) return
-
-    const isMobile = window.matchMedia("(max-width: 767px)").matches
-
-    if (isMobile || !("IntersectionObserver" in window)) {
-      setIsVisible(true)
-      return
-    }
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true)
-          observer.disconnect()
-        }
-      },
-      {
-        threshold: 0.08,
-        rootMargin: "0px 0px -8% 0px",
-      }
-    )
-
-    observer.observe(section)
-
-    const fallbackTimer = window.setTimeout(() => {
-      setIsVisible(true)
-      observer.disconnect()
-    }, 1200)
-
-    return () => {
-      window.clearTimeout(fallbackTimer)
-      observer.disconnect()
-    }
-  }, [])
 
   return (
     <section
@@ -71,8 +34,8 @@ export default function ExperienceSection() {
 
       <div className="container relative z-10 mx-auto max-w-6xl px-4">
         <div
-          className={`mx-auto mb-10 max-w-3xl text-center transition-all duration-700 ease-out sm:mb-14 lg:mx-0 lg:text-left ${
-            isVisible ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
+          className={`mx-auto mb-10 max-w-3xl text-center reveal-hidden sm:mb-14 lg:mx-0 lg:text-left ${
+            isVisible ? "reveal-visible" : ""
           }`}
         >
           <p className="mb-4 text-xs font-semibold uppercase tracking-[0.26em] text-[#d4a843] sm:text-sm sm:tracking-[0.32em]">
@@ -95,10 +58,10 @@ export default function ExperienceSection() {
             {experiences.map((experience, index) => (
               <article
                 key={experience.id}
-                className={`group relative overflow-hidden rounded-[24px] border border-white/10 bg-[#0b1020]/78 p-4 shadow-2xl shadow-black/30 backdrop-blur-xl transition-all duration-700 ease-out hover:-translate-y-1 hover:border-[#d4a843]/35 hover:bg-[#0d1226]/88 hover:shadow-[0_22px_65px_rgba(0,0,0,0.48)] sm:rounded-[28px] sm:p-5 md:ml-12 md:p-6 ${
-                  isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
+                className={`group relative overflow-hidden rounded-[24px] border border-white/10 bg-[#0b1020]/78 p-4 shadow-2xl shadow-black/30 backdrop-blur-xl transition-all duration-700 ease-out hover:-translate-y-1 hover:border-[#d4a843]/35 hover:bg-[#0d1226]/88 hover:shadow-[0_22px_65px_rgba(0,0,0,0.48)] sm:rounded-[28px] sm:p-5 md:ml-12 md:p-6 reveal-hidden ${
+                  isVisible ? "reveal-visible" : ""
                 }`}
-                style={{ transitionDelay: isVisible ? `${index * 90}ms` : "0ms" }}
+                style={{ transitionDelay: isVisible ? `${index * 100}ms` : "0ms" }}
               >
                 <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#d4a843]/55 to-transparent" />
                 <div className="absolute right-0 top-0 h-24 w-24 rounded-bl-full bg-[#d4a843]/5 transition duration-500 group-hover:bg-[#d4a843]/10 sm:h-28 sm:w-28" />
@@ -115,6 +78,8 @@ export default function ExperienceSection() {
                         alt={`${experience.company} logo`}
                         width={80}
                         height={80}
+                        placeholder="blur"
+                        blurDataURL={BLUR_DATA_URL}
                         className="h-full w-full object-contain"
                       />
                     </div>

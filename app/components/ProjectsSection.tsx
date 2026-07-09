@@ -1,6 +1,6 @@
 "use client"
 
-import { useCallback, useEffect, useMemo, useRef, useState } from "react"
+import { useCallback, useEffect, useMemo, useState } from "react"
 import type { TouchEvent } from "react"
 import Image from "next/image"
 import Link from "next/link"
@@ -13,6 +13,8 @@ import {
   projectsLatestFirst,
   type Project,
 } from "@/lib/site-content"
+import { BLUR_DATA_URL } from "@/lib/utils"
+import { useScrollReveal } from "@/hooks/useScrollReveal"
 
 const getCardsPerPage = () => {
   if (window.innerWidth < 768) return 1
@@ -22,8 +24,56 @@ const getCardsPerPage = () => {
 
 function ProjectsBackground() {
   return (
-    <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden bg-[radial-gradient(circle_at_16%_16%,rgba(14,165,233,0.24),transparent_30%),radial-gradient(circle_at_84%_24%,rgba(245,158,11,0.12),transparent_32%),radial-gradient(circle_at_50%_96%,rgba(34,211,238,0.10),transparent_34%),linear-gradient(135deg,#020617_0%,#07111f_46%,#0d1829_100%)]">
-      <div className="absolute inset-0 opacity-[0.10] bg-[linear-gradient(to_right,rgba(125,211,252,0.45)_1px,transparent_1px),linear-gradient(to_bottom,rgba(125,211,252,0.30)_1px,transparent_1px)] bg-[size:82px_82px]" />
+    <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden bg-[linear-gradient(135deg,#020617_0%,#07111f_46%,#0d1829_100%)]">
+      {/* Batik Kawung + Circuit SVG */}
+      <svg
+        className="absolute inset-0 h-full w-full"
+        viewBox="0 0 1440 900"
+        preserveAspectRatio="xMidYMid slice"
+        xmlns="http://www.w3.org/2000/svg"
+        aria-hidden="true"
+      >
+        <defs>
+          {/* Kawung batik pattern — cyan accent */}
+          <pattern id="projKawung" width="56" height="56" patternUnits="userSpaceOnUse">
+            <ellipse cx="28" cy="14" rx="11" ry="7" fill="none" stroke="#38bdf8" strokeWidth="0.4" opacity="0.18" />
+            <ellipse cx="28" cy="42" rx="11" ry="7" fill="none" stroke="#38bdf8" strokeWidth="0.4" opacity="0.18" />
+            <ellipse cx="14" cy="28" rx="7" ry="11" fill="none" stroke="#38bdf8" strokeWidth="0.4" opacity="0.18" />
+            <ellipse cx="42" cy="28" rx="7" ry="11" fill="none" stroke="#38bdf8" strokeWidth="0.4" opacity="0.18" />
+            <circle cx="28" cy="28" r="3" fill="none" stroke="#38bdf8" strokeWidth="0.35" opacity="0.14" />
+          </pattern>
+          {/* Circuit / tech grid pattern */}
+          <pattern id="projCircuit" width="64" height="64" patternUnits="userSpaceOnUse">
+            <line x1="0" y1="32" x2="64" y2="32" stroke="#7dd3fc" strokeWidth="0.25" opacity="0.12" />
+            <line x1="32" y1="0" x2="32" y2="64" stroke="#7dd3fc" strokeWidth="0.25" opacity="0.12" />
+            <circle cx="32" cy="32" r="2.5" fill="none" stroke="#7dd3fc" strokeWidth="0.3" opacity="0.16" />
+            <circle cx="0" cy="0" r="1.5" fill="#7dd3fc" opacity="0.10" />
+            <circle cx="64" cy="64" r="1.5" fill="#7dd3fc" opacity="0.10" />
+          </pattern>
+          {/* Radial glow accents */}
+          <radialGradient id="projGlowL" cx="18%" cy="20%" r="42%">
+            <stop offset="0%" stopColor="#0ea5e9" stopOpacity="0.18" />
+            <stop offset="100%" stopColor="#0ea5e9" stopOpacity="0" />
+          </radialGradient>
+          <radialGradient id="projGlowR" cx="82%" cy="75%" r="38%">
+            <stop offset="0%" stopColor="#f59e0b" stopOpacity="0.10" />
+            <stop offset="100%" stopColor="#f59e0b" stopOpacity="0" />
+          </radialGradient>
+        </defs>
+        <rect width="1440" height="900" fill="url(#projKawung)" />
+        <rect width="1440" height="900" fill="url(#projCircuit)" />
+        <rect width="1440" height="900" fill="url(#projGlowL)" />
+        <rect width="1440" height="900" fill="url(#projGlowR)" />
+        {/* Decorative circuit traces */}
+        <line x1="0" y1="220" x2="180" y2="220" stroke="#22d3ee" strokeWidth="0.4" opacity="0.18" />
+        <line x1="180" y1="220" x2="210" y2="250" stroke="#22d3ee" strokeWidth="0.4" opacity="0.18" />
+        <circle cx="180" cy="220" r="2.5" fill="#22d3ee" opacity="0.24" />
+        <line x1="1260" y1="680" x2="1440" y2="680" stroke="#f59e0b" strokeWidth="0.4" opacity="0.16" />
+        <line x1="1260" y1="680" x2="1230" y2="650" stroke="#f59e0b" strokeWidth="0.4" opacity="0.16" />
+        <circle cx="1260" cy="680" r="2.5" fill="#f59e0b" opacity="0.22" />
+      </svg>
+      {/* Ambient elements */}
+      <div className="absolute inset-0 opacity-[0.07] bg-[linear-gradient(to_right,rgba(125,211,252,0.45)_1px,transparent_1px),linear-gradient(to_bottom,rgba(125,211,252,0.30)_1px,transparent_1px)] bg-[size:82px_82px]" />
       <div className="portfolio-orb absolute -left-32 top-20 h-96 w-96 rounded-full bg-sky-500/18 blur-[130px]" />
       <div className="portfolio-orb-delay absolute -right-28 top-40 h-[28rem] w-[28rem] rounded-full bg-cyan-300/14 blur-[145px]" />
       <div className="portfolio-orb-slow absolute bottom-[-11rem] left-1/2 h-[32rem] w-[32rem] -translate-x-1/2 rounded-full bg-amber-300/10 blur-[155px]" />
@@ -35,12 +85,18 @@ function ProjectsBackground() {
 }
 
 function ProjectCard({ project, index, isVisible }: { project: Project; index: number; isVisible: boolean }) {
+  const delayClass = [
+    "",
+    "reveal-delay-1",
+    "reveal-delay-2",
+    "reveal-delay-3",
+  ][Math.min(index, 3)]
+
   return (
     <div
-      className={`flex flex-1 transition-all duration-700 ease-out ${
-        isVisible ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
+      className={`flex flex-1 reveal-hidden ${delayClass} ${
+        isVisible ? "reveal-visible" : ""
       }`}
-      style={{ transitionDelay: `${Math.min(index * 90, 360)}ms` }}
     >
       <article className="group relative flex h-full min-w-0 flex-1 flex-col overflow-hidden rounded-[28px] border border-cyan-200/28 bg-[#0B1220]/95 shadow-[0_26px_70px_rgba(0,0,0,0.55),0_0_0_1px_rgba(103,232,249,0.10)] ring-1 ring-white/[0.06] backdrop-blur-md transition-all duration-500 ease-fluid hover:-translate-y-1 hover:border-cyan-200/65 hover:bg-[#0F1B2E]/98 hover:shadow-[0_30px_86px_rgba(14,165,233,0.25),0_0_0_1px_rgba(103,232,249,0.22)]">
         <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100">
@@ -55,6 +111,8 @@ function ProjectCard({ project, index, isVisible }: { project: Project; index: n
             alt={project.title}
             fill
             sizes="(max-width: 768px) 100vw, (max-width: 1100px) 45vw, 30vw"
+            placeholder="blur"
+            blurDataURL={BLUR_DATA_URL}
             className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.035]"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-slate-950/82 via-slate-950/12 to-transparent" />
@@ -101,12 +159,11 @@ function ProjectCard({ project, index, isVisible }: { project: Project; index: n
 }
 
 export default function ProjectsSection() {
-  const sectionRef = useRef<HTMLElement | null>(null)
+  const { ref: sectionRef, isVisible } = useScrollReveal<HTMLElement>({ threshold: 0.12 })
 
   const [currentPage, setCurrentPage] = useState(0)
   const [cardsPerPage, setCardsPerPage] = useState(3)
   const [isClient, setIsClient] = useState(false)
-  const [isVisible, setIsVisible] = useState(false)
   const [touchStartX, setTouchStartX] = useState<number | null>(null)
   const [touchEndX, setTouchEndX] = useState<number | null>(null)
 
@@ -133,20 +190,7 @@ export default function ProjectsSection() {
     }
   }, [])
 
-  useEffect(() => {
-    const section = sectionRef.current
-    if (!section) return
 
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) setIsVisible(true)
-      },
-      { threshold: 0.25 }
-    )
-
-    observer.observe(section)
-    return () => observer.disconnect()
-  }, [])
 
   useEffect(() => {
     setCurrentPage(0)
@@ -210,8 +254,8 @@ export default function ProjectsSection() {
 
       <div className="relative z-10 mx-auto w-full max-w-6xl px-4">
         <div
-          className={`mb-10 transition-all duration-700 ease-out ${
-            isVisible ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"
+          className={`mb-10 reveal-hidden ${
+            isVisible ? "reveal-visible" : ""
           }`}
         >
           <div className="flex items-start justify-between gap-4">
@@ -244,8 +288,8 @@ export default function ProjectsSection() {
         </div>
 
         <div
-          className={`relative transition-all delay-200 duration-700 ease-out ${
-            isVisible ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
+          className={`relative reveal-hidden reveal-delay-2 ${
+            isVisible ? "reveal-visible" : ""
           }`}
         >
           <button
@@ -301,8 +345,8 @@ export default function ProjectsSection() {
         </div>
 
         <div
-          className={`mt-3 flex items-center justify-center gap-4 transition-all delay-300 duration-700 ease-out ${
-            isVisible ? "translate-y-0 opacity-100" : "translate-y-5 opacity-0"
+          className={`mt-3 flex items-center justify-center gap-4 reveal-hidden reveal-delay-3 ${
+            isVisible ? "reveal-visible" : ""
           }`}
         >
           <button
