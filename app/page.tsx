@@ -7,7 +7,7 @@ import ExperienceSection from "./components/ExperienceSection"
 import AIChatbot from "./components/AIChatbot"
 import Footer from "./components/Footer"
 import HomeSection from "./components/HomeSection"
-import Navbar from "./components/Navbar"
+import Navigation from "./components/Navigation"
 import ProjectsSection from "./components/ProjectsSection"
 import RolesShowcase from "./components/RolesShowcase"
 import SplashLoader from "./components/SplashLoader"
@@ -92,7 +92,7 @@ export default function Home() {
   return (
     <div className="relative min-h-screen overflow-x-hidden bg-[#020617]">
       <SiteBackdrop />
-      <Navbar activeSection={activeSection} />
+      <Navigation activeSection={activeSection} />
 
       <main className="relative z-10">
         <HomeSection />

@@ -689,6 +689,7 @@ export default function SplashLoader({
         arcRafRef.current,
       ].forEach(cancelAnimationFrame)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [stableOnComplete])
 
   return (

@@ -224,7 +224,7 @@
 
 .certificate-line {
   width: 170px;
-  background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.48), transparent);
+  background: linear-gradient(90deg, transparent, rgba(20, 184, 166, 0.48), transparent);
   transform: rotate(-22deg);
   animation: certificateLineMove 5.5s ease-in-out infinite;
 }

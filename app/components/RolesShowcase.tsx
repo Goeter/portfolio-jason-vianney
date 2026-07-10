@@ -17,6 +17,7 @@ const colorMap: Record<
     tagText: string
     tagBorder: string
     dot: string
+    iconBg: string
   }
 > = {
   cyan: {
@@ -26,6 +27,7 @@ const colorMap: Record<
     tagText: "text-cyan-300",
     tagBorder: "border-cyan-500/20",
     dot: "bg-cyan-400",
+    iconBg: "bg-cyan-400/10",
   },
   purple: {
     bar: "from-purple-700 via-purple-500 to-fuchsia-400",
@@ -34,6 +36,7 @@ const colorMap: Record<
     tagText: "text-purple-300",
     tagBorder: "border-purple-500/20",
     dot: "bg-purple-400",
+    iconBg: "bg-purple-400/10",
   },
   rose: {
     bar: "from-rose-700 via-rose-500 to-pink-400",
@@ -42,6 +45,7 @@ const colorMap: Record<
     tagText: "text-rose-300",
     tagBorder: "border-rose-500/20",
     dot: "bg-rose-400",
+    iconBg: "bg-rose-400/10",
   },
   emerald: {
     bar: "from-emerald-700 via-emerald-500 to-green-300",
@@ -50,6 +54,7 @@ const colorMap: Record<
     tagText: "text-emerald-300",
     tagBorder: "border-emerald-500/20",
     dot: "bg-emerald-400",
+    iconBg: "bg-emerald-400/10",
   },
   amber: {
     bar: "from-amber-700 via-amber-500 to-yellow-300",
@@ -58,6 +63,7 @@ const colorMap: Record<
     tagText: "text-amber-300",
     tagBorder: "border-amber-500/20",
     dot: "bg-amber-400",
+    iconBg: "bg-amber-400/10",
   },
 }
 
@@ -69,93 +75,74 @@ const AUTO_PLAY_DELAY = 8000
 const SWIPE_THRESHOLD = 40
 
 // ─────────────────────────────────────────────────────────────
-// Background
+// Full-Width Background
 // ─────────────────────────────────────────────────────────────
 
 function BatikBg() {
   return (
-    <svg
-      className="pointer-events-none absolute inset-0 h-full w-full"
-      viewBox="0 0 800 560"
-      xmlns="http://www.w3.org/2000/svg"
-      aria-hidden="true"
-    >
-      <defs>
-        <pattern
-          id="batikKawung"
-          x="0"
-          y="0"
-          width="72"
-          height="72"
-          patternUnits="userSpaceOnUse"
-        >
-          <circle cx="36" cy="36" r="22" fill="none" stroke="#c9a84c" strokeWidth="0.75" />
-          <circle cx="36" cy="36" r="14" fill="none" stroke="#c9a84c" strokeWidth="0.5" />
-          <circle cx="36" cy="36" r="7" fill="none" stroke="#c9a84c" strokeWidth="0.45" />
-          <circle cx="36" cy="36" r="2.5" fill="#c9a84c" opacity="0.65" />
+    <div className="pointer-events-none absolute inset-0 overflow-hidden">
+      <svg
+        className="absolute inset-0 h-full w-full"
+        viewBox="0 0 1440 700"
+        preserveAspectRatio="xMidYMid slice"
+        xmlns="http://www.w3.org/2000/svg"
+        aria-hidden="true"
+      >
+        <defs>
+          <pattern
+            id="batikKawung"
+            x="0"
+            y="0"
+            width="72"
+            height="72"
+            patternUnits="userSpaceOnUse"
+          >
+            <circle cx="36" cy="36" r="22" fill="none" stroke="#c9a84c" strokeWidth="0.75" />
+            <circle cx="36" cy="36" r="14" fill="none" stroke="#c9a84c" strokeWidth="0.5" />
+            <circle cx="36" cy="36" r="7" fill="none" stroke="#c9a84c" strokeWidth="0.45" />
+            <circle cx="36" cy="36" r="2.5" fill="#c9a84c" opacity="0.65" />
 
-          <path d="M36 14 L40.5 22 L36 30 L31.5 22 Z" fill="none" stroke="#c9a84c" strokeWidth="0.5" />
-          <path d="M58 36 L50 40.5 L42 36 L50 31.5 Z" fill="none" stroke="#c9a84c" strokeWidth="0.5" />
-          <path d="M36 58 L31.5 50 L36 42 L40.5 50 Z" fill="none" stroke="#c9a84c" strokeWidth="0.5" />
-          <path d="M14 36 L22 31.5 L30 36 L22 40.5 Z" fill="none" stroke="#c9a84c" strokeWidth="0.5" />
+            <path d="M36 14 L40.5 22 L36 30 L31.5 22 Z" fill="none" stroke="#c9a84c" strokeWidth="0.5" />
+            <path d="M58 36 L50 40.5 L42 36 L50 31.5 Z" fill="none" stroke="#c9a84c" strokeWidth="0.5" />
+            <path d="M36 58 L31.5 50 L36 42 L40.5 50 Z" fill="none" stroke="#c9a84c" strokeWidth="0.5" />
+            <path d="M14 36 L22 31.5 L30 36 L22 40.5 Z" fill="none" stroke="#c9a84c" strokeWidth="0.5" />
 
-          <line
-            x1="36"
-            y1="0"
-            x2="36"
-            y2="12"
-            stroke="#c9a84c"
-            strokeWidth="0.35"
-            strokeDasharray="2,2"
-          />
+            <line x1="36" y1="0" x2="36" y2="12" stroke="#c9a84c" strokeWidth="0.35" strokeDasharray="2,2" />
+            <line x1="72" y1="36" x2="60" y2="36" stroke="#c9a84c" strokeWidth="0.35" strokeDasharray="2,2" />
+            <line x1="36" y1="72" x2="36" y2="60" stroke="#c9a84c" strokeWidth="0.35" strokeDasharray="2,2" />
+            <line x1="0" y1="36" x2="12" y2="36" stroke="#c9a84c" strokeWidth="0.35" strokeDasharray="2,2" />
 
-          <line
-            x1="72"
-            y1="36"
-            x2="60"
-            y2="36"
-            stroke="#c9a84c"
-            strokeWidth="0.35"
-            strokeDasharray="2,2"
-          />
+            <circle cx="0" cy="0" r="2.5" fill="none" stroke="#c9a84c" strokeWidth="0.4" />
+            <circle cx="72" cy="0" r="2.5" fill="none" stroke="#c9a84c" strokeWidth="0.4" />
+            <circle cx="0" cy="72" r="2.5" fill="none" stroke="#c9a84c" strokeWidth="0.4" />
+            <circle cx="72" cy="72" r="2.5" fill="none" stroke="#c9a84c" strokeWidth="0.4" />
+          </pattern>
+          <radialGradient id="expertGlowL" cx="15%" cy="30%" r="45%">
+            <stop offset="0%" stopColor="#c9a84c" stopOpacity="0.12" />
+            <stop offset="100%" stopColor="#c9a84c" stopOpacity="0" />
+          </radialGradient>
+          <radialGradient id="expertGlowR" cx="85%" cy="70%" r="40%">
+            <stop offset="0%" stopColor="#06b6d4" stopOpacity="0.08" />
+            <stop offset="100%" stopColor="#06b6d4" stopOpacity="0" />
+          </radialGradient>
+        </defs>
 
-          <line
-            x1="36"
-            y1="72"
-            x2="36"
-            y2="60"
-            stroke="#c9a84c"
-            strokeWidth="0.35"
-            strokeDasharray="2,2"
-          />
+        <rect width="100%" height="100%" fill="url(#batikKawung)" opacity="0.14" />
+        <rect width="100%" height="100%" fill="url(#expertGlowL)" />
+        <rect width="100%" height="100%" fill="url(#expertGlowR)" />
 
-          <line
-            x1="0"
-            y1="36"
-            x2="12"
-            y2="36"
-            stroke="#c9a84c"
-            strokeWidth="0.35"
-            strokeDasharray="2,2"
-          />
+        <line x1="0" y1="55" x2="140" y2="55" stroke="#06b6d4" strokeWidth="0.4" opacity="0.2" />
+        <line x1="140" y1="55" x2="165" y2="80" stroke="#06b6d4" strokeWidth="0.4" opacity="0.2" />
+        <circle cx="140" cy="55" r="2" fill="#06b6d4" opacity="0.28" />
 
-          <circle cx="0" cy="0" r="2.5" fill="none" stroke="#c9a84c" strokeWidth="0.4" />
-          <circle cx="72" cy="0" r="2.5" fill="none" stroke="#c9a84c" strokeWidth="0.4" />
-          <circle cx="0" cy="72" r="2.5" fill="none" stroke="#c9a84c" strokeWidth="0.4" />
-          <circle cx="72" cy="72" r="2.5" fill="none" stroke="#c9a84c" strokeWidth="0.4" />
-        </pattern>
-      </defs>
-
-      <rect width="100%" height="100%" fill="url(#batikKawung)" opacity="0.14" />
-
-      <line x1="0" y1="55" x2="140" y2="55" stroke="#06b6d4" strokeWidth="0.4" opacity="0.2" />
-      <line x1="140" y1="55" x2="165" y2="80" stroke="#06b6d4" strokeWidth="0.4" opacity="0.2" />
-      <circle cx="140" cy="55" r="2" fill="#06b6d4" opacity="0.28" />
-
-      <line x1="660" y1="500" x2="800" y2="500" stroke="#a855f7" strokeWidth="0.4" opacity="0.2" />
-      <line x1="660" y1="500" x2="635" y2="475" stroke="#a855f7" strokeWidth="0.4" opacity="0.2" />
-      <circle cx="660" cy="500" r="2" fill="#a855f7" opacity="0.28" />
-    </svg>
+        <line x1="1300" y1="640" x2="1440" y2="640" stroke="#a855f7" strokeWidth="0.4" opacity="0.2" />
+        <line x1="1300" y1="640" x2="1275" y2="615" stroke="#a855f7" strokeWidth="0.4" opacity="0.2" />
+        <circle cx="1300" cy="640" r="2" fill="#a855f7" opacity="0.28" />
+      </svg>
+      {/* Ambient orbs */}
+      <div className="absolute -left-20 top-10 h-72 w-72 rounded-full bg-[#c9a84c]/10 blur-[120px]" />
+      <div className="absolute -right-20 bottom-10 h-80 w-80 rounded-full bg-cyan-500/8 blur-[130px]" />
+    </div>
   )
 }
 
@@ -167,12 +154,12 @@ function RoleCard({ role }: { role: ProfessionalRole }) {
   const c = colorMap[role.color]
 
   return (
-    <div className="h-full overflow-hidden rounded-[14px] border border-[#c9a84c]/[0.18] bg-white/[0.035] transform-gpu transition-transform transition-colors duration-500 ease-fluid hover:scale-[1.035] hover:border-[#c9a84c]/[0.45]">
-      {/* Top Bar */}
+    <div className="h-full overflow-hidden rounded-[18px] border border-[#c9a84c]/[0.18] bg-[#080d1c]/80 backdrop-blur-sm transform-gpu transition-all duration-500 ease-fluid hover:scale-[1.02] hover:border-[#c9a84c]/[0.45] hover:shadow-[0_20px_60px_rgba(0,0,0,0.4),0_0_0_1px_rgba(201,168,76,0.15)]">
+      {/* Top Gradient Bar */}
       <div className={`h-[3px] w-full bg-gradient-to-r ${c.bar}`} />
 
       <div className="p-5 md:p-6">
-        {/* Header */}
+        {/* Header with number badge */}
         <div className="mb-4 flex items-start justify-between gap-3">
           <h3
             className="text-[1.15rem] md:text-[1.28rem] font-semibold leading-snug text-[#f0e8d4]"
@@ -181,47 +168,57 @@ function RoleCard({ role }: { role: ProfessionalRole }) {
             {role.title}
           </h3>
 
-          <span className="mt-1 shrink-0 text-[10px] font-semibold tracking-[3px] text-[#c9a84c]/[0.22]">
+          <span className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-[#c9a84c]/30 bg-[#c9a84c]/[0.08] text-[10px] font-bold tracking-wider text-[#c9a84c]/60">
             {role.number}
           </span>
         </div>
 
-        <div className="my-4 h-px bg-[#c9a84c]/[0.12]" />
+        <div className="my-4 h-px bg-gradient-to-r from-[#c9a84c]/20 via-[#c9a84c]/10 to-transparent" />
 
         {/* Skills */}
-        <p className={`mb-3 text-[10px] font-semibold uppercase tracking-[3px] ${c.label}`}>
-          Skills
-        </p>
+        <div className="mb-4">
+          <p className={`mb-3 flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-[3px] ${c.label}`}>
+            <svg className="h-3 w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+              <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+            </svg>
+            Skills
+          </p>
 
-        <div className="mb-5 flex flex-wrap gap-2">
-          {role.skills.map((skill) => (
-            <span
-              key={skill}
-              className={`rounded-full border px-3 py-1 text-[12px] md:text-[13px] font-medium ${c.tagBg} ${c.tagText} ${c.tagBorder}`}
-            >
-              {skill}
-            </span>
-          ))}
+          <div className="flex flex-wrap gap-2">
+            {role.skills.map((skill) => (
+              <span
+                key={skill}
+                className={`rounded-full border px-3 py-1.5 text-[12px] md:text-[13px] font-medium leading-none ${c.tagBg} ${c.tagText} ${c.tagBorder}`}
+              >
+                {skill}
+              </span>
+            ))}
+          </div>
         </div>
 
-        <div className="my-4 h-px bg-[#c9a84c]/[0.12]" />
+        <div className="my-4 h-px bg-gradient-to-r from-[#c9a84c]/20 via-[#c9a84c]/10 to-transparent" />
 
         {/* Tools */}
-        <p className={`mb-3 text-[10px] font-semibold uppercase tracking-[3px] ${c.label}`}>
-          Tools & Stack
-        </p>
+        <div>
+          <p className={`mb-3 flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-[3px] ${c.label}`}>
+            <svg className="h-3 w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+              <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" />
+            </svg>
+            Tools &amp; Stack
+          </p>
 
-        <ul className="list-none">
-          {role.tools.map((tool) => (
-            <li
-              key={tool}
-              className="flex items-center gap-2 border-b border-white/[0.04] py-[6px] text-[13px] md:text-[14px] text-[#f0e8d4]/[0.62] last:border-none last:pb-0"
-            >
-              <span className={`h-1 w-1 shrink-0 rounded-full ${c.dot}`} />
-              {tool}
-            </li>
-          ))}
-        </ul>
+          <ul className="list-none space-y-0">
+            {role.tools.map((tool) => (
+              <li
+                key={tool}
+                className="flex items-center gap-2.5 border-b border-white/[0.04] py-[7px] text-[13px] md:text-[14px] text-[#f0e8d4]/[0.68] last:border-none last:pb-0"
+              >
+                <span className={`flex h-1.5 w-1.5 shrink-0 rounded-full ${c.dot} shadow-[0_0_4px_currentColor]`} />
+                {tool}
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </div>
   )
@@ -311,23 +308,27 @@ export default function RolesShowcase() {
   return (
     <section
       id="roles"
-      className="relative overflow-hidden bg-[#080d1c] py-12 md:py-14"
+      className="relative w-full overflow-hidden bg-[#080d1c] py-14 md:py-18"
       style={{ fontFamily: "'Inter', sans-serif" }}
     >
-      {/* Top Gold Line */}
-      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#c9a84c]/55 to-transparent" />
+      {/* Top Gold Line — full horizontal */}
+      <div className="absolute inset-x-0 top-0 z-10 h-px bg-gradient-to-r from-transparent via-[#c9a84c]/55 to-transparent" />
 
-      {/* Bottom Gold Line */}
-      <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-[#c9a84c]/55 to-transparent" />
+      {/* Bottom Gold Line — full horizontal */}
+      <div className="absolute inset-x-0 bottom-0 z-10 h-px bg-gradient-to-r from-transparent via-[#c9a84c]/55 to-transparent" />
 
+      {/* Full-width background */}
       <BatikBg />
 
-      <div className="relative z-10">
+      <div className="relative z-10 mx-auto max-w-7xl">
         {/* Header */}
         <div
           ref={headerRef}
           className={`px-6 pb-10 text-center reveal-hidden ${headerVisible ? "reveal-visible" : ""}`}
         >
+          <p className="mb-3 text-[10px] font-bold uppercase tracking-[5px] text-[#c9a84c]/60">
+            What I Do Best
+          </p>
           <h2
             className="m-0 text-[2.4rem] sm:text-[2.8rem] md:text-[3.15rem] font-bold leading-tight text-[#f0e8d4]"
             style={{
@@ -345,12 +346,16 @@ export default function RolesShowcase() {
           </h2>
 
           <div className="mx-auto mt-4 h-0.5 w-[58px] rounded-full bg-gradient-to-r from-[#c9a84c] via-[#e8c97a] to-[#c9a84c]" />
+          
+          <p className="mx-auto mt-4 max-w-2xl text-sm leading-relaxed text-[#f0e8d4]/50">
+            Specialized roles and technical capabilities refined through years of hands-on experience.
+          </p>
         </div>
 
         {/* Carousel */}
         <div
           ref={wrapRef}
-          className="no-card-scrollbar overflow-hidden pt-3 pb-8"
+          className="no-card-scrollbar overflow-hidden pt-3 pb-8 px-4 md:px-6"
           onTouchStart={(e) => {
             touchStartX.current = e.touches[0].clientX
           }}
@@ -404,7 +409,7 @@ export default function RolesShowcase() {
           <button
             onClick={() => goTo(current - 1)}
             aria-label="Previous"
-            className="flex h-[34px] w-[34px] items-center justify-center rounded-full border border-[#c9a84c]/40 bg-[#c9a84c]/[0.06] text-[#c9a84c] outline-none transition-all duration-200 hover:border-[#c9a84c]/65 hover:bg-[#c9a84c]/[0.15]"
+            className="flex h-[36px] w-[36px] items-center justify-center rounded-full border border-[#c9a84c]/40 bg-[#c9a84c]/[0.06] text-[#c9a84c] outline-none transition-all duration-200 hover:border-[#c9a84c]/65 hover:bg-[#c9a84c]/[0.15] hover:shadow-[0_0_20px_rgba(201,168,76,0.15)]"
           >
             <svg
               width="15"
@@ -432,7 +437,7 @@ export default function RolesShowcase() {
                   aria-label={`Go to slide ${i + 1}`}
                   className={`h-[6px] rounded-full transition-all duration-300 ${
                     active
-                      ? "w-[20px] bg-[#c9a84c]"
+                      ? "w-[22px] bg-[#c9a84c]"
                       : "w-[6px] bg-[#c9a84c]/20 hover:bg-[#c9a84c]/40"
                   }`}
                 />
@@ -444,7 +449,7 @@ export default function RolesShowcase() {
           <button
             onClick={() => goTo(current + 1)}
             aria-label="Next"
-            className="flex h-[34px] w-[34px] items-center justify-center rounded-full border border-[#c9a84c]/40 bg-[#c9a84c]/[0.06] text-[#c9a84c] outline-none transition-all duration-200 hover:border-[#c9a84c]/65 hover:bg-[#c9a84c]/[0.15]"
+            className="flex h-[36px] w-[36px] items-center justify-center rounded-full border border-[#c9a84c]/40 bg-[#c9a84c]/[0.06] text-[#c9a84c] outline-none transition-all duration-200 hover:border-[#c9a84c]/65 hover:bg-[#c9a84c]/[0.15] hover:shadow-[0_0_20px_rgba(201,168,76,0.15)]"
           >
             <svg
               width="15"

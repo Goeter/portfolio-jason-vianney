@@ -337,8 +337,8 @@ export default function HomeSection() {
                   <m.div
                     className="relative z-10"
                     initial={false}
-                    animate={{ y: [0, 3, 0] }}
-                    transition={{ duration: 1, repeat: Infinity, ease: "easeInOut" }}
+                    animate={{ y: [0, -2, 4, 0] }}
+                    transition={{ duration: 1.4, repeat: Infinity, ease: "easeInOut" }}
                   >
                     <Download size={17} />
                   </m.div>
@@ -368,7 +368,7 @@ export default function HomeSection() {
 
                   <m.span
                     initial={false}
-                    animate={{ x: [0, 5, 0] }}
+                    animate={{ x: [0, 6, 0] }}
                     transition={{ duration: 1.2, repeat: Infinity, ease: "easeInOut" }}
                   >
                     <ArrowRight size={15} />

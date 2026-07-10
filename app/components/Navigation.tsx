@@ -4,10 +4,9 @@ import Image from "next/image"
 import { useCallback, useState } from "react"
 import { X } from "lucide-react"
 
-import { Button } from "@/components/ui/button"
 import { navItems } from "@/lib/site-content"
 
-interface NavbarProps {
+interface NavigationProps {
   activeSection: string
 }
 
@@ -60,7 +59,7 @@ function BrandMark({ compact = false }: { compact?: boolean }) {
   )
 }
 
-export default function Navbar({ activeSection }: NavbarProps) {
+export default function Navigation({ activeSection }: NavigationProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
   const closeMobileMenu = useCallback(() => {
@@ -158,9 +157,8 @@ export default function Navbar({ activeSection }: NavbarProps) {
             })}
           </div>
 
-          <Button
-            variant="ghost"
-            size="icon"
+          <button
+            type="button"
             aria-label="Toggle Menu"
             onClick={toggleMobileMenu}
             className="relative flex h-9 w-9 items-center justify-center rounded-xl bg-zinc-900 text-white shadow-inner shadow-white/5 transition-all duration-300 hover:scale-105 hover:bg-white hover:text-black sm:h-10 sm:w-10 sm:rounded-2xl lg:hidden"
@@ -182,7 +180,7 @@ export default function Navbar({ activeSection }: NavbarProps) {
                 }`}
               />
             </span>
-          </Button>
+          </button>
         </div>
       </nav>
 
@@ -215,15 +213,14 @@ export default function Navbar({ activeSection }: NavbarProps) {
               <BrandMark compact />
             </button>
 
-            <Button
-              variant="ghost"
-              size="icon"
+            <button
+              type="button"
               aria-label="Close Menu"
               onClick={closeMobileMenu}
-              className="rounded-2xl bg-zinc-900 text-white transition-all duration-300 hover:bg-white hover:text-black"
+              className="flex h-9 w-9 items-center justify-center rounded-2xl bg-zinc-900 text-white transition-all duration-300 hover:bg-white hover:text-black"
             >
               <X className="h-5 w-5" />
-            </Button>
+            </button>
           </div>
 
           <div className="space-y-1">

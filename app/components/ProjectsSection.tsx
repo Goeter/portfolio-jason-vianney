@@ -24,8 +24,8 @@ const getCardsPerPage = () => {
 
 function ProjectsBackground() {
   return (
-    <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden bg-[linear-gradient(135deg,#020617_0%,#07111f_46%,#0d1829_100%)]">
-      {/* Batik Kawung + Circuit SVG */}
+    <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden bg-[linear-gradient(135deg,#020617_0%,#06101e_46%,#0c1a2e_100%)]">
+      {/* Modern Geometric Constellation Pattern — fresh & distinct from Home */}
       <svg
         className="absolute inset-0 h-full w-full"
         viewBox="0 0 1440 900"
@@ -34,52 +34,67 @@ function ProjectsBackground() {
         aria-hidden="true"
       >
         <defs>
-          {/* Kawung batik pattern — cyan accent */}
-          <pattern id="projKawung" width="56" height="56" patternUnits="userSpaceOnUse">
-            <ellipse cx="28" cy="14" rx="11" ry="7" fill="none" stroke="#38bdf8" strokeWidth="0.4" opacity="0.18" />
-            <ellipse cx="28" cy="42" rx="11" ry="7" fill="none" stroke="#38bdf8" strokeWidth="0.4" opacity="0.18" />
-            <ellipse cx="14" cy="28" rx="7" ry="11" fill="none" stroke="#38bdf8" strokeWidth="0.4" opacity="0.18" />
-            <ellipse cx="42" cy="28" rx="7" ry="11" fill="none" stroke="#38bdf8" strokeWidth="0.4" opacity="0.18" />
-            <circle cx="28" cy="28" r="3" fill="none" stroke="#38bdf8" strokeWidth="0.35" opacity="0.14" />
-          </pattern>
-          {/* Circuit / tech grid pattern */}
-          <pattern id="projCircuit" width="64" height="64" patternUnits="userSpaceOnUse">
-            <line x1="0" y1="32" x2="64" y2="32" stroke="#7dd3fc" strokeWidth="0.25" opacity="0.12" />
-            <line x1="32" y1="0" x2="32" y2="64" stroke="#7dd3fc" strokeWidth="0.25" opacity="0.12" />
-            <circle cx="32" cy="32" r="2.5" fill="none" stroke="#7dd3fc" strokeWidth="0.3" opacity="0.16" />
-            <circle cx="0" cy="0" r="1.5" fill="#7dd3fc" opacity="0.10" />
-            <circle cx="64" cy="64" r="1.5" fill="#7dd3fc" opacity="0.10" />
+          {/* Constellation node grid */}
+          <pattern id="projConstellation" width="120" height="120" patternUnits="userSpaceOnUse">
+            {/* Connecting lines — geometric web */}
+            <line x1="0" y1="0" x2="60" y2="60" stroke="#38bdf8" strokeWidth="0.3" opacity="0.12" />
+            <line x1="120" y1="0" x2="60" y2="60" stroke="#38bdf8" strokeWidth="0.3" opacity="0.12" />
+            <line x1="60" y1="60" x2="0" y2="120" stroke="#7dd3fc" strokeWidth="0.25" opacity="0.10" />
+            <line x1="60" y1="60" x2="120" y2="120" stroke="#7dd3fc" strokeWidth="0.25" opacity="0.10" />
+            <line x1="0" y1="60" x2="120" y2="60" stroke="#38bdf8" strokeWidth="0.2" opacity="0.08" />
+            <line x1="60" y1="0" x2="60" y2="120" stroke="#38bdf8" strokeWidth="0.2" opacity="0.08" />
+            {/* Diamond shape at center */}
+            <path d="M60 40 L80 60 L60 80 L40 60 Z" fill="none" stroke="#7dd3fc" strokeWidth="0.4" opacity="0.14" />
+            {/* Nodes — glowing dots at intersections */}
+            <circle cx="60" cy="60" r="2.5" fill="#38bdf8" opacity="0.22" />
+            <circle cx="0" cy="0" r="1.8" fill="#7dd3fc" opacity="0.16" />
+            <circle cx="120" cy="0" r="1.8" fill="#7dd3fc" opacity="0.16" />
+            <circle cx="0" cy="120" r="1.8" fill="#38bdf8" opacity="0.14" />
+            <circle cx="120" cy="120" r="1.8" fill="#38bdf8" opacity="0.14" />
+            <circle cx="0" cy="60" r="1.2" fill="#7dd3fc" opacity="0.12" />
+            <circle cx="120" cy="60" r="1.2" fill="#7dd3fc" opacity="0.12" />
+            <circle cx="60" cy="0" r="1.2" fill="#38bdf8" opacity="0.12" />
+            <circle cx="60" cy="120" r="1.2" fill="#38bdf8" opacity="0.12" />
+            {/* Orbital ring around center node */}
+            <circle cx="60" cy="60" r="14" fill="none" stroke="#38bdf8" strokeWidth="0.3" opacity="0.10" strokeDasharray="3,4" />
           </pattern>
           {/* Radial glow accents */}
-          <radialGradient id="projGlowL" cx="18%" cy="20%" r="42%">
-            <stop offset="0%" stopColor="#0ea5e9" stopOpacity="0.18" />
+          <radialGradient id="projGlowL" cx="15%" cy="22%" r="42%">
+            <stop offset="0%" stopColor="#0ea5e9" stopOpacity="0.20" />
             <stop offset="100%" stopColor="#0ea5e9" stopOpacity="0" />
           </radialGradient>
-          <radialGradient id="projGlowR" cx="82%" cy="75%" r="38%">
-            <stop offset="0%" stopColor="#f59e0b" stopOpacity="0.10" />
+          <radialGradient id="projGlowR" cx="85%" cy="72%" r="38%">
+            <stop offset="0%" stopColor="#38bdf8" stopOpacity="0.12" />
+            <stop offset="100%" stopColor="#38bdf8" stopOpacity="0" />
+          </radialGradient>
+          <radialGradient id="projGlowC" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stopColor="#f59e0b" stopOpacity="0.06" />
             <stop offset="100%" stopColor="#f59e0b" stopOpacity="0" />
           </radialGradient>
         </defs>
-        <rect width="1440" height="900" fill="url(#projKawung)" />
-        <rect width="1440" height="900" fill="url(#projCircuit)" />
+        <rect width="1440" height="900" fill="url(#projConstellation)" />
         <rect width="1440" height="900" fill="url(#projGlowL)" />
         <rect width="1440" height="900" fill="url(#projGlowR)" />
-        {/* Decorative circuit traces */}
-        <line x1="0" y1="220" x2="180" y2="220" stroke="#22d3ee" strokeWidth="0.4" opacity="0.18" />
-        <line x1="180" y1="220" x2="210" y2="250" stroke="#22d3ee" strokeWidth="0.4" opacity="0.18" />
-        <circle cx="180" cy="220" r="2.5" fill="#22d3ee" opacity="0.24" />
-        <line x1="1260" y1="680" x2="1440" y2="680" stroke="#f59e0b" strokeWidth="0.4" opacity="0.16" />
-        <line x1="1260" y1="680" x2="1230" y2="650" stroke="#f59e0b" strokeWidth="0.4" opacity="0.16" />
-        <circle cx="1260" cy="680" r="2.5" fill="#f59e0b" opacity="0.22" />
+        <rect width="1440" height="900" fill="url(#projGlowC)" />
+        {/* Accent constellation lines — larger scale */}
+        <line x1="80" y1="120" x2="280" y2="200" stroke="#22d3ee" strokeWidth="0.4" opacity="0.16" />
+        <circle cx="80" cy="120" r="3" fill="#22d3ee" opacity="0.22" />
+        <circle cx="280" cy="200" r="2" fill="#22d3ee" opacity="0.18" />
+        <line x1="1160" y1="700" x2="1380" y2="620" stroke="#38bdf8" strokeWidth="0.35" opacity="0.14" />
+        <circle cx="1160" cy="700" r="3" fill="#38bdf8" opacity="0.20" />
+        <circle cx="1380" cy="620" r="2" fill="#38bdf8" opacity="0.16" />
+        {/* Floating diamonds */}
+        <path d="M720 80 L735 95 L720 110 L705 95 Z" fill="none" stroke="#7dd3fc" strokeWidth="0.5" opacity="0.14" />
+        <path d="M400 750 L412 762 L400 774 L388 762 Z" fill="none" stroke="#38bdf8" strokeWidth="0.4" opacity="0.12" />
       </svg>
       {/* Ambient elements */}
-      <div className="absolute inset-0 opacity-[0.07] bg-[linear-gradient(to_right,rgba(125,211,252,0.45)_1px,transparent_1px),linear-gradient(to_bottom,rgba(125,211,252,0.30)_1px,transparent_1px)] bg-[size:82px_82px]" />
-      <div className="portfolio-orb absolute -left-32 top-20 h-96 w-96 rounded-full bg-sky-500/18 blur-[130px]" />
-      <div className="portfolio-orb-delay absolute -right-28 top-40 h-[28rem] w-[28rem] rounded-full bg-cyan-300/14 blur-[145px]" />
-      <div className="portfolio-orb-slow absolute bottom-[-11rem] left-1/2 h-[32rem] w-[32rem] -translate-x-1/2 rounded-full bg-amber-300/10 blur-[155px]" />
+      <div className="absolute inset-0 opacity-[0.04] bg-[linear-gradient(to_right,rgba(56,189,248,0.5)_1px,transparent_1px),linear-gradient(to_bottom,rgba(56,189,248,0.3)_1px,transparent_1px)] bg-[size:90px_90px]" />
+      <div className="portfolio-orb absolute -left-32 top-20 h-96 w-96 rounded-full bg-sky-500/16 blur-[130px]" />
+      <div className="portfolio-orb-delay absolute -right-28 top-40 h-[28rem] w-[28rem] rounded-full bg-cyan-300/12 blur-[145px]" />
+      <div className="portfolio-orb-slow absolute bottom-[-11rem] left-1/2 h-[32rem] w-[32rem] -translate-x-1/2 rounded-full bg-sky-400/8 blur-[155px]" />
       <span className="portfolio-line left-[10%] top-[28%]" />
       <span className="portfolio-line portfolio-line-delay right-[12%] top-[48%]" />
-      <div className="portfolio-light-sweep absolute inset-0 bg-[linear-gradient(115deg,transparent_0%,rgba(56,189,248,0.075)_42%,transparent_68%)]" />
+      <div className="portfolio-light-sweep absolute inset-0 bg-[linear-gradient(115deg,transparent_0%,rgba(56,189,248,0.065)_42%,transparent_68%)]" />
     </div>
   )
 }
