@@ -15,6 +15,7 @@ import {
   type Project,
 } from "@/lib/site-content"
 import { BLUR_DATA_URL } from "@/lib/utils"
+import ClapButton from "@/app/components/ClapButton"
 
 interface ProjectDetailClientProps {
   project: Project
@@ -288,6 +289,8 @@ export default function ProjectDetailClient({ project }: ProjectDetailClientProp
                 <ExternalLink className="h-4 w-4" />
               </a>
             ) : null}
+
+            <ClapButton itemId={`project-${project.slug}`} title={project.title} variant="detail" />
           </div>
         </section>
 

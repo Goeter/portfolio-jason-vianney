@@ -15,6 +15,7 @@ import {
 } from "@/lib/site-content"
 import { BLUR_DATA_URL } from "@/lib/utils"
 import { useScrollReveal } from "@/hooks/useScrollReveal"
+import ClapButton from "./ClapButton"
 
 const getCardsPerPage = () => {
   if (window.innerWidth < 768) return 1
@@ -134,6 +135,9 @@ function ProjectCard({ project, index, isVisible }: { project: Project; index: n
           <span className="absolute bottom-3 left-3 z-20 rounded-full border border-white/20 bg-black px-3 py-1 text-[10px] font-bold uppercase tracking-[0.14em] text-white shadow-sm backdrop-blur-md">
             {projectCategoryLabels[project.category]}
           </span>
+          <div className="absolute bottom-3 right-3 z-20">
+            <ClapButton itemId={`project-${project.slug}`} title={project.title} variant="card" />
+          </div>
         </div>
 
         <div className="relative z-10 flex flex-1 flex-col border-t border-white/[0.03] p-5">
