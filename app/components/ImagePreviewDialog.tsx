@@ -78,6 +78,7 @@ export default function ImagePreviewDialog({
                     alt={image.alt}
                     width={1600}
                     height={2200}
+                    quality={100}
                     sizes="(max-width: 768px) 92vw, (max-width: 1024px) 640px, 860px"
                     className="block h-auto max-h-[calc(100vh-160px)] sm:max-h-[calc(100vh-180px)] w-auto max-w-full rounded-xl object-contain"
                     priority={index === 0}
@@ -92,6 +93,7 @@ export default function ImagePreviewDialog({
                 alt={images[0].alt}
                 width={2200}
                 height={1600}
+                quality={100}
                 sizes="(max-width: 768px) 98vw, (max-width: 1280px) 96vw, 1500px"
                 className="block h-auto max-h-[calc(100vh-160px)] sm:max-h-[calc(100vh-180px)] w-auto max-w-[90vw] rounded-xl object-contain lg:max-w-[1400px]"
                 priority

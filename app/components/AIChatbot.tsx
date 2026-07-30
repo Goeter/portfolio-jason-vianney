@@ -201,21 +201,21 @@ export default function AIChatbot() {
         aria-label="AI Assistant Chat"
       >
         {/* Header */}
-        <div className="relative flex items-center justify-between border-b border-teal-100/50 bg-gradient-to-r from-teal-50 via-white to-cyan-50 px-5 py-4">
+        <div className="relative flex items-center justify-between border-b border-slate-200/60 bg-gradient-to-r from-[#0f1a2e] via-[#152038] to-[#1a2744] px-5 py-4">
           <div className="flex items-center gap-3">
-            <span className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-teal-500 to-cyan-500 text-white shadow-[0_6px_16px_rgba(20,184,166,0.30)]">
+            <span className="flex h-10 w-10 items-center justify-center rounded-full border border-amber-400/30 bg-gradient-to-br from-[#1a2744] to-[#0f1a2e] shadow-[0_6px_16px_rgba(15,26,46,0.40),0_0_12px_rgba(196,164,90,0.12)]">
               <BotIcon className="h-6 w-6" />
             </span>
             <div>
-              <p className="text-sm font-bold text-slate-900">AI Assistant</p>
-              <p className="text-[11px] text-teal-600 font-medium">Online</p>
+              <p className="text-sm font-bold text-amber-50">AI Assistant</p>
+              <p className="text-[11px] text-cyan-300 font-medium">Online</p>
             </div>
           </div>
           <button
             type="button"
             onClick={() => setIsOpen(false)}
             aria-label="Close chat"
-            className="flex h-8 w-8 items-center justify-center rounded-full text-slate-400 transition-colors hover:bg-slate-100 hover:text-slate-600"
+            className="flex h-8 w-8 items-center justify-center rounded-full text-slate-400 transition-colors hover:bg-white/10 hover:text-white"
           >
             <X className="h-4 w-4" />
           </button>
@@ -289,15 +289,18 @@ export default function AIChatbot() {
         aria-label={isOpen ? "Close AI assistant" : "Open AI assistant"}
         className="group fixed bottom-7 right-5 z-50 flex h-16 w-16 items-center justify-center rounded-full transition-all duration-300 hover:scale-110 active:scale-95 sm:right-7"
       >
-        {/* Ping glow */}
-        <span className="absolute inset-0 rounded-full bg-teal-500/25 blur-xl animate-ping" />
+        {/* Ping glow — warm gold ring pulse */}
+        <span className="absolute inset-0 rounded-full bg-amber-400/20 blur-xl animate-ping" />
 
         {/* Floating animation */}
         <span className="absolute inset-0 rounded-full animate-[contactFloat_3s_ease-in-out_infinite]" />
 
-        {/* Main circle */}
-        <span className="relative flex h-16 w-16 items-center justify-center rounded-full border border-white/40 bg-gradient-to-br from-teal-500 via-cyan-500 to-sky-500 text-white shadow-[0_18px_42px_rgba(20,184,166,0.35)] transition-shadow duration-300 group-hover:shadow-[0_22px_50px_rgba(20,184,166,0.50)]">
-          {isOpen ? <X className="h-6 w-6" /> : <BotIcon className="h-9 w-9 text-white" />}
+        {/* Outer gold ring accent */}
+        <span className="absolute inset-[-3px] rounded-full bg-gradient-to-br from-amber-400/60 via-yellow-500/40 to-amber-600/50 opacity-80 blur-[1px] transition-opacity duration-300 group-hover:opacity-100" />
+
+        {/* Main circle — dark navy matching the bot icon's face */}
+        <span className="relative flex h-16 w-16 items-center justify-center rounded-full border border-amber-300/30 bg-gradient-to-br from-[#0f1a2e] via-[#152038] to-[#1a2744] text-white shadow-[0_18px_42px_rgba(15,26,46,0.50),0_0_20px_rgba(196,164,90,0.15)] transition-shadow duration-300 group-hover:shadow-[0_22px_50px_rgba(15,26,46,0.60),0_0_30px_rgba(196,164,90,0.25)]">
+          {isOpen ? <X className="h-6 w-6" /> : <BotIcon className="h-9 w-9" />}
         </span>
 
         {/* Hover tooltip */}
@@ -306,10 +309,10 @@ export default function AIChatbot() {
             className="absolute right-[calc(100%+12px)] top-1/2 -translate-y-1/2 translate-x-2 scale-95 opacity-0 transition-all duration-500 group-hover:translate-x-0 group-hover:scale-100 group-hover:opacity-100"
             style={{ transitionTimingFunction: "cubic-bezier(0.34, 1.56, 0.64, 1)" }}
           >
-            <span className="relative block whitespace-nowrap rounded-2xl border border-teal-200/30 bg-white/95 px-4 py-2.5 text-[13px] font-semibold text-slate-700 shadow-[0_12px_40px_rgba(0,0,0,0.12)] backdrop-blur-xl">
+            <span className="relative block whitespace-nowrap rounded-2xl border border-amber-200/25 bg-[#0f1a2e]/95 px-4 py-2.5 text-[13px] font-semibold text-amber-50 shadow-[0_12px_40px_rgba(0,0,0,0.25)] backdrop-blur-xl">
               <span className="mr-1.5">👋</span>
               Saya bisa membantu Anda
-              <span className="absolute -right-[6px] top-1/2 -translate-y-1/2 rotate-45 h-3 w-3 border-r border-t border-teal-200/30 bg-white/95" />
+              <span className="absolute -right-[6px] top-1/2 -translate-y-1/2 rotate-45 h-3 w-3 border-r border-t border-amber-200/25 bg-[#0f1a2e]/95" />
             </span>
           </span>
         )}

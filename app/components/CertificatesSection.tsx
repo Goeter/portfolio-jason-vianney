@@ -87,8 +87,9 @@ function CertificateCard({
           <Image
             src={certificate.image || "/placeholder.svg"}
             alt={`${certificate.title} certificate`}
-            width={500}
-            height={320}
+            width={800}
+            height={520}
+            quality={95}
             sizes="(max-width: 768px) 88vw, (max-width: 1024px) 42vw, 30vw"
             placeholder="blur"
             blurDataURL={BLUR_DATA_URL}
