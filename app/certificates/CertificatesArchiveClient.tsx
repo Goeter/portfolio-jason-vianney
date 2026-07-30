@@ -75,8 +75,19 @@ function CertificateCard({
         type="button"
         onClick={() => onPreview(certificate)}
         aria-label={`Preview ${certificate.title}`}
-        className="relative aspect-[16/10] w-full flex-shrink-0 overflow-hidden border-b border-teal-200/18 bg-slate-950 text-left"
+        className="relative aspect-[16/10] w-full flex-shrink-0 overflow-hidden border-b border-teal-200/18 bg-[#030d0a] text-left p-2 sm:p-2.5 flex items-center justify-center group/img"
       >
+        {/* Ambient blurred backdrop for aspect ratio fill */}
+        <Image
+          src={certificate.image || "/placeholder.svg"}
+          alt=""
+          fill
+          sizes="100px"
+          aria-hidden="true"
+          className="pointer-events-none object-cover opacity-25 blur-xl scale-110 transition duration-700"
+        />
+
+        {/* Full uncropped certificate image */}
         <Image
           src={certificate.image || "/placeholder.svg"}
           alt={`${certificate.title} certificate`}
@@ -86,16 +97,16 @@ function CertificateCard({
           sizes="(max-width: 768px) 92vw, (max-width: 1024px) 45vw, 30vw"
           placeholder="blur"
           blurDataURL={BLUR_DATA_URL}
-          className="h-full w-full object-cover object-center transition duration-700 group-hover:scale-[1.035]"
+          className="relative z-10 max-h-full w-auto max-w-full rounded-lg object-contain object-center drop-shadow-md transition duration-500 group-hover/img:scale-[1.02]"
         />
 
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-950/86 via-slate-950/18 to-transparent" />
+        <div className="absolute inset-0 z-20 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover/img:opacity-100" />
 
-        <div className="absolute left-3 top-3 rounded-full border border-white/25 bg-teal-400/20 p-2 text-teal-50 shadow-sm backdrop-blur-md">
+        <div className="absolute left-3 top-3 z-30 rounded-full border border-teal-200/30 bg-teal-950/60 p-2 text-teal-100 shadow-sm backdrop-blur-md">
           <Award className="h-4 w-4" />
         </div>
 
-        <div className="absolute bottom-3 right-3 inline-flex items-center gap-1 rounded-full border border-white/20 bg-black/50 px-3 py-1 text-xs font-medium text-white opacity-0 backdrop-blur-md transition-opacity duration-300 group-hover:opacity-100">
+        <div className="absolute bottom-2.5 right-2.5 z-30 inline-flex items-center gap-1 rounded-full border border-teal-200/30 bg-black/60 px-2.5 py-1 text-xs font-medium text-teal-100 shadow-md backdrop-blur-md opacity-90 transition group-hover/img:opacity-100 group-hover/img:bg-teal-500 group-hover/img:text-slate-950">
           <Eye className="h-3.5 w-3.5" />
           Preview
         </div>
