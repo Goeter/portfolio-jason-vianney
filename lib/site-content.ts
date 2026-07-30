@@ -294,7 +294,7 @@ export const projects: Project[] = [
     category: "website",
     image: "/assets/projects/pemenang-konsultan.webp",
     uploadedAt: "May 2026",
-    link: "https://pemenangkonsultan.vercel.app/",
+    link: "https://pemenangkonsultan.com/",
   },
 ]
 
@@ -329,7 +329,7 @@ export const certificates: Certificate[] = [
     date: "02 August 2025",
     uploadedAt: "02 August 2025",
   },
-   {
+  {
     id: 4,
     slug: "teaching-certification",
     title: "Teaching Certification",

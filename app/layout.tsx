@@ -1,8 +1,10 @@
 import type React from "react"
+import { Suspense } from "react"
 import type { Metadata } from "next"
 import { Analytics } from "@vercel/analytics/next"
 import "./globals.css"
 import { siteConfig, siteStructuredData } from "@/lib/site-content"
+import VisitorTracker from "@/app/components/VisitorTracker"
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
@@ -61,7 +63,6 @@ interface RootLayoutProps {
   children: React.ReactNode
 }
 
-
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en" className="scroll-smooth">
@@ -70,6 +71,9 @@ export default function RootLayout({ children }: RootLayoutProps) {
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(siteStructuredData) }}
         />
+        <Suspense fallback={null}>
+          <VisitorTracker />
+        </Suspense>
         {children}
         <Analytics />
       </body>
