@@ -82,19 +82,8 @@ function CertificateCard({
           type="button"
           onClick={() => onPreview(certificate.image)}
           aria-label={`Preview ${certificate.title} certificate`}
-          className="relative aspect-[16/10] w-full overflow-hidden border-b border-teal-200/18 bg-[#030d0a] text-left p-2 sm:p-2.5 flex items-center justify-center group/img"
+          className="relative aspect-[16/10] w-full overflow-hidden border-b border-teal-200/18 bg-slate-950 p-2 sm:p-3 text-left flex items-center justify-center group/img"
         >
-          {/* Ambient blurred backdrop for aspect ratio fill */}
-          <Image
-            src={certificate.image || "/placeholder.svg"}
-            alt=""
-            fill
-            sizes="100px"
-            aria-hidden="true"
-            className="pointer-events-none object-cover opacity-25 blur-xl scale-110 transition duration-700"
-          />
-
-          {/* Full uncropped certificate image */}
           <Image
             src={certificate.image || "/placeholder.svg"}
             alt={`${certificate.title} certificate`}
@@ -104,7 +93,7 @@ function CertificateCard({
             sizes="(max-width: 768px) 88vw, (max-width: 1024px) 42vw, 30vw"
             placeholder="blur"
             blurDataURL={BLUR_DATA_URL}
-            className="relative z-10 max-h-full w-auto max-w-full rounded-lg object-contain object-center drop-shadow-md transition duration-500 group-hover/img:scale-[1.02]"
+            className="h-full w-full object-contain object-center transition duration-500 group-hover/img:scale-[1.025]"
           />
 
           <div className="absolute inset-0 z-20 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover/img:opacity-100" />
