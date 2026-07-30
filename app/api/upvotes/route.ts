@@ -80,10 +80,10 @@ export async function GET(req: NextRequest) {
           .from("item_upvotes")
           .select("id, likes_count")
           .eq("id", id)
-          .single()
+          .maybeSingle()
 
-        if (!error && data) {
-          return NextResponse.json({ success: true, upvotes: { [data.id]: data.likes_count } })
+        if (!error) {
+          return NextResponse.json({ success: true, upvotes: { [id]: data?.likes_count || 0 } })
         }
       } else {
         let query = supabase.from("item_upvotes").select("id, likes_count")
@@ -126,13 +126,13 @@ export async function GET(req: NextRequest) {
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json().catch(() => ({}))
-    const { id, itemType = "project", count = 1, title = "" } = body
+    const { id, itemType = "project", delta = 1, action = "upvote", title = "" } = body
 
     if (!id || typeof id !== "string") {
       return NextResponse.json({ success: false, error: "Invalid item ID" }, { status: 400 })
     }
 
-    const increment = Math.min(Math.max(1, Number(count) || 1), 10)
+    const change = action === "unvote" || Number(delta) < 0 ? -1 : 1
     const supabase = getSupabaseClient()
 
     if (supabase) {
@@ -145,7 +145,7 @@ export async function POST(req: NextRequest) {
           .maybeSingle()
 
         const currentLikes = existing?.likes_count || 0
-        const newLikes = currentLikes + increment
+        const newLikes = Math.max(0, currentLikes + change)
 
         const { error: upsertError } = await supabase.from("item_upvotes").upsert(
           {
@@ -157,6 +157,28 @@ export async function POST(req: NextRequest) {
           },
           { onConflict: "id" }
         )
+
+        // Log detailed activity to upvote_activity table (non-blocking)
+        const clientIp = req.headers.get("x-forwarded-for")?.split(",")[0].trim() || req.headers.get("x-real-ip") || "127.0.0.1"
+        const country = req.headers.get("x-vercel-ip-country") || "Unknown"
+        const city = req.headers.get("x-vercel-ip-city") ? decodeURIComponent(req.headers.get("x-vercel-ip-city")!) : "Unknown"
+
+        supabase
+          .from("upvote_activity")
+          .insert({
+            item_id: id,
+            item_title: title || id,
+            item_type: itemType,
+            claps_added: change,
+            ip_address: clientIp,
+            city,
+            country,
+            user_agent: req.headers.get("user-agent") || "Unknown",
+          })
+          .then(
+            () => {},
+            () => {}
+          )
 
         if (!upsertError) {
           return NextResponse.json({
@@ -176,7 +198,7 @@ export async function POST(req: NextRequest) {
     // Fallback to local file store
     const localData = loadLocalUpvotes()
     const current = localData[id] || 0
-    const nextCount = current + increment
+    const nextCount = Math.max(0, current + change)
     localData[id] = nextCount
     saveLocalUpvotes(localData)
 
