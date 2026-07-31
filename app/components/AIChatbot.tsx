@@ -104,7 +104,7 @@ function getBotReply(input: string): string {
 function BotIcon({ className = "h-7 w-7" }: { className?: string }) {
   return (
     <Image
-      src="/assets/chatbot-logo-transparent.png?v=3"
+      src="/assets/chatbot-logo.webp"
       alt="AI Assistant Logo"
       width={64}
       height={64}

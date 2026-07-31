@@ -18,6 +18,7 @@ import { useScrollReveal } from "@/hooks/useScrollReveal"
 import ClapButton from "./ClapButton"
 
 const getCardsPerPage = () => {
+  if (typeof window === "undefined") return 3
   if (window.innerWidth < 768) return 1
   if (window.innerWidth < 1100) return 2
   return 3
@@ -182,12 +183,10 @@ export default function ProjectsSection() {
 
   const [currentPage, setCurrentPage] = useState(0)
   const [cardsPerPage, setCardsPerPage] = useState(3)
-  const [isClient, setIsClient] = useState(false)
   const [touchStartX, setTouchStartX] = useState<number | null>(null)
   const [touchEndX, setTouchEndX] = useState<number | null>(null)
 
   useEffect(() => {
-    setIsClient(true)
     let resizeFrame = 0
 
     const handleResize = () => {
@@ -208,8 +207,6 @@ export default function ProjectsSection() {
       window.removeEventListener("resize", handleResize)
     }
   }, [])
-
-
 
   useEffect(() => {
     setCurrentPage(0)
@@ -341,8 +338,7 @@ export default function ProjectsSection() {
               className="flex touch-pan-y select-none transition-transform duration-700 ease-fluid"
               style={{ transform: `translateX(-${currentPage * 100}%)` }}
             >
-              {isClient &&
-                paginatedProjects.map((visibleProjects, pageIndex) => (
+              {paginatedProjects.map((visibleProjects, pageIndex) => (
                   <div key={pageIndex} className="flex min-w-full items-stretch gap-5 px-1 py-2">
                     {visibleProjects.map((project, projectIndex) => (
                       <ProjectCard

@@ -12,6 +12,7 @@ import ImagePreviewDialog from "./ImagePreviewDialog"
 import { useScrollReveal } from "@/hooks/useScrollReveal"
 
 const getCardsPerPage = () => {
+  if (typeof window === "undefined") return 3
   if (window.innerWidth < 768) return 1
   if (window.innerWidth < 1024) return 2
   return 3
