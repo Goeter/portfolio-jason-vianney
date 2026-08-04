@@ -253,16 +253,6 @@ export default function HomeSection() {
                 </span>
               </m.h1>
 
-              {/* Animated Typewriter Sub-headline */}
-              <m.div
-                className="mb-5 flex min-h-[36px] items-center text-sm font-semibold tracking-wide text-amber-200/90 sm:text-base md:text-lg"
-                style={{ fontFamily: "DM Sans, sans-serif" }}
-                {...fadeSlideLeft(0.5)}
-              >
-                <span className="mr-2 text-cyan-400">&gt;</span>
-                <TypedText words={rolesList} />
-              </m.div>
-
               {/* Mobile Photo */}
               <m.div
                 className="mb-8 flex justify-center lg:hidden"
@@ -279,8 +269,8 @@ export default function HomeSection() {
                 </div>
               </m.div>
 
-              {/* Expertise Title */}
-              <m.div className="mb-3" {...fadeSlideLeft(0.55)}>
+              {/* Expertise Title & Typed Text Animation */}
+              <m.div className="mb-8" {...fadeSlideLeft(0.55)}>
                 <h2
                   style={{
                     fontFamily: "DM Sans, sans-serif",
@@ -292,30 +282,13 @@ export default function HomeSection() {
                 >
                   My Expertise
                 </h2>
-              </m.div>
-
-              {/* Expertise */}
-              <m.div className="mb-8 flex flex-wrap gap-3" {...fadeSlideLeft(0.6)}>
-                {expertise.map((item) => (
-                  <m.div
-                    key={item.label}
-                    whileHover={{ y: -3, scale: 1.03 }}
-                    style={{
-                      padding: "10px 16px",
-                      borderRadius: 14,
-                      background: item.bg,
-                      color: item.color,
-                      border: `1px solid ${item.border}`,
-                      backdropFilter: "blur(10px)",
-                      fontFamily: "DM Sans, sans-serif",
-                      fontSize: "clamp(11px, 1vw, 13px)",
-                      fontWeight: 600,
-                      letterSpacing: "0.04em",
-                    }}
-                  >
-                    {item.label}
-                  </m.div>
-                ))}
+                <div
+                  className="mt-2 flex min-h-[36px] items-center text-sm font-semibold tracking-wide text-amber-200/90 sm:text-base md:text-lg"
+                  style={{ fontFamily: "DM Sans, sans-serif" }}
+                >
+                  <span className="mr-2 text-cyan-400">&gt;</span>
+                  <TypedText words={rolesList} />
+                </div>
               </m.div>
 
               {/* Description */}

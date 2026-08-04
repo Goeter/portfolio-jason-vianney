@@ -16,7 +16,6 @@ import {
   type ProjectCategory,
 } from "@/lib/site-content"
 import { BLUR_DATA_URL } from "@/lib/utils"
-import ClapButton from "../components/ClapButton"
 
 const archiveFilterOptions: { value: ProjectCategory | "all"; label: string }[] = [
   { value: "all", label: "All Projects" },
@@ -104,9 +103,6 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
         <span className="absolute bottom-3 left-3 z-20 rounded-full border border-cyan-200/45 bg-slate-950/85 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.14em] text-cyan-100 shadow-[0_8px_20px_rgba(0,0,0,0.35)] backdrop-blur-md">
           {projectCategoryLabels[project.category]}
         </span>
-        <div className="absolute bottom-3 right-3 z-20">
-          <ClapButton itemId={`project-${project.slug}`} title={project.title} variant="card" />
-        </div>
       </div>
 
       <div className="relative z-10 flex flex-1 flex-col border-t border-white/[0.03] p-5">

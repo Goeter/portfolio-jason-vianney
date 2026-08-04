@@ -3,7 +3,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { professionalRoles, type ProfessionalRole, type ProfessionalRoleColor } from "@/lib/site-content"
 import { useScrollReveal } from "@/hooks/useScrollReveal"
-import ClapButton from "./ClapButton"
 
 // ─────────────────────────────────────────────────────────────
 // Color Tokens
@@ -170,7 +169,6 @@ function RoleCard({ role }: { role: ProfessionalRole }) {
           </h3>
 
           <div className="flex items-center gap-2 shrink-0">
-            <ClapButton itemId={`skill-${role.id}`} itemType="skill" title={role.title} variant="badge" />
             <span className="mt-0.5 flex h-7 w-7 items-center justify-center rounded-full border border-[#c9a84c]/30 bg-[#c9a84c]/[0.08] text-[10px] font-bold tracking-wider text-[#c9a84c]/60">
               {role.number}
             </span>
