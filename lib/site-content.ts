@@ -105,9 +105,9 @@ export const siteConfig = {
     "Math Physics English Tutor",
   ],
   contacts: {
-    resumeDownloadUrl: "https://drive.google.com/uc?export=download&id=1X3l1DMvbzOeZ8C9ISJtk6pk8wMNxy_43",
+    resumeDownloadUrl: "https://drive.google.com/file/d/1hwbSkCH5LOOCkzMN1uVcaPXao-aEJ3hQ/view?usp=sharing",
     email: "jasonvianneys@gmail.com",
-    resumeFileId: "10Nllp8ydFAMENKFA0089aGdT5hCijCNd95oKo_DI3NU",
+    resumeFileId: "1hwbSkCH5LOOCkzMN1uVcaPXao-aEJ3hQ",
     github: "https://github.com/Goeter",
     linkedin: "https://www.linkedin.com/in/jasonvianneysugiarto",
     whatsapp: "https://wa.me/6283856681999",

@@ -167,7 +167,7 @@ const fadeSlideRight = {
 ───────────────────────────────────────────── */
 export default function HomeSection() {
   const handleDownloadPDF = () => {
-    window.location.href = siteConfig.contacts.resumeDownloadUrl
+    window.open(siteConfig.contacts.resumeDownloadUrl, "_blank", "noopener,noreferrer")
   }
 
   const handleViewProjects = () => {
