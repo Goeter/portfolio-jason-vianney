@@ -6,6 +6,8 @@ import Image from "next/image"
 import Link from "next/link"
 import { ChevronLeft, ChevronRight, ExternalLink, CalendarDays, Tag, Layers } from "lucide-react"
 
+import { motion } from "framer-motion"
+
 import ArchiveHeader from "@/app/components/ArchiveHeader"
 import Footer from "@/app/components/Footer"
 import {
@@ -253,7 +255,12 @@ export default function ProjectDetailClient({ project }: ProjectDetailClientProp
   }
 
   return (
-    <div className="relative flex min-h-screen flex-col overflow-x-hidden text-slate-950">
+    <motion.div
+      initial={{ opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+      className="relative flex min-h-screen flex-col overflow-x-hidden text-slate-950"
+    >
       <DetailBackground />
 
       <ArchiveHeader title="Detail Project" backHref="/#projects" />
