@@ -2,7 +2,7 @@
 
 import Image from "next/image"
 import { LazyMotion, domAnimation, m } from "framer-motion"
-import { Download, ArrowRight } from "lucide-react"
+import { Download, ArrowRight, Sparkles } from "lucide-react"
 import { expertise, siteConfig } from "@/lib/site-content"
 import { BLUR_DATA_URL } from "@/lib/utils"
 import TypedText from "./TypedText"
@@ -270,7 +270,7 @@ export default function HomeSection() {
               </m.div>
 
               {/* Expertise Title & Typed Text Animation */}
-              <m.div className="mb-8" {...fadeSlideLeft(0.55)}>
+              <m.div className="mb-4" {...fadeSlideLeft(0.55)}>
                 <h2
                   style={{
                     fontFamily: "DM Sans, sans-serif",
@@ -286,7 +286,7 @@ export default function HomeSection() {
                   className="mt-2 flex min-h-[36px] items-center text-sm font-semibold tracking-wide text-amber-200/90 sm:text-base md:text-lg"
                   style={{ fontFamily: "DM Sans, sans-serif" }}
                 >
-                  <span className="mr-2 text-cyan-400">&gt;</span>
+                  <Sparkles className="mr-2 h-4 w-4 shrink-0 text-cyan-400 animate-pulse drop-shadow-[0_0_8px_rgba(56,189,248,0.7)]" />
                   <TypedText words={rolesList} />
                 </div>
               </m.div>
