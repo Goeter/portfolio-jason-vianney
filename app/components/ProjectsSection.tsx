@@ -15,6 +15,7 @@ import {
 } from "@/lib/site-content"
 import { BLUR_DATA_URL } from "@/lib/utils"
 import { motion } from "framer-motion"
+import { useScrollReveal } from "@/hooks/useScrollReveal"
 import { useParallax } from "@/hooks/useParallax"
 import ClapButton from "./ClapButton"
 
