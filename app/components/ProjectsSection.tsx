@@ -25,7 +25,7 @@ const getCardsPerPage = () => {
   return 3
 }
 
-function ProjectsBackground() {
+export function ProjectsBackground() {
   return (
     <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden bg-[linear-gradient(135deg,#020617_0%,#06101e_46%,#0c1a2e_100%)]">
       {/* Modern Geometric Constellation Pattern — fresh & distinct from Home */}
