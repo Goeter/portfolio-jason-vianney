@@ -384,40 +384,135 @@ export default function SplashLoader({
 
     if (!cv) return
 
-    cv.width = window.innerWidth
-    cv.height = window.innerHeight
+    const handleResize = () => {
+      if (!cv) return
+      cv.width = window.innerWidth
+      cv.height = window.innerHeight
+    }
+
+    handleResize()
+    window.addEventListener("resize", handleResize)
 
     const ctx = cv.getContext("2d")
 
     if (!ctx) return
 
-    const stars = Array.from(
-      { length: 90 },
-      () => ({
+    const STAR_COUNT = 180
+    const COLOR_PALETTES = [
+      "255, 255, 255",
+      "255, 255, 255",
+      "125, 211, 252",
+      "192, 132, 252",
+      "254, 240, 138",
+      "45, 212, 191",
+    ]
+
+    const stars = Array.from({ length: STAR_COUNT }, () => {
+      const baseR =
+        Math.random() < 0.15
+          ? 1.8 + Math.random() * 1.5
+          : 0.6 + Math.random() * 1.0
+
+      return {
         x: Math.random() * cv.width,
         y: Math.random() * cv.height,
-        r: Math.random() * 2,
-      })
-    )
+        vx: (Math.random() - 0.5) * 0.15,
+        vy: (Math.random() - 0.5) * 0.15,
+        baseR,
+        baseAlpha: 0.3 + Math.random() * 0.65,
+        twinkleSpeed: 0.001 + Math.random() * 0.003,
+        twinklePhase: Math.random() * Math.PI * 2,
+        rgb: COLOR_PALETTES[
+          Math.floor(Math.random() * COLOR_PALETTES.length)
+        ],
+        hasFlare: baseR > 2.0 && Math.random() < 0.6,
+      }
+    })
 
-    const loop = () => {
+    const loop = (ts: number) => {
       ctx.clearRect(0, 0, cv.width, cv.height)
 
       stars.forEach((s) => {
+        s.x += s.vx
+        s.y += s.vy
+
+        if (s.x < 0) s.x = cv.width
+        if (s.x > cv.width) s.x = 0
+        if (s.y < 0) s.y = cv.height
+        if (s.y > cv.height) s.y = 0
+
+        const twinkle =
+          (Math.sin(ts * s.twinkleSpeed + s.twinklePhase) + 1) / 2
+
+        const currentAlpha = Math.min(
+          1,
+          s.baseAlpha * (0.25 + 0.75 * twinkle)
+        )
+        const currentR = s.baseR * (0.85 + 0.35 * twinkle)
+
+        if (currentAlpha > 0.35 && currentR > 1.0) {
+          const glowR = currentR * 3.8
+          const grad = ctx.createRadialGradient(
+            s.x,
+            s.y,
+            0,
+            s.x,
+            s.y,
+            glowR
+          )
+
+          grad.addColorStop(
+            0,
+            `rgba(${s.rgb}, ${currentAlpha * 0.85})`
+          )
+          grad.addColorStop(
+            0.4,
+            `rgba(${s.rgb}, ${currentAlpha * 0.25})`
+          )
+          grad.addColorStop(1, "rgba(0, 0, 0, 0)")
+
+          ctx.beginPath()
+          ctx.arc(s.x, s.y, glowR, 0, Math.PI * 2)
+          ctx.fillStyle = grad
+          ctx.fill()
+        }
+
         ctx.beginPath()
-
-        ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2)
-
-        ctx.fillStyle = "rgba(255,255,255,.9)"
-
+        ctx.arc(s.x, s.y, currentR, 0, Math.PI * 2)
+        ctx.fillStyle = `rgba(${s.rgb}, ${currentAlpha})`
         ctx.fill()
+
+        if (s.hasFlare && twinkle > 0.68) {
+          const flareAlpha =
+            ((twinkle - 0.68) / 0.32) * currentAlpha * 0.8
+          const flareLen = currentR * 4.5 + twinkle * 3
+
+          ctx.save()
+          ctx.strokeStyle = `rgba(${s.rgb}, ${flareAlpha})`
+          ctx.lineWidth = 0.8
+
+          ctx.beginPath()
+          ctx.moveTo(s.x - flareLen, s.y)
+          ctx.lineTo(s.x + flareLen, s.y)
+          ctx.stroke()
+
+          ctx.beginPath()
+          ctx.moveTo(s.x, s.y - flareLen)
+          ctx.lineTo(s.x, s.y + flareLen)
+          ctx.stroke()
+
+          ctx.restore()
+        }
       })
 
-      starsRafRef.current =
-        requestAnimationFrame(loop)
+      starsRafRef.current = requestAnimationFrame(loop)
     }
 
-    loop()
+    starsRafRef.current = requestAnimationFrame(loop)
+
+    return () => {
+      window.removeEventListener("resize", handleResize)
+    }
   }
 
   function runHyperspace(onDone: () => void) {
@@ -532,6 +627,7 @@ export default function SplashLoader({
 
   useEffect(() => {
     drawArc(0, 0)
+    const cleanupStars = initStars()
 
     let t0: number | null = null
 
@@ -631,8 +727,6 @@ export default function SplashLoader({
             )
 
             runHyperspace(() => {
-              initStars()
-
               ph3Ref.current?.classList.add(
                 "sl-in"
               )
@@ -682,6 +776,7 @@ export default function SplashLoader({
       requestAnimationFrame(phase1)
 
     return () => {
+      cleanupStars?.()
       ;[
         rafRef.current,
         starsRafRef.current,
