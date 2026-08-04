@@ -5,6 +5,7 @@ import { Analytics } from "@vercel/analytics/next"
 import "./globals.css"
 import { siteConfig, siteStructuredData } from "@/lib/site-content"
 import VisitorTracker from "@/app/components/VisitorTracker"
+import CustomCursor from "@/app/components/CustomCursor"
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
@@ -71,6 +72,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(siteStructuredData) }}
         />
+        <CustomCursor />
         <Suspense fallback={null}>
           <VisitorTracker />
         </Suspense>

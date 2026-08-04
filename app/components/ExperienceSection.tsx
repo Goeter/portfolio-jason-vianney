@@ -4,11 +4,13 @@ import Image from "next/image"
 import { BriefcaseBusiness, CalendarDays, MapPin } from "lucide-react"
 import { experiences } from "@/lib/site-content"
 import { BLUR_DATA_URL } from "@/lib/utils"
+import { motion } from "framer-motion"
 import { useScrollReveal } from "@/hooks/useScrollReveal"
+import { useParallax } from "@/hooks/useParallax"
 
 export default function ExperienceSection() {
   const { ref: sectionRef, isVisible } = useScrollReveal<HTMLElement>({ threshold: 0.06 })
-
+  const { ref: parallaxRef, y: parallaxY } = useParallax(55)
 
   return (
     <section
@@ -16,15 +18,19 @@ export default function ExperienceSection() {
       id="experience"
       className="section-transition-soft relative overflow-hidden py-16 sm:py-20 lg:flex lg:min-h-screen lg:items-center"
     >
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_16%,rgba(212,168,67,0.16),transparent_32%),radial-gradient(circle_at_82%_22%,rgba(74,124,191,0.18),transparent_34%),radial-gradient(circle_at_45%_92%,rgba(34,211,238,0.10),transparent_38%),linear-gradient(135deg,#02030a_0%,#07091a_48%,#0b1020_100%)]" />
+      <div ref={parallaxRef} className="absolute inset-0 z-0">
+        <motion.div style={{ y: parallaxY }} className="h-full w-full">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_16%,rgba(212,168,67,0.16),transparent_32%),radial-gradient(circle_at_82%_22%,rgba(74,124,191,0.18),transparent_34%),radial-gradient(circle_at_45%_92%,rgba(34,211,238,0.10),transparent_38%),linear-gradient(135deg,#02030a_0%,#07091a_48%,#0b1020_100%)]" />
 
-      <div className="absolute inset-0 opacity-[0.13]">
-        <div className="experience-grid absolute inset-0 bg-[linear-gradient(to_right,rgba(212,168,67,0.22)_1px,transparent_1px),linear-gradient(to_bottom,rgba(74,124,191,0.22)_1px,transparent_1px)] bg-[size:84px_84px]" />
+          <div className="absolute inset-0 opacity-[0.13]">
+            <div className="experience-grid absolute inset-0 bg-[linear-gradient(to_right,rgba(212,168,67,0.22)_1px,transparent_1px),linear-gradient(to_bottom,rgba(74,124,191,0.22)_1px,transparent_1px)] bg-[size:84px_84px]" />
+          </div>
+
+          <div className="experience-orb absolute left-[-9rem] top-24 h-80 w-80 rounded-full bg-[#d4a843]/15 blur-[140px]" />
+          <div className="experience-orb-delay absolute right-[-9rem] bottom-24 h-96 w-96 rounded-full bg-blue-500/15 blur-[160px]" />
+          <div className="experience-orb-slow absolute left-1/2 top-1/2 h-[34rem] w-[34rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-cyan-400/8 blur-[170px]" />
+        </motion.div>
       </div>
-
-      <div className="experience-orb absolute left-[-9rem] top-24 h-80 w-80 rounded-full bg-[#d4a843]/15 blur-[140px]" />
-      <div className="experience-orb-delay absolute right-[-9rem] bottom-24 h-96 w-96 rounded-full bg-blue-500/15 blur-[160px]" />
-      <div className="experience-orb-slow absolute left-1/2 top-1/2 h-[34rem] w-[34rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-cyan-400/8 blur-[170px]" />
 
       <div className="pointer-events-none absolute inset-0 hidden overflow-hidden sm:block">
         <span className="experience-line left-[10%] top-[20%]" />

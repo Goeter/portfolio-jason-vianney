@@ -4,6 +4,7 @@ import { useMemo, useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { ArrowUpRight, Search } from "lucide-react"
+import { motion } from "framer-motion"
 
 import ArchiveHeader from "../components/ArchiveHeader"
 import Footer from "../components/Footer"
@@ -165,7 +166,12 @@ export default function AllProjects() {
   }, [searchTerm, selectedCategory])
 
   return (
-    <div className="relative flex min-h-screen flex-col overflow-x-hidden bg-[#020617] text-slate-50">
+    <motion.div
+      initial={{ opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+      className="relative flex min-h-screen flex-col overflow-x-hidden bg-[#020617] text-slate-50"
+    >
       <ArchiveBackground />
       <ArchiveHeader title="Project Archive" backHref="/#projects" />
 
@@ -256,6 +262,6 @@ export default function AllProjects() {
       </main>
 
       <Footer />
-    </div>
+    </motion.div>
   )
 }

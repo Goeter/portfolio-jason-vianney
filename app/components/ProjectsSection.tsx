@@ -14,7 +14,8 @@ import {
   type Project,
 } from "@/lib/site-content"
 import { BLUR_DATA_URL } from "@/lib/utils"
-import { useScrollReveal } from "@/hooks/useScrollReveal"
+import { motion } from "framer-motion"
+import { useParallax } from "@/hooks/useParallax"
 import ClapButton from "./ClapButton"
 
 const getCardsPerPage = () => {
@@ -260,13 +261,19 @@ export default function ProjectsSection() {
     setTouchEndX(null)
   }
 
+  const { ref: parallaxRef, y: parallaxY } = useParallax(60)
+
   return (
     <section
       ref={sectionRef}
       id="projects"
       className="section-transition-soft relative flex min-h-screen scroll-mt-16 items-center overflow-hidden py-20 text-slate-50"
     >
-      <ProjectsBackground />
+      <div ref={parallaxRef} className="absolute inset-0 z-0">
+        <motion.div style={{ y: parallaxY }} className="h-full w-full">
+          <ProjectsBackground />
+        </motion.div>
+      </div>
 
       <div className="relative z-10 mx-auto w-full max-w-6xl px-4">
         <div

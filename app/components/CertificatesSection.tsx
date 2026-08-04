@@ -9,7 +9,9 @@ import Link from "next/link"
 import { certificates, certificatesLatestFirst, type Certificate } from "@/lib/site-content"
 import { BLUR_DATA_URL } from "@/lib/utils"
 import ImagePreviewDialog from "./ImagePreviewDialog"
+import { motion } from "framer-motion"
 import { useScrollReveal } from "@/hooks/useScrollReveal"
+import { useParallax } from "@/hooks/useParallax"
 
 const getCardsPerPage = () => {
   if (typeof window === "undefined") return 3
@@ -220,13 +222,19 @@ export default function CertificatesSection() {
     setTouchEndX(null)
   }
 
+  const { ref: parallaxRef, y: parallaxY } = useParallax(50)
+
   return (
     <section
       ref={sectionRef}
       id="certificates"
       className="section-transition-soft relative flex min-h-screen items-center overflow-hidden py-20 text-slate-50"
     >
-      <CertificatesBackground />
+      <div ref={parallaxRef} className="absolute inset-0 z-0">
+        <motion.div style={{ y: parallaxY }} className="h-full w-full">
+          <CertificatesBackground />
+        </motion.div>
+      </div>
 
       <div className="container relative z-10 mx-auto max-w-6xl px-4">
         {/* Header */}

@@ -43,6 +43,12 @@
     @apply bg-background text-foreground;
   }
 
+  @media (pointer: fine) {
+    html, body, a, button, input, textarea, select, [role="button"] {
+      cursor: none !important;
+    }
+  }
+
   *::-webkit-scrollbar {
     display: none !important;
     width: 0 !important;

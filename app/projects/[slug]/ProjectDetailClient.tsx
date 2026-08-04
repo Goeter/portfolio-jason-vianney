@@ -410,6 +410,6 @@ export default function ProjectDetailClient({ project }: ProjectDetailClientProp
       </main>
 
       <Footer />
-    </div>
+    </motion.div>
   )
 }

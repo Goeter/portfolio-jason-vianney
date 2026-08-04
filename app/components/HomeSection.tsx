@@ -5,6 +5,8 @@ import { LazyMotion, domAnimation, m } from "framer-motion"
 import { Download, ArrowRight } from "lucide-react"
 import { expertise, siteConfig } from "@/lib/site-content"
 import { BLUR_DATA_URL } from "@/lib/utils"
+import TypedText from "./TypedText"
+import { useParallax } from "@/hooks/useParallax"
 
 /* ─────────────────────────────────────────────
    Batik + Tech Background
@@ -166,8 +168,23 @@ const fadeSlideRight = {
    Home Section
 ───────────────────────────────────────────── */
 export default function HomeSection() {
+  const { ref: sectionRef, y: parallaxY } = useParallax(50)
+
+  const rolesList = expertise.map((item) => item.label)
+
   const handleDownloadPDF = () => {
-    window.open(siteConfig.contacts.resumeDownloadUrl, "_blank", "noopener,noreferrer")
+    const url = siteConfig.contacts.resumeDownloadUrl
+    if (url.startsWith("/")) {
+      const link = document.createElement("a")
+      link.href = url
+      link.download = "Jason_Vianney_Resume.pdf"
+      link.target = "_blank"
+      document.body.appendChild(link)
+      link.click()
+      document.body.removeChild(link)
+    } else {
+      window.open(url, "_blank", "noopener,noreferrer")
+    }
   }
 
   const handleViewProjects = () => {
@@ -179,12 +196,15 @@ export default function HomeSection() {
   return (
     <LazyMotion features={domAnimation}>
       <section
+        ref={sectionRef}
         id="home"
         aria-label="Home Section"
         className="relative flex min-h-screen flex-col justify-center overflow-hidden bg-[#0B1724] pt-[96px] pb-[96px] md:pt-[118px] md:pb-[118px]"
       >
-        <BatikBackground />
-        <FloatingLights />
+        <m.div className="absolute inset-0 z-0" style={{ y: parallaxY }}>
+          <BatikBackground />
+          <FloatingLights />
+        </m.div>
 
         {/* Overlay */}
         <div
@@ -217,7 +237,7 @@ export default function HomeSection() {
 
               {/* Name */}
               <m.h1
-                className="mb-5 leading-none"
+                className="mb-4 leading-none"
                 style={{
                   fontFamily: "'Cormorant Garamond', serif",
                   fontSize: "clamp(40px, 8vw, 68px)",
@@ -232,6 +252,16 @@ export default function HomeSection() {
                   Sugiarto
                 </span>
               </m.h1>
+
+              {/* Animated Typewriter Sub-headline */}
+              <m.div
+                className="mb-5 flex min-h-[36px] items-center text-sm font-semibold tracking-wide text-amber-200/90 sm:text-base md:text-lg"
+                style={{ fontFamily: "DM Sans, sans-serif" }}
+                {...fadeSlideLeft(0.5)}
+              >
+                <span className="mr-2 text-cyan-400">&gt;</span>
+                <TypedText words={rolesList} />
+              </m.div>
 
               {/* Mobile Photo */}
               <m.div
@@ -250,11 +280,11 @@ export default function HomeSection() {
               </m.div>
 
               {/* Expertise Title */}
-              <m.div className="mb-4" {...fadeSlideLeft(0.55)}>
+              <m.div className="mb-3" {...fadeSlideLeft(0.55)}>
                 <h2
                   style={{
                     fontFamily: "DM Sans, sans-serif",
-                    fontSize: "clamp(16px, 1.8vw, 18px)",
+                    fontSize: "clamp(15px, 1.6vw, 17px)",
                     fontWeight: 600,
                     color: "#F4EDD8",
                     letterSpacing: "0.03em",

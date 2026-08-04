@@ -30,36 +30,55 @@ export default function ClapButton({
   className = "",
   showLabel = true,
 }: ClapButtonProps) {
-  const [likesCount, setLikesCount] = useState<number>(initialCount)
-  const [hasUpvoted, setHasUpvoted] = useState<boolean>(false)
+  // Lazy initializer: read localStorage synchronously so the first render
+  // already reflects the persisted upvote state (no flash / hydration mismatch).
+  const [hasUpvoted, setHasUpvoted] = useState<boolean>(() => {
+    if (typeof window === "undefined") return false
+    try {
+      return localStorage.getItem(`jason_upvoted_${itemId}`) === "true"
+    } catch {
+      return false
+    }
+  })
+
+  const [likesCount, setLikesCount] = useState<number>(() => {
+    if (typeof window === "undefined") return initialCount
+    try {
+      const stored = localStorage.getItem(`jason_likes_count_${itemId}`)
+      if (stored !== null) {
+        const parsed = parseInt(stored, 10)
+        if (!isNaN(parsed)) return parsed
+      }
+    } catch {
+      // Ignore
+    }
+    return initialCount
+  })
+
   const [particles, setParticles] = useState<Particle[]>([])
   const [isAnimating, setIsAnimating] = useState(false)
   const [isHovered, setIsHovered] = useState(false)
 
   const particleIdRef = useRef<number>(0)
 
-  // Load user upvoted state from localStorage & fetch latest total count from server
+  // Fetch latest total count from server (non-blocking update)
   useEffect(() => {
-    try {
-      const storedUpvoted = localStorage.getItem(`jason_upvoted_${itemId}`)
-      if (storedUpvoted === "true") {
-        setHasUpvoted(true)
-      }
-    } catch {
-      // Ignore localStorage errors
-    }
-
-    // Fetch initial count from API
     let isMounted = true
     fetch(`/api/upvotes?id=${encodeURIComponent(itemId)}`)
       .then((res) => res.json())
       .then((data) => {
         if (isMounted && data.success && data.upvotes && typeof data.upvotes[itemId] === "number") {
-          setLikesCount(data.upvotes[itemId])
+          const serverCount = data.upvotes[itemId]
+          setLikesCount(serverCount)
+          try {
+            localStorage.setItem(`jason_likes_count_${itemId}`, String(serverCount))
+          } catch {
+            // Ignore
+          }
         }
       })
       .catch(() => {
-        // Silently retain fallback count
+        // Silently retain fallback count from localStorage
       })
 
     return () => {
@@ -85,6 +104,11 @@ export default function ClapButton({
         .then((data) => {
           if (data.success && typeof data.likesCount === "number") {
             setLikesCount(data.likesCount)
+            try {
+              localStorage.setItem(`jason_likes_count_${itemId}`, String(data.likesCount))
+            } catch {
+              // Ignore
+            }
           }
         })
         .catch(() => {
@@ -110,6 +134,7 @@ export default function ClapButton({
     // Save to localStorage
     try {
       localStorage.setItem(`jason_upvoted_${itemId}`, nextUpvotedState ? "true" : "false")
+      localStorage.setItem(`jason_likes_count_${itemId}`, String(newLikesCount))
     } catch {
       // Ignore
     }
