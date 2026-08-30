@@ -302,7 +302,7 @@ export default function HomeSection() {
                 }}
                 {...fadeSlideLeft(0.65)}
               >
-                Full-Stack Web Developer and System Analyst with 4+ years of experience building corporate websites, internal systems, and CMS-based platforms across finance, manufacturing, legal, and service industries. Skilled in translating business requirements into practical digital solutions that improve workflows, strengthen data management, and support efficient collaboration across teams. Also brings tutoring experience in Math, Physics, and English, with a structured and adaptive approach to communication, learning, and problem-solvings.
+                Full-Stack Developer & System Analyst with 4+ years of cross-industry experience in finance, manufacturing, and legal sectors, including projects for Astra Honda Motor and Mayapada Group. Skilled in translating business needs into real digital solutions from analysis and UI/UX to coding with measurable results in efficiency and data accuracy.
               </m.p>
 
               {/* Buttons */}
