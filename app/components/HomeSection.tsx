@@ -5,6 +5,7 @@ import { LazyMotion, domAnimation, m } from "framer-motion"
 import { Download, ArrowRight, Sparkles } from "lucide-react"
 import { expertise, siteConfig } from "@/lib/site-content"
 import { BLUR_DATA_URL } from "@/lib/utils"
+import StatsStrip from "./StatsStrip"
 import TypedText from "./TypedText"
 import { useParallax } from "@/hooks/useParallax"
 
@@ -20,7 +21,7 @@ function BatikBackground() {
       xmlns="http://www.w3.org/2000/svg"
       aria-hidden="true"
     >
-      <rect width="1440" height="900" fill="#0B1724" />
+      <rect width="1440" height="900" fill="#060D1C" />
 
       <defs>
         <pattern id="kawung" width="44" height="44" patternUnits="userSpaceOnUse">
@@ -199,7 +200,7 @@ export default function HomeSection() {
         ref={sectionRef}
         id="home"
         aria-label="Home Section"
-        className="relative flex min-h-screen flex-col justify-center overflow-hidden bg-[#0B1724] pt-[96px] pb-[96px] md:pt-[118px] md:pb-[118px]"
+        className="relative flex min-h-screen flex-col justify-center overflow-hidden bg-[#060D1C] pt-[96px] pb-[96px] md:pt-[118px] md:pb-[118px]"
       >
         <m.div className="absolute inset-0 z-0" style={{ y: parallaxY }}>
           <BatikBackground />
@@ -286,14 +287,14 @@ export default function HomeSection() {
                   className="mt-2 flex min-h-[36px] items-center text-sm font-semibold tracking-wide text-amber-200/90 sm:text-base md:text-lg"
                   style={{ fontFamily: "var(--font-body), system-ui, sans-serif" }}
                 >
-                  <Sparkles className="mr-2 h-4 w-4 shrink-0 text-cyan-400 animate-pulse drop-shadow-[0_0_8px_rgba(56,189,248,0.7)]" />
+                  <Sparkles className="mr-2 h-4 w-4 shrink-0 text-gold-400 animate-pulse drop-shadow-[0_0_8px_rgba(220,198,148,0.7)]" />
                   <TypedText words={rolesList} />
                 </div>
               </m.div>
 
               {/* Description */}
               <m.p
-                className="mb-[34px] max-w-[620px] text-justify"
+                className="mb-[34px] max-w-[620px]"
                 style={{
                   fontFamily: "var(--font-body), system-ui, sans-serif",
                   fontSize: "clamp(15px, 1.7vw, 18px)",
@@ -302,7 +303,7 @@ export default function HomeSection() {
                 }}
                 {...fadeSlideLeft(0.65)}
               >
-                Full-Stack Developer & System Analyst with 4+ years of cross-industry experience in finance, manufacturing, and legal sectors, including projects for Astra Honda Motor and Mayapada Group. Skilled in translating business needs into real digital solutions from analysis and UI/UX to coding with measurable results in efficiency and data accuracy.
+                Full-Stack Developer and System Analyst with 4+ years of experience across finance, manufacturing, and legal industries, including projects for PT Astra Honda Motor and Mayapada Group. Comfortable handling a project from start to finish — gathering requirements, designing the UI/UX, building the system, and bringing in cloud or AI tools where they genuinely add value. Known for turning messy business processes into systems that are simpler to use and easier to maintain.
               </m.p>
 
               {/* Buttons */}
@@ -317,7 +318,7 @@ export default function HomeSection() {
                   style={{
                     padding: "14px 30px",
                     background: "#C8A96E",
-                    color: "#0B1724",
+                    color: "#060D1C",
                     fontFamily: "var(--font-body), system-ui, sans-serif",
                     fontSize: "clamp(12px, 1vw, 13px)",
                     fontWeight: 700,
@@ -377,6 +378,11 @@ export default function HomeSection() {
                     <ArrowRight size={15} />
                   </m.span>
                 </m.button>
+              </m.div>
+
+              {/* Headline numbers — the quickest read on the page */}
+              <m.div {...fadeSlideLeft(0.85)}>
+                <StatsStrip />
               </m.div>
             </div>
 

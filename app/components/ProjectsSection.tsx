@@ -27,7 +27,7 @@ const getCardsPerPage = () => {
 
 export function ProjectsBackground() {
   return (
-    <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden bg-[linear-gradient(135deg,#020617_0%,#06101e_46%,#0c1a2e_100%)]">
+    <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden bg-[linear-gradient(135deg,#020617_0%,#040A16_46%,#060D1C_100%)]">
       {/* Modern Geometric Constellation Pattern — fresh & distinct from Home */}
       <svg
         className="absolute inset-0 h-full w-full"
@@ -91,13 +91,13 @@ export function ProjectsBackground() {
         <path d="M400 750 L412 762 L400 774 L388 762 Z" fill="none" stroke="#38bdf8" strokeWidth="0.4" opacity="0.12" />
       </svg>
       {/* Ambient elements */}
-      <div className="absolute inset-0 opacity-[0.04] bg-[linear-gradient(to_right,rgba(56,189,248,0.5)_1px,transparent_1px),linear-gradient(to_bottom,rgba(56,189,248,0.3)_1px,transparent_1px)] bg-[size:90px_90px]" />
-      <div className="portfolio-orb absolute -left-32 top-20 h-96 w-96 rounded-full bg-sky-500/16 blur-[130px]" />
-      <div className="portfolio-orb-delay absolute -right-28 top-40 h-[28rem] w-[28rem] rounded-full bg-cyan-300/12 blur-[145px]" />
-      <div className="portfolio-orb-slow absolute bottom-[-11rem] left-1/2 h-[32rem] w-[32rem] -translate-x-1/2 rounded-full bg-sky-400/8 blur-[155px]" />
+      <div className="absolute inset-0 opacity-[0.04] bg-[linear-gradient(to_right,rgba(220,198,148,0.5)_1px,transparent_1px),linear-gradient(to_bottom,rgba(220,198,148,0.3)_1px,transparent_1px)] bg-[size:90px_90px]" />
+      <div className="portfolio-orb absolute -left-32 top-20 h-96 w-96 rounded-full bg-gold-500/16 blur-[130px]" />
+      <div className="portfolio-orb-delay absolute -right-28 top-40 h-[28rem] w-[28rem] rounded-full bg-gold-300/12 blur-[145px]" />
+      <div className="portfolio-orb-slow absolute bottom-[-11rem] left-1/2 h-[32rem] w-[32rem] -translate-x-1/2 rounded-full bg-gold-400/8 blur-[155px]" />
       <span className="portfolio-line left-[10%] top-[28%]" />
       <span className="portfolio-line portfolio-line-delay right-[12%] top-[48%]" />
-      <div className="portfolio-light-sweep absolute inset-0 bg-[linear-gradient(115deg,transparent_0%,rgba(56,189,248,0.065)_42%,transparent_68%)]" />
+      <div className="portfolio-light-sweep absolute inset-0 bg-[linear-gradient(115deg,transparent_0%,rgba(220,198,148,0.065)_42%,transparent_68%)]" />
     </div>
   )
 }
@@ -116,14 +116,14 @@ function ProjectCard({ project, index, isVisible }: { project: Project; index: n
         isVisible ? "reveal-visible" : ""
       }`}
     >
-      <article className="group relative flex h-full min-w-0 flex-1 flex-col overflow-hidden rounded-[28px] border border-cyan-200/28 bg-[#0B1220]/95 shadow-[0_26px_70px_rgba(0,0,0,0.55),0_0_0_1px_rgba(103,232,249,0.10)] ring-1 ring-white/[0.06] backdrop-blur-md transition-all duration-500 ease-fluid hover:-translate-y-1 hover:border-cyan-200/65 hover:bg-[#0F1B2E]/98 hover:shadow-[0_30px_86px_rgba(14,165,233,0.25),0_0_0_1px_rgba(103,232,249,0.22)]">
+      <article className="group relative flex h-full min-w-0 flex-1 flex-col overflow-hidden rounded-[28px] border border-gold-200/28 bg-[#060D1C]/95 shadow-[0_26px_70px_rgba(0,0,0,0.55),0_0_0_1px_rgba(232,218,184,0.10)] ring-1 ring-white/[0.06] backdrop-blur-md transition-all duration-500 ease-fluid hover:-translate-y-1 hover:border-gold-200/65 hover:bg-[#060D1C]/98 hover:shadow-[0_30px_86px_rgba(200,169,110,0.25),0_0_0_1px_rgba(232,218,184,0.22)]">
         <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100">
-          <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-300/80 to-transparent" />
-          <div className="absolute -right-20 -top-20 h-44 w-44 rounded-full bg-cyan-300/12 blur-3xl" />
+          <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-gold-300/80 to-transparent" />
+          <div className="absolute -right-20 -top-20 h-44 w-44 rounded-full bg-gold-300/12 blur-3xl" />
           <div className="absolute -bottom-24 -left-24 h-52 w-52 rounded-full bg-amber-300/10 blur-3xl" />
         </div>
 
-        <div className="relative aspect-[16/10] w-full overflow-hidden border-b border-cyan-200/18 bg-slate-950">
+        <div className="relative aspect-[16/10] w-full overflow-hidden border-b border-gold-200/18 bg-slate-950">
           <Image
             src={project.image}
             alt={project.title}
@@ -140,7 +140,7 @@ function ProjectCard({ project, index, isVisible }: { project: Project; index: n
         </div>
 
         <div className="relative z-10 flex flex-1 flex-col border-t border-white/[0.03] p-5">
-          <h3 className="min-h-[54px] text-[17px] font-bold leading-snug tracking-tight text-slate-50 transition group-hover:text-cyan-100">
+          <h3 className="min-h-[54px] text-[17px] font-bold leading-snug tracking-tight text-slate-50 transition group-hover:text-gold-100">
             {project.title}
           </h3>
 
@@ -148,12 +148,12 @@ function ProjectCard({ project, index, isVisible }: { project: Project; index: n
             {project.description}
           </p>
 
-          <div className="my-5 h-px bg-gradient-to-r from-cyan-200/55 via-white/14 to-transparent" />
+          <div className="my-5 h-px bg-gradient-to-r from-gold-200/55 via-white/14 to-transparent" />
 
           <div className="flex min-h-[34px] flex-wrap items-center justify-between gap-3">
             <Link
               href={getProjectPath(project)}
-              className="inline-flex items-center justify-center rounded-full border border-white/12 bg-white px-4 py-2 text-[12px] font-bold uppercase tracking-[0.08em] text-slate-950 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-cyan-200 hover:bg-cyan-100 hover:shadow-md"
+              className="inline-flex items-center justify-center rounded-full border border-white/12 bg-white px-4 py-2 text-[12px] font-bold uppercase tracking-[0.08em] text-slate-950 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-gold-200 hover:bg-gold-100 hover:shadow-md"
             >
               See Details
             </Link>
@@ -161,7 +161,7 @@ function ProjectCard({ project, index, isVisible }: { project: Project; index: n
             {project.link ? (
               <a
                 href={project.link}
-                className="inline-flex items-center justify-center gap-2 rounded-full border border-cyan-400/70 bg-cyan-400/14 px-4 py-2 text-[12px] font-bold uppercase tracking-[0.08em] text-cyan-100 shadow-[0_10px_24px_rgba(14,165,233,0.15)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-cyan-400 hover:text-slate-950 hover:shadow-[0_14px_30px_rgba(6,182,212,0.26)]"
+                className="inline-flex items-center justify-center gap-2 rounded-full border border-gold-400/70 bg-gold-400/14 px-4 py-2 text-[12px] font-bold uppercase tracking-[0.08em] text-gold-100 shadow-[0_10px_24px_rgba(200,169,110,0.15)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-gold-400 hover:text-slate-950 hover:shadow-[0_14px_30px_rgba(200,169,110,0.26)]"
               >
                 Visit
                 <ExternalLink size={14} />
@@ -279,18 +279,18 @@ export default function ProjectsSection() {
           }`}
         >
           <div className="flex items-start justify-between gap-4">
-            <h2 className="min-w-0 bg-gradient-to-r from-slate-50 via-cyan-100 to-[#C8A96E] bg-clip-text pb-1 text-4xl font-bold leading-[1.15] tracking-tight text-transparent md:pb-1.5 md:text-5xl md:leading-[1.15]">
+            <h2 className="min-w-0 bg-gradient-to-r from-slate-50 via-gold-100 to-[#C8A96E] bg-clip-text pb-1 text-4xl font-bold leading-[1.15] tracking-tight text-transparent md:pb-1.5 md:text-5xl md:leading-[1.15]">
               Projects
             </h2>
 
             <Link href="/projects" className="mt-1 shrink-0 no-underline md:mt-2">
-              <div className="group flex overflow-hidden rounded-[12px] border border-cyan-300/25 bg-slate-950/70 shadow-lg shadow-cyan-950/35 backdrop-blur-xl transition-all duration-300 hover:scale-[1.03] hover:border-cyan-300/55 hover:shadow-cyan-500/18">
-                <div className="flex items-center justify-center gap-2 bg-white/7 px-3 py-[12px] text-[13px] font-semibold tracking-[0.02em] text-cyan-100 transition-colors duration-300 group-hover:bg-cyan-400 group-hover:text-slate-950 sm:px-5">
+              <div className="group flex overflow-hidden rounded-[12px] border border-gold-300/25 bg-slate-950/70 shadow-lg shadow-gold-950/35 backdrop-blur-xl transition-all duration-300 hover:scale-[1.03] hover:border-gold-300/55 hover:shadow-gold-500/18">
+                <div className="flex items-center justify-center gap-2 bg-white/7 px-3 py-[12px] text-[13px] font-semibold tracking-[0.02em] text-gold-100 transition-colors duration-300 group-hover:bg-gold-400 group-hover:text-slate-950 sm:px-5">
                   <span className="hidden sm:inline">View All</span>
                   <ExternalLink className="h-4 w-4 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                 </div>
 
-                <div className="flex min-w-[52px] flex-col items-center justify-center bg-cyan-400 px-3 py-[8px] leading-none text-slate-950 sm:min-w-[72px] sm:px-4">
+                <div className="flex min-w-[52px] flex-col items-center justify-center bg-gold-400 px-3 py-[8px] leading-none text-slate-950 sm:min-w-[72px] sm:px-4">
                   <span className="text-[18px] font-bold leading-none sm:text-[21px]">
                     {projects.length}
                   </span>
@@ -317,7 +317,7 @@ export default function ProjectsSection() {
             onClick={() => slide(-1)}
             disabled={currentPage === 0}
             aria-label="Previous projects"
-            className="absolute -left-2 top-1/2 z-20 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-cyan-300/25 bg-slate-950/80 text-cyan-100 shadow-xl backdrop-blur-xl transition hover:bg-cyan-400 hover:text-slate-950 disabled:cursor-default disabled:opacity-25 md:-left-5 sm:flex"
+            className="absolute -left-2 top-1/2 z-20 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-gold-300/25 bg-slate-950/80 text-gold-100 shadow-xl backdrop-blur-xl transition hover:bg-gold-400 hover:text-slate-950 disabled:cursor-default disabled:opacity-25 md:-left-5 sm:flex"
           >
             <ChevronLeft size={20} />
           </button>
@@ -327,7 +327,7 @@ export default function ProjectsSection() {
             onClick={() => slide(1)}
             disabled={currentPage === totalPages - 1}
             aria-label="Next projects"
-            className="absolute -right-2 top-1/2 z-20 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-cyan-300/25 bg-slate-950/80 text-cyan-100 shadow-xl backdrop-blur-xl transition hover:bg-cyan-400 hover:text-slate-950 disabled:cursor-default disabled:opacity-25 md:-right-5 sm:flex"
+            className="absolute -right-2 top-1/2 z-20 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-gold-300/25 bg-slate-950/80 text-gold-100 shadow-xl backdrop-blur-xl transition hover:bg-gold-400 hover:text-slate-950 disabled:cursor-default disabled:opacity-25 md:-right-5 sm:flex"
           >
             <ChevronRight size={20} />
           </button>
@@ -373,7 +373,7 @@ export default function ProjectsSection() {
             onClick={() => slide(-1)}
             disabled={currentPage === 0}
             aria-label="Previous projects"
-            className="flex h-9 w-9 items-center justify-center rounded-full border border-cyan-300/25 bg-slate-950/80 text-cyan-100 shadow-lg backdrop-blur-xl transition hover:bg-cyan-400 hover:text-slate-950 disabled:cursor-default disabled:opacity-25 sm:hidden"
+            className="flex h-9 w-9 items-center justify-center rounded-full border border-gold-300/25 bg-slate-950/80 text-gold-100 shadow-lg backdrop-blur-xl transition hover:bg-gold-400 hover:text-slate-950 disabled:cursor-default disabled:opacity-25 sm:hidden"
           >
             <ChevronLeft size={18} />
           </button>
@@ -388,8 +388,8 @@ export default function ProjectsSection() {
                   type="button"
                   onClick={() => setCurrentPage(index)}
                   aria-label={`Go to project page ${index + 1}`}
-                  className={`h-2 rounded-full transition-all duration-300 ${
-                    active ? "w-8 bg-cyan-300" : "w-2 bg-white/20 hover:bg-cyan-200/60"
+                  className={`relative h-2 rounded-full transition-all duration-300 before:absolute before:-inset-2 before:content-[''] ${
+                    active ? "w-8 bg-gold-300" : "w-2 bg-white/20 hover:bg-gold-200/60"
                   }`}
                 />
               )
@@ -405,7 +405,7 @@ export default function ProjectsSection() {
             onClick={() => slide(1)}
             disabled={currentPage === totalPages - 1}
             aria-label="Next projects"
-            className="flex h-9 w-9 items-center justify-center rounded-full border border-cyan-300/25 bg-slate-950/80 text-cyan-100 shadow-lg backdrop-blur-xl transition hover:bg-cyan-400 hover:text-slate-950 disabled:cursor-default disabled:opacity-25 sm:hidden"
+            className="flex h-9 w-9 items-center justify-center rounded-full border border-gold-300/25 bg-slate-950/80 text-gold-100 shadow-lg backdrop-blur-xl transition hover:bg-gold-400 hover:text-slate-950 disabled:cursor-default disabled:opacity-25 sm:hidden"
           >
             <ChevronRight size={18} />
           </button>

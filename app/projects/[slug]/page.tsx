@@ -34,13 +34,16 @@ export async function generateMetadata({ params }: ProjectPageProps): Promise<Me
     }
   }
 
+  // The root layout already appends "| <brand> Portfolio" via its title template,
+  // so the tab title stays bare here. Social cards get the full branded form.
+  const pageTitle = project.seoTitle ?? project.title
   const title = getProjectSeoTitle(project)
   const description = getProjectSeoDescription(project)
   const url = `${siteConfig.url}${getProjectPath(project)}`
   const image = getProjectOgImage(project)
 
   return {
-    title,
+    title: pageTitle,
     description,
     alternates: { canonical: getProjectPath(project) },
     openGraph: {

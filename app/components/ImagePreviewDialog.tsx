@@ -65,7 +65,7 @@ export default function ImagePreviewDialog({
           <X className="h-5 w-5" />
         </button>
 
-        <div className="min-h-0 max-w-full rounded-[14px] bg-[#050816] p-1.5 sm:rounded-[18px] sm:p-2">
+        <div className="min-h-0 max-w-full rounded-[14px] bg-[#020617] p-1.5 sm:rounded-[18px] sm:p-2">
           {isGallery ? (
             <div className="portfolio-preview-scroll no-card-scrollbar flex max-h-[calc(100vh-140px)] sm:max-h-[calc(100vh-160px)] gap-2 overflow-x-auto pb-1 pr-8 sm:gap-3 sm:pr-10">
               {images.map((image, index) => (

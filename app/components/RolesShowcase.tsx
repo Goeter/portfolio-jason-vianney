@@ -21,40 +21,40 @@ const colorMap: Record<
   }
 > = {
   cyan: {
-    bar: "from-cyan-600 via-cyan-400 to-sky-300",
-    label: "text-cyan-400",
-    tagBg: "bg-cyan-500/[0.09]",
-    tagText: "text-cyan-300",
-    tagBorder: "border-cyan-500/20",
-    dot: "bg-cyan-400",
-    iconBg: "bg-cyan-400/10",
+    bar: "from-gold-600 via-gold-400 to-gold-300",
+    label: "text-gold-400",
+    tagBg: "bg-gold-500/[0.09]",
+    tagText: "text-gold-300",
+    tagBorder: "border-gold-500/20",
+    dot: "bg-gold-400",
+    iconBg: "bg-gold-400/10",
   },
   purple: {
-    bar: "from-purple-700 via-purple-500 to-fuchsia-400",
-    label: "text-purple-400",
-    tagBg: "bg-purple-500/[0.09]",
-    tagText: "text-purple-300",
-    tagBorder: "border-purple-500/20",
-    dot: "bg-purple-400",
-    iconBg: "bg-purple-400/10",
+    bar: "from-gold-700 via-gold-500 to-gold-400",
+    label: "text-gold-400",
+    tagBg: "bg-gold-500/[0.09]",
+    tagText: "text-gold-300",
+    tagBorder: "border-gold-500/20",
+    dot: "bg-gold-400",
+    iconBg: "bg-gold-400/10",
   },
   rose: {
-    bar: "from-rose-700 via-rose-500 to-pink-400",
-    label: "text-rose-400",
-    tagBg: "bg-rose-500/[0.09]",
-    tagText: "text-rose-300",
-    tagBorder: "border-rose-500/20",
-    dot: "bg-rose-400",
-    iconBg: "bg-rose-400/10",
+    bar: "from-gold-700 via-gold-500 to-pink-400",
+    label: "text-gold-400",
+    tagBg: "bg-gold-500/[0.09]",
+    tagText: "text-gold-300",
+    tagBorder: "border-gold-500/20",
+    dot: "bg-gold-400",
+    iconBg: "bg-gold-400/10",
   },
   emerald: {
-    bar: "from-emerald-700 via-emerald-500 to-green-300",
-    label: "text-emerald-400",
-    tagBg: "bg-emerald-500/[0.09]",
-    tagText: "text-emerald-300",
-    tagBorder: "border-emerald-500/20",
-    dot: "bg-emerald-400",
-    iconBg: "bg-emerald-400/10",
+    bar: "from-gold-700 via-gold-500 to-green-300",
+    label: "text-gold-400",
+    tagBg: "bg-gold-500/[0.09]",
+    tagText: "text-gold-300",
+    tagBorder: "border-gold-500/20",
+    dot: "bg-gold-400",
+    iconBg: "bg-gold-400/10",
   },
   amber: {
     bar: "from-amber-700 via-amber-500 to-yellow-300",
@@ -97,29 +97,29 @@ function BatikBg() {
             height="72"
             patternUnits="userSpaceOnUse"
           >
-            <circle cx="36" cy="36" r="22" fill="none" stroke="#c9a84c" strokeWidth="0.75" />
-            <circle cx="36" cy="36" r="14" fill="none" stroke="#c9a84c" strokeWidth="0.5" />
-            <circle cx="36" cy="36" r="7" fill="none" stroke="#c9a84c" strokeWidth="0.45" />
-            <circle cx="36" cy="36" r="2.5" fill="#c9a84c" opacity="0.65" />
+            <circle cx="36" cy="36" r="22" fill="none" stroke="#C8A96E" strokeWidth="0.75" />
+            <circle cx="36" cy="36" r="14" fill="none" stroke="#C8A96E" strokeWidth="0.5" />
+            <circle cx="36" cy="36" r="7" fill="none" stroke="#C8A96E" strokeWidth="0.45" />
+            <circle cx="36" cy="36" r="2.5" fill="#C8A96E" opacity="0.65" />
 
-            <path d="M36 14 L40.5 22 L36 30 L31.5 22 Z" fill="none" stroke="#c9a84c" strokeWidth="0.5" />
-            <path d="M58 36 L50 40.5 L42 36 L50 31.5 Z" fill="none" stroke="#c9a84c" strokeWidth="0.5" />
-            <path d="M36 58 L31.5 50 L36 42 L40.5 50 Z" fill="none" stroke="#c9a84c" strokeWidth="0.5" />
-            <path d="M14 36 L22 31.5 L30 36 L22 40.5 Z" fill="none" stroke="#c9a84c" strokeWidth="0.5" />
+            <path d="M36 14 L40.5 22 L36 30 L31.5 22 Z" fill="none" stroke="#C8A96E" strokeWidth="0.5" />
+            <path d="M58 36 L50 40.5 L42 36 L50 31.5 Z" fill="none" stroke="#C8A96E" strokeWidth="0.5" />
+            <path d="M36 58 L31.5 50 L36 42 L40.5 50 Z" fill="none" stroke="#C8A96E" strokeWidth="0.5" />
+            <path d="M14 36 L22 31.5 L30 36 L22 40.5 Z" fill="none" stroke="#C8A96E" strokeWidth="0.5" />
 
-            <line x1="36" y1="0" x2="36" y2="12" stroke="#c9a84c" strokeWidth="0.35" strokeDasharray="2,2" />
-            <line x1="72" y1="36" x2="60" y2="36" stroke="#c9a84c" strokeWidth="0.35" strokeDasharray="2,2" />
-            <line x1="36" y1="72" x2="36" y2="60" stroke="#c9a84c" strokeWidth="0.35" strokeDasharray="2,2" />
-            <line x1="0" y1="36" x2="12" y2="36" stroke="#c9a84c" strokeWidth="0.35" strokeDasharray="2,2" />
+            <line x1="36" y1="0" x2="36" y2="12" stroke="#C8A96E" strokeWidth="0.35" strokeDasharray="2,2" />
+            <line x1="72" y1="36" x2="60" y2="36" stroke="#C8A96E" strokeWidth="0.35" strokeDasharray="2,2" />
+            <line x1="36" y1="72" x2="36" y2="60" stroke="#C8A96E" strokeWidth="0.35" strokeDasharray="2,2" />
+            <line x1="0" y1="36" x2="12" y2="36" stroke="#C8A96E" strokeWidth="0.35" strokeDasharray="2,2" />
 
-            <circle cx="0" cy="0" r="2.5" fill="none" stroke="#c9a84c" strokeWidth="0.4" />
-            <circle cx="72" cy="0" r="2.5" fill="none" stroke="#c9a84c" strokeWidth="0.4" />
-            <circle cx="0" cy="72" r="2.5" fill="none" stroke="#c9a84c" strokeWidth="0.4" />
-            <circle cx="72" cy="72" r="2.5" fill="none" stroke="#c9a84c" strokeWidth="0.4" />
+            <circle cx="0" cy="0" r="2.5" fill="none" stroke="#C8A96E" strokeWidth="0.4" />
+            <circle cx="72" cy="0" r="2.5" fill="none" stroke="#C8A96E" strokeWidth="0.4" />
+            <circle cx="0" cy="72" r="2.5" fill="none" stroke="#C8A96E" strokeWidth="0.4" />
+            <circle cx="72" cy="72" r="2.5" fill="none" stroke="#C8A96E" strokeWidth="0.4" />
           </pattern>
           <radialGradient id="expertGlowL" cx="15%" cy="30%" r="45%">
-            <stop offset="0%" stopColor="#c9a84c" stopOpacity="0.12" />
-            <stop offset="100%" stopColor="#c9a84c" stopOpacity="0" />
+            <stop offset="0%" stopColor="#C8A96E" stopOpacity="0.12" />
+            <stop offset="100%" stopColor="#C8A96E" stopOpacity="0" />
           </radialGradient>
           <radialGradient id="expertGlowR" cx="85%" cy="70%" r="40%">
             <stop offset="0%" stopColor="#06b6d4" stopOpacity="0.08" />
@@ -140,8 +140,8 @@ function BatikBg() {
         <circle cx="1300" cy="640" r="2" fill="#a855f7" opacity="0.28" />
       </svg>
       {/* Ambient orbs */}
-      <div className="absolute -left-20 top-10 h-72 w-72 rounded-full bg-[#c9a84c]/10 blur-[120px]" />
-      <div className="absolute -right-20 bottom-10 h-80 w-80 rounded-full bg-cyan-500/8 blur-[130px]" />
+      <div className="absolute -left-20 top-10 h-72 w-72 rounded-full bg-[#C8A96E]/10 blur-[120px]" />
+      <div className="absolute -right-20 bottom-10 h-80 w-80 rounded-full bg-gold-500/8 blur-[130px]" />
     </div>
   )
 }
@@ -154,7 +154,7 @@ function RoleCard({ role }: { role: ProfessionalRole }) {
   const c = colorMap[role.color]
 
   return (
-    <div className="h-full overflow-hidden rounded-[18px] border border-[#c9a84c]/[0.18] bg-[#080d1c]/80 backdrop-blur-sm transform-gpu transition-all duration-500 ease-fluid hover:scale-[1.02] hover:border-[#c9a84c]/[0.45] hover:shadow-[0_20px_60px_rgba(0,0,0,0.4),0_0_0_1px_rgba(201,168,76,0.15)]">
+    <div className="h-full overflow-hidden rounded-[18px] border border-[#C8A96E]/[0.18] bg-[#060d1c]/80 backdrop-blur-sm transform-gpu transition-all duration-500 ease-fluid hover:scale-[1.02] hover:border-[#C8A96E]/[0.45] hover:shadow-[0_20px_60px_rgba(0,0,0,0.4),0_0_0_1px_rgba(201,168,76,0.15)]">
       {/* Top Gradient Bar */}
       <div className={`h-[3px] w-full bg-gradient-to-r ${c.bar}`} />
 
@@ -162,20 +162,20 @@ function RoleCard({ role }: { role: ProfessionalRole }) {
         {/* Header with number badge */}
         <div className="mb-4 flex items-start justify-between gap-3">
           <h3
-            className="text-[1.15rem] md:text-[1.28rem] font-semibold leading-snug text-[#f0e8d4]"
+            className="text-[1.15rem] md:text-[1.28rem] font-semibold leading-snug text-[#F4EDD8]"
             style={{ fontFamily: "var(--font-display), Georgia, serif" }}
           >
             {role.title}
           </h3>
 
           <div className="flex items-center gap-2 shrink-0">
-            <span className="mt-0.5 flex h-7 w-7 items-center justify-center rounded-full border border-[#c9a84c]/30 bg-[#c9a84c]/[0.08] text-[10px] font-bold tracking-wider text-[#c9a84c]/60">
+            <span className="mt-0.5 flex h-7 w-7 items-center justify-center rounded-full border border-[#C8A96E]/30 bg-[#C8A96E]/[0.08] text-[10px] font-bold tracking-wider text-[#C8A96E]/60">
               {role.number}
             </span>
           </div>
         </div>
 
-        <div className="my-4 h-px bg-gradient-to-r from-[#c9a84c]/20 via-[#c9a84c]/10 to-transparent" />
+        <div className="my-4 h-px bg-gradient-to-r from-[#C8A96E]/20 via-[#C8A96E]/10 to-transparent" />
 
         {/* Skills */}
         <div className="mb-4">
@@ -198,7 +198,7 @@ function RoleCard({ role }: { role: ProfessionalRole }) {
           </div>
         </div>
 
-        <div className="my-4 h-px bg-gradient-to-r from-[#c9a84c]/20 via-[#c9a84c]/10 to-transparent" />
+        <div className="my-4 h-px bg-gradient-to-r from-[#C8A96E]/20 via-[#C8A96E]/10 to-transparent" />
 
         {/* Tools */}
         <div>
@@ -213,7 +213,7 @@ function RoleCard({ role }: { role: ProfessionalRole }) {
             {role.tools.map((tool) => (
               <li
                 key={tool}
-                className="flex items-center gap-2.5 border-b border-white/[0.04] py-[7px] text-[13px] md:text-[14px] text-[#f0e8d4]/[0.68] last:border-none last:pb-0"
+                className="flex items-center gap-2.5 border-b border-white/[0.04] py-[7px] text-[13px] md:text-[14px] text-[#F4EDD8]/[0.68] last:border-none last:pb-0"
               >
                 <span className={`flex h-1.5 w-1.5 shrink-0 rounded-full ${c.dot} shadow-[0_0_4px_currentColor]`} />
                 {tool}
@@ -310,14 +310,14 @@ export default function RolesShowcase() {
   return (
     <section
       id="roles"
-      className="relative w-full overflow-hidden bg-[#080d1c] py-14 md:py-18"
+      className="relative w-full overflow-hidden bg-[#060d1c] py-14 md:py-18"
       style={{ fontFamily: "var(--font-body), system-ui, sans-serif" }}
     >
       {/* Top Gold Line — full horizontal */}
-      <div className="absolute inset-x-0 top-0 z-10 h-px bg-gradient-to-r from-transparent via-[#c9a84c]/55 to-transparent" />
+      <div className="absolute inset-x-0 top-0 z-10 h-px bg-gradient-to-r from-transparent via-[#C8A96E]/55 to-transparent" />
 
       {/* Bottom Gold Line — full horizontal */}
-      <div className="absolute inset-x-0 bottom-0 z-10 h-px bg-gradient-to-r from-transparent via-[#c9a84c]/55 to-transparent" />
+      <div className="absolute inset-x-0 bottom-0 z-10 h-px bg-gradient-to-r from-transparent via-[#C8A96E]/55 to-transparent" />
 
       {/* Full-width background */}
       <BatikBg />
@@ -328,11 +328,11 @@ export default function RolesShowcase() {
           ref={headerRef}
           className={`px-6 pb-10 text-center reveal-hidden ${headerVisible ? "reveal-visible" : ""}`}
         >
-          <p className="mb-3 text-[10px] font-bold uppercase tracking-[5px] text-[#c9a84c]/60">
+          <p className="mb-3 text-[10px] font-bold uppercase tracking-[5px] text-[#C8A96E]/60">
             What I Do Best
           </p>
           <h2
-            className="m-0 text-[2.4rem] sm:text-[2.8rem] md:text-[3.15rem] font-bold leading-tight text-[#f0e8d4]"
+            className="m-0 text-[2.4rem] sm:text-[2.8rem] md:text-[3.15rem] font-bold leading-tight text-[#F4EDD8]"
             style={{
               fontFamily: "var(--font-display), Georgia, serif",
               letterSpacing: "-0.02em",
@@ -340,16 +340,16 @@ export default function RolesShowcase() {
           >
             Professional{" "}
             <em
-              className="not-italic text-[#c9a84c]"
+              className="not-italic text-[#C8A96E]"
               style={{ fontStyle: "italic" }}
             >
               Expertise
             </em>
           </h2>
 
-          <div className="mx-auto mt-4 h-0.5 w-[58px] rounded-full bg-gradient-to-r from-[#c9a84c] via-[#e8c97a] to-[#c9a84c]" />
+          <div className="mx-auto mt-4 h-0.5 w-[58px] rounded-full bg-gradient-to-r from-[#C8A96E] via-[#e8c97a] to-[#C8A96E]" />
           
-          <p className="mx-auto mt-4 max-w-2xl text-sm leading-relaxed text-[#f0e8d4]/50">
+          <p className="mx-auto mt-4 max-w-2xl text-sm leading-relaxed text-[#F4EDD8]/50">
             Specialized roles and technical capabilities refined through years of hands-on experience.
           </p>
         </div>
@@ -411,14 +411,14 @@ export default function RolesShowcase() {
           <button
             onClick={() => goTo(current - 1)}
             aria-label="Previous"
-            className="flex h-[36px] w-[36px] items-center justify-center rounded-full border border-[#c9a84c]/40 bg-[#c9a84c]/[0.06] text-[#c9a84c] outline-none transition-all duration-200 hover:border-[#c9a84c]/65 hover:bg-[#c9a84c]/[0.15] hover:shadow-[0_0_20px_rgba(201,168,76,0.15)]"
+            className="flex h-[36px] w-[36px] items-center justify-center rounded-full border border-[#C8A96E]/40 bg-[#C8A96E]/[0.06] text-[#C8A96E] outline-none transition-all duration-200 hover:border-[#C8A96E]/65 hover:bg-[#C8A96E]/[0.15] hover:shadow-[0_0_20px_rgba(201,168,76,0.15)]"
           >
             <svg
               width="15"
               height="15"
               viewBox="0 0 24 24"
               fill="none"
-              stroke="#c9a84c"
+              stroke="#C8A96E"
               strokeWidth="2"
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -437,10 +437,10 @@ export default function RolesShowcase() {
                   key={i}
                   onClick={() => goTo(i)}
                   aria-label={`Go to slide ${i + 1}`}
-                  className={`h-[6px] rounded-full transition-all duration-300 ${
+                  className={`relative h-[6px] rounded-full transition-all duration-300 before:absolute before:-inset-[9px] before:content-[''] ${
                     active
-                      ? "w-[22px] bg-[#c9a84c]"
-                      : "w-[6px] bg-[#c9a84c]/20 hover:bg-[#c9a84c]/40"
+                      ? "w-[22px] bg-[#C8A96E]"
+                      : "w-[6px] bg-[#C8A96E]/20 hover:bg-[#C8A96E]/40"
                   }`}
                 />
               )
@@ -451,14 +451,14 @@ export default function RolesShowcase() {
           <button
             onClick={() => goTo(current + 1)}
             aria-label="Next"
-            className="flex h-[36px] w-[36px] items-center justify-center rounded-full border border-[#c9a84c]/40 bg-[#c9a84c]/[0.06] text-[#c9a84c] outline-none transition-all duration-200 hover:border-[#c9a84c]/65 hover:bg-[#c9a84c]/[0.15] hover:shadow-[0_0_20px_rgba(201,168,76,0.15)]"
+            className="flex h-[36px] w-[36px] items-center justify-center rounded-full border border-[#C8A96E]/40 bg-[#C8A96E]/[0.06] text-[#C8A96E] outline-none transition-all duration-200 hover:border-[#C8A96E]/65 hover:bg-[#C8A96E]/[0.15] hover:shadow-[0_0_20px_rgba(201,168,76,0.15)]"
           >
             <svg
               width="15"
               height="15"
               viewBox="0 0 24 24"
               fill="none"
-              stroke="#c9a84c"
+              stroke="#C8A96E"
               strokeWidth="2"
               strokeLinecap="round"
               strokeLinejoin="round"

@@ -1,8 +1,8 @@
 "use client"
 
 import Image from "next/image"
-import { BriefcaseBusiness, CalendarDays, MapPin } from "lucide-react"
-import { experiences } from "@/lib/site-content"
+import { BriefcaseBusiness, CalendarDays, GraduationCap, MapPin } from "lucide-react"
+import { education, experiences } from "@/lib/site-content"
 import { BLUR_DATA_URL } from "@/lib/utils"
 import { motion } from "framer-motion"
 import { useScrollReveal } from "@/hooks/useScrollReveal"
@@ -20,15 +20,15 @@ export default function ExperienceSection() {
     >
       <div ref={parallaxRef} className="absolute inset-0 z-0">
         <motion.div style={{ y: parallaxY }} className="h-full w-full">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_16%,rgba(212,168,67,0.16),transparent_32%),radial-gradient(circle_at_82%_22%,rgba(74,124,191,0.18),transparent_34%),radial-gradient(circle_at_45%_92%,rgba(34,211,238,0.10),transparent_38%),linear-gradient(135deg,#02030a_0%,#07091a_48%,#0b1020_100%)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_16%,rgba(212,168,67,0.16),transparent_32%),radial-gradient(circle_at_82%_22%,rgba(74,124,191,0.18),transparent_34%),radial-gradient(circle_at_45%_92%,rgba(220,198,148,0.10),transparent_38%),linear-gradient(135deg,#02030a_0%,#07091a_48%,#060d1c_100%)]" />
 
           <div className="absolute inset-0 opacity-[0.13]">
             <div className="experience-grid absolute inset-0 bg-[linear-gradient(to_right,rgba(212,168,67,0.22)_1px,transparent_1px),linear-gradient(to_bottom,rgba(74,124,191,0.22)_1px,transparent_1px)] bg-[size:84px_84px]" />
           </div>
 
-          <div className="experience-orb absolute left-[-9rem] top-24 h-80 w-80 rounded-full bg-[#d4a843]/15 blur-[140px]" />
+          <div className="experience-orb absolute left-[-9rem] top-24 h-80 w-80 rounded-full bg-[#C8A96E]/15 blur-[140px]" />
           <div className="experience-orb-delay absolute right-[-9rem] bottom-24 h-96 w-96 rounded-full bg-blue-500/15 blur-[160px]" />
-          <div className="experience-orb-slow absolute left-1/2 top-1/2 h-[34rem] w-[34rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-cyan-400/8 blur-[170px]" />
+          <div className="experience-orb-slow absolute left-1/2 top-1/2 h-[34rem] w-[34rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-gold-400/8 blur-[170px]" />
         </motion.div>
       </div>
 
@@ -44,11 +44,11 @@ export default function ExperienceSection() {
             isVisible ? "reveal-visible" : ""
           }`}
         >
-          <p className="mb-4 text-xs font-semibold uppercase tracking-[0.26em] text-[#d4a843] sm:text-sm sm:tracking-[0.32em]">
+          <p className="mb-4 text-xs font-semibold uppercase tracking-[0.26em] text-[#C8A96E] sm:text-sm sm:tracking-[0.32em]">
             Career Journey
           </p>
 
-          <h2 className="font-serif bg-gradient-to-r from-[#f8f1d8] via-[#d4a843] to-[#8cc8ff] bg-clip-text pb-2 text-3xl font-semibold leading-[1.12] tracking-[-0.03em] text-transparent drop-shadow-[0_0_28px_rgba(212,168,67,0.18)] sm:text-4xl md:text-5xl lg:text-6xl">
+          <h2 className="font-serif bg-gradient-to-r from-[#F4EDD8] via-[#C8A96E] to-[#E8DAB8] bg-clip-text pb-2 text-3xl font-semibold leading-[1.12] tracking-[-0.03em] text-transparent drop-shadow-[0_0_28px_rgba(212,168,67,0.18)] sm:text-4xl md:text-5xl lg:text-6xl">
             Experience Timeline
           </h2>
 
@@ -58,21 +58,21 @@ export default function ExperienceSection() {
         </div>
 
         <div className="relative mx-auto max-w-5xl">
-          <div className="absolute left-5 top-3 hidden h-[calc(100%-1.5rem)] w-px bg-gradient-to-b from-[#d4a843]/60 via-[#4a7cbf]/45 to-transparent md:block" />
+          <div className="absolute left-5 top-3 hidden h-[calc(100%-1.5rem)] w-px bg-gradient-to-b from-[#C8A96E]/60 via-[#C8A96E]/45 to-transparent md:block" />
 
           <div className="space-y-5">
             {experiences.map((experience, index) => (
               <article
                 key={experience.id}
-                className={`group relative overflow-hidden rounded-[24px] border border-white/10 bg-[#0b1020]/78 p-4 shadow-2xl shadow-black/30 backdrop-blur-xl transition-all duration-700 ease-out hover:-translate-y-1 hover:border-[#d4a843]/35 hover:bg-[#0d1226]/88 hover:shadow-[0_22px_65px_rgba(0,0,0,0.48)] sm:rounded-[28px] sm:p-5 md:ml-12 md:p-6 reveal-hidden ${
+                className={`group relative overflow-hidden rounded-[24px] border border-white/10 bg-[#060d1c]/78 p-4 shadow-2xl shadow-black/30 backdrop-blur-xl transition-all duration-700 ease-out hover:-translate-y-1 hover:border-[#C8A96E]/35 hover:bg-[#060d1c]/88 hover:shadow-[0_22px_65px_rgba(0,0,0,0.48)] sm:rounded-[28px] sm:p-5 md:ml-12 md:p-6 reveal-hidden ${
                   isVisible ? "reveal-visible" : ""
                 }`}
                 style={{ transitionDelay: isVisible ? `${index * 100}ms` : "0ms" }}
               >
-                <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#d4a843]/55 to-transparent" />
-                <div className="absolute right-0 top-0 h-24 w-24 rounded-bl-full bg-[#d4a843]/5 transition duration-500 group-hover:bg-[#d4a843]/10 sm:h-28 sm:w-28" />
+                <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#C8A96E]/55 to-transparent" />
+                <div className="absolute right-0 top-0 h-24 w-24 rounded-bl-full bg-[#C8A96E]/5 transition duration-500 group-hover:bg-[#C8A96E]/10 sm:h-28 sm:w-28" />
 
-                <div className="absolute left-[-3.6rem] top-8 hidden h-10 w-10 items-center justify-center rounded-full border border-[#d4a843]/35 bg-[#0d1226] text-sm font-semibold text-[#d4a843] shadow-[0_0_24px_rgba(212,168,67,0.16)] md:flex">
+                <div className="absolute left-[-3.6rem] top-8 hidden h-10 w-10 items-center justify-center rounded-full border border-[#C8A96E]/35 bg-[#060d1c] text-sm font-semibold text-[#C8A96E] shadow-[0_0_24px_rgba(212,168,67,0.16)] md:flex">
                   {String(index + 1).padStart(2, "0")}
                 </div>
 
@@ -94,18 +94,18 @@ export default function ExperienceSection() {
                   <div className="min-w-0 flex-1 text-center sm:text-left">
                     <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
                       <div className="min-w-0">
-                        <h3 className="break-words text-lg font-bold leading-snug text-[#f8f1d8] transition duration-300 group-hover:text-white md:text-xl">
+                        <h3 className="break-words text-lg font-bold leading-snug text-[#F4EDD8] transition duration-300 group-hover:text-white md:text-xl">
                           {experience.company}
                         </h3>
 
-                        <div className="mt-3 inline-flex max-w-full items-center gap-2 rounded-full border border-[#d4a843]/25 bg-[#d4a843]/10 px-3 py-1 text-left text-xs font-semibold leading-relaxed text-[#f3d585] sm:text-sm">
+                        <div className="mt-3 inline-flex max-w-full items-center gap-2 rounded-full border border-[#C8A96E]/25 bg-[#C8A96E]/10 px-3 py-1 text-left text-xs font-semibold leading-relaxed text-[#f3d585] sm:text-sm">
                           <BriefcaseBusiness size={15} className="shrink-0" />
                           <span>{experience.division}</span>
                         </div>
                       </div>
 
                       <div className="flex flex-col items-center gap-2 sm:items-start lg:items-end">
-                        <span className="inline-flex max-w-full items-center gap-2 rounded-full border border-[#4a7cbf]/30 bg-[#4a7cbf]/12 px-3 py-1 text-xs font-medium leading-relaxed text-[#b9d7ff] sm:text-sm">
+                        <span className="inline-flex max-w-full items-center gap-2 rounded-full border border-[#C8A96E]/30 bg-[#C8A96E]/12 px-3 py-1 text-xs font-medium leading-relaxed text-[#b9d7ff] sm:text-sm">
                           <CalendarDays size={15} className="shrink-0" />
                           <span>{experience.period}</span>
                         </span>
@@ -124,7 +124,7 @@ export default function ExperienceSection() {
                     </div>
 
                     <div className="mt-5 rounded-2xl border border-white/10 bg-white/[0.035] p-4">
-                      <h4 className="mb-3 text-xs font-semibold uppercase tracking-[0.14em] text-[#d4a843]/90 sm:text-sm">
+                      <h4 className="mb-3 text-xs font-semibold uppercase tracking-[0.14em] text-[#C8A96E]/90 sm:text-sm">
                         Key Responsibilities & Achievements
                       </h4>
 
@@ -134,7 +134,7 @@ export default function ExperienceSection() {
                             key={detailIndex}
                             className="flex items-start gap-3 text-left"
                           >
-                            <span className="mt-2 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-[#d4a843] shadow-[0_0_12px_rgba(212,168,67,0.72)]" />
+                            <span className="mt-2 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-[#C8A96E] shadow-[0_0_12px_rgba(212,168,67,0.72)]" />
                             <p className="text-sm leading-relaxed text-slate-300">
                               {detail}
                             </p>
@@ -146,6 +146,46 @@ export default function ExperienceSection() {
                 </div>
               </article>
             ))}
+          </div>
+
+          {/* ── Education ── */}
+          <div className="mx-auto mt-14 max-w-3xl">
+            <div className="mb-5 flex items-center justify-center gap-3">
+              <span className="h-px w-10 bg-gradient-to-r from-transparent to-gold-400/50" />
+              <span className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.22em] text-gold-400/80">
+                <GraduationCap className="h-4 w-4" />
+                Education
+              </span>
+              <span className="h-px w-10 bg-gradient-to-l from-transparent to-gold-400/50" />
+            </div>
+
+            <div className="flex flex-col items-center gap-4 rounded-3xl border border-gold-400/20 bg-slate-950/60 px-6 py-6 text-center backdrop-blur-sm sm:flex-row sm:items-center sm:gap-5 sm:text-left">
+              <span className="relative h-14 w-14 shrink-0 overflow-hidden rounded-2xl bg-white/5">
+                <Image
+                  src={education.logo}
+                  alt={`${education.school} logo`}
+                  fill
+                  sizes="56px"
+                  className="object-contain p-1.5"
+                  placeholder="blur"
+                  blurDataURL={BLUR_DATA_URL}
+                />
+              </span>
+
+              <div className="min-w-0 flex-1">
+                <h3 className="font-serif text-xl font-semibold text-gold-100 md:text-2xl">
+                  {education.degree}
+                </h3>
+                <p className="mt-0.5 text-sm text-slate-300">{education.school}</p>
+              </div>
+
+              <div className="flex shrink-0 flex-col items-center gap-1.5 sm:items-end">
+                <span className="rounded-full border border-gold-400/30 bg-gold-400/10 px-3 py-1 text-[11px] font-bold tracking-wide text-gold-200">
+                  {education.result}
+                </span>
+                <span className="text-[11px] text-slate-400">{education.period}</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>

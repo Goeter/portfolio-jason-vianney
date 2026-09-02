@@ -210,7 +210,7 @@
 
 .portfolio-line {
   width: 180px;
-  background: linear-gradient(90deg, transparent, rgba(14, 165, 233, 0.45), transparent);
+  background: linear-gradient(90deg, transparent, rgba(200,169,110, 0.45), transparent);
   transform: rotate(-20deg);
   animation: portfolioLineMove 6.5s ease-in-out infinite;
 }
@@ -239,7 +239,7 @@
 
 .certificate-line {
   width: 170px;
-  background: linear-gradient(90deg, transparent, rgba(20, 184, 166, 0.48), transparent);
+  background: linear-gradient(90deg, transparent, rgba(180,148,90, 0.48), transparent);
   transform: rotate(-22deg);
   animation: certificateLineMove 5.5s ease-in-out infinite;
 }

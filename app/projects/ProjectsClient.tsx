@@ -47,24 +47,24 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
   return (
     <article
       style={{ animationDelay: `${index * 80}ms` }}
-      className="project-archive-card group relative flex h-full flex-col overflow-hidden rounded-[28px] border border-cyan-200/28 bg-[#0B1220]/95 shadow-[0_26px_70px_rgba(0,0,0,0.55),0_0_0_1px_rgba(103,232,249,0.10)] ring-1 ring-white/[0.06] backdrop-blur-md transition-all duration-500 ease-fluid hover:-translate-y-1 hover:border-cyan-200/65 hover:bg-[#0F1B2E]/98 hover:shadow-[0_30px_86px_rgba(14,165,233,0.25),0_0_0_1px_rgba(103,232,249,0.22)]"
+      className="project-archive-card group relative flex h-full flex-col overflow-hidden rounded-[28px] border border-gold-200/28 bg-[#060D1C]/95 shadow-[0_26px_70px_rgba(0,0,0,0.55),0_0_0_1px_rgba(232,218,184,0.10)] ring-1 ring-white/[0.06] backdrop-blur-md transition-all duration-500 ease-fluid hover:-translate-y-1 hover:border-gold-200/65 hover:bg-[#060D1C]/98 hover:shadow-[0_30px_86px_rgba(200,169,110,0.25),0_0_0_1px_rgba(232,218,184,0.22)]"
     >
       <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100">
-        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-300/80 to-transparent" />
-        <div className="absolute -right-20 -top-20 h-44 w-44 rounded-full bg-cyan-300/12 blur-3xl" />
+        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-gold-300/80 to-transparent" />
+        <div className="absolute -right-20 -top-20 h-44 w-44 rounded-full bg-gold-300/12 blur-3xl" />
         <div className="absolute -bottom-24 -left-24 h-52 w-52 rounded-full bg-amber-300/10 blur-3xl" />
       </div>
 
-      <div className="relative aspect-[16/10] overflow-hidden border-b border-cyan-200/18 bg-slate-950">
+      <div className="relative aspect-[16/10] overflow-hidden border-b border-gold-200/18 bg-slate-950">
         <ProjectCardImage project={project} />
         <div className="absolute inset-0 bg-gradient-to-t from-slate-950/82 via-slate-950/12 to-transparent" />
-        <span className="absolute bottom-3 left-3 z-20 rounded-full border border-cyan-200/45 bg-slate-950/85 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.14em] text-cyan-100 shadow-[0_8px_20px_rgba(0,0,0,0.35)] backdrop-blur-md">
+        <span className="absolute bottom-3 left-3 z-20 rounded-full border border-gold-200/45 bg-slate-950/85 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.14em] text-gold-100 shadow-[0_8px_20px_rgba(0,0,0,0.35)] backdrop-blur-md">
           {projectCategoryLabels[project.category]}
         </span>
       </div>
 
       <div className="relative z-10 flex flex-1 flex-col border-t border-white/[0.03] p-5">
-        <h3 className="min-h-[54px] text-[17px] font-bold leading-snug tracking-tight text-slate-50 transition group-hover:text-cyan-100">
+        <h3 className="min-h-[54px] text-[17px] font-bold leading-snug tracking-tight text-slate-50 transition group-hover:text-gold-100">
           {project.title}
         </h3>
 
@@ -72,12 +72,12 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
           {project.description}
         </p>
 
-        <div className="my-5 h-px bg-gradient-to-r from-cyan-200/55 via-white/14 to-transparent" />
+        <div className="my-5 h-px bg-gradient-to-r from-gold-200/55 via-white/14 to-transparent" />
 
         <div className="flex min-h-[34px] flex-wrap items-center justify-between gap-3">
           <Link
             href={getProjectPath(project)}
-            className="inline-flex items-center justify-center rounded-full border border-white/12 bg-white px-4 py-2 text-[12px] font-bold uppercase tracking-[0.08em] text-slate-950 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-cyan-200 hover:bg-cyan-100 hover:shadow-md"
+            className="inline-flex items-center justify-center rounded-full border border-white/12 bg-white px-4 py-2 text-[12px] font-bold uppercase tracking-[0.08em] text-slate-950 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-gold-200 hover:bg-gold-100 hover:shadow-md"
           >
             See Details
           </Link>
@@ -85,7 +85,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
           {project.link ? (
             <a
               href={project.link}
-              className="inline-flex items-center justify-center gap-2 rounded-full border border-cyan-400/70 bg-cyan-400/14 px-4 py-2 text-[12px] font-bold uppercase tracking-[0.08em] text-cyan-100 shadow-[0_10px_24px_rgba(14,165,233,0.15)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-cyan-400 hover:text-slate-950 hover:shadow-[0_14px_30px_rgba(6,182,212,0.26)]"
+              className="inline-flex items-center justify-center gap-2 rounded-full border border-gold-400/70 bg-gold-400/14 px-4 py-2 text-[12px] font-bold uppercase tracking-[0.08em] text-gold-100 shadow-[0_10px_24px_rgba(200,169,110,0.15)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-gold-400 hover:text-slate-950 hover:shadow-[0_14px_30px_rgba(200,169,110,0.26)]"
             >
               Visit
               <ArrowUpRight size={14} />
@@ -130,18 +130,18 @@ export default function AllProjects() {
       <ArchiveHeader title="Project Archive" backHref="/#projects" />
 
       <main className="relative z-10 mx-auto w-full max-w-7xl flex-1 px-5 pb-16 pt-8 sm:px-8 lg:px-12">
-        <section className="mb-6 animate-[fadeInUp_0.75s_ease-out_both] rounded-[28px] border border-cyan-200/20 bg-slate-950/65 p-5 shadow-[0_22px_70px_rgba(0,0,0,0.34)] backdrop-blur-xl md:p-7">
+        <section className="mb-6 animate-[fadeInUp_0.75s_ease-out_both] rounded-[28px] border border-gold-200/20 bg-slate-950/65 p-5 shadow-[0_22px_70px_rgba(0,0,0,0.34)] backdrop-blur-xl md:p-7">
           <div className="flex flex-col gap-3">
-            <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-cyan-200">
+            <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-gold-200">
               Portfolio Work Library
             </p>
 
             <div className="flex min-w-0 items-center justify-between gap-3">
-              <h1 className="min-w-0 bg-gradient-to-r from-slate-50 via-cyan-100 to-[#C8A96E] bg-clip-text pb-2 text-2xl font-bold leading-[1.22] tracking-[-0.02em] text-transparent md:text-3xl md:leading-[1.22]">
+              <h1 className="min-w-0 bg-gradient-to-r from-slate-50 via-gold-100 to-[#C8A96E] bg-clip-text pb-2 text-2xl font-bold leading-[1.22] tracking-[-0.02em] text-transparent md:text-3xl md:leading-[1.22]">
                 Project Collection
               </h1>
 
-              <span className="shrink-0 whitespace-nowrap rounded-full border border-cyan-200/25 bg-cyan-300/12 px-3 py-1.5 text-[12px] font-bold uppercase tracking-[0.12em] text-cyan-100 sm:px-4">
+              <span className="shrink-0 whitespace-nowrap rounded-full border border-gold-200/25 bg-gold-300/12 px-3 py-1.5 text-[12px] font-bold uppercase tracking-[0.12em] text-gold-100 sm:px-4">
                 {filteredProjects.length} shown
               </span>
             </div>
@@ -152,23 +152,23 @@ export default function AllProjects() {
           </div>
         </section>
 
-        <section className="mb-8 animate-[fadeInUp_0.85s_ease-out_both] rounded-[24px] border border-cyan-200/18 bg-slate-950/60 p-4 shadow-[0_18px_45px_rgba(0,0,0,0.28)] backdrop-blur-xl">
+        <section className="mb-8 animate-[fadeInUp_0.85s_ease-out_both] rounded-[24px] border border-gold-200/18 bg-slate-950/60 p-4 shadow-[0_18px_45px_rgba(0,0,0,0.28)] backdrop-blur-xl">
           <div className="flex flex-col gap-4">
             <label className="relative flex min-h-[46px] w-full items-center">
-              <Search className="pointer-events-none absolute left-4 h-4 w-4 text-cyan-100/65" />
+              <Search className="pointer-events-none absolute left-4 h-4 w-4 text-gold-100/65" />
               <input
                 type="search"
                 value={searchTerm}
                 onChange={(event) => setSearchTerm(event.target.value)}
                 placeholder="Search project title, description, or category..."
-                className="h-12 w-full rounded-2xl border border-cyan-200/18 bg-slate-950/80 pl-11 pr-4 text-sm text-slate-100 shadow-sm outline-none transition-all duration-300 placeholder:text-slate-500 focus:border-cyan-300/65 focus:ring-4 focus:ring-cyan-300/10"
+                className="h-12 w-full rounded-2xl border border-gold-200/18 bg-slate-950/80 pl-11 pr-4 text-sm text-slate-100 shadow-sm outline-none transition-all duration-300 placeholder:text-slate-500 focus:border-gold-300/65 focus:ring-4 focus:ring-gold-300/10"
               />
             </label>
 
-            <div className="rounded-2xl border border-cyan-200/14 bg-white/[0.035] p-3">
+            <div className="rounded-2xl border border-gold-200/14 bg-white/[0.035] p-3">
               <div className="mb-3 flex flex-col gap-1 sm:flex-row sm:items-end sm:justify-between">
                 <div>
-                  <p className="text-[11px] font-bold uppercase tracking-[0.20em] text-cyan-100/90">
+                  <p className="text-[11px] font-bold uppercase tracking-[0.20em] text-gold-100/90">
                     Filter Category
                   </p>
                   <p className="mt-1 text-xs leading-relaxed text-slate-400">
@@ -188,8 +188,8 @@ export default function AllProjects() {
                       onClick={() => setSelectedCategory(option.value)}
                       className={`rounded-full px-3.5 py-2 text-[11px] font-bold uppercase tracking-[0.08em] transition-all duration-300 sm:px-4 sm:text-[12px] ${
                         active
-                          ? "border border-cyan-300 bg-cyan-300 text-slate-950 shadow-[0_10px_24px_rgba(14,165,233,0.24)]"
-                          : "border border-cyan-200/18 bg-white/[0.06] text-slate-300 hover:border-cyan-300/55 hover:bg-cyan-300/12 hover:text-cyan-100"
+                          ? "border border-gold-300 bg-gold-300 text-slate-950 shadow-[0_10px_24px_rgba(200,169,110,0.24)]"
+                          : "border border-gold-200/18 bg-white/[0.06] text-slate-300 hover:border-gold-300/55 hover:bg-gold-300/12 hover:text-gold-100"
                       }`}
                     >
                       {option.label}
@@ -209,7 +209,7 @@ export default function AllProjects() {
             ))}
           </section>
         ) : (
-          <div className="rounded-[26px] border border-dashed border-cyan-300/35 bg-slate-950/65 p-8 text-center text-slate-300 shadow-sm backdrop-blur-xl">
+          <div className="rounded-[26px] border border-dashed border-gold-300/35 bg-slate-950/65 p-8 text-center text-slate-300 shadow-sm backdrop-blur-xl">
             No projects match the selected search and category.
           </div>
         )}

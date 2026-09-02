@@ -15,6 +15,20 @@ const config: Config = {
         serif: ["var(--font-display)", "Georgia", "Cambria", "serif"],
       },
       colors: {
+        // Single accent for the whole site, built around the brand gold #C8A96E.
+        gold: {
+          50: "#FBF8F1",
+          100: "#F4EDD8",
+          200: "#E8DAB8",
+          300: "#DCC694",
+          400: "#C8A96E",
+          500: "#B4945A",
+          600: "#977A48",
+          700: "#755E38",
+          800: "#524229",
+          900: "#332918",
+          950: "#1C170E",
+        },
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         card: {

@@ -1,5 +1,5 @@
 import type { LucideIcon } from "lucide-react"
-import { Award, Briefcase, FolderOpen, Home, Wrench } from "lucide-react"
+import { Award, Briefcase, FolderOpen, Home, Mail, Wrench } from "lucide-react"
 
 export type NavItem = {
   id: string
@@ -33,6 +33,12 @@ export type Project = {
   seoTitle?: string
   seoDescription?: string
   ogImage?: string
+  /** What I personally did on the project, and where. */
+  role?: string
+  /** Tools and technologies used. */
+  stack?: string[]
+  /** What changed for the people using it. */
+  impact?: string
   /** Kept for CMS/front-end ordering data. Hidden from selected UI when not needed. */
   uploadedAt: string
 }
@@ -100,8 +106,8 @@ export const siteConfig = {
     "Corporate Website",
     "Mobile Application",
     "Freelance IT Portfolio",
-    "PT Steda Roaster Website",
-    "PT Sigma Website",
+    "PT Steda Multi Usaha Website",
+    "Steda Roaster CMS",
     "Math Physics English Tutor",
   ],
   contacts: {
@@ -126,6 +132,7 @@ export const navItems: NavItem[] = [
   { id: "projects", label: "Projects", icon: FolderOpen },
   { id: "certificates", label: "Certificates", icon: Award },
   { id: "experience", label: "Experience", icon: Briefcase },
+  { id: "contact", label: "Contact", icon: Mail },
 ]
 
 export const expertise = [
@@ -142,23 +149,23 @@ export const professionalRoles: ProfessionalRole[] = [
     number: "01",
     title: "Fullstack Developer",
     color: "cyan",
-    skills: ["HTML", "CSS", "PHP", "JavaScript", "SQL"],
-    tools: ["Visual Studio Code", "React.js & Next.js", "PostgreSQL & MySQL"],
+    skills: ["HTML", "CSS", "JavaScript", "TypeScript", "PHP", "Java", "SQL", "REST API"],
+    tools: ["React.js & Next.js", "Laravel", "PostgreSQL & MySQL", "Git & GitHub", "Docker", "AWS / Azure / GCP", "AI & LLM API Integration", "Visual Studio Code"],
   },
   {
     id: 2,
     number: "02",
     title: "System Analyst",
     color: "purple",
-    skills: ["SRS", "QA Testing", "Agile", "BPMN"],
-    tools: ["MS Visio & BPMN.io", "Google Docs & Sheets", "Word, Excel, PowerPoint", "Trello"],
+    skills: ["Requirements Gathering", "SRS & Functional Docs", "Flowcharting & BPMN", "Database Design", "Unit Testing", "QA Testing", "Agile"],
+    tools: ["MS Visio & BPMN.io", "SQL & MySQL", "Google Docs & Sheets", "Word, Excel, PowerPoint", "Trello"],
   },
   {
     id: 3,
     number: "03",
     title: "UI/UX Designer",
     color: "rose",
-    skills: ["Wireframing", "Prototyping", "User Research"],
+    skills: ["Wireframing", "Prototyping", "User Research", "CMS Implementation", "SEO & Performance", "Visual Branding"],
     tools: ["Figma & Adobe XD", "Adobe Illustrator", "Balsamiq Wireframes", "Awwwards & Dribbble"],
   },
   {
@@ -166,8 +173,8 @@ export const professionalRoles: ProfessionalRole[] = [
     number: "04",
     title: "Data Analyst",
     color: "emerald",
-    skills: ["Data Analysis", "Cleaning", "Visualization", "Reporting"],
-    tools: ["Python", "Power BI"],
+    skills: ["Data Analysis", "Cleaning", "Visualization", "Reporting", "SQL Querying"],
+    tools: ["Python", "SQL & MySQL", "Power BI", "Excel & Google Sheets"],
   },
   {
     id: 5,
@@ -184,117 +191,183 @@ export const projects: Project[] = [
     id: 1,
     slug: "monitoring-feedback-prospect",
     title: "Monitoring & Feedback Prospect",
-    description: "Internal application for recording dealer motorcycle sales, order confirmation, delivery schedules, and document completeness.",
+    description:
+      "Internal tool that follows a dealer's motorcycle order from confirmation through to delivery, so nobody has to chase status by phone.",
     detailDescription:
-      "An internal monitoring application for dealer motorcycle sales, order confirmation, delivery scheduling, document validation, and transaction tracking. The system improves operational visibility and reduces manual follow-up across dealer-related workflows.",
+      "Dealers confirmed orders, delivery dates, and document status through scattered channels, which meant a lot of follow-up calls just to answer simple questions. This tool puts it all in one place: what was ordered, when it ships, and which documents are still missing. I sat with the business team to map how the process actually ran day to day, then turned that into the flowcharts and BPMN diagrams the developers built from.",
     category: "application",
     image: "/assets/projects/monitoring-server.webp",
+    role: "System Analyst · PT Astra Honda Motor",
+    stack: ["Functional Specification", "Flowchart & BPMN", "SQL Query", "Hi-Fidelity UI Design", "UX Flow", "Stakeholder Presentation"],
+    impact:
+      "Order status, delivery schedule, and document completeness moved out of phone calls and into one shared view.",
     uploadedAt: "February 2024",
   },
   {
     id: 2,
     slug: "vehicle-registration-certificate-system",
     title: "Vehicle Registration Certificate System",
-    description: "Digital disbursement note printing system that replaces manual writing with fast, neat, and securely stored documents.",
+    description:
+      "Gate system for vendor vehicles entering the Astra Honda Motor plant — the driver taps a card and the movement is recorded, instead of being written down at the gate.",
     detailDescription:
-      "A digital system that modernizes vehicle registration certificate and disbursement note processes by replacing handwritten workflows with structured printing, centralized storage, validation, audit trails, and faster document retrieval.",
+      "Vendor vehicles arrive at the plant all day carrying finished goods and motorcycle spare parts, and every one of them used to be logged by hand at the gate. That was slow, and it left no dependable way to tell whether a vehicle was supposed to be there at all. I wrote the functional specification behind the replacement: what the company actually needed, how the process should be standardised across gates, and the security rules governing who gets in. A registered vehicle now taps its card, the entry and exit are written straight to the database, and anything unregistered stops at the gate.",
     category: "application",
     image: "/assets/projects/vehicle-registration-certificate-system.webp",
+    role: "System Analyst · PT Astra Honda Motor — functional specification, user requirements, process standardisation, access-security rules",
+    stack: ["Functional Specification", "Flowchart & BPMN", "SQL Query", "Hi-Fidelity UI Design", "UX Flow", "Stakeholder Presentation"],
+    impact:
+      "Gate logging moved from handwritten notes to a card tap, and only vehicles registered in advance can enter the plant.",
     uploadedAt: "February 2024",
   },
   {
     id: 3,
     slug: "dashboard-admin-ticketing",
     title: "Dashboard Admin Ticketing",
-    description: "Web-based ticket monitoring dashboard for managing and tracking ticketing workflows in real time.",
+    description:
+      "Personal project — an admin dashboard for monitoring ticket sales and reading the analytics behind them.",
     detailDescription:
-      "A web-based admin dashboard for ticket management, operational monitoring, and real-time tracking of issue handling workflows across internal systems.",
+      "Built on my own initiative, as an exercise in turning raw sales data into something a manager could actually act on. It tracks ticket sales as they come in and puts the analytics right beside them — what is selling, when, and which way the trend is moving — so that answering \"how are we doing?\" is a glance at a screen rather than an export to a spreadsheet.",
     category: "application",
     image: "/assets/projects/dashboard_ticketing.webp",
+    role: "Personal project — full-stack build, dashboard and analytics design",
     uploadedAt: "June 2025",
   },
   {
     id: 4,
     slug: "hr-topas-application",
     title: "HR Topas Application",
-    description: "Integrated HR system for attendance, payroll recap, KPI-based manpower planning, and end-to-end recruitment management.",
+    description:
+      "Internal HR system covering attendance, payroll, leave, employee monitoring, KPIs, and approval requests that everyone can actually follow.",
     detailDescription:
-      "An integrated HR management system for PT Topas Multi Finance that streamlines attendance, payroll recap, employee records, manpower planning, recruitment workflows, and KPI-based workforce management through centralized digital modules.",
+      "Attendance, payroll, leave, and employee records each lived in their own files, so every report began with reconciling them by hand — and every approval began with asking someone where it had got to. This system holds all of it in one place. Staff clock attendance and submit leave or other requests from the same screen, then watch the request move through its stages instead of wondering; managers see what is waiting on them, approve it in place, and the decision is written to the database with a record of who approved what and when. Payroll draws from the same attendance data rather than a separate spreadsheet, KPIs are set and tracked against the people they belong to, and validation rules catch a bad entry at the moment it is typed rather than after it has already reached a report.",
     category: "application",
     image: "/assets/projects/hr-topas-application.webp",
+    role: "System Analyst · PT Topas Multi Finance — requirements, functional specs, validation rules, testing support",
+    stack: ["Functional Specification", "Flowchart & BPMN", "SQL Query", "Hi-Fidelity UI Design", "UX Flow", "Stakeholder Presentation"],
+    impact:
+      "Approvals became traceable end to end, payroll stopped depending on manual reconciliation, and bad entries are caught before they reach reporting.",
     uploadedAt: "June 2025",
   },
   {
     id: 5,
     slug: "topas-multi-finance-mobile-application",
     title: "Topas Multi Finance Mobile Application",
-    description: "Mobile application for customers and staff, covering loan management, disbursement tracking, customer monitoring, and financial services.",
+    description:
+      "Loan app that lets Topas customers track an active financing agreement, get reminded before a payment is due, and apply for new financing from their phone.",
     detailDescription:
-      "A mobile application designed for Topas Multi Finance customers and internal staff, featuring a modern interface for financing application submission, contract management, payment guidance, outlet location access, profile management, loan simulation, and secure financial service navigation.",
+      "Before this, a customer who simply wanted to know how many instalments were left had to phone the office or come into a branch. The app answers that on the home screen: how long the financing runs, which instalments are paid, which are still outstanding, and whether anything is overdue. A push notification arrives before a due date, so a missed payment is far more likely to be forgetfulness solved than a penalty incurred. There is a loan calculator built on the formula the company itself set, so the figure a customer sees is the figure they will actually be quoted. From the same app they can submit a new financing application, follow step-by-step payment instructions written out in full rather than assumed, and check their own registered details. I mapped what each screen had to do, then designed the flows and the interface around the questions customers ask first.",
     category: "application",
     image: "/assets/projects/mobile-app.webp",
+    role: "System Analyst & UI/UX Designer · PT Topas Multi Finance — user flows, wireframes, interface design, functional specs",
+    stack: ["Functional Specification", "Flowchart & BPMN", "SQL Query", "Hi-Fidelity UI Design", "UX Flow", "Stakeholder Presentation"],
+    impact:
+      "Instalment status, payment reminders, loan simulation, and new applications all moved from the branch counter to the customer's phone.",
     uploadedAt: "June 2025",
   },
   {
     id: 6,
     slug: "mobile-loan-flow-survey",
     title: "Mobile Loan Flow Survey",
-    description: "Mobile debtor home-visit survey application that centralizes field data and stores it neatly in the company database.",
+    description:
+      "Field app for surveyors visiting prospective borrowers, so what they record on site goes straight into the database.",
     detailDescription:
-      "A mobile survey application for debtor home visits, designed to centralize survey data, standardize field input, and improve the accuracy of loan-related customer verification processes.",
+      "Surveyors filled in home-visit forms on paper, then retyped them back at the office — which is exactly where mistakes crept in. The app captures the same information on the spot and sends it straight through, so what the surveyor wrote down in the field is what the credit team reads.",
     category: "application",
     image: "/assets/projects/flow-survey-pinjaman.webp",
+    role: "System Analyst & UI/UX Designer · PT Topas Multi Finance — survey flow, form design, data requirements",
+    stack: ["Functional Specification", "Flowchart & BPMN", "SQL Query", "Hi-Fidelity UI Design", "UX Flow", "Stakeholder Presentation"],
+    impact:
+      "Cut out the paper-then-retype step, so field data reaches the credit team as it was originally recorded.",
     uploadedAt: "June 2025",
   },
   {
     id: 7,
-    slug: "pt-alfa-berkat-sigma",
-    title: "PT Alfa Berkat Sigma",
-    description: "Professional plumbing product website that presents company information and product offerings clearly.",
+    slug: "pt-topas-multi-finance-website",
+    title: "PT Topas Multi Finance Website",
+    description:
+      "Corporate website that sets out Topas's financing products and gives new customers something credible to check first.",
     detailDescription:
-      "A corporate website for PT. Alfa Berkat Sigma focused on company profile presentation, plumbing product visibility, and a clean digital brand identity. The project emphasizes responsive layout, clear product communication, and a professional user experience for prospective business customers.",
+      "Anyone looking the company up found very little, which is a problem when you are asking people to trust you with financing. The site lays out the products, the company background, and how to get in touch, in plain terms. I led the UI/UX so the structure follows what a first-time visitor is actually trying to find out, rather than how the company happens to be organised internally.",
     category: "website",
-    image: "/assets/projects/sigma-picture.webp",
+    image: "/assets/projects/topas-website.webp",
+    link: "https://frontend.topasmultifinance.co.id",
+    role: "System Analyst & UI/UX Designer · PT Topas Multi Finance — information architecture, wireframes, interface design",
+    stack: ["Functional Specification", "Flowchart & BPMN", "SQL Query", "Hi-Fidelity UI Design", "UX Flow", "Stakeholder Presentation"],
+    impact:
+      "Gave the company a public presence customers could check before ever walking into a branch.",
     uploadedAt: "June 2025",
-    link: "https://sigma.indonetwork.co.id",
   },
   {
     id: 8,
-    slug: "pt-topas-multi-finance-website",
-    title: "PT Topas Multi Finance Website",
-    description: "Public corporate website that builds customer trust and brand awareness through a professional digital presence.",
+    slug: "pt-steda-roaster-company-profile-cms",
+    title: "Steda Roaster Company Profile & CMS",
+    description:
+      "Company profile site for a coffee roaster, plus a CMS the team can run themselves without calling a developer.",
     detailDescription:
-      "A comprehensive corporate website for PT Topas Multi Finance that serves as the primary digital touchpoint for customers and stakeholders. This public-facing platform showcases the company's financial products and services while building strong brand awareness and customer trust. Key features include product information, financing options, job vacancy publication, customer-facing content, and regulatory trust signals for Indonesian financial services customers.",
+      "PT Steda Multi Usaha needed to present their roasting machines under the Steda Roaster brand, and to keep that content current on their own. Rather than putting them on a licensed platform with a fee attached every month, I built the CMS from scratch and shaped it around how they actually work: OTP verification on new sign-ups, caching so repeated page loads stop hitting the database again, and role-based access so an editor cannot wander into admin settings.",
     category: "website",
-    image: "/assets/projects/topas-website.webp",
-    uploadedAt: "June 2025",
-    link: "https://frontend.topasmultifinance.co.id",
+    image: "/assets/projects/steda-roaster.webp",
+    link: "https://stedaroaster.vercel.app/",
+    role: "Full-Stack Developer, System Analyst & UI/UX Designer · Freelance IT",
+    stack: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Vercel"],
+    impact:
+      "Content updates moved in-house with no platform licence fee, on a CMS with OTP sign-up, caching, and role-based access.",
+    uploadedAt: "May 2026",
   },
   {
     id: 9,
-    slug: "pt-steda-roaster-company-profile-cms",
-    title: "PT Steda Roaster Company Profile & CMS",
-    description:
-      "Responsive company profile website with CMS support to present Steda Roaster's coffee roasting services, products, and business information clearly.",
-    detailDescription:
-      "A responsive company profile website and CMS for PT Steda Roaster, designed to strengthen the brand's digital presence, present coffee roasting services and business offerings clearly, and make content updates easier through a structured content management workflow. The website focuses on clean visual hierarchy, accessible information, responsive layouts, and a professional user experience for customers and business partners.",
-    category: "website",
-    image: "/assets/projects/steda-roaster.webp",
-    uploadedAt: "May 2026",
-    link: "https://stedaroaster.vercel.app/",
-  },
-  {
-    id: 10,
     slug: "pemenang-konsultan-professional-consulting-website",
     title: "Pemenang Konsultan Professional Website",
     description:
-      "Professional consulting website designed to present services, credibility, and client-focused solutions with a clean digital presence.",
+      "Website for a management consultancy: its services, its track record, and an easy way to start a conversation.",
     detailDescription:
-      "A professional consulting website for Pemenang Konsultan, built to communicate service expertise, strengthen business credibility, and guide potential clients toward consultation through a clear, responsive, and trustworthy digital experience. The website emphasizes concise messaging, structured service information, modern visual hierarchy, and a direct call-to-action for prospective clients.",
+      "A consultancy gets judged on how it presents itself long before the first meeting, so the site had to read as considered rather than templated. It covers the service lines and the firm's background, with an AI chatbot that handles the routine questions people ask before they get in touch. SEO and page speed were part of the build from the start, not something bolted on at the end.",
     category: "website",
     image: "/assets/projects/pemenang-konsultan.webp",
-    uploadedAt: "May 2026",
     link: "https://pemenangkonsultan.com/",
+    role: "Full-Stack Developer, System Analyst & UI/UX Designer · Freelance IT",
+    stack: ["Next.js", "React", "TypeScript", "Tailwind CSS"],
+    impact:
+      "Clearer service presentation, an AI chatbot fielding first-contact questions, and SEO work built in from the start.",
+    uploadedAt: "May 2026",
+  },
+  {
+    id: 10,
+    slug: "pemenang-mandiri-law-firm-partners",
+    title: "Pemenang Mandiri Law Firm & Partners",
+    description:
+      "Bilingual site for a law firm division covering criminal law, civil law, and legal support for insurance claim disputes.",
+    detailDescription:
+      "The law firm sits alongside the insurance consultancy, so the site had to make that relationship obvious without letting one side swallow the other. It sets out the three areas of practice — criminal law, civil law, and legal backing when an insurance claim turns into a dispute — in both English and Indonesian, so a client reads the same page in whichever language they think in. The tone matters as much as the content here: someone looking for a lawyer is usually already worried, and the page is written to steady them rather than sell at them.",
+    category: "website",
+    image: "/assets/projects/pemenang-konsultan.webp",
+    link: "https://pemenangkonsultan.com/pml",
+    role: "Full-Stack Developer, System Analyst & UI/UX Designer · Freelance IT",
+    stack: ["Next.js", "React", "TypeScript", "Tailwind CSS"],
+    impact:
+      "Gave the law firm division its own clear presence, in both English and Indonesian, on the firm's existing site.",
+    uploadedAt: "May 2026",
+  },
+  {
+    id: 11,
+    slug: "steda-roaster-cms",
+    title: "Steda Roaster CMS",
+    description:
+      "Custom-built CMS that lets the Steda team edit every part of their website themselves — no developer, no monthly platform fee.",
+    detailDescription:
+      "Steda's website is only useful if the people who run it can change it, so I built them a CMS rather than putting them on a licensed platform. Every section of the public site maps to a screen here: company profile, products, news, FAQ, and site settings such as the logo and footer. Two things drove the design. First, the person editing should never need to be told what a field does — each screen opens with a short guide written in plain Indonesian. Second, nothing should be quietly breakable: new sign-ups pass OTP verification, roles separate what an admin can reach from what an ordinary editor can, caching keeps repeated page loads off the database, and an activity log records who changed what and when.",
+    category: "application",
+    image: "/assets/projects/steda-cms-dashboard.webp",
+    gallery: [
+      "/assets/projects/steda-cms-dashboard.webp",
+      "/assets/projects/steda-cms-company-profile.webp",
+      "/assets/projects/steda-cms-logs.webp",
+    ],
+    role: "Full-Stack Developer, System Analyst & UI/UX Designer · Freelance IT — built from scratch",
+    stack: ["Laravel", "Livewire", "PHP 8.4", "Vite", "MySQL", "Blade"],
+    impact:
+      "Content updates moved in-house with no platform licence fee, protected by OTP sign-up, role-based access, and a full activity log.",
+    uploadedAt: "May 2026",
   },
 ]
 
@@ -303,7 +376,8 @@ export const certificates: Certificate[] = [
     id: 1,
     slug: "ui-ux-webinar-participation",
     title: "UI/UX Webinar Participation",
-    description: "Comprehensive training on UI/UX principles, design tools, and best practices.",
+    description:
+      "A session on UI/UX fundamentals: how to structure a screen, work with the standard design tools, and tell a usable layout apart from a merely decorative one.",
     image: "/assets/certificates/ui-ux-webinar-ubaya.webp",
     issuer: "Universitas Surabaya (UBAYA)",
     date: "24 May 2025",
@@ -313,7 +387,8 @@ export const certificates: Certificate[] = [
     id: 2,
     slug: "intro-to-data-analytics",
     title: "Intro to Data Analytics",
-    description: "Fundamentals of data analysis, including organizing and interpreting data using spreadsheets.",
+    description:
+      "Foundations of data analysis — cleaning and organising raw spreadsheet data, then reading it closely enough to say something useful about it.",
     image: "/assets/certificates/data-analyst-revou.webp",
     issuer: "RevoU",
     date: "18 July 2025",
@@ -322,8 +397,9 @@ export const certificates: Certificate[] = [
   {
     id: 3,
     slug: "data-analyst-certification",
-    title: "Data Analyst Certification",
-    description: "In-depth training in Python for data analysis, data organization, and SQL database management.",
+    title: "Python for Data Analysis & SQL",
+    description:
+      "Hands-on course in Python for data analysis and SQL for database work: querying, cleaning, and shaping raw data into something worth reporting.",
     image: "/assets/certificates/data-analyst-udemy.webp",
     issuer: "Udemy",
     date: "02 August 2025",
@@ -332,20 +408,22 @@ export const certificates: Certificate[] = [
   {
     id: 4,
     slug: "teaching-certification",
-    title: "Teaching Certification",
-    description: "Certification for teaching and tutoring with structured learning methods.",
+    title: "Outstanding Teaching Performance",
+    description:
+      "Recognition for teaching performance in Mathematics and English through 2025 — awarded on results with students, not on completing a course.",
     image: "/assets/certificates/Teaching Certification.webp",
-    issuer: "Teaching Program",
+    issuer: "VIP Course",
     date: "10 November 2025",
     uploadedAt: "10 November 2025",
   },
   {
     id: 5,
     slug: "english-certificate",
-    title: "English Certificate",
-    description: "English proficiency certification demonstrating communication and academic language capability.",
+    title: "CEFR C1 Advanced English",
+    description:
+      "Scored 599 at CEFR C1 Advanced, equivalent to IELTS Band 8 — comfortable working, writing, and presenting in English in a professional setting.",
     image: "/assets/certificates/English Certificate Gabung_1.webp",
-    issuer: "English Test Center",
+    issuer: "British Council",
     date: "09 October 2025",
     uploadedAt: "09 October 2025",
   },
@@ -375,74 +453,97 @@ export const projectsLatestFirst = sortByNewestId(projects)
 
 export const certificatesLatestFirst = sortByNewestId(certificates)
 
+export type Education = {
+  degree: string
+  school: string
+  period: string
+  result: string
+  logo: string
+}
+
+export const education: Education = {
+  degree: "Bachelor of Computer Science",
+  school: "University of Surabaya",
+  period: "July 2017 – July 2021",
+  result: "GPA 3.54 — Cum Laude",
+  logo: "/assets/company-logos/icon_ubaya.webp",
+}
+
 export const experiences: Experience[] = [
   {
     id: 1,
     company: "Freelance IT",
-    division: "Fullstack Developer, System Analyst, UI/UX Designer, Data Analyst",
+    division: "Full-Stack Developer, System Analyst & UI/UX Designer",
     period: "June 2025 – Now",
     location: "Surabaya, Indonesia",
     workMode: "On-Site",
     logo: "/assets/company-logos/icon_freelance_it.webp",
     details: [
-      "Developed corporate websites for PT Pemenang Konsultan Manajemen and Pemenang Mandiri Law Firm, covering system analysis, UI/UX design, full-stack development, and AI chatbot integration. Enhanced SEO, site performance, and user experience to improve online visibility, page speed, and client engagement.",
-      "Built a company profile website and CMS for PT Steda Roaster, combining responsive design, SEO, and maintainable code to streamline content management, simplify business updates, and improve content accessibility.",
+      "Ran website and CMS projects end to end for PT Pemenang Konsultan Manajemen, Pemenang Mandiri Law Firm, and PT Steda Multi Usaha — from systems analysis and UI/UX design through to development, AI chatbot integration, and SEO.",
+      "Built each CMS from scratch instead of renting a licensed platform, which kept the running cost down and let the system follow how each client actually works. Added OTP verification for new sign-ups, caching so repeated page loads stop hitting the database, and role-based access that keeps admin settings out of an editor's reach.",
     ],
   },
   {
     id: 2,
+    company: "PT Topas Multi Finance - Member of Mayapada Group",
+    division: "System Analyst, UI/UX Designer & Data Analyst",
+    period: "March 2024 – June 2025",
+    location: "Jakarta, Indonesia",
+    workMode: "On-Site",
+    logo: "/assets/company-logos/icon_topas.webp",
+    details: [
+      "Translated business needs into functional specifications and BPMN workflows, then led the UI/UX design for the corporate website and the mobile loan application.",
+      "Built a centralized HR system covering payroll, attendance, performance, and employee records, with validation checks that catch a bad entry before it reaches a report rather than after.",
+    ],
+  },
+  {
+    id: 3,
+    company: "PT Astra Honda Motor",
+    division: "System Analyst",
+    period: "February 2023 – February 2024",
+    location: "Jakarta, Indonesia",
+    workMode: "On-Site",
+    logo: "/assets/company-logos/icon_astra.webp",
+    details: [
+      "Worked alongside the business team to pin down what an internal sales application actually needed, then documented the process in flowcharts and BPMN diagrams the developers could build from.",
+      "Helped modernize a legacy system by tightening its data checks and running unit and functional tests, so problems surfaced before deployment instead of after it.",
+    ],
+  },
+  {
+    id: 4,
     company: "Student Center",
-    division: "Math, Physics and English Tutor",
+    division: "Math, Physics & English Tutor (Part-time)",
     period: "September 2024 – Now",
     location: "Jakarta - Surabaya, Indonesia",
     workMode: "On-Site",
     logo: "/assets/company-logos/icon_student_center.webp",
     details: [
-      "Taught Mathematics, Physics, and English to elementary and high school students, improving subject understanding, problem-solving skills, and exam preparation through structured and adaptive instruction.",
-    ],
-  },
-  {
-    id: 3,
-    company: "PT Topas Multi Finance - Member of Mayapada Group",
-    division: "System Analyst",
-    period: "March 2024 - June 2025",
-    location: "Jakarta, Indonesia",
-    workMode: "On-Site",
-    logo: "/assets/company-logos/icon_topas.webp",
-    details: [
-      "Analyzed business requirements and translated them into system solutions by preparing business and functional documents, mapping workflows in flowcharts and BPMN, and defining data and process requirements to support accurate, efficient operations across document and financial systems.",
-      "Designed a corporate website and mobile loan application with user-friendly UI/UX, clear user flows, and business-driven features to improve product visibility, simplify customer access, and support digital loan application and financing processes",
-      "Developed and enhanced a centralized HR management system covering payroll, attendance, performance tracking, and employee records, including validation rules, testing support, and data controls to improve reporting accuracy, strengthen data security, and reduce manual and human error.",
-    ],
-  },
-  {
-    id: 4,
-    company: "PT Astra Honda Motor",
-    division: "System Analyst",
-    period: "February 2023 - February 2024",
-    location: "Jakarta, Indonesia",
-    workMode: "On-Site",
-    logo: "/assets/company-logos/icon_astra.webp",
-    details: [
-      "Analyzed business requirements and translated them into functional solutions for an internal sales application, producing business documentation, process flows, and BPMN to improve workflow efficiency, process accuracy, and cross-functional alignment.",
-      "Supported legacy system modernization by enhancing usability, reliability, and security, strengthening validation controls, and conducting unit and functional testing to reduce manual errors and ensure deployment readiness.",
+      "Taught Mathematics, Physics, and English to elementary and high school students, adapting each lesson to the student's own pace to build problem-solving confidence and prepare them for exams.",
     ],
   },
   {
     id: 5,
     company: "PT Wings Group",
-    division: "Full-stack Developer",
-    period: "February 2022 - February 2023",
-    location: "Surabaya, Indonesia",
+    division: "Full-Stack Developer",
+    period: "February 2022 – February 2023",
+    location: "Jakarta, Indonesia",
     workMode: "On-Site",
     logo: "/assets/company-logos/icon_wings.webp",
     details: [
-      "Enhanced an international sales web platform to support real-time inventory tracking and digital sales monitoring across Asia, while improving system workflows and data visibility for day-to-day sales operations.",
-      "Improved a mobile application by enhancing scanning and validation features and resolving critical web and mobile production issues, increasing data accuracy, system reliability, and operational continuity.",
+      "Built a barcode scanning feature for an international sales platform and its companion mobile app, giving store and supermarket staff one consistent way to check stock and pricing.",
+      "Ran it on a hybrid cloud-and-local setup so scanning kept working out in the field even with no internet, and fixed production issues that were quietly eroding data accuracy.",
     ],
   },
 ]
 
+
+/** Headline numbers for the hero. Counts come from the data itself so they cannot go stale. */
+export const siteStats = [
+  { value: 4, suffix: "+", label: "Years Experience" },
+  { value: experiences.length, suffix: "", label: "Companies" },
+  { value: projects.length, suffix: "", label: "Projects Delivered" },
+  { value: 3, suffix: "", label: "Industries" },
+]
 
 export const getAbsoluteUrl = (path = "") => {
   if (!path) return siteConfig.url

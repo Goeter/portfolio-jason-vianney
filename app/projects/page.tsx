@@ -4,7 +4,7 @@ import ProjectsClient from "./ProjectsClient"
 import { projectsCollectionStructuredData, siteConfig } from "@/lib/site-content"
 
 export const metadata: Metadata = {
-  title: `Projects | ${siteConfig.shortName} Portfolio`,
+  title: "Projects",
   description: `Explore ${siteConfig.owner}'s portfolio projects across system analysis, UI/UX design, data analysis, fullstack development, CMS websites, HR systems, and mobile applications.`,
   alternates: { canonical: "/projects" },
   openGraph: {

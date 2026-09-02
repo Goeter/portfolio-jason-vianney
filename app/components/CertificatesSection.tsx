@@ -1,8 +1,7 @@
 "use client"
 
-import { useCallback, useEffect, useMemo, useState } from "react"
-import type { TouchEvent } from "react"
-import { Award, ChevronLeft, ChevronRight, ExternalLink } from "lucide-react"
+import { useMemo, useState } from "react"
+import { Award, ExternalLink } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 
@@ -13,16 +12,9 @@ import { motion } from "framer-motion"
 import { useScrollReveal } from "@/hooks/useScrollReveal"
 import { useParallax } from "@/hooks/useParallax"
 
-const getCardsPerPage = () => {
-  if (typeof window === "undefined") return 3
-  if (window.innerWidth < 768) return 1
-  if (window.innerWidth < 1024) return 2
-  return 3
-}
-
 function CertificatesBackground() {
   return (
-    <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden bg-[radial-gradient(circle_at_20%_15%,rgba(20,184,166,0.18),transparent_32%),radial-gradient(circle_at_82%_22%,rgba(45,212,191,0.14),transparent_30%),radial-gradient(circle_at_50%_90%,rgba(251,191,36,0.07),transparent_36%),linear-gradient(135deg,#04130f_0%,#061a16_46%,#071f1a_100%)]">
+    <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden bg-[radial-gradient(circle_at_20%_15%,rgba(180,148,90,0.18),transparent_32%),radial-gradient(circle_at_82%_22%,rgba(200,169,110,0.14),transparent_30%),radial-gradient(circle_at_50%_90%,rgba(200,169,110,0.07),transparent_36%),linear-gradient(135deg,#020617_0%,#060d1c_46%,#060d1c_100%)]">
       <svg className="absolute inset-0 h-full w-full" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
         <defs>
           <pattern id="certLeaf" width="72" height="72" patternUnits="userSpaceOnUse">
@@ -50,14 +42,14 @@ function CertificatesBackground() {
         <path d="M1180 680 Q1270 655 1360 690 Q1400 700 1440 680" stroke="#5eead4" strokeWidth="0.4" opacity="0.18" fill="none" />
         <circle cx="1360" cy="690" r="2.5" fill="#5eead4" opacity="0.24" />
       </svg>
-      <div className="absolute inset-0 opacity-[0.06] bg-[linear-gradient(to_right,rgba(20,184,166,0.42)_1px,transparent_1px),linear-gradient(to_bottom,rgba(45,212,191,0.28)_1px,transparent_1px)] bg-[size:88px_88px]" />
-      <div className="certificate-orb absolute -left-24 top-24 h-80 w-80 rounded-full bg-teal-500/16 blur-[130px]" />
-      <div className="certificate-orb-delay absolute -right-24 bottom-16 h-96 w-96 rounded-full bg-emerald-400/14 blur-[150px]" />
-      <div className="certificate-orb-slow absolute left-1/2 top-1/2 h-[32rem] w-[32rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-teal-300/8 blur-[180px]" />
+      <div className="absolute inset-0 opacity-[0.06] bg-[linear-gradient(to_right,rgba(180,148,90,0.42)_1px,transparent_1px),linear-gradient(to_bottom,rgba(200,169,110,0.28)_1px,transparent_1px)] bg-[size:88px_88px]" />
+      <div className="certificate-orb absolute -left-24 top-24 h-80 w-80 rounded-full bg-gold-500/16 blur-[130px]" />
+      <div className="certificate-orb-delay absolute -right-24 bottom-16 h-96 w-96 rounded-full bg-gold-400/14 blur-[150px]" />
+      <div className="certificate-orb-slow absolute left-1/2 top-1/2 h-[32rem] w-[32rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-gold-300/8 blur-[180px]" />
       <span className="certificate-line left-[10%] top-[28%]" />
       <span className="certificate-line certificate-line-delay right-[12%] top-[52%]" />
       <span className="certificate-line certificate-line-slow left-[46%] top-[75%]" />
-      <div className="portfolio-light-sweep absolute inset-0 bg-[linear-gradient(115deg,transparent_0%,rgba(20,184,166,0.065)_42%,transparent_68%)]" />
+      <div className="portfolio-light-sweep absolute inset-0 bg-[linear-gradient(115deg,transparent_0%,rgba(180,148,90,0.065)_42%,transparent_68%)]" />
     </div>
   )
 }
@@ -78,14 +70,14 @@ function CertificateCard({
 
   return (
     <div className={`min-w-0 flex-1 reveal-hidden-scale ${delayClass} ${isVisible ? "reveal-visible" : ""}`}>
-      <article className="group relative flex h-full min-w-0 flex-1 flex-col overflow-hidden rounded-[28px] border border-teal-200/28 bg-[#04130f]/95 shadow-[0_26px_70px_rgba(0,0,0,0.55),0_0_0_1px_rgba(45,212,191,0.10)] ring-1 ring-white/[0.06] backdrop-blur-md transition-all duration-500 ease-fluid hover:-translate-y-1 hover:border-teal-200/65 hover:bg-[#061a16]/98 hover:shadow-[0_30px_86px_rgba(20,184,166,0.25),0_0_0_1px_rgba(45,212,191,0.22)]">
-        <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-teal-300/70 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+      <article className="group relative flex h-full min-w-0 flex-1 flex-col overflow-hidden rounded-[28px] border border-gold-200/28 bg-[#020617]/95 shadow-[0_26px_70px_rgba(0,0,0,0.55),0_0_0_1px_rgba(200,169,110,0.10)] ring-1 ring-white/[0.06] backdrop-blur-md transition-all duration-500 ease-fluid hover:-translate-y-1 hover:border-gold-200/65 hover:bg-[#060d1c]/98 hover:shadow-[0_30px_86px_rgba(180,148,90,0.25),0_0_0_1px_rgba(200,169,110,0.22)]">
+        <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-gold-300/70 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
 
         <button
           type="button"
           onClick={() => onPreview(certificate.image)}
           aria-label={`Preview ${certificate.title} certificate`}
-          className="relative aspect-[16/10] w-full overflow-hidden border-b border-teal-200/18 bg-slate-950 text-left flex items-center justify-center group/img"
+          className="relative aspect-[16/10] w-full overflow-hidden border-b border-gold-200/18 bg-slate-950 text-left flex items-center justify-center group/img"
         >
           <Image
             src={certificate.image || "/placeholder.svg"}
@@ -100,20 +92,20 @@ function CertificateCard({
           />
 
           <div className="absolute inset-0 z-20 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover/img:opacity-100" />
-          <div className="absolute bottom-2.5 right-2.5 z-30 rounded-full border border-teal-200/30 bg-black/60 px-2.5 py-1 text-[11px] font-medium text-teal-100 shadow-md backdrop-blur-md opacity-90 transition group-hover/img:opacity-100 group-hover/img:bg-teal-500 group-hover/img:text-slate-950">
+          <div className="absolute bottom-2.5 right-2.5 z-30 rounded-full border border-gold-200/30 bg-black/60 px-2.5 py-1 text-[11px] font-medium text-gold-100 shadow-md backdrop-blur-md opacity-90 transition group-hover/img:opacity-100 group-hover/img:bg-gold-500 group-hover/img:text-slate-950">
             Click to preview
           </div>
         </button>
 
         <div className="relative flex flex-1 flex-col border-t border-white/[0.03] p-5">
           <div className="mb-4 flex flex-wrap items-center gap-2 text-xs">
-            <span className="inline-flex items-center gap-1 rounded-full border border-teal-200/35 bg-teal-300/14 px-3 py-1 font-medium text-teal-50">
+            <span className="inline-flex items-center gap-1 rounded-full border border-gold-200/35 bg-gold-300/14 px-3 py-1 font-medium text-gold-50">
               <Award className="h-3.5 w-3.5" />
               {certificate.issuer}
             </span>
           </div>
 
-          <h3 className="mb-3 text-lg font-bold leading-snug text-slate-50 transition group-hover:text-teal-100">
+          <h3 className="mb-3 text-lg font-bold leading-snug text-slate-50 transition group-hover:text-gold-100">
             {certificate.title}
           </h3>
 
@@ -129,11 +121,7 @@ function CertificateCard({
 export default function CertificatesSection() {
   const { ref: sectionRef, isVisible } = useScrollReveal<HTMLElement>({ threshold: 0.1 })
 
-  const [currentPage, setCurrentPage] = useState(0)
-  const [cardsPerPage, setCardsPerPage] = useState(3)
   const [selectedImage, setSelectedImage] = useState<string | null>(null)
-  const [touchStartX, setTouchStartX] = useState<number | null>(null)
-  const [touchEndX, setTouchEndX] = useState<number | null>(null)
 
   const previewImages = useMemo(
     () =>
@@ -147,80 +135,6 @@ export default function CertificatesSection() {
         : null,
     [selectedImage]
   )
-
-  useEffect(() => {
-    let resizeFrame = 0
-
-    const updateCardsPerPage = () => {
-      cancelAnimationFrame(resizeFrame)
-      resizeFrame = requestAnimationFrame(() => {
-        setCardsPerPage((current) => {
-          const next = getCardsPerPage()
-          return current === next ? current : next
-        })
-      })
-    }
-
-    updateCardsPerPage()
-    window.addEventListener("resize", updateCardsPerPage, { passive: true })
-
-    return () => {
-      cancelAnimationFrame(resizeFrame)
-      window.removeEventListener("resize", updateCardsPerPage)
-    }
-  }, [])
-
-  const totalPages = useMemo(
-    () => Math.max(1, Math.ceil(certificatesLatestFirst.length / cardsPerPage)),
-    [cardsPerPage]
-  )
-
-  const paginatedCertificates = useMemo(
-    () =>
-      Array.from({ length: totalPages }, (_, page) =>
-        certificatesLatestFirst.slice(page * cardsPerPage, (page + 1) * cardsPerPage)
-      ),
-    [cardsPerPage, totalPages]
-  )
-
-  useEffect(() => {
-    setCurrentPage((page) => Math.min(page, totalPages - 1))
-  }, [totalPages])
-
-  const slide = useCallback(
-    (direction: number) => {
-      setCurrentPage((page) => Math.max(0, Math.min(totalPages - 1, page + direction)))
-    },
-    [totalPages]
-  )
-
-  const handleTouchStart = (event: TouchEvent<HTMLDivElement>) => {
-    const firstTouch = event.targetTouches.item(0)
-    if (!firstTouch) return
-
-    setTouchEndX(null)
-    setTouchStartX(firstTouch.clientX)
-  }
-
-  const handleTouchMove = (event: TouchEvent<HTMLDivElement>) => {
-    const firstTouch = event.targetTouches.item(0)
-    if (!firstTouch) return
-
-    setTouchEndX(firstTouch.clientX)
-  }
-
-  const handleTouchEnd = () => {
-    if (touchStartX === null || touchEndX === null) return
-
-    const swipeDistance = touchStartX - touchEndX
-    const minSwipeDistance = 50
-
-    if (swipeDistance > minSwipeDistance) slide(1)
-    if (swipeDistance < -minSwipeDistance) slide(-1)
-
-    setTouchStartX(null)
-    setTouchEndX(null)
-  }
 
   const { ref: parallaxRef, y: parallaxY } = useParallax(50)
 
@@ -240,18 +154,18 @@ export default function CertificatesSection() {
         {/* Header */}
         <div className={`mb-10 reveal-hidden ${isVisible ? "reveal-visible" : ""}`}>
           <div className="flex items-start justify-between gap-4">
-            <h2 className="min-w-0 bg-gradient-to-r from-slate-50 via-teal-100 to-[#C8A96E] bg-clip-text pb-1 text-4xl font-bold tracking-tight text-transparent md:text-5xl">
+            <h2 className="min-w-0 bg-gradient-to-r from-slate-50 via-gold-100 to-[#C8A96E] bg-clip-text pb-1 text-4xl font-bold tracking-tight text-transparent md:text-5xl">
               Certificates
             </h2>
 
             <Link href="/certificates" className="mt-1 shrink-0 no-underline md:mt-2">
-              <div className="group flex overflow-hidden rounded-[12px] border border-teal-300/25 bg-slate-950/70 shadow-lg shadow-teal-950/35 backdrop-blur-xl transition-all duration-300 hover:scale-[1.03] hover:border-teal-300/55 hover:shadow-teal-500/18">
-                <div className="flex items-center justify-center gap-2 bg-white/7 px-3 py-[12px] text-[13px] font-semibold tracking-[0.02em] text-teal-100 transition-colors duration-300 group-hover:bg-teal-400 group-hover:text-slate-950 sm:px-5">
+              <div className="group flex overflow-hidden rounded-[12px] border border-gold-300/25 bg-slate-950/70 shadow-lg shadow-gold-950/35 backdrop-blur-xl transition-all duration-300 hover:scale-[1.03] hover:border-gold-300/55 hover:shadow-gold-500/18">
+                <div className="flex items-center justify-center gap-2 bg-white/7 px-3 py-[12px] text-[13px] font-semibold tracking-[0.02em] text-gold-100 transition-colors duration-300 group-hover:bg-gold-400 group-hover:text-slate-950 sm:px-5">
                   <span className="hidden sm:inline">View All</span>
                   <ExternalLink className="h-4 w-4 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                 </div>
 
-                <div className="flex min-w-[52px] flex-col items-center justify-center bg-teal-400 px-3 py-[8px] leading-none text-slate-950 sm:min-w-[64px] sm:px-4">
+                <div className="flex min-w-[52px] flex-col items-center justify-center bg-gold-400 px-3 py-[8px] leading-none text-slate-950 sm:min-w-[64px] sm:px-4">
                   <span className="text-[18px] font-bold leading-none sm:text-[21px]">
                     {certificates.length}
                   </span>
@@ -268,101 +182,18 @@ export default function CertificatesSection() {
           </p>
         </div>
 
-        {/* Carousel */}
-        <div className={`relative reveal-hidden reveal-delay-2 ${isVisible ? "reveal-visible" : ""}`}>
-          <button
-            type="button"
-            onClick={() => slide(-1)}
-            disabled={currentPage === 0}
-            aria-label="Previous certificates"
-            className="absolute -left-2 top-1/2 z-20 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-teal-300/25 bg-slate-950/80 text-teal-100 shadow-xl backdrop-blur-xl transition hover:bg-teal-400 hover:text-slate-950 disabled:cursor-default disabled:opacity-25 md:-left-5 sm:flex"
-          >
-            <ChevronLeft className="h-5 w-5" />
-          </button>
-
-          <button
-            type="button"
-            onClick={() => slide(1)}
-            disabled={currentPage === totalPages - 1}
-            aria-label="Next certificates"
-            className="absolute -right-2 top-1/2 z-20 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-teal-300/25 bg-slate-950/80 text-teal-100 shadow-xl backdrop-blur-xl transition hover:bg-teal-400 hover:text-slate-950 disabled:cursor-default disabled:opacity-25 md:-right-5 sm:flex"
-          >
-            <ChevronRight className="h-5 w-5" />
-          </button>
-
-          <div
-            className="overflow-hidden px-4 py-6 md:px-6"
-            onTouchStart={handleTouchStart}
-            onTouchMove={handleTouchMove}
-            onTouchEnd={handleTouchEnd}
-          >
-            <div
-              className="flex touch-pan-y select-none transition-transform duration-700 ease-fluid"
-              style={{ transform: `translateX(-${currentPage * 100}%)` }}
-            >
-              {paginatedCertificates.map((pageCertificates, pageIndex) => (
-                <div key={pageIndex} className="flex min-w-full items-stretch gap-5 px-1 py-2">
-                  {pageCertificates.map((certificate, certIndex) => (
-                    <CertificateCard
-                      key={certificate.id}
-                      certificate={certificate}
-                      index={certIndex}
-                      isVisible={isVisible}
-                      onPreview={setSelectedImage}
-                    />
-                  ))}
-
-                  {pageCertificates.length < cardsPerPage &&
-                    Array.from({ length: cardsPerPage - pageCertificates.length }).map((_, index) => (
-                      <div key={index} className="hidden min-w-0 flex-1 md:block" />
-                    ))}
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="mt-3 flex items-center justify-center gap-4">
-            <button
-              type="button"
-              onClick={() => slide(-1)}
-              disabled={currentPage === 0}
-              aria-label="Previous certificates"
-              className="flex h-9 w-9 items-center justify-center rounded-full border border-teal-300/25 bg-slate-950/80 text-teal-100 shadow-lg backdrop-blur-xl transition hover:bg-teal-400 hover:text-slate-950 disabled:cursor-default disabled:opacity-25 sm:hidden"
-            >
-              <ChevronLeft className="h-4 w-4" />
-            </button>
-
-            <div className="flex items-center justify-center gap-2">
-              {Array.from({ length: totalPages }).map((_, index) => {
-                const active = currentPage === index
-
-                return (
-                  <button
-                    key={index}
-                    type="button"
-                    onClick={() => setCurrentPage(index)}
-                    aria-label={`Go to certificate page ${index + 1}`}
-                    className={`h-2 rounded-full transition-all duration-300 ${
-                      active ? "w-8 bg-teal-300" : "w-2 bg-white/20 hover:bg-teal-200/60"
-                    }`}
-                  />
-                )
-              })}
-
-              <span className="ml-1 min-w-8 font-mono text-[11px] text-slate-400">
-                {currentPage + 1}/{totalPages}
-              </span>
-            </div>
-
-            <button
-              type="button"
-              onClick={() => slide(1)}
-              disabled={currentPage === totalPages - 1}
-              aria-label="Next certificates"
-              className="flex h-9 w-9 items-center justify-center rounded-full border border-teal-300/25 bg-slate-950/80 text-teal-100 shadow-lg backdrop-blur-xl transition hover:bg-teal-400 hover:text-slate-950 disabled:cursor-default disabled:opacity-25 sm:hidden"
-            >
-              <ChevronRight className="h-4 w-4" />
-            </button>
+        {/* Static grid — five certificates fit on screen, so there is nothing to page through */}
+        <div className={`reveal-hidden reveal-delay-2 ${isVisible ? "reveal-visible" : ""}`}>
+          <div className="grid gap-5 px-1 py-2 sm:grid-cols-2 lg:grid-cols-3">
+            {certificatesLatestFirst.map((certificate, index) => (
+              <CertificateCard
+                key={certificate.id}
+                certificate={certificate}
+                index={index}
+                isVisible={isVisible}
+                onPreview={setSelectedImage}
+              />
+            ))}
           </div>
         </div>
       </div>

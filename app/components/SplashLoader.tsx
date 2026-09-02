@@ -37,8 +37,8 @@ const SKILLS = [
   },
 ]
 
-const PH1_DUR = 1100
-const PH2_DUR = 700
+const PH1_DUR = 1800
+const PH2_DUR = 1200
 
 export default function SplashLoader({
   onLoadingComplete,
@@ -548,7 +548,7 @@ export default function SplashLoader({
     const cx = cv.width / 2
     const cy = cv.height / 2
 
-    const TOTAL = 700
+    const TOTAL = 1100
 
     const lines = Array.from(
       { length: 240 },
@@ -630,7 +630,7 @@ export default function SplashLoader({
       wrap.style.transition = "opacity .8s ease"
       wrap.style.opacity = "0"
 
-      setTimeout(onDone, 300)
+      setTimeout(onDone, 400)
     }
 
     hyperRafRef.current =
@@ -708,7 +708,7 @@ export default function SplashLoader({
 
         startArcAnimation()
 
-        ;[100, 300, 500].forEach((t, i) => {
+        ;[160, 480, 800].forEach((t, i) => {
           setTimeout(() => activateAtom(i), t)
         })
 
@@ -753,7 +753,7 @@ export default function SplashLoader({
                 typeWriter(
                   nameRef.current,
                   FULL_NAME,
-                  20,
+                  34,
                   () => {
                     expertiseRef.current?.classList.add(
                       "show"
@@ -770,18 +770,18 @@ export default function SplashLoader({
 
                       setTimeout(() => {
                         finishOnce()
-                      }, 500)
-                    }, 520)
+                      }, 620)
+                    }, 950)
                   }
                 )
-              }, 150)
+              }, 220)
             })
-          }, 180)
+          }, 280)
         }
 
         rafRef.current =
           requestAnimationFrame(phase2)
-      }, 180)
+      }, 280)
     }
 
     rafRef.current =
@@ -890,7 +890,7 @@ export default function SplashLoader({
         }
 
         .sl-ph1{
-          transition:.42s ease;
+          transition:.6s ease;
         }
 
         .sl-ph1.sl-out{
@@ -901,7 +901,7 @@ export default function SplashLoader({
         .sl-ph2{
           opacity:0;
           transform:translate(-50%,-50%) scale(.85);
-          transition:.42s ease;
+          transition:.6s ease;
         }
 
         .sl-ph2.sl-in{
@@ -918,7 +918,7 @@ export default function SplashLoader({
           opacity:0;
           width:min(900px,92vw);
           transform:translate(-50%,-45%);
-          transition:.42s ease;
+          transition:.6s ease;
         }
 
         .sl-ph3.sl-in{
@@ -997,7 +997,7 @@ export default function SplashLoader({
           position:absolute;
           inset:auto 0 0 0;
           height:0%;
-          transition:.42s ease;
+          transition:.6s ease;
         }
 
         .sl-battery-cell.active::before{
@@ -1157,7 +1157,7 @@ export default function SplashLoader({
         .sl-expertise-label{
           opacity:0;
           transform:translateY(20px);
-          transition:.4s ease;
+          transition:.55s ease;
         }
 
         .sl-welcome-line.show,

@@ -46,7 +46,7 @@ function BrandMark({ compact = false }: { compact?: boolean }) {
             fontFamily: "var(--font-display), Georgia, serif",
             fontWeight: 600,
             textShadow:
-              "0 0 18px rgba(251,191,36,0.24), 0 0 36px rgba(255,255,255,0.10)",
+              "0 0 18px rgba(200,169,110,0.24), 0 0 36px rgba(255,255,255,0.10)",
           }}
         >
           Fiat lux
@@ -100,7 +100,7 @@ export default function Navigation({ activeSection }: NavigationProps) {
             aria-label="Go to Home"
             className="group relative flex items-center rounded-xl px-1 py-1.5 outline-none transition-transform duration-300 hover:scale-[1.015] focus-visible:ring-2 focus-visible:ring-amber-200/50 sm:rounded-2xl sm:py-2"
           >
-            <span className="pointer-events-none absolute -inset-2 rounded-full bg-gradient-to-r from-amber-200/10 via-white/10 to-sky-300/10 opacity-70 blur-2xl transition-opacity duration-500 group-hover:opacity-100 sm:-inset-3" />
+            <span className="pointer-events-none absolute -inset-2 rounded-full bg-gradient-to-r from-amber-200/10 via-white/10 to-gold-300/10 opacity-70 blur-2xl transition-opacity duration-500 group-hover:opacity-100 sm:-inset-3" />
             <BrandMark />
           </button>
 
@@ -132,14 +132,14 @@ export default function Navigation({ activeSection }: NavigationProps) {
                   <Icon
                     className={`relative z-10 h-4 w-4 shrink-0 transition-all duration-300 ${
                       isActive
-                        ? "text-amber-200 drop-shadow-[0_0_8px_rgba(251,191,36,0.9)]"
+                        ? "text-amber-200 drop-shadow-[0_0_8px_rgba(200,169,110,0.9)]"
                         : "text-zinc-400 group-hover:scale-105 group-hover:text-amber-100"
                     }`}
                   />
 
                   <span
                     className={`relative z-10 whitespace-nowrap transition-all duration-300 ${
-                      isActive ? "drop-shadow-[0_0_10px_rgba(251,191,36,0.95)]" : ""
+                      isActive ? "drop-shadow-[0_0_10px_rgba(200,169,110,0.95)]" : ""
                     }`}
                   >
                     {item.label}
@@ -148,7 +148,7 @@ export default function Navigation({ activeSection }: NavigationProps) {
                   <span
                     className={`absolute -bottom-0.5 left-0 right-0 h-[2px] rounded-full bg-gradient-to-r from-transparent via-amber-300 to-transparent transition-all duration-300 ${
                       isActive
-                        ? "scale-x-100 opacity-100 shadow-[0_0_14px_rgba(251,191,36,0.85)]"
+                        ? "scale-x-100 opacity-100 shadow-[0_0_14px_rgba(200,169,110,0.85)]"
                         : "scale-x-0 opacity-0 group-hover:scale-x-100 group-hover:opacity-80"
                     }`}
                   />
@@ -250,14 +250,14 @@ export default function Navigation({ activeSection }: NavigationProps) {
                   <Icon
                     className={`relative z-10 h-5 w-5 shrink-0 transition-all duration-300 ${
                       isActive
-                        ? "text-amber-200 drop-shadow-[0_0_8px_rgba(251,191,36,0.9)]"
+                        ? "text-amber-200 drop-shadow-[0_0_8px_rgba(200,169,110,0.9)]"
                         : "text-zinc-400 group-hover:text-amber-100"
                     }`}
                   />
 
                   <span
                     className={`relative z-10 text-sm font-medium ${
-                      isActive ? "drop-shadow-[0_0_10px_rgba(251,191,36,0.85)]" : ""
+                      isActive ? "drop-shadow-[0_0_10px_rgba(200,169,110,0.85)]" : ""
                     }`}
                   >
                     {item.label}

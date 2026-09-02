@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from "react"
 
 import CertificatesSection from "./components/CertificatesSection"
+import ContactSection from "./components/ContactSection"
 import ExperienceSection from "./components/ExperienceSection"
 import AIChatbot from "./components/AIChatbot"
 import Footer from "./components/Footer"
@@ -19,7 +20,7 @@ const NAVBAR_SCROLL_OFFSET = 100
 function SiteBackdrop() {
   return (
     <div className="pointer-events-none fixed inset-0 z-0 bg-[#020617]">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_16%_20%,rgba(56,189,248,0.18),transparent_28%),radial-gradient(circle_at_84%_18%,rgba(168,85,247,0.14),transparent_30%),radial-gradient(circle_at_50%_92%,rgba(250,204,21,0.08),transparent_35%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_16%_20%,rgba(220,198,148,0.18),transparent_28%),radial-gradient(circle_at_84%_18%,rgba(200,169,110,0.14),transparent_30%),radial-gradient(circle_at_50%_92%,rgba(200,169,110,0.08),transparent_35%)]" />
       <div className="absolute inset-0 opacity-[0.08] bg-[linear-gradient(to_right,rgba(148,163,184,0.5)_1px,transparent_1px),linear-gradient(to_bottom,rgba(148,163,184,0.5)_1px,transparent_1px)] bg-[size:96px_96px]" />
     </div>
   )
@@ -101,6 +102,7 @@ export default function Home() {
         <ProjectsSection />
         <CertificatesSection />
         <ExperienceSection />
+        <ContactSection />
       </main>
 
       <AIChatbot />

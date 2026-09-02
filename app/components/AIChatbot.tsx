@@ -32,7 +32,7 @@ function getBotReply(input: string): string {
   }
 
   if (/social|media|medsos|sosmed|follow|instagram|ig|linkedin|github|git\b|hubung|contact|kontak/.test(q)) {
-    return `🔗 Here are my official social media profiles and contact info:\n\n• LinkedIn: ${siteConfig.contacts.linkedin}\n• Instagram: ${siteConfig.contacts.instagram}\n• GitHub: ${siteConfig.contacts.github}\n• WhatsApp: ${siteConfig.contacts.whatsapp}\n• Email: ${siteConfig.contacts.email}`
+    return `🔗 Here is how to reach me:\n\n• Email: ${siteConfig.contacts.email}\n• WhatsApp: ${siteConfig.contacts.whatsapp}\n• LinkedIn: ${siteConfig.contacts.linkedin}\n• Instagram: ${siteConfig.contacts.instagram}\n\nOr scroll to the Contact section at the bottom of this page.`
   }
 
   if (/whatsapp|wa|phone|telp|hp|nomor|number/.test(q)) {
@@ -115,6 +115,19 @@ function BotIcon({ className = "h-7 w-7" }: { className?: string }) {
 }
 
 /* ─────────────────────────────────────────────
+   Suggestion chips — the bot already knows what it can answer,
+   so visitors should not have to guess the wording.
+───────────────────────────────────────────── */
+const SUGGESTIONS = [
+  { emoji: "📁", label: "Projects", query: "Show me your projects" },
+  { emoji: "💼", label: "Experience", query: "Tell me about your work experience" },
+  { emoji: "🛠️", label: "Skills", query: "What are your skills and tools?" },
+  { emoji: "🏆", label: "Certificates", query: "What certificates do you have?" },
+  { emoji: "📄", label: "Resume", query: "Can I download your resume?" },
+  { emoji: "📱", label: "Contact", query: "How can I contact you?" },
+]
+
+/* ─────────────────────────────────────────────
    AI Chatbot Component
 ───────────────────────────────────────────── */
 export default function AIChatbot() {
@@ -143,8 +156,8 @@ export default function AIChatbot() {
     if (isOpen) inputRef.current?.focus()
   }, [isOpen])
 
-  const handleSend = () => {
-    const trimmed = input.trim()
+  const sendMessage = useCallback((text: string) => {
+    const trimmed = text.trim()
     if (!trimmed) return
 
     const userMsg: Message = { id: Date.now(), text: trimmed, sender: "user" }
@@ -157,7 +170,9 @@ export default function AIChatbot() {
       setMessages((prev) => [...prev, { id: Date.now() + 1, text: reply, sender: "bot" }])
       setIsTyping(false)
     }, 600 + Math.random() * 400)
-  }
+  }, [])
+
+  const handleSend = () => sendMessage(input)
 
   const renderMessageText = (text: string) => {
     const urlRegex = /(https?:\/\/[^\s]+)/g
@@ -178,7 +193,7 @@ export default function AIChatbot() {
             href={part}
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-1 block w-fit border border-teal-200 bg-teal-50 px-3 py-1.5 text-xs font-bold text-teal-600 rounded-xl hover:bg-teal-100 transition-all duration-300 break-all"
+            className="mt-1 block w-fit border border-gold-200 bg-gold-50 px-3 py-1.5 text-xs font-bold text-gold-600 rounded-xl hover:bg-gold-100 transition-all duration-300 break-all"
           >
             {label}
           </a>
@@ -192,7 +207,7 @@ export default function AIChatbot() {
     <>
       {/* ── Chat Panel ── */}
       <div
-        className={`fixed bottom-28 right-5 z-50 w-[360px] max-w-[calc(100vw-2.5rem)] overflow-hidden rounded-[28px] border border-teal-200/30 bg-white/95 shadow-[0_32px_80px_rgba(20,184,166,0.18),0_0_0_1px_rgba(20,184,166,0.06)] backdrop-blur-2xl transition-all duration-400 sm:right-7 ${
+        className={`fixed bottom-28 right-5 z-50 w-[360px] max-w-[calc(100vw-2.5rem)] overflow-hidden rounded-[28px] border border-gold-200/30 bg-white/95 shadow-[0_32px_80px_rgba(180,148,90,0.18),0_0_0_1px_rgba(180,148,90,0.06)] backdrop-blur-2xl transition-all duration-400 sm:right-7 ${
           isOpen
             ? "pointer-events-auto translate-y-0 scale-100 opacity-100"
             : "pointer-events-none translate-y-4 scale-95 opacity-0"
@@ -201,14 +216,14 @@ export default function AIChatbot() {
         aria-label="AI Assistant Chat"
       >
         {/* Header */}
-        <div className="relative flex items-center justify-between border-b border-slate-200/60 bg-gradient-to-r from-[#0f1a2e] via-[#152038] to-[#1a2744] px-5 py-4">
+        <div className="relative flex items-center justify-between border-b border-slate-200/60 bg-gradient-to-r from-[#060d1c] via-[#152038] to-[#1a2744] px-5 py-4">
           <div className="flex items-center gap-3">
-            <span className="flex h-10 w-10 items-center justify-center rounded-full border border-amber-400/30 bg-gradient-to-br from-[#1a2744] to-[#0f1a2e] shadow-[0_6px_16px_rgba(15,26,46,0.40),0_0_12px_rgba(196,164,90,0.12)]">
+            <span className="flex h-10 w-10 items-center justify-center rounded-full border border-amber-400/30 bg-gradient-to-br from-[#1a2744] to-[#060d1c] shadow-[0_6px_16px_rgba(15,26,46,0.40),0_0_12px_rgba(196,164,90,0.12)]">
               <BotIcon className="h-6 w-6" />
             </span>
             <div>
               <p className="text-sm font-bold text-amber-50">AI Assistant</p>
-              <p className="text-[11px] text-cyan-300 font-medium">Online</p>
+              <p className="text-[11px] text-gold-300 font-medium">Online</p>
             </div>
           </div>
           <button
@@ -231,7 +246,7 @@ export default function AIChatbot() {
               <div
                 className={`max-w-[85%] whitespace-pre-line rounded-2xl px-4 py-3 text-[13px] leading-relaxed shadow-sm break-words [word-break:break-word] overflow-wrap-anywhere ${
                   msg.sender === "user"
-                    ? "rounded-br-md bg-gradient-to-r from-teal-500 via-cyan-500 to-sky-500 text-white"
+                    ? "rounded-br-md bg-gradient-to-r from-gold-500 via-gold-500 to-gold-500 text-white"
                     : "rounded-bl-md border border-slate-100 bg-slate-50 text-slate-700"
                 }`}
               >
@@ -243,9 +258,9 @@ export default function AIChatbot() {
           {isTyping ? (
             <div className="mb-3 flex justify-start">
               <div className="flex items-center gap-1.5 rounded-2xl rounded-bl-md border border-slate-100 bg-slate-50 px-4 py-3 shadow-sm">
-                <span className="h-2 w-2 animate-bounce rounded-full bg-teal-500 [animation-delay:0ms]" />
-                <span className="h-2 w-2 animate-bounce rounded-full bg-teal-500 [animation-delay:150ms]" />
-                <span className="h-2 w-2 animate-bounce rounded-full bg-teal-500 [animation-delay:300ms]" />
+                <span className="h-2 w-2 animate-bounce rounded-full bg-gold-500 [animation-delay:0ms]" />
+                <span className="h-2 w-2 animate-bounce rounded-full bg-gold-500 [animation-delay:150ms]" />
+                <span className="h-2 w-2 animate-bounce rounded-full bg-gold-500 [animation-delay:300ms]" />
               </div>
             </div>
           ) : null}
@@ -253,8 +268,30 @@ export default function AIChatbot() {
           <div ref={messagesEndRef} />
         </div>
 
+        {/* Suggestion chips — one tap instead of guessing what to type */}
+        <div className="border-t border-gold-100/60 bg-white/80 px-3 pb-2 pt-2.5">
+          <p className="mb-1.5 px-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-slate-400">
+            Try asking
+          </p>
+
+          <div className="no-card-scrollbar flex gap-1.5 overflow-x-auto pb-0.5">
+            {SUGGESTIONS.map((item) => (
+              <button
+                key={item.label}
+                type="button"
+                onClick={() => sendMessage(item.query)}
+                disabled={isTyping}
+                className="flex shrink-0 items-center gap-1.5 rounded-full border border-gold-200 bg-gold-50 px-3 py-1.5 text-[12px] font-semibold text-slate-700 transition-all duration-200 hover:-translate-y-0.5 hover:border-gold-400 hover:bg-gold-100 hover:text-slate-900 active:translate-y-0 disabled:cursor-not-allowed disabled:opacity-45 disabled:hover:translate-y-0"
+              >
+                <span aria-hidden="true">{item.emoji}</span>
+                {item.label}
+              </button>
+            ))}
+          </div>
+        </div>
+
         {/* Input */}
-        <div className="border-t border-teal-100/50 bg-gradient-to-r from-teal-50/50 via-white to-cyan-50/50 px-4 py-3">
+        <div className="border-t border-gold-100/50 bg-gradient-to-r from-gold-50/50 via-white to-gold-50/50 px-4 py-3">
           <form
             onSubmit={(e) => {
               e.preventDefault()
@@ -268,13 +305,13 @@ export default function AIChatbot() {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="Ask me anything..."
-              className="h-10 flex-1 rounded-full border border-teal-200/50 bg-white px-4 text-sm text-slate-800 outline-none transition-all placeholder:text-slate-400 focus:border-teal-400 focus:ring-2 focus:ring-teal-200/50"
+              className="h-10 flex-1 rounded-full border border-gold-200/50 bg-white px-4 text-sm text-slate-800 outline-none transition-all placeholder:text-slate-400 focus:border-gold-400 focus:ring-2 focus:ring-gold-200/50"
             />
             <button
               type="submit"
               disabled={!input.trim()}
               aria-label="Send message"
-              className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gradient-to-r from-teal-500 to-cyan-500 text-white shadow-[0_6px_16px_rgba(20,184,166,0.30)] transition-all duration-300 hover:scale-105 hover:shadow-[0_10px_24px_rgba(20,184,166,0.35)] disabled:cursor-not-allowed disabled:opacity-40 disabled:shadow-none disabled:hover:scale-100"
+              className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gradient-to-r from-gold-500 to-gold-500 text-white shadow-[0_6px_16px_rgba(180,148,90,0.30)] transition-all duration-300 hover:scale-105 hover:shadow-[0_10px_24px_rgba(180,148,90,0.35)] disabled:cursor-not-allowed disabled:opacity-40 disabled:shadow-none disabled:hover:scale-100"
             >
               <Send className="h-4 w-4" />
             </button>
@@ -299,7 +336,7 @@ export default function AIChatbot() {
         <span className="absolute inset-[-3px] rounded-full bg-gradient-to-br from-amber-400/60 via-yellow-500/40 to-amber-600/50 opacity-80 blur-[1px] transition-opacity duration-300 group-hover:opacity-100" />
 
         {/* Main circle — dark navy matching the bot icon's face */}
-        <span className="relative flex h-16 w-16 items-center justify-center rounded-full border border-amber-300/30 bg-gradient-to-br from-[#0f1a2e] via-[#152038] to-[#1a2744] text-white shadow-[0_18px_42px_rgba(15,26,46,0.50),0_0_20px_rgba(196,164,90,0.15)] transition-shadow duration-300 group-hover:shadow-[0_22px_50px_rgba(15,26,46,0.60),0_0_30px_rgba(196,164,90,0.25)]">
+        <span className="relative flex h-16 w-16 items-center justify-center rounded-full border border-amber-300/30 bg-gradient-to-br from-[#060d1c] via-[#152038] to-[#1a2744] text-white shadow-[0_18px_42px_rgba(15,26,46,0.50),0_0_20px_rgba(196,164,90,0.15)] transition-shadow duration-300 group-hover:shadow-[0_22px_50px_rgba(15,26,46,0.60),0_0_30px_rgba(196,164,90,0.25)]">
           {isOpen ? <X className="h-6 w-6" /> : <BotIcon className="h-9 w-9" />}
         </span>
 
@@ -309,10 +346,10 @@ export default function AIChatbot() {
             className="absolute right-[calc(100%+12px)] top-1/2 -translate-y-1/2 translate-x-2 scale-95 opacity-0 transition-all duration-500 group-hover:translate-x-0 group-hover:scale-100 group-hover:opacity-100"
             style={{ transitionTimingFunction: "cubic-bezier(0.34, 1.56, 0.64, 1)" }}
           >
-            <span className="relative block whitespace-nowrap rounded-2xl border border-amber-200/25 bg-[#0f1a2e]/95 px-4 py-2.5 text-[13px] font-semibold text-amber-50 shadow-[0_12px_40px_rgba(0,0,0,0.25)] backdrop-blur-xl">
+            <span className="relative block whitespace-nowrap rounded-2xl border border-amber-200/25 bg-[#060d1c]/95 px-4 py-2.5 text-[13px] font-semibold text-amber-50 shadow-[0_12px_40px_rgba(0,0,0,0.25)] backdrop-blur-xl">
               <span className="mr-1.5">👋</span>
               Saya bisa membantu Anda
-              <span className="absolute -right-[6px] top-1/2 -translate-y-1/2 rotate-45 h-3 w-3 border-r border-t border-amber-200/25 bg-[#0f1a2e]/95" />
+              <span className="absolute -right-[6px] top-1/2 -translate-y-1/2 rotate-45 h-3 w-3 border-r border-t border-amber-200/25 bg-[#060d1c]/95" />
             </span>
           </span>
         )}

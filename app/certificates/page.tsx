@@ -4,7 +4,7 @@ import CertificatesArchiveClient from "./CertificatesArchiveClient"
 import { certificatesCollectionStructuredData, siteConfig } from "@/lib/site-content"
 
 export const metadata: Metadata = {
-  title: `Certificates | ${siteConfig.shortName} Portfolio`,
+  title: "Certificates",
   description: `A complete archive of ${siteConfig.owner}'s certificates, professional training, and learning achievements in English, teaching, data analytics, and UI/UX design.`,
   alternates: { canonical: "/certificates" },
   openGraph: {

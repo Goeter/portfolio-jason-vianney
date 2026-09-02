@@ -41,7 +41,7 @@ export default function Footer() {
   return (
     <footer
       ref={footerRef}
-      className="relative z-10 overflow-hidden border-t border-[#C8A96E]/20 bg-[linear-gradient(135deg,#020617_0%,#07111f_42%,#0b1220_68%,#030712_100%)] text-slate-100 shadow-[0_-28px_90px_rgba(0,0,0,0.52)] backdrop-blur-2xl"
+      className="relative z-10 overflow-hidden border-t border-[#C8A96E]/20 bg-[linear-gradient(135deg,#020617_0%,#07111f_42%,#060D1C_68%,#030712_100%)] text-slate-100 shadow-[0_-28px_90px_rgba(0,0,0,0.52)] backdrop-blur-2xl"
     >
       {/* ── Decorative top border glow ── */}
       <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#C8A96E]/70 to-transparent" />
@@ -49,7 +49,7 @@ export default function Footer() {
 
       {/* ── Background pattern ── */}
       <div className="pointer-events-none absolute inset-0">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_14%_0%,rgba(200,169,110,0.18),transparent_30%),radial-gradient(circle_at_86%_12%,rgba(56,189,248,0.12),transparent_28%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_14%_0%,rgba(200,169,110,0.18),transparent_30%),radial-gradient(circle_at_86%_12%,rgba(220,198,148,0.12),transparent_28%)]" />
         <svg
           className="absolute inset-0 h-full w-full opacity-[0.035]"
           viewBox="0 0 800 400"
@@ -109,12 +109,12 @@ export default function Footer() {
           <h3 className="text-[12px] font-bold uppercase tracking-[0.22em] text-[#D6B86A]">
             Navigation
           </h3>
-          <nav className="mt-5 flex flex-col gap-3" aria-label="Footer Navigation">
+          <nav className="mt-4 flex flex-col gap-1" aria-label="Footer Navigation">
             {footerNavigation.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
-                className="inline-flex w-fit text-sm font-medium text-white/90 transition-all duration-300 hover:translate-x-1 hover:text-[#D6B86A]"
+                className="inline-flex w-fit items-center py-1.5 text-sm font-medium text-white/90 transition-all duration-300 hover:translate-x-1 hover:text-[#D6B86A]"
               >
                 {item.label}
               </Link>
