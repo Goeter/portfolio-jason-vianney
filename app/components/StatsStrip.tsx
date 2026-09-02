@@ -54,8 +54,8 @@ function Stat({
   return (
     <div className="flex flex-col items-center gap-1 px-2 text-center sm:px-4">
       <span
-        className="font-serif text-3xl font-semibold leading-none text-gold-200 sm:text-4xl md:text-[2.6rem]"
-        style={{ fontVariantNumeric: "tabular-nums" }}
+        className="font-sans text-[1.9rem] font-bold leading-none tracking-[-0.02em] text-gold-200 sm:text-[2.2rem] md:text-[2.45rem]"
+        style={{ fontVariantNumeric: "tabular-nums lining-nums" }}
       >
         {shown}
         {suffix}

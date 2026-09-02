@@ -159,31 +159,53 @@ export default function ExperienceSection() {
               <span className="h-px w-10 bg-gradient-to-l from-transparent to-gold-400/50" />
             </div>
 
-            <div className="flex flex-col items-center gap-4 rounded-3xl border border-gold-400/20 bg-slate-950/60 px-6 py-6 text-center backdrop-blur-sm sm:flex-row sm:items-center sm:gap-5 sm:text-left">
-              <span className="relative h-14 w-14 shrink-0 overflow-hidden rounded-2xl bg-white/5">
-                <Image
-                  src={education.logo}
-                  alt={`${education.school} logo`}
-                  fill
-                  sizes="56px"
-                  className="object-contain p-1.5"
-                  placeholder="blur"
-                  blurDataURL={BLUR_DATA_URL}
-                />
-              </span>
+            <div className="group relative overflow-hidden rounded-[24px] border border-white/10 bg-[#060d1c]/78 p-4 shadow-2xl shadow-black/30 backdrop-blur-xl transition-all duration-700 ease-out hover:-translate-y-1 hover:border-[#C8A96E]/35 hover:bg-[#060d1c]/88 hover:shadow-[0_22px_65px_rgba(0,0,0,0.48)] sm:rounded-[28px] sm:p-5 md:p-6">
+              <span className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#C8A96E]/55 to-transparent" />
+              <span className="absolute right-0 top-0 h-24 w-24 rounded-bl-full bg-[#C8A96E]/5 transition duration-500 group-hover:bg-[#C8A96E]/10 sm:h-28 sm:w-28" />
 
-              <div className="min-w-0 flex-1">
-                <h3 className="font-serif text-xl font-semibold text-gold-100 md:text-2xl">
-                  {education.degree}
-                </h3>
-                <p className="mt-0.5 text-sm text-slate-300">{education.school}</p>
-              </div>
+              <div className="relative flex flex-col gap-5 sm:flex-row sm:items-start">
+                <div className="flex items-center justify-center sm:justify-start">
+                  <div className="relative flex h-[4.25rem] w-[4.25rem] shrink-0 items-center justify-center rounded-2xl border border-white/15 bg-white/95 p-1.5 shadow-lg shadow-black/20 transition duration-300 group-hover:scale-105 sm:h-20 sm:w-20 sm:p-2">
+                    <Image
+                      src={education.logo}
+                      alt={`${education.school} logo`}
+                      width={80}
+                      height={80}
+                      placeholder="blur"
+                      blurDataURL={BLUR_DATA_URL}
+                      className="h-full w-full object-contain"
+                    />
+                  </div>
+                </div>
 
-              <div className="flex shrink-0 flex-col items-center gap-1.5 sm:items-end">
-                <span className="rounded-full border border-gold-400/30 bg-gold-400/10 px-3 py-1 text-[11px] font-bold tracking-wide text-gold-200">
-                  {education.result}
-                </span>
-                <span className="text-[11px] text-slate-400">{education.period}</span>
+                <div className="min-w-0 flex-1 text-center sm:text-left">
+                  <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+                    <div className="min-w-0">
+                      <h3 className="break-words text-lg font-bold leading-snug text-[#F4EDD8] transition duration-300 group-hover:text-white md:text-xl">
+                        {education.school}
+                      </h3>
+
+                      <div className="mt-3 inline-flex max-w-full items-center gap-2 rounded-full border border-[#C8A96E]/25 bg-[#C8A96E]/10 px-3 py-1 text-left text-xs font-semibold leading-relaxed text-[#f3d585] sm:text-sm">
+                        <GraduationCap size={15} className="shrink-0" />
+                        <span>{education.degree}</span>
+                      </div>
+                    </div>
+
+                    <div className="flex shrink-0 flex-col items-center gap-2 lg:items-end">
+                      <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-xs font-medium text-slate-300 sm:text-sm">
+                        <CalendarDays size={15} className="shrink-0" />
+                        {education.period}
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="mt-4 flex items-start justify-center gap-3 text-left sm:justify-start">
+                    <span className="mt-2 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-[#C8A96E] shadow-[0_0_12px_rgba(200,169,110,0.72)]" />
+                    <p className="text-sm leading-relaxed text-slate-300">
+                      {education.result}
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
