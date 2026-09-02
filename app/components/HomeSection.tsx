@@ -303,7 +303,7 @@ export default function HomeSection() {
                 }}
                 {...fadeSlideLeft(0.65)}
               >
-                Full-Stack Developer and System Analyst with 4+ years of experience across finance, manufacturing, and legal industries, including projects for PT Astra Honda Motor and Mayapada Group. Comfortable handling a project from start to finish — gathering requirements, designing the UI/UX, building the system, and bringing in cloud or AI tools where they genuinely add value. Known for turning messy business processes into systems that are simpler to use and easier to maintain.
+                I am a Full-Stack Developer and System Analyst with over four years of experience across the finance, manufacturing, and legal industries, including projects for PT Astra Honda Motor and Mayapada Group. I handle each project from requirements through UI/UX design to launch, bringing in cloud or AI tools where they genuinely add value, so the system that goes live is the one the business actually needed.
               </m.p>
 
               {/* Buttons */}
