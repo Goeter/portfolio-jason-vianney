@@ -149,7 +149,8 @@ export default function ExperienceSection() {
           </div>
 
           {/* ── Education ── */}
-          <div className="mx-auto mt-14 max-w-3xl">
+          {/* mt-14 + md:ml-12 mirrors the experience cards, so both columns line up */}
+          <div className="mt-14 md:ml-12">
             <div className="mb-5 flex items-center justify-center gap-3">
               <span className="h-px w-10 bg-gradient-to-r from-transparent to-gold-400/50" />
               <span className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.22em] text-gold-400/80">

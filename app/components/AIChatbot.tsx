@@ -14,11 +14,11 @@ import {
 } from "lucide-react"
 import {
   siteConfig,
-  expertise,
   professionalRoles,
   projects,
   certificates,
   experiences,
+  education,
 } from "@/lib/site-content"
 
 /* ─────────────────────────────────────────────
@@ -31,82 +31,288 @@ type Message = {
 }
 
 /* ─────────────────────────────────────────────
-   Knowledge Base — matches user questions
+   Knowledge base
+
+   Every answer is generated from the data in site-content.ts, so nothing here
+   goes stale when a project or certificate is added. Rules are checked in order,
+   most specific first — a question like "what is your work experience" contains
+   "work", which the projects rule would otherwise swallow.
 ───────────────────────────────────────────── */
-function getBotReply(input: string): string {
-  const q = input.toLowerCase().trim()
-
-  if (/^(hi|hello|hey|halo|hai|p|yo|hola|siang|pagi|sore|malam)\b/.test(q)) {
-    return `Hi there! 👋 I'm ${siteConfig.shortName}'s AI assistant.\n\nI can help you with:\n• 📁 Projects / Portfolio\n• 🏆 Certificates / Achievements\n• 💼 Work Experience\n• 🛠️ Skills & Technologies\n• 📱 Social Media & Contact info\n• 📄 Resume / CV\n\nWhat would you like to explore?`
-  }
-
-  if (/social|media|medsos|sosmed|follow|instagram|ig|linkedin|github|git\b|hubung|contact|kontak/.test(q)) {
-    return `🔗 Here is how to reach me:\n\nmailto:${siteConfig.contacts.email}\n${siteConfig.contacts.whatsapp}\n${siteConfig.contacts.linkedin}\n${siteConfig.contacts.instagram}\n\nEmail and WhatsApp are the quickest — I usually reply the same day.`
-  }
-
-  if (/whatsapp|wa|phone|telp|hp|nomor|number/.test(q)) {
-    return `📱 Feel free to message me on WhatsApp:\n\n${siteConfig.contacts.whatsapp}`
-  }
-
-  if (/email|mail|e-mail/.test(q)) {
-    return `📧 You can reach me by email:\n\nmailto:${siteConfig.contacts.email}`
-  }
-
-  // Checked before projects: "work experience" contains "work", which the
-  // projects pattern would otherwise swallow.
-  if (/experience|pengalaman|kerja|company|perusahaan|magang|intern|career|riwayat/.test(q)) {
-    const list = experiences.map((e, i) => `${i + 1}. ${e.company}\n   ${e.division}`).join("\n\n")
-    return `💼 Work Experience:
-
-${list}`
-  }
-
-  if (/project|proyek|portfolio|portofolio|karya|work/.test(q)) {
-    const list = projects
-      .slice(0, 6)
-      .map((p, i) => `${i + 1}. ${p.title}`)
-      .join("\n")
-    return `📁 Featured Projects:\n\n${list}\n\n…and ${projects.length > 6 ? `${projects.length - 6} more` : "more"}! Check the Projects section on this page to see all detail descriptions.`
-  }
-
-  if (/certif|sertif|certificate|training|course|kursus/.test(q)) {
-    const list = certificates
-      .slice(0, 5)
-      .map((c, i) => `${i + 1}. ${c.title} (${c.issuer})`)
-      .join("\n")
-    return `🏆 Certificates & Credentials:\n\n${list}\n\n…and ${certificates.length > 5 ? `${certificates.length - 5} more` : "more"}! Check the Certificates section on this page to see all details.`
-  }
-
-  if (/skill|keahlian|expertise|bisa|kemampuan|ability|capable/.test(q)) {
-    const roles = professionalRoles.map((r) => `• ${r.title}: ${r.skills.join(", ")}`).join("\n")
-    return `🛠️ Technical & Professional Skills:\n\n${roles}`
-  }
-
-  if (/tool|tech|stack|teknologi|software|framework/.test(q)) {
-    const tools = professionalRoles.map((r) => `• ${r.title}: ${r.tools.join(", ")}`).join("\n")
-    return `⚙️ Tools & Stack used:\n\n${tools}`
-  }
-
-  if (/who|siapa|about|tentang|yourself|diri/.test(q)) {
-    const roles = expertise.map((e) => e.label).join(", ")
-    return `👤 About ${siteConfig.owner}:\n\n${siteConfig.description}\n\nSpecializing in: ${roles}`
-  }
-
-  if (/resume|cv|download|unduh/.test(q)) {
-    return `📄 Click below to download my latest resume:\n\n• Resume: ${siteConfig.contacts.resumeDownloadUrl}`
-  }
-
-  if (/thanks|thank|makasih|terima kasih|thx|suwun/.test(q)) {
-    return `You're welcome! 😊 Feel free to ask anything else about ${siteConfig.shortName}'s portfolio.`
-  }
-
-  if (/help|bantuan|menu|apa saja|what can/.test(q)) {
-    return `I can help you with:\n\n• 📁 Projects — "Show projects"\n• 🏆 Certificates — "What certificates?"\n• 💼 Experience — "Work experience"\n• 🛠️ Skills — "Skills & tools"\n• 📱 Contact — "Social media profiles"\n• 📄 Resume — "Download CV"\n• 👤 About — "Who are you?"`
-  }
-
-  return `I'm here to assist! 😊 You can ask about my projects, certificates, experience, skills, resume, social media profiles, or how to contact me directly.`
+type Rule = {
+  id: string
+  test: RegExp
+  answer: () => string
 }
 
+const list = (items: string[]) => items.map((t, i) => `${i + 1}. ${t}`).join("\n")
+
+const KNOWLEDGE: Rule[] = [
+  /* ── Greetings & small talk ── */
+  {
+    id: "greeting",
+    test: /^(hi|hello|hey|halo|hai|yo|hola|good (morning|afternoon|evening)|siang|pagi|sore|malam)\b/,
+    answer: () =>
+      `Hi there! 👋 I'm ${siteConfig.shortName}'s assistant.\n\nAsk me anything about his work, or tap one of the buttons below to jump straight to a topic.`,
+  },
+  {
+    id: "thanks",
+    test: /\b(thanks|thank you|thx|appreciate|makasih|terima kasih|suwun)\b/,
+    answer: () =>
+      `You're very welcome. 😊 If anything else comes to mind, just ask — and the Contact section at the bottom of the page has ${siteConfig.shortName}'s email and WhatsApp.`,
+  },
+  {
+    id: "bye",
+    test: /\b(bye|goodbye|see you|dadah|sampai jumpa)\b/,
+    answer: () => `Thanks for stopping by! 👋 Feel free to reach out any time — good luck with whatever you're working on.`,
+  },
+
+  /* ── About the site itself ── */
+  {
+    id: "what-is-this",
+    test: /\b(what is this|what's this|apa ini|website apa|situs apa|this website|this site|about this|purpose of this)\b/,
+    answer: () =>
+      `This is ${siteConfig.owner}'s portfolio website. 🌐\n\nIt brings together more than four years of work as a Full-Stack Developer and System Analyst across the finance, manufacturing, and legal industries — including projects for PT Astra Honda Motor and Mayapada Group.\n\nInside you'll find ${projects.length} projects with the story behind each one, ${certificates.length} certificates, the full work history, and the tools used along the way.\n\nPlease explore freely. If you would rather not scroll, just tell me what you are looking for and I'll point you to it.`,
+  },
+  {
+    id: "who-built",
+    test: /\b(who (built|made|created|designed) (this|it)|siapa yang buat|dibuat oleh)\b/,
+    answer: () =>
+      `${siteConfig.owner} built this site himself — design, front-end, back-end, and content.\n\nIt runs on Next.js and React with TypeScript and Tailwind CSS, which is the same stack he uses for client work.`,
+  },
+  {
+    id: "site-tech",
+    test: /\b(built with|made with|what (tech|stack|framework)( is| does)? this|technology behind)\b/,
+    answer: () =>
+      `This site runs on Next.js, React, TypeScript, and Tailwind CSS, deployed on Vercel. 🛠️\n\nThe AI assistant you're talking to is rule-based, so it answers instantly and works even on a slow connection.`,
+  },
+  {
+    id: "are-you-real",
+    test: /\b(are you (a )?(real|human|bot|ai|robot)|is this (a )?bot|talking to a human|apakah kamu (manusia|robot))\b/,
+    answer: () =>
+      `I'm an assistant built into this site, not ${siteConfig.shortName} himself. 🤖\n\nI can answer anything about his work, projects, and background. For a real conversation, his email and WhatsApp are in the Contact section — he usually replies the same day.`,
+  },
+
+  /* ── Availability & hiring — the questions a recruiter actually opens with ── */
+  {
+    id: "hire",
+    test: /\b(hire|hiring|available|availability|open to work|looking for (work|a job)|recruit|vacancy|lowongan|terima kerja|bisa dihubungi untuk kerja)\b/,
+    answer: () =>
+      `Yes — ${siteConfig.shortName} is open to System Analyst, UI/UX, and Full-Stack roles, and to freelance projects. 💼\n\nHe is based in Surabaya, Indonesia, and is available for both on-site and remote work.\n\nThe quickest way to reach him:\n\nmailto:${siteConfig.contacts.email}\n${siteConfig.contacts.whatsapp}`,
+  },
+  {
+    id: "freelance",
+    test: /\b(freelance|project basis|part.?time|contract work|side project|borongan)\b/,
+    answer: () =>
+      `Yes, ${siteConfig.shortName} takes freelance work — that is how the Pemenang Konsultan, Pemenang Mandiri Law Firm, and Steda Roaster projects came about. 🤝\n\nEach one covered the whole scope: systems analysis, UI/UX design, development, and SEO.\n\nTo discuss a project:\n\nmailto:${siteConfig.contacts.email}\n${siteConfig.contacts.whatsapp}`,
+  },
+  {
+    id: "rate",
+    test: /\b(rate|price|pricing|cost|how much|budget|fee|charge|tarif|harga|biaya|berapa)\b/,
+    answer: () =>
+      `Rates depend on scope, timeline, and how much of the work is analysis versus build — so ${siteConfig.shortName} prefers to quote after a short conversation about what you need. 💬\n\nSend him the outline and he'll come back with something concrete:\n\nmailto:${siteConfig.contacts.email}\n${siteConfig.contacts.whatsapp}`,
+  },
+  {
+    id: "location",
+    test: /\b(where (are you|is he|do you live|based)|location|city|domisili|tinggal di mana|lokasi|remote|onsite|on.?site|relocat)\b/,
+    answer: () =>
+      `${siteConfig.shortName} is based in Surabaya, Indonesia. 📍\n\nHe has worked on-site in both Jakarta and Surabaya, and is open to remote work as well.`,
+  },
+  {
+    id: "language",
+    test: /\b(english|bahasa|language|speak|communicat|ielts|cefr|toefl)\b/,
+    answer: () =>
+      `${siteConfig.shortName} works in both English and Indonesian. 🗣️\n\nHis English is certified at CEFR C1 Advanced by the British Council, scoring 599 — equivalent to IELTS Band 8. That covers technical documentation, client meetings, and presentations.`,
+  },
+
+  /* ── Background ── */
+  {
+    id: "who-are-you",
+    test: /\b(who (are|is) (you|he|jason)|about (you|him|jason)|yourself|tentang|siapa|profil)\b/,
+    answer: () =>
+      `👤 ${siteConfig.owner}\n\nA Full-Stack Developer and System Analyst with over four years of experience across the finance, manufacturing, and legal industries, including projects for PT Astra Honda Motor and Mayapada Group.\n\nHe handles a project from requirements through UI/UX design to launch, bringing in cloud or AI tools where they genuinely add value.\n\nHe also teaches Mathematics, Physics, and English part-time — and was recognised for it by VIP Course in 2025.`,
+  },
+  {
+    id: "education",
+    test: /\b(education|study|studied|degree|university|college|campus|gpa|graduat|kuliah|pendidikan|kampus|s1|sarjana)\b/,
+    answer: () =>
+      `🎓 ${education.degree}\n${education.school}\n${education.period}\n${education.result}`,
+  },
+  {
+    id: "years",
+    test: /\b(how (long|many years)|years of experience|berapa (lama|tahun)|pengalaman berapa)\b/,
+    answer: () =>
+      `Over four years of professional experience, across ${experiences.length} organisations and ${projects.length} projects. 📊\n\nIt spans three industries — finance, manufacturing, and legal — which is unusual, and it means he has seen how differently each one defines "done".`,
+  },
+
+  /* ── Experience — checked before projects, since "work experience" contains "work" ── */
+  {
+    id: "experience",
+    test: /\b(experience|pengalaman|kerja|career|employment|work history|riwayat|magang|intern|companies|perusahaan|worked (at|for))\b/,
+    answer: () =>
+      `💼 Work Experience:\n\n${experiences.map((e, i) => `${i + 1}. ${e.company}\n   ${e.division}`).join("\n\n")}`,
+  },
+
+  /* ── Projects ── */
+  {
+    id: "projects",
+    test: /\b(project|proyek|portfolio|portofolio|karya|case study|work samples|what have you built|apa saja yang dibuat)\b/,
+    answer: () =>
+      `📁 ${projects.length} projects in total. Here are six:\n\n${list(projects.slice(0, 6).map((p) => p.title))}\n\nOpen the Projects section on this page for the rest, each with the problem it solved and what changed afterwards.`,
+  },
+  {
+    id: "best-project",
+    test: /\b(best|favourite|favorite|proudest|biggest|most (complex|difficult|challenging)|terbaik|paling)\b/,
+    answer: () =>
+      `Two stand out for different reasons. 🌟\n\n• Steda Roaster CMS — built from scratch in Laravel and Livewire rather than renting a licensed platform, with OTP sign-up, caching, and role-based access. It removed a recurring monthly fee for the client.\n\n• HR Topas Application — attendance, payroll, leave, KPIs, and approvals in one place, with validation that catches a bad entry before it ever reaches a report.\n\nBoth are in the Projects section with the full story.`,
+  },
+
+  /* ── Skills & tools ── */
+  {
+    id: "specific-tech",
+    test: /\b(react|next\.?js|laravel|php|python|typescript|javascript|docker|aws|azure|gcp|cloud|mysql|sql|figma|bpmn|tailwind|livewire|java\b|git\b|ai|llm|api)\b/,
+    answer: () => {
+      const dev = professionalRoles.find((r) => r.title.toLowerCase().includes("fullstack"))
+      return `Yes — here is the full technical toolkit: 🛠️\n\n• Development: ${dev?.skills.join(", ")}\n• Tools & platforms: ${dev?.tools.join(", ")}\n\nFor systems work: flowcharting and BPMN, functional documentation, SQL, database design, and unit testing.\n\nAsk about any specific project and I'll tell you what was used there.`
+    },
+  },
+  {
+    id: "skills",
+    test: /\b(skill|keahlian|expertise|capable|ability|strength|good at|specialis|specializ|bisa apa|kemampuan)\b/,
+    answer: () =>
+      `🛠️ Skills by role:\n\n${professionalRoles.map((r) => `• ${r.title}\n  ${r.skills.join(", ")}`).join("\n\n")}`,
+  },
+  {
+    id: "tools",
+    test: /\b(tool|tech stack|stack|teknologi|software|framework|platform)\b/,
+    answer: () =>
+      `⚙️ Tools by role:\n\n${professionalRoles.map((r) => `• ${r.title}\n  ${r.tools.join(", ")}`).join("\n\n")}`,
+  },
+  {
+    id: "design",
+    test: /\b(ui|ux|design|wireframe|prototype|mockup|desain|figma)\b/,
+    answer: () =>
+      `🎨 UI/UX is one of ${siteConfig.shortName}'s core roles, not a side interest.\n\nHe led the interface design for the Topas Multi Finance corporate website and its mobile loan application, working from user flows and wireframes through to high-fidelity screens.\n\nTools: Figma, Adobe XD, Adobe Illustrator, and Balsamiq for early wireframes.`,
+  },
+  {
+    id: "analyst",
+    test: /\b(system analyst|business analyst|requirement|documentation|flowchart|analysis|analis)\b/,
+    answer: () =>
+      `📋 System analysis is where ${siteConfig.shortName} started, at PT Astra Honda Motor and later PT Topas Multi Finance.\n\nThe work covers gathering requirements from business teams, mapping processes into flowcharts and BPMN, writing functional specifications developers can build from, defining data and validation rules, and supporting UAT before release.`,
+  },
+
+  /* ── Certificates ── */
+  {
+    id: "certificates",
+    test: /\b(certif|sertif|credential|training|course|kursus|award|achievement|penghargaan)\b/,
+    answer: () =>
+      `🏆 Certificates & Credentials:\n\n${certificates.map((c, i) => `${i + 1}. ${c.title}\n   ${c.issuer} · ${c.date}`).join("\n\n")}`,
+  },
+
+  /* ── Teaching ── */
+  {
+    id: "teaching",
+    test: /\b(teach|tutor|mengajar|guru|student|les|bimbel|math|physics)\b/,
+    answer: () =>
+      `📚 ${siteConfig.shortName} teaches Mathematics, Physics, and English part-time at Student Center, adapting each lesson to the student's own pace.\n\nVIP Course recognised him in 2025 for outstanding teaching performance in Mathematics and English.`,
+  },
+
+  /* ── Contact & resume ── */
+  {
+    id: "resume",
+    test: /\b(resume|cv|curriculum|download|unduh)\b/,
+    answer: () =>
+      `📄 Here is the latest resume:\n\n${siteConfig.contacts.resumeDownloadUrl}`,
+  },
+  {
+    id: "whatsapp",
+    test: /\b(whatsapp|wa\b|phone|call|telp|hp|nomor|number)\b/,
+    answer: () => `📱 Message ${siteConfig.shortName} on WhatsApp:\n\n${siteConfig.contacts.whatsapp}`,
+  },
+  {
+    id: "email",
+    test: /\b(e.?mail|gmail|surat)\b/,
+    answer: () => `📧 You can reach him by email:\n\nmailto:${siteConfig.contacts.email}`,
+  },
+  {
+    id: "contact",
+    test: /\b(contact|reach|get in touch|social|media|sosmed|follow|instagram|ig\b|linkedin|hubungi|kontak)\b/,
+    answer: () =>
+      `🔗 Here is how to reach ${siteConfig.shortName}:\n\nmailto:${siteConfig.contacts.email}\n${siteConfig.contacts.whatsapp}\n${siteConfig.contacts.linkedin}\n${siteConfig.contacts.instagram}\n\nEmail and WhatsApp are quickest — he usually replies the same day.`,
+  },
+
+  /* ── Meta ── */
+  {
+    id: "help",
+    test: /\b(help|bantuan|menu|what can you|apa saja|options|topics)\b/,
+    answer: () =>
+      `Happy to help. Here is what I can cover: 💡\n\n• 📁 Projects — "Show me your projects"\n• 💼 Experience — "Where has he worked?"\n• 🛠️ Skills — "Does he know Laravel?"\n• 🎓 Education — "Where did he study?"\n• 🏆 Certificates — "What certificates?"\n• 💼 Hiring — "Is he available for work?"\n• 📄 Resume — "Can I download the CV?"\n• 📱 Contact — "How do I get in touch?"\n\nOr just ask in your own words — I'll do my best.`,
+  },
+]
+
+/** Try to match a specific project by name before falling back. */
+function findProject(q: string) {
+  return projects.find((p) => {
+    const words = p.title
+      .toLowerCase()
+      .replace(/[^a-z0-9 ]/g, " ")
+      .split(/\s+/)
+      .filter((w) => w.length > 4 && !["multi", "finance", "website", "system", "application"].includes(w))
+    return words.some((w) => q.includes(w))
+  })
+}
+
+/** Shown when the AI fallback is unavailable — no key, quota spent, or an error. */
+const STATIC_FALLBACK = `I'm not sure I caught that one. 🤔\n\nI know ${siteConfig.shortName}'s work well, so try me on any of these:\n\n• "What is this website?"\n• "Where has he worked?"\n• "Does he know React?"\n• "Is he available for hire?"\n• "Tell me about the HR Topas project"\n\nIf your question is for ${siteConfig.shortName} directly, email or WhatsApp him — he usually replies the same day:\n\nmailto:${siteConfig.contacts.email}`
+
+const QUOTA_MESSAGE = `I've hit my question limit for now. ⏳\n\nThe limit resets shortly, so do try again in a little while. In the meantime the buttons below still work — they answer instantly.\n\nAnd if it's urgent, ${siteConfig.shortName} reads his email himself:\n\nmailto:${siteConfig.contacts.email}`
+
+/** Returns null when no rule matches, so the caller can try the AI fallback. */
+function getBotReply(input: string): string | null {
+  const q = input.toLowerCase().trim()
+
+  // A named project beats a generic rule — "tell me about HR Topas" should not
+  // return the whole project list.
+  const project = findProject(q)
+  if (project && /\b(what|how|tell|explain|about|detail|apa|jelaskan|ceritakan)\b/.test(q)) {
+    const bits = [`📁 ${project.title}\n\n${project.detailDescription}`]
+    if (project.role) bits.push(`\n👤 Role: ${project.role}`)
+    if (project.stack?.length) bits.push(`🛠️ Stack: ${project.stack.join(", ")}`)
+    if (project.impact) bits.push(`🎯 What changed: ${project.impact}`)
+    return bits.join("\n")
+  }
+
+  for (const rule of KNOWLEDGE) {
+    if (rule.test.test(q)) return rule.answer()
+  }
+
+  // Nothing matched — hand off to the AI fallback.
+  return null
+}
+
+/**
+ * Asks the server route, which holds the API key and grounds the model in
+ * Jason's data. Any failure degrades to the static fallback, so the chat
+ * behaves exactly as before when no key is configured.
+ */
+async function askFallback(question: string): Promise<string> {
+  try {
+    const res = await fetch("/api/chat", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ question }),
+    })
+
+    if (!res.ok) return STATIC_FALLBACK
+
+    const data = (await res.json()) as { status?: string; answer?: string }
+
+    if (data.status === "ok" && data.answer) return data.answer
+    if (data.status === "quota" || data.status === "busy") return QUOTA_MESSAGE
+    return STATIC_FALLBACK
+  } catch {
+    return STATIC_FALLBACK
+  }
+}
 /* ─────────────────────────────────────────────
    BotIcon — IT + Batik + Friendly + Cool
    Rounded robot head, happy eyes, kawung accent,
@@ -218,11 +424,21 @@ export default function AIChatbot() {
     setInput("")
     setIsTyping(true)
 
-    setTimeout(() => {
-      const reply = getBotReply(trimmed)
-      setMessages((prev) => [...prev, { id: Date.now() + 1, text: reply, sender: "bot" }])
+    const reply = getBotReply(trimmed)
+
+    // A matched rule answers instantly; only an unmatched question goes to the server.
+    if (reply !== null) {
+      setTimeout(() => {
+        setMessages((prev) => [...prev, { id: Date.now() + 1, text: reply, sender: "bot" }])
+        setIsTyping(false)
+      }, 600 + Math.random() * 400)
+      return
+    }
+
+    askFallback(trimmed).then((answer) => {
+      setMessages((prev) => [...prev, { id: Date.now() + 1, text: answer, sender: "bot" }])
       setIsTyping(false)
-    }, 600 + Math.random() * 400)
+    })
   }, [])
 
   const handleSend = () => sendMessage(input)
