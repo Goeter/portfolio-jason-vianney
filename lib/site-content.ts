@@ -324,7 +324,7 @@ export const projects: Project[] = [
       "A consultancy gets judged on how it presents itself long before the first meeting, so the site had to read as considered rather than templated. It covers the service lines and the firm's background, with an AI chatbot that handles the routine questions people ask before they get in touch. SEO and page speed were part of the build from the start, not something bolted on at the end.",
     category: "website",
     image: "/assets/projects/pemenang-konsultan.webp",
-    link: "https://pemenangkonsultan.com/",
+    link: "https://pemenangkonsultan.vercel.app/",
     role: "Full-Stack Developer, System Analyst & UI/UX Designer · Freelance IT",
     stack: ["Next.js", "React", "TypeScript", "Tailwind CSS"],
     impact:
@@ -341,7 +341,7 @@ export const projects: Project[] = [
       "The law firm sits alongside the insurance consultancy, so the site had to make that relationship obvious without letting one side swallow the other. It sets out the three areas of practice — criminal law, civil law, and legal backing when an insurance claim turns into a dispute — in both English and Indonesian, so a client reads the same page in whichever language they think in. The tone matters as much as the content here: someone looking for a lawyer is usually already worried, and the page is written to steady them rather than sell at them.",
     category: "website",
     image: "/assets/projects/pemenang-law-firm.webp",
-    link: "https://pemenangkonsultan.com/pml",
+    link: "https://www.pemenanglawfirm.com/",
     role: "Full-Stack Developer, System Analyst & UI/UX Designer · Freelance IT",
     stack: ["Next.js", "React", "TypeScript", "Tailwind CSS"],
     impact:
