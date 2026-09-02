@@ -2,7 +2,16 @@
 
 import { useState, useRef, useEffect, useCallback } from "react"
 import Image from "next/image"
-import { X, Send } from "lucide-react"
+import {
+  Download,
+  Instagram,
+  Linkedin,
+  Mail,
+  MessageCircle,
+  Send,
+  X,
+  type LucideIcon,
+} from "lucide-react"
 import {
   siteConfig,
   expertise,
@@ -32,15 +41,24 @@ function getBotReply(input: string): string {
   }
 
   if (/social|media|medsos|sosmed|follow|instagram|ig|linkedin|github|git\b|hubung|contact|kontak/.test(q)) {
-    return `🔗 Here is how to reach me:\n\n• Email: ${siteConfig.contacts.email}\n• WhatsApp: ${siteConfig.contacts.whatsapp}\n• LinkedIn: ${siteConfig.contacts.linkedin}\n• Instagram: ${siteConfig.contacts.instagram}\n\nOr scroll to the Contact section at the bottom of this page.`
+    return `🔗 Here is how to reach me:\n\nmailto:${siteConfig.contacts.email}\n${siteConfig.contacts.whatsapp}\n${siteConfig.contacts.linkedin}\n${siteConfig.contacts.instagram}\n\nEmail and WhatsApp are the quickest — I usually reply the same day.`
   }
 
   if (/whatsapp|wa|phone|telp|hp|nomor|number/.test(q)) {
-    return `📱 Feel free to chat with me on WhatsApp:\n\n• WhatsApp: ${siteConfig.contacts.whatsapp}`
+    return `📱 Feel free to message me on WhatsApp:\n\n${siteConfig.contacts.whatsapp}`
   }
 
   if (/email|mail|e-mail/.test(q)) {
-    return `📧 Email: ${siteConfig.contacts.email}`
+    return `📧 You can reach me by email:\n\nmailto:${siteConfig.contacts.email}`
+  }
+
+  // Checked before projects: "work experience" contains "work", which the
+  // projects pattern would otherwise swallow.
+  if (/experience|pengalaman|kerja|company|perusahaan|magang|intern|career|riwayat/.test(q)) {
+    const list = experiences.map((e, i) => `${i + 1}. ${e.company}\n   ${e.division}`).join("\n\n")
+    return `💼 Work Experience:
+
+${list}`
   }
 
   if (/project|proyek|portfolio|portofolio|karya|work/.test(q)) {
@@ -57,13 +75,6 @@ function getBotReply(input: string): string {
       .map((c, i) => `${i + 1}. ${c.title} (${c.issuer})`)
       .join("\n")
     return `🏆 Certificates & Credentials:\n\n${list}\n\n…and ${certificates.length > 5 ? `${certificates.length - 5} more` : "more"}! Check the Certificates section on this page to see all details.`
-  }
-
-  if (/experience|pengalaman|kerja|company|perusahaan|magang|intern/.test(q)) {
-    const list = experiences
-      .map((e, i) => `${i + 1}. ${e.division} at ${e.company} (${e.period})`)
-      .join("\n")
-    return `💼 Work Experience:\n\n${list}`
   }
 
   if (/skill|keahlian|expertise|bisa|kemampuan|ability|capable/.test(q)) {
@@ -113,6 +124,48 @@ function BotIcon({ className = "h-7 w-7" }: { className?: string }) {
     />
   )
 }
+
+/* ─────────────────────────────────────────────
+   Contact brands — official colours and marks, so a reply
+   is recognisable before the label is even read.
+───────────────────────────────────────────── */
+const CONTACT_BRANDS: {
+  test: (url: string) => boolean
+  label: string
+  bg: string
+  icon: LucideIcon
+}[] = [
+  {
+    test: (u) => u.startsWith("mailto:"),
+    label: "Email me",
+    bg: "#EA4335",
+    icon: Mail,
+  },
+  {
+    test: (u) => u.includes("wa.me"),
+    label: "Chat on WhatsApp",
+    bg: "#25D366",
+    icon: MessageCircle,
+  },
+  {
+    test: (u) => u.includes("linkedin.com"),
+    label: "LinkedIn",
+    bg: "#0A66C2",
+    icon: Linkedin,
+  },
+  {
+    test: (u) => u.includes("instagram.com"),
+    label: "Instagram",
+    bg: "linear-gradient(135deg, #833AB4 0%, #E1306C 55%, #F77737 100%)",
+    icon: Instagram,
+  },
+  {
+    test: (u) => u.includes("drive.google.com"),
+    label: "Download Resume",
+    bg: "#1A73E8",
+    icon: Download,
+  },
+]
 
 /* ─────────────────────────────────────────────
    Suggestion chips — the bot already knows what it can answer,
@@ -175,17 +228,30 @@ export default function AIChatbot() {
   const handleSend = () => sendMessage(input)
 
   const renderMessageText = (text: string) => {
-    const urlRegex = /(https?:\/\/[^\s]+)/g
+    // mailto is included so the email turns into a branded button too
+    const urlRegex = /((?:https?:\/\/|mailto:)[^\s]+)/g
     const parts = text.split(urlRegex)
 
     return parts.map((part, index) => {
-      if (urlRegex.test(part)) {
-        let label = part
-        if (part.includes("wa.me")) label = "WhatsApp Chat 📱"
-        else if (part.includes("linkedin.com")) label = "LinkedIn Profile 🔗"
-        else if (part.includes("github.com")) label = "GitHub Profile 🐙"
-        else if (part.includes("instagram.com")) label = "Instagram Profile 📸"
-        else if (part.includes("drive.google.com")) label = "Download Resume PDF 📄"
+      if (/^(?:https?:\/\/|mailto:)/.test(part)) {
+        const brand = CONTACT_BRANDS.find((b) => b.test(part))
+
+        if (brand) {
+          const Icon = brand.icon
+          return (
+            <a
+              key={index}
+              href={part}
+              target={part.startsWith("mailto:") ? undefined : "_blank"}
+              rel={part.startsWith("mailto:") ? undefined : "noopener noreferrer"}
+              className="mt-1.5 inline-flex w-fit items-center gap-2 rounded-xl px-3 py-2 text-[13px] font-bold text-white shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md"
+              style={{ background: brand.bg }}
+            >
+              <Icon className="h-4 w-4 shrink-0" />
+              {brand.label}
+            </a>
+          )
+        }
 
         return (
           <a
@@ -193,16 +259,20 @@ export default function AIChatbot() {
             href={part}
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-1 block w-fit border border-gold-200 bg-gold-50 px-3 py-1.5 text-xs font-bold text-gold-600 rounded-xl hover:bg-gold-100 transition-all duration-300 break-all"
+            className="mt-1 block w-fit break-all rounded-xl border border-gold-200 bg-gold-50 px-3 py-1.5 text-xs font-bold text-gold-600 transition-all duration-300 hover:bg-gold-100"
           >
-            {label}
+            {part}
           </a>
         )
       }
-      return <span key={index} className="break-words [word-break:break-word] overflow-wrap-anywhere">{part}</span>
+
+      return (
+        <span key={index} className="break-words [word-break:break-word] overflow-wrap-anywhere">
+          {part}
+        </span>
+      )
     })
   }
-
   return (
     <>
       {/* ── Chat Panel ── */}

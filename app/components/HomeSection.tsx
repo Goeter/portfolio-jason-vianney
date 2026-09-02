@@ -284,10 +284,13 @@ export default function HomeSection() {
                   My Expertise
                 </h2>
                 <div
-                  className="mt-2 flex min-h-[36px] items-center text-sm font-semibold tracking-wide text-amber-200/90 sm:text-base md:text-lg"
-                  style={{ fontFamily: "var(--font-body), system-ui, sans-serif" }}
+                  className="mt-2 flex min-h-[36px] items-center text-sm font-semibold tracking-wide sm:text-base md:text-lg"
+                  style={{ color: "#A9D6E5", fontFamily: "var(--font-body), system-ui, sans-serif" }}
                 >
-                  <Sparkles className="mr-2 h-4 w-4 shrink-0 text-gold-400 animate-pulse drop-shadow-[0_0_8px_rgba(220,198,148,0.7)]" />
+                  <Sparkles
+                    className="mr-2 h-4 w-4 shrink-0 animate-pulse drop-shadow-[0_0_8px_rgba(169,214,229,0.65)]"
+                    style={{ color: "#7FC3D6" }}
+                  />
                   <TypedText words={rolesList} />
                 </div>
               </m.div>

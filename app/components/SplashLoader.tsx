@@ -37,8 +37,8 @@ const SKILLS = [
   },
 ]
 
-const PH1_DUR = 1800
-const PH2_DUR = 1200
+const PH1_DUR = 2130
+const PH2_DUR = 1420
 
 export default function SplashLoader({
   onLoadingComplete,
@@ -548,7 +548,7 @@ export default function SplashLoader({
     const cx = cv.width / 2
     const cy = cv.height / 2
 
-    const TOTAL = 1100
+    const TOTAL = 1300
 
     const lines = Array.from(
       { length: 240 },
@@ -630,7 +630,7 @@ export default function SplashLoader({
       wrap.style.transition = "opacity .8s ease"
       wrap.style.opacity = "0"
 
-      setTimeout(onDone, 400)
+      setTimeout(onDone, 470)
     }
 
     hyperRafRef.current =
@@ -708,7 +708,7 @@ export default function SplashLoader({
 
         startArcAnimation()
 
-        ;[160, 480, 800].forEach((t, i) => {
+        ;[190, 570, 950].forEach((t, i) => {
           setTimeout(() => activateAtom(i), t)
         })
 
@@ -753,7 +753,7 @@ export default function SplashLoader({
                 typeWriter(
                   nameRef.current,
                   FULL_NAME,
-                  34,
+                  40,
                   () => {
                     expertiseRef.current?.classList.add(
                       "show"
@@ -770,18 +770,18 @@ export default function SplashLoader({
 
                       setTimeout(() => {
                         finishOnce()
-                      }, 620)
-                    }, 950)
+                      }, 730)
+                    }, 1130)
                   }
                 )
-              }, 220)
+              }, 260)
             })
-          }, 280)
+          }, 330)
         }
 
         rafRef.current =
           requestAnimationFrame(phase2)
-      }, 280)
+      }, 330)
     }
 
     rafRef.current =

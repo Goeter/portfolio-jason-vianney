@@ -100,7 +100,7 @@ export default function Footer() {
           </Link>
 
           <p className="mt-3 max-w-lg text-sm leading-relaxed text-slate-300/90 sm:pr-4">
-            Professional portfolio focused on system analysis, UI/UX design, data analytics, and fullstack digital solutions for practical business needs.
+            System analysis, UI/UX design, and fullstack development for businesses that need their processes to work better.
           </p>
         </div>
 
