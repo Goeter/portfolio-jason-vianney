@@ -81,7 +81,7 @@ export const siteConfig = {
   headline: "System Analyst, UI/UX Designer, Data Analyst, and Fullstack Developer",
   description:
     "Portfolio of Jason Vianney Sugiarto, an IT professional experienced in system analysis, UI/UX design, data analytics, fullstack development, freelance IT projects, tutoring, HR systems, corporate websites, CMS websites, mobile applications, and business process digitalization.",
-  url: "https://jasonvianney.com",
+  url: (process.env.NEXT_PUBLIC_SITE_URL || "https://portfolio-jasonvianney.vercel.app").replace(/[/]+$/, ""),
   locale: "en_US",
   defaultOgImage: "/assets/profile/photo.webp",
   seoTitle: "Jason Vianney Sugiarto - System Analyst, UI/UX Designer, Data Analyst & Fullstack Developer",
@@ -105,9 +105,9 @@ export const siteConfig = {
     "Math Physics English Tutor",
   ],
   contacts: {
-    resumeDownloadUrl: "https://drive.google.com/file/d/1hwbSkCH5LOOCkzMN1uVcaPXao-aEJ3hQ/view?usp=sharing",
+    resumeDownloadUrl: "https://drive.google.com/file/d/1k0B0ggaPiwOyRPs3EaJpcuIGK8rWNnNQ/view?usp=sharing",
     email: "jasonvianneys@gmail.com",
-    resumeFileId: "1hwbSkCH5LOOCkzMN1uVcaPXao-aEJ3hQ",
+    resumeFileId: "1k0B0ggaPiwOyRPs3EaJpcuIGK8rWNnNQ",
     github: "https://github.com/Goeter",
     linkedin: "https://www.linkedin.com/in/jasonvianneysugiarto",
     whatsapp: "https://wa.me/6283856681999",

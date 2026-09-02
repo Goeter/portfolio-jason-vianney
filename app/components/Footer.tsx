@@ -89,7 +89,7 @@ export default function Footer() {
             <span className="flex min-w-0 flex-col leading-none">
               <span
                 className="bg-gradient-to-r from-[#F4EDD8] via-[#FFF7E2] to-[#C8A96E] bg-clip-text text-[24px] font-semibold tracking-[0.10em] text-transparent sm:text-[28px]"
-                style={{ fontFamily: "'Cormorant Garamond', serif" }}
+                style={{ fontFamily: "var(--font-display), Georgia, serif" }}
               >
                 Fiat lux
               </span>

@@ -225,7 +225,7 @@ export default function HomeSection() {
               <m.p
                 className="mb-2"
                 style={{
-                  fontFamily: "DM Sans, sans-serif",
+                  fontFamily: "var(--font-body), system-ui, sans-serif",
                   fontSize: "clamp(16px, 1.8vw, 18px)",
                   fontWeight: 500,
                   color: "rgba(255,255,255,0.88)",
@@ -239,7 +239,7 @@ export default function HomeSection() {
               <m.h1
                 className="mb-4 leading-none"
                 style={{
-                  fontFamily: "'Cormorant Garamond', serif",
+                  fontFamily: "var(--font-display), Georgia, serif",
                   fontSize: "clamp(40px, 8vw, 68px)",
                   fontWeight: 600,
                   color: "#F4EDD8",
@@ -273,7 +273,7 @@ export default function HomeSection() {
               <m.div className="mb-4" {...fadeSlideLeft(0.55)}>
                 <h2
                   style={{
-                    fontFamily: "DM Sans, sans-serif",
+                    fontFamily: "var(--font-body), system-ui, sans-serif",
                     fontSize: "clamp(15px, 1.6vw, 17px)",
                     fontWeight: 600,
                     color: "#F4EDD8",
@@ -284,7 +284,7 @@ export default function HomeSection() {
                 </h2>
                 <div
                   className="mt-2 flex min-h-[36px] items-center text-sm font-semibold tracking-wide text-amber-200/90 sm:text-base md:text-lg"
-                  style={{ fontFamily: "DM Sans, sans-serif" }}
+                  style={{ fontFamily: "var(--font-body), system-ui, sans-serif" }}
                 >
                   <Sparkles className="mr-2 h-4 w-4 shrink-0 text-cyan-400 animate-pulse drop-shadow-[0_0_8px_rgba(56,189,248,0.7)]" />
                   <TypedText words={rolesList} />
@@ -295,7 +295,7 @@ export default function HomeSection() {
               <m.p
                 className="mb-[34px] max-w-[620px] text-justify"
                 style={{
-                  fontFamily: "DM Sans, sans-serif",
+                  fontFamily: "var(--font-body), system-ui, sans-serif",
                   fontSize: "clamp(15px, 1.7vw, 18px)",
                   lineHeight: 1.9,
                   color: "rgba(255,255,255,0.92)",
@@ -318,7 +318,7 @@ export default function HomeSection() {
                     padding: "14px 30px",
                     background: "#C8A96E",
                     color: "#0B1724",
-                    fontFamily: "DM Sans, sans-serif",
+                    fontFamily: "var(--font-body), system-ui, sans-serif",
                     fontSize: "clamp(12px, 1vw, 13px)",
                     fontWeight: 700,
                     letterSpacing: "0.06em",
@@ -357,7 +357,7 @@ export default function HomeSection() {
                     padding: "13px 24px",
                     background: "rgba(255,255,255,0.04)",
                     color: "#FFFFFF",
-                    fontFamily: "DM Sans, sans-serif",
+                    fontFamily: "var(--font-body), system-ui, sans-serif",
                     fontSize: "clamp(12px, 1vw, 13px)",
                     fontWeight: 600,
                     letterSpacing: "0.06em",

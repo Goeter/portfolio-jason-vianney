@@ -28,16 +28,24 @@ function SiteBackdrop() {
 export default function Home() {
   const [activeSection, setActiveSection] = useState(navItems[0]?.id ?? "home")
   const [isLoading, setIsLoading] = useState(true)
-  const [isMounted, setIsMounted] = useState(false)
 
   const sectionIds = useMemo(() => navItems.map((item) => item.id), [])
 
-  // After mount: check sessionStorage and mark as mounted to avoid hydration mismatch
+  // Server and first client render both start with the splash up, so there is no
+  // hydration mismatch; sessionStorage is only consulted afterwards.
   useEffect(() => {
-    const alreadyShown = sessionStorage.getItem(SPLASH_STORAGE_KEY)
-    if (alreadyShown) setIsLoading(false)
-    setIsMounted(true)
+    if (sessionStorage.getItem(SPLASH_STORAGE_KEY)) setIsLoading(false)
   }, [])
+
+  // Hold the page still while the splash covers it.
+  useEffect(() => {
+    if (!isLoading) return
+    const { overflow } = document.body.style
+    document.body.style.overflow = "hidden"
+    return () => {
+      document.body.style.overflow = overflow
+    }
+  }, [isLoading])
 
   useEffect(() => {
     if (isLoading) return
@@ -82,13 +90,6 @@ export default function Home() {
     sessionStorage.setItem(SPLASH_STORAGE_KEY, "true")
   }
 
-  // Render nothing until mounted to prevent hydration mismatch
-  if (!isMounted) return null
-
-  if (isLoading) {
-    return <SplashLoader onLoadingComplete={handleLoadingComplete} />
-  }
-
   return (
     <div className="relative min-h-screen overflow-x-hidden bg-[#020617]">
       <SiteBackdrop />
@@ -104,6 +105,9 @@ export default function Home() {
 
       <AIChatbot />
       <Footer />
+
+      {/* Overlay, not a replacement — the content above stays in the server HTML. */}
+      {isLoading && <SplashLoader onLoadingComplete={handleLoadingComplete} />}
     </div>
   )
 }

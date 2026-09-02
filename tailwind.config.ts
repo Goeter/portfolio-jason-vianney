@@ -10,6 +10,10 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ["var(--font-body)", "system-ui", "-apple-system", "Segoe UI", "sans-serif"],
+        serif: ["var(--font-display)", "Georgia", "Cambria", "serif"],
+      },
       colors: {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",

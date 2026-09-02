@@ -43,7 +43,7 @@ function BrandMark({ compact = false }: { compact?: boolean }) {
             compact ? "text-[18px] sm:text-[20px]" : "text-[19px] sm:text-[22px] lg:text-[25px]"
           } bg-gradient-to-r from-[#F4EDD8] via-[#FFF7E2] to-[#C8A96E] bg-clip-text tracking-[0.10em] text-transparent transition-all duration-500`}
           style={{
-            fontFamily: "'Cormorant Garamond', serif",
+            fontFamily: "var(--font-display), Georgia, serif",
             fontWeight: 600,
             textShadow:
               "0 0 18px rgba(251,191,36,0.24), 0 0 36px rgba(255,255,255,0.10)",

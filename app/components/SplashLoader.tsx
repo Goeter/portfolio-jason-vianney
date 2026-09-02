@@ -37,8 +37,8 @@ const SKILLS = [
   },
 ]
 
-const PH1_DUR = 5200
-const PH2_DUR = 2800
+const PH1_DUR = 1100
+const PH2_DUR = 700
 
 export default function SplashLoader({
   onLoadingComplete,
@@ -48,7 +48,19 @@ export default function SplashLoader({
   // Stable ref for callback — prevents useEffect re-runs on parent re-render
   const onCompleteRef = useRef(onLoadingComplete)
   onCompleteRef.current = onLoadingComplete
-  const stableOnComplete = useCallback(() => onCompleteRef.current(), [])
+  // Guard so Skip and the natural end of the animation can never both fire.
+  const finishedRef = useRef(false)
+  const finishOnce = useCallback(() => {
+    if (finishedRef.current) return
+    finishedRef.current = true
+    onCompleteRef.current()
+  }, [])
+
+  // Visitors who ask for reduced motion get the content straight away.
+  useEffect(() => {
+    if (typeof window === "undefined") return
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) finishOnce()
+  }, [finishOnce])
 
   const ph1Ref = useRef<HTMLDivElement>(null)
   const ph2Ref = useRef<HTMLDivElement>(null)
@@ -536,7 +548,7 @@ export default function SplashLoader({
     const cx = cv.width / 2
     const cy = cv.height / 2
 
-    const TOTAL = 2400
+    const TOTAL = 700
 
     const lines = Array.from(
       { length: 240 },
@@ -618,7 +630,7 @@ export default function SplashLoader({
       wrap.style.transition = "opacity .8s ease"
       wrap.style.opacity = "0"
 
-      setTimeout(onDone, 800)
+      setTimeout(onDone, 300)
     }
 
     hyperRafRef.current =
@@ -696,7 +708,7 @@ export default function SplashLoader({
 
         startArcAnimation()
 
-        ;[300, 1000, 1700].forEach((t, i) => {
+        ;[100, 300, 500].forEach((t, i) => {
           setTimeout(() => activateAtom(i), t)
         })
 
@@ -741,7 +753,7 @@ export default function SplashLoader({
                 typeWriter(
                   nameRef.current,
                   FULL_NAME,
-                  60,
+                  20,
                   () => {
                     expertiseRef.current?.classList.add(
                       "show"
@@ -757,19 +769,19 @@ export default function SplashLoader({
                       )
 
                       setTimeout(() => {
-                        stableOnComplete()
-                      }, 1400)
-                    }, 2600)
+                        finishOnce()
+                      }, 500)
+                    }, 520)
                   }
                 )
-              }, 500)
+              }, 150)
             })
-          }, 700)
+          }, 180)
         }
 
         rafRef.current =
           requestAnimationFrame(phase2)
-      }, 500)
+      }, 180)
     }
 
     rafRef.current =
@@ -785,11 +797,16 @@ export default function SplashLoader({
       ].forEach(cancelAnimationFrame)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [stableOnComplete])
+  }, [finishOnce])
 
   return (
     <>
-      <style>{`
+      {/* dangerouslySetInnerHTML, not children: React escapes quotes inside a
+          <style> text node on the server (content:"" -> content:&quot;&quot;),
+          which breaks hydration now that the splash is server-rendered. */}
+      <style
+        dangerouslySetInnerHTML={{
+          __html: `
         *{
           box-sizing:border-box;
         }
@@ -797,6 +814,7 @@ export default function SplashLoader({
         .sl-root{
           position:fixed;
           inset:0;
+          z-index:9998;
           overflow:hidden;
           background:#020817;
           display:flex;
@@ -815,6 +833,38 @@ export default function SplashLoader({
           opacity:0;
           pointer-events:none;
           z-index:20;
+        }
+
+        .sl-skip{
+          position:absolute;
+          top:clamp(14px,3vw,26px);
+          right:clamp(14px,3vw,26px);
+          z-index:40;
+          padding:8px 16px;
+          border-radius:999px;
+          border:1px solid rgba(200,169,110,.38);
+          background:rgba(2,8,23,.55);
+          color:#e8dcc0;
+          font-family:var(--font-body),system-ui,sans-serif;
+          font-size:12px;
+          font-weight:600;
+          letter-spacing:.08em;
+          text-transform:uppercase;
+          cursor:pointer;
+          backdrop-filter:blur(6px);
+          transition:color .25s ease,border-color .25s ease,background .25s ease;
+        }
+
+        .sl-skip:hover,
+        .sl-skip:focus-visible{
+          color:#fff7e2;
+          border-color:rgba(200,169,110,.85);
+          background:rgba(200,169,110,.16);
+        }
+
+        .sl-skip:focus-visible{
+          outline:2px solid rgba(200,169,110,.9);
+          outline-offset:3px;
         }
 
         .sl-content{
@@ -840,7 +890,7 @@ export default function SplashLoader({
         }
 
         .sl-ph1{
-          transition:1s ease;
+          transition:.42s ease;
         }
 
         .sl-ph1.sl-out{
@@ -851,7 +901,7 @@ export default function SplashLoader({
         .sl-ph2{
           opacity:0;
           transform:translate(-50%,-50%) scale(.85);
-          transition:1s ease;
+          transition:.42s ease;
         }
 
         .sl-ph2.sl-in{
@@ -868,7 +918,7 @@ export default function SplashLoader({
           opacity:0;
           width:min(900px,92vw);
           transform:translate(-50%,-45%);
-          transition:1s ease;
+          transition:.42s ease;
         }
 
         .sl-ph3.sl-in{
@@ -947,7 +997,7 @@ export default function SplashLoader({
           position:absolute;
           inset:auto 0 0 0;
           height:0%;
-          transition:1s ease;
+          transition:.42s ease;
         }
 
         .sl-battery-cell.active::before{
@@ -1107,7 +1157,7 @@ export default function SplashLoader({
         .sl-expertise-label{
           opacity:0;
           transform:translateY(20px);
-          transition:.9s ease;
+          transition:.4s ease;
         }
 
         .sl-welcome-line.show,
@@ -1323,9 +1373,15 @@ export default function SplashLoader({
             grid-template-columns:repeat(2,1fr);
           }
         }
-      `}</style>
+      `,
+        }}
+      />
 
       <div ref={containerRef} className="sl-root">
+        <button type="button" className="sl-skip" onClick={finishOnce}>
+          Skip intro
+        </button>
+
         <canvas
           ref={starsRef}
           className="sl-stars-canvas"

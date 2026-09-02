@@ -43,8 +43,17 @@
     @apply bg-background text-foreground;
   }
 
+  /* The native cursor is only hidden once CustomCursor is actually painting a
+     replacement, so a slow or failed hydration never leaves a pointer-less page. */
   @media (pointer: fine) {
-    html, body, a, button, input, textarea, select, [role="button"] {
+    html.custom-cursor-active,
+    html.custom-cursor-active body,
+    html.custom-cursor-active a,
+    html.custom-cursor-active button,
+    html.custom-cursor-active input,
+    html.custom-cursor-active textarea,
+    html.custom-cursor-active select,
+    html.custom-cursor-active [role="button"] {
       cursor: none !important;
     }
   }

@@ -1,10 +1,9 @@
 import type React from "react"
-import { Suspense } from "react"
 import type { Metadata } from "next"
 import { Analytics } from "@vercel/analytics/next"
 import "./globals.css"
+import { fontBody, fontDisplay } from "@/lib/fonts"
 import { siteConfig, siteStructuredData } from "@/lib/site-content"
-import VisitorTracker from "@/app/components/VisitorTracker"
 import CustomCursor from "@/app/components/CustomCursor"
 
 export const metadata: Metadata = {
@@ -36,7 +35,7 @@ export const metadata: Metadata = {
       {
         url: siteConfig.defaultOgImage,
         width: 1200,
-        height: 630,
+        height: 1200,
         alt: `${siteConfig.shortName} portfolio preview`,
       },
     ],
@@ -66,16 +65,16 @@ interface RootLayoutProps {
 
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
-    <html lang="en" className="scroll-smooth">
-      <body suppressHydrationWarning>
+    <html
+      lang="en"
+      className={`scroll-smooth ${fontDisplay.variable} ${fontBody.variable}`}
+    >
+      <body className="font-sans" suppressHydrationWarning>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(siteStructuredData) }}
         />
         <CustomCursor />
-        <Suspense fallback={null}>
-          <VisitorTracker />
-        </Suspense>
         {children}
         <Analytics />
       </body>

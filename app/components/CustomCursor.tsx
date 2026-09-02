@@ -116,6 +116,17 @@ export default function CustomCursor() {
     }
   }, [])
 
+  // Hide the native cursor only while the replacement is genuinely on screen.
+  useEffect(() => {
+    const root = document.documentElement
+    if (!isVisible) {
+      root.classList.remove("custom-cursor-active")
+      return
+    }
+    root.classList.add("custom-cursor-active")
+    return () => root.classList.remove("custom-cursor-active")
+  }, [isVisible])
+
   // Fade out trail particles
   useEffect(() => {
     if (particles.length === 0) return

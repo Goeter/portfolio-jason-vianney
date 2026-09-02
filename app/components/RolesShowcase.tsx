@@ -163,7 +163,7 @@ function RoleCard({ role }: { role: ProfessionalRole }) {
         <div className="mb-4 flex items-start justify-between gap-3">
           <h3
             className="text-[1.15rem] md:text-[1.28rem] font-semibold leading-snug text-[#f0e8d4]"
-            style={{ fontFamily: "'Playfair Display', serif" }}
+            style={{ fontFamily: "var(--font-display), Georgia, serif" }}
           >
             {role.title}
           </h3>
@@ -311,7 +311,7 @@ export default function RolesShowcase() {
     <section
       id="roles"
       className="relative w-full overflow-hidden bg-[#080d1c] py-14 md:py-18"
-      style={{ fontFamily: "'Inter', sans-serif" }}
+      style={{ fontFamily: "var(--font-body), system-ui, sans-serif" }}
     >
       {/* Top Gold Line — full horizontal */}
       <div className="absolute inset-x-0 top-0 z-10 h-px bg-gradient-to-r from-transparent via-[#c9a84c]/55 to-transparent" />
@@ -334,7 +334,7 @@ export default function RolesShowcase() {
           <h2
             className="m-0 text-[2.4rem] sm:text-[2.8rem] md:text-[3.15rem] font-bold leading-tight text-[#f0e8d4]"
             style={{
-              fontFamily: "'Playfair Display', serif",
+              fontFamily: "var(--font-display), Georgia, serif",
               letterSpacing: "-0.02em",
             }}
           >

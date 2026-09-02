@@ -34,3 +34,6 @@ pnpm-debug.log*
 *.tgz
 # cache
 .cache
+
+# Runtime data written by the upvotes API fallback (never commit visitor/runtime data)
+/data
