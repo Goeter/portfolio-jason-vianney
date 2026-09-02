@@ -60,7 +60,7 @@ function Stat({
         {shown}
         {suffix}
       </span>
-      <span className="text-[10px] font-semibold uppercase tracking-[0.16em] text-slate-400 sm:text-[11px]">
+      <span className="text-[11px] font-semibold uppercase tracking-[0.16em] text-slate-400">
         {label}
       </span>
     </div>

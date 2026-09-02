@@ -169,7 +169,7 @@ function RoleCard({ role }: { role: ProfessionalRole }) {
           </h3>
 
           <div className="flex items-center gap-2 shrink-0">
-            <span className="mt-0.5 flex h-7 w-7 items-center justify-center rounded-full border border-[#C8A96E]/30 bg-[#C8A96E]/[0.08] text-[10px] font-bold tracking-wider text-[#C8A96E]/60">
+            <span className="mt-0.5 flex h-7 w-7 items-center justify-center rounded-full border border-[#C8A96E]/30 bg-[#C8A96E]/[0.08] text-[11px] font-bold tracking-wider text-[#C8A96E]/60">
               {role.number}
             </span>
           </div>
@@ -179,7 +179,7 @@ function RoleCard({ role }: { role: ProfessionalRole }) {
 
         {/* Skills */}
         <div className="mb-4">
-          <p className={`mb-3 flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-[3px] ${c.label}`}>
+          <p className={`mb-3 flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-[3px] ${c.label}`}>
             <svg className="h-3 w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
               <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
             </svg>
@@ -190,7 +190,7 @@ function RoleCard({ role }: { role: ProfessionalRole }) {
             {role.skills.map((skill) => (
               <span
                 key={skill}
-                className={`rounded-full border px-3 py-1.5 text-[12px] md:text-[13px] font-medium leading-none ${c.tagBg} ${c.tagText} ${c.tagBorder}`}
+                className={`rounded-full border px-3 py-1.5 text-[13px] md:text-[13px] font-medium leading-none ${c.tagBg} ${c.tagText} ${c.tagBorder}`}
               >
                 {skill}
               </span>
@@ -202,7 +202,7 @@ function RoleCard({ role }: { role: ProfessionalRole }) {
 
         {/* Tools */}
         <div>
-          <p className={`mb-3 flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-[3px] ${c.label}`}>
+          <p className={`mb-3 flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-[3px] ${c.label}`}>
             <svg className="h-3 w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
               <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" />
             </svg>
@@ -328,7 +328,7 @@ export default function RolesShowcase() {
           ref={headerRef}
           className={`px-6 pb-10 text-center reveal-hidden ${headerVisible ? "reveal-visible" : ""}`}
         >
-          <p className="mb-3 text-[10px] font-bold uppercase tracking-[5px] text-[#C8A96E]/60">
+          <p className="mb-3 text-[11px] font-bold uppercase tracking-[5px] text-[#C8A96E]/60">
             What I Do Best
           </p>
           <h2
@@ -350,7 +350,7 @@ export default function RolesShowcase() {
           <div className="mx-auto mt-4 h-0.5 w-[58px] rounded-full bg-gradient-to-r from-[#C8A96E] via-[#e8c97a] to-[#C8A96E]" />
           
           <p className="mx-auto mt-4 max-w-2xl text-sm leading-relaxed text-[#F4EDD8]/50">
-            Specialized roles and technical capabilities refined through years of hands-on experience.
+            What I actually do day to day, and the tools I reach for — grouped by the role I was hired to fill.
           </p>
         </div>
 

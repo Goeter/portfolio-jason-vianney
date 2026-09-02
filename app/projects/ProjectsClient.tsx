@@ -58,7 +58,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
       <div className="relative aspect-[16/10] overflow-hidden border-b border-gold-200/18 bg-slate-950">
         <ProjectCardImage project={project} />
         <div className="absolute inset-0 bg-gradient-to-t from-slate-950/82 via-slate-950/12 to-transparent" />
-        <span className="absolute bottom-3 left-3 z-20 rounded-full border border-gold-200/45 bg-slate-950/85 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.14em] text-gold-100 shadow-[0_8px_20px_rgba(0,0,0,0.35)] backdrop-blur-md">
+        <span className="absolute bottom-3 left-3 z-20 rounded-full border border-gold-200/45 bg-slate-950/85 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.14em] text-gold-100 shadow-[0_8px_20px_rgba(0,0,0,0.35)] backdrop-blur-md">
           {projectCategoryLabels[project.category]}
         </span>
       </div>
@@ -77,7 +77,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
         <div className="flex min-h-[34px] flex-wrap items-center justify-between gap-3">
           <Link
             href={getProjectPath(project)}
-            className="inline-flex items-center justify-center rounded-full border border-white/12 bg-white px-4 py-2 text-[12px] font-bold uppercase tracking-[0.08em] text-slate-950 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-gold-200 hover:bg-gold-100 hover:shadow-md"
+            className="inline-flex items-center justify-center rounded-full border border-white/12 bg-white px-4 py-2 text-[13px] font-bold uppercase tracking-[0.08em] text-slate-950 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-gold-200 hover:bg-gold-100 hover:shadow-md"
           >
             See Details
           </Link>
@@ -85,7 +85,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
           {project.link ? (
             <a
               href={project.link}
-              className="inline-flex items-center justify-center gap-2 rounded-full border border-gold-400/70 bg-gold-400/14 px-4 py-2 text-[12px] font-bold uppercase tracking-[0.08em] text-gold-100 shadow-[0_10px_24px_rgba(200,169,110,0.15)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-gold-400 hover:text-slate-950 hover:shadow-[0_14px_30px_rgba(200,169,110,0.26)]"
+              className="inline-flex items-center justify-center gap-2 rounded-full border border-gold-400/70 bg-gold-400/14 px-4 py-2 text-[13px] font-bold uppercase tracking-[0.08em] text-gold-100 shadow-[0_10px_24px_rgba(200,169,110,0.15)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-gold-400 hover:text-slate-950 hover:shadow-[0_14px_30px_rgba(200,169,110,0.26)]"
             >
               Visit
               <ArrowUpRight size={14} />
@@ -141,7 +141,7 @@ export default function AllProjects() {
                 Project Collection
               </h1>
 
-              <span className="shrink-0 whitespace-nowrap rounded-full border border-gold-200/25 bg-gold-300/12 px-3 py-1.5 text-[12px] font-bold uppercase tracking-[0.12em] text-gold-100 sm:px-4">
+              <span className="shrink-0 whitespace-nowrap rounded-full border border-gold-200/25 bg-gold-300/12 px-3 py-1.5 text-[13px] font-bold uppercase tracking-[0.12em] text-gold-100 sm:px-4">
                 {filteredProjects.length} shown
               </span>
             </div>
@@ -186,7 +186,7 @@ export default function AllProjects() {
                       key={option.value}
                       type="button"
                       onClick={() => setSelectedCategory(option.value)}
-                      className={`rounded-full px-3.5 py-2 text-[11px] font-bold uppercase tracking-[0.08em] transition-all duration-300 sm:px-4 sm:text-[12px] ${
+                      className={`rounded-full px-3.5 py-2 text-[11px] font-bold uppercase tracking-[0.08em] transition-all duration-300 sm:px-4 sm:text-[13px] ${
                         active
                           ? "border border-gold-300 bg-gold-300 text-slate-950 shadow-[0_10px_24px_rgba(200,169,110,0.24)]"
                           : "border border-gold-200/18 bg-white/[0.06] text-slate-300 hover:border-gold-300/55 hover:bg-gold-300/12 hover:text-gold-100"
@@ -210,7 +210,7 @@ export default function AllProjects() {
           </section>
         ) : (
           <div className="rounded-[26px] border border-dashed border-gold-300/35 bg-slate-950/65 p-8 text-center text-slate-300 shadow-sm backdrop-blur-xl">
-            No projects match the selected search and category.
+            No projects match your search or filter.
           </div>
         )}
       </main>

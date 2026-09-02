@@ -134,7 +134,7 @@ function ProjectCard({ project, index, isVisible }: { project: Project; index: n
             className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.035]"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-slate-950/82 via-slate-950/12 to-transparent" />
-          <span className="absolute bottom-3 left-3 z-20 rounded-full border border-white/20 bg-black px-3 py-1 text-[10px] font-bold uppercase tracking-[0.14em] text-white shadow-sm backdrop-blur-md">
+          <span className="absolute bottom-3 left-3 z-20 rounded-full border border-white/20 bg-black px-3 py-1 text-[11px] font-bold uppercase tracking-[0.14em] text-white shadow-sm backdrop-blur-md">
             {projectCategoryLabels[project.category]}
           </span>
         </div>
@@ -153,7 +153,7 @@ function ProjectCard({ project, index, isVisible }: { project: Project; index: n
           <div className="flex min-h-[34px] flex-wrap items-center justify-between gap-3">
             <Link
               href={getProjectPath(project)}
-              className="inline-flex items-center justify-center rounded-full border border-white/12 bg-white px-4 py-2 text-[12px] font-bold uppercase tracking-[0.08em] text-slate-950 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-gold-200 hover:bg-gold-100 hover:shadow-md"
+              className="inline-flex items-center justify-center rounded-full border border-white/12 bg-white px-4 py-2 text-[13px] font-bold uppercase tracking-[0.08em] text-slate-950 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-gold-200 hover:bg-gold-100 hover:shadow-md"
             >
               See Details
             </Link>
@@ -161,7 +161,7 @@ function ProjectCard({ project, index, isVisible }: { project: Project; index: n
             {project.link ? (
               <a
                 href={project.link}
-                className="inline-flex items-center justify-center gap-2 rounded-full border border-gold-400/70 bg-gold-400/14 px-4 py-2 text-[12px] font-bold uppercase tracking-[0.08em] text-gold-100 shadow-[0_10px_24px_rgba(200,169,110,0.15)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-gold-400 hover:text-slate-950 hover:shadow-[0_14px_30px_rgba(200,169,110,0.26)]"
+                className="inline-flex items-center justify-center gap-2 rounded-full border border-gold-400/70 bg-gold-400/14 px-4 py-2 text-[13px] font-bold uppercase tracking-[0.08em] text-gold-100 shadow-[0_10px_24px_rgba(200,169,110,0.15)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-gold-400 hover:text-slate-950 hover:shadow-[0_14px_30px_rgba(200,169,110,0.26)]"
               >
                 Visit
                 <ExternalLink size={14} />
@@ -294,7 +294,7 @@ export default function ProjectsSection() {
                   <span className="text-[18px] font-bold leading-none sm:text-[21px]">
                     {projects.length}
                   </span>
-                  <span className="mt-[3px] text-[8px] uppercase tracking-widest opacity-70 sm:text-[9px]">
+                  <span className="mt-[3px] text-[11px] uppercase tracking-widest opacity-70 sm:text-[11px]">
                     Items
                   </span>
                 </div>
@@ -303,7 +303,7 @@ export default function ProjectsSection() {
           </div>
 
           <p className="mt-3 w-full max-w-none text-sm leading-relaxed text-slate-300 md:max-w-4xl md:text-base lg:max-w-5xl">
-            A curated collection of web, application, documentation, and video projects built with a focus on usability, performance, and real business needs.
+            Websites, applications, and internal systems — each one built for a real business, with real constraints and a real deadline.
           </p>
         </div>
 
@@ -395,7 +395,7 @@ export default function ProjectsSection() {
               )
             })}
 
-            <span className="ml-1 min-w-8 font-mono text-[11px] text-slate-400">
+            <span className="ml-1 min-w-8 text-[11px] text-slate-400">
               {currentPage + 1}/{totalPages}
             </span>
           </div>

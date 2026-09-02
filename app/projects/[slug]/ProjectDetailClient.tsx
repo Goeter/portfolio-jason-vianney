@@ -91,7 +91,7 @@ function LatestProjectCard({ project }: { project: Project }) {
           }`}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-transparent" />
-        <span className="absolute bottom-3 left-3 z-20 rounded-full border border-gold-200/40 bg-slate-950/85 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.14em] text-gold-100 shadow-sm backdrop-blur-md">
+        <span className="absolute bottom-3 left-3 z-20 rounded-full border border-gold-200/40 bg-slate-950/85 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.14em] text-gold-100 shadow-sm backdrop-blur-md">
           {projectCategoryLabels[project.category]}
         </span>
       </div>
@@ -110,7 +110,7 @@ function LatestProjectCard({ project }: { project: Project }) {
         <div className="flex min-h-[34px] flex-wrap items-center justify-between gap-3">
           <Link
             href={getProjectPath(project)}
-            className="inline-flex items-center justify-center rounded-full border border-white/15 bg-white px-4 py-2 text-[12px] font-bold uppercase tracking-[0.08em] text-slate-950 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-gold-300 hover:bg-gold-100 hover:shadow-md"
+            className="inline-flex items-center justify-center rounded-full border border-white/15 bg-white px-4 py-2 text-[13px] font-bold uppercase tracking-[0.08em] text-slate-950 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-gold-300 hover:bg-gold-100 hover:shadow-md"
           >
             See Details
           </Link>
@@ -118,7 +118,7 @@ function LatestProjectCard({ project }: { project: Project }) {
           {project.link ? (
             <a
               href={project.link}
-              className="inline-flex items-center justify-center gap-2 rounded-full border border-gold-400/70 bg-gold-400/15 px-4 py-2 text-[12px] font-bold uppercase tracking-[0.08em] text-gold-100 shadow-[0_10px_24px_rgba(200,169,110,0.18)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-gold-400 hover:text-slate-950 hover:shadow-[0_14px_30px_rgba(200,169,110,0.28)]"
+              className="inline-flex items-center justify-center gap-2 rounded-full border border-gold-400/70 bg-gold-400/15 px-4 py-2 text-[13px] font-bold uppercase tracking-[0.08em] text-gold-100 shadow-[0_10px_24px_rgba(200,169,110,0.18)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-gold-400 hover:text-slate-950 hover:shadow-[0_14px_30px_rgba(200,169,110,0.28)]"
             >
               View Project
               <ExternalLink size={14} />
@@ -220,7 +220,7 @@ export default function ProjectDetailClient({ project }: ProjectDetailClientProp
             {project.link ? (
               <a
                 href={project.link}
-                className="inline-flex items-center justify-center gap-2 rounded-full border border-gold-400 bg-gradient-to-r from-gold-500 to-gold-500 px-5 py-2.5 text-[12px] font-bold uppercase tracking-[0.12em] text-white shadow-[0_12px_30px_rgba(200,169,110,0.28)] transition-all duration-300 hover:-translate-y-0.5 hover:from-gold-600 hover:to-gold-600 hover:shadow-[0_16px_36px_rgba(200,169,110,0.32)]"
+                className="inline-flex items-center justify-center gap-2 rounded-full border border-gold-400 bg-gradient-to-r from-gold-500 to-gold-500 px-5 py-2.5 text-[13px] font-bold uppercase tracking-[0.12em] text-white shadow-[0_12px_30px_rgba(200,169,110,0.28)] transition-all duration-300 hover:-translate-y-0.5 hover:from-gold-600 hover:to-gold-600 hover:shadow-[0_16px_36px_rgba(200,169,110,0.32)]"
               >
                 View Project
                 <ExternalLink className="h-4 w-4" />
@@ -372,7 +372,7 @@ export default function ProjectDetailClient({ project }: ProjectDetailClientProp
               </div>
               <Link
                 href="/projects"
-                className="inline-flex w-fit items-center justify-center rounded-full border border-gold-200 bg-gradient-to-r from-gold-500 to-gold-500 px-5 py-2.5 text-[12px] font-bold uppercase tracking-[0.1em] text-white shadow-[0_12px_30px_rgba(200,169,110,0.20)] transition-all duration-300 hover:-translate-y-0.5 hover:from-gold-600 hover:to-gold-600 hover:shadow-[0_16px_36px_rgba(200,169,110,0.28)]"
+                className="inline-flex w-fit items-center justify-center rounded-full border border-gold-200 bg-gradient-to-r from-gold-500 to-gold-500 px-5 py-2.5 text-[13px] font-bold uppercase tracking-[0.1em] text-white shadow-[0_12px_30px_rgba(200,169,110,0.20)] transition-all duration-300 hover:-translate-y-0.5 hover:from-gold-600 hover:to-gold-600 hover:shadow-[0_16px_36px_rgba(200,169,110,0.28)]"
               >
                 View All Project
               </Link>

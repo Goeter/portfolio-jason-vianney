@@ -117,7 +117,7 @@ export const siteConfig = {
     github: "https://github.com/Goeter",
     linkedin: "https://www.linkedin.com/in/jasonvianneysugiarto",
     whatsapp: "https://wa.me/6283856681999",
-    instagram: "https://www.instagram.com/pixelnav.id/",
+    instagram: "https://www.instagram.com/jasonvianney/",
   },
   sameAs: [
     "https://github.com/Goeter",
@@ -340,7 +340,7 @@ export const projects: Project[] = [
     detailDescription:
       "The law firm sits alongside the insurance consultancy, so the site had to make that relationship obvious without letting one side swallow the other. It sets out the three areas of practice — criminal law, civil law, and legal backing when an insurance claim turns into a dispute — in both English and Indonesian, so a client reads the same page in whichever language they think in. The tone matters as much as the content here: someone looking for a lawyer is usually already worried, and the page is written to steady them rather than sell at them.",
     category: "website",
-    image: "/assets/projects/pemenang-konsultan.webp",
+    image: "/assets/projects/pemenang-law-firm.webp",
     link: "https://pemenangkonsultan.com/pml",
     role: "Full-Stack Developer, System Analyst & UI/UX Designer · Freelance IT",
     stack: ["Next.js", "React", "TypeScript", "Tailwind CSS"],

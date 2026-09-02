@@ -51,7 +51,7 @@ function BrandMark({ compact = false }: { compact?: boolean }) {
         >
           Fiat lux
         </span>
-        <span className="mt-0.5 text-[7.5px] font-semibold uppercase tracking-[0.16em] text-amber-100/70 sm:mt-1 sm:text-[8.5px] sm:tracking-[0.22em] lg:text-[9px]">
+        <span className="mt-0.5 text-[11px] font-semibold uppercase tracking-[0.16em] text-amber-100/70 sm:mt-1 sm:text-[11px] sm:tracking-[0.22em] lg:text-[11px]">
           IT Professional
         </span>
       </span>

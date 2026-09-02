@@ -270,18 +270,18 @@ export default function AIChatbot() {
 
         {/* Suggestion chips — one tap instead of guessing what to type */}
         <div className="border-t border-gold-100/60 bg-white/80 px-3 pb-2 pt-2.5">
-          <p className="mb-1.5 px-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-slate-400">
+          <p className="mb-1.5 px-1 text-[11px] font-semibold uppercase tracking-[0.12em] text-slate-400">
             Try asking
           </p>
 
-          <div className="no-card-scrollbar flex gap-1.5 overflow-x-auto pb-0.5">
+          <div className="flex flex-wrap gap-1.5">
             {SUGGESTIONS.map((item) => (
               <button
                 key={item.label}
                 type="button"
                 onClick={() => sendMessage(item.query)}
                 disabled={isTyping}
-                className="flex shrink-0 items-center gap-1.5 rounded-full border border-gold-200 bg-gold-50 px-3 py-1.5 text-[12px] font-semibold text-slate-700 transition-all duration-200 hover:-translate-y-0.5 hover:border-gold-400 hover:bg-gold-100 hover:text-slate-900 active:translate-y-0 disabled:cursor-not-allowed disabled:opacity-45 disabled:hover:translate-y-0"
+                className="flex items-center gap-1.5 rounded-full border border-gold-200 bg-gold-50 px-2.5 py-1.5 text-[13px] font-semibold leading-none text-slate-700 transition-all duration-200 hover:-translate-y-0.5 hover:border-gold-400 hover:bg-gold-100 hover:text-slate-900 active:translate-y-0 disabled:cursor-not-allowed disabled:opacity-45 disabled:hover:translate-y-0"
               >
                 <span aria-hidden="true">{item.emoji}</span>
                 {item.label}
@@ -348,7 +348,7 @@ export default function AIChatbot() {
           >
             <span className="relative block whitespace-nowrap rounded-2xl border border-amber-200/25 bg-[#060d1c]/95 px-4 py-2.5 text-[13px] font-semibold text-amber-50 shadow-[0_12px_40px_rgba(0,0,0,0.25)] backdrop-blur-xl">
               <span className="mr-1.5">👋</span>
-              Saya bisa membantu Anda
+              Ask me anything
               <span className="absolute -right-[6px] top-1/2 -translate-y-1/2 rotate-45 h-3 w-3 border-r border-t border-amber-200/25 bg-[#060d1c]/95" />
             </span>
           </span>

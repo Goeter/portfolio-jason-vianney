@@ -71,7 +71,7 @@ export default function Footer() {
       </div>
 
       {/* ── Main content ── */}
-      <div className={`relative mx-auto grid w-full max-w-7xl gap-9 px-5 py-12 sm:px-8 md:grid-cols-2 lg:grid-cols-[1.35fr_0.75fr_0.9fr] lg:px-12 lg:py-14 reveal-hidden ${isVisible ? "reveal-visible" : ""}`}>
+      <div className={`relative mx-auto grid w-full max-w-7xl gap-8 px-5 py-9 sm:px-8 md:grid-cols-2 lg:grid-cols-[1.35fr_0.75fr_0.9fr] lg:px-12 lg:py-10 reveal-hidden ${isVisible ? "reveal-visible" : ""}`}>
         {/* Brand */}
         <div className="max-w-xl md:col-span-2 lg:col-span-1">
           <Link href="/#home" className="group inline-flex items-center gap-3 no-underline sm:gap-4">
@@ -93,20 +93,20 @@ export default function Footer() {
               >
                 Fiat lux
               </span>
-              <span className="mt-1.5 text-[10px] font-semibold uppercase tracking-[0.26em] text-[#D6B86A]/80">
+              <span className="mt-1.5 text-[11px] font-semibold uppercase tracking-[0.26em] text-[#D6B86A]/80">
                 {siteConfig.role}
               </span>
             </span>
           </Link>
 
-          <p className="mt-4 max-w-lg text-sm leading-7 text-slate-300/90 sm:pr-4">
+          <p className="mt-3 max-w-lg text-sm leading-relaxed text-slate-300/90 sm:pr-4">
             Professional portfolio focused on system analysis, UI/UX design, data analytics, and fullstack digital solutions for practical business needs.
           </p>
         </div>
 
         {/* Navigation */}
         <div>
-          <h3 className="text-[12px] font-bold uppercase tracking-[0.22em] text-[#D6B86A]">
+          <h3 className="text-[13px] font-bold uppercase tracking-[0.22em] text-[#D6B86A]">
             Navigation
           </h3>
           <nav className="mt-4 flex flex-col gap-1" aria-label="Footer Navigation">
@@ -124,10 +124,10 @@ export default function Footer() {
 
         {/* Social */}
         <div>
-          <h3 className="text-[12px] font-bold uppercase tracking-[0.22em] text-[#D6B86A]">
+          <h3 className="text-[13px] font-bold uppercase tracking-[0.22em] text-[#D6B86A]">
             Follow Me
           </h3>
-          <div className="mt-5 flex flex-wrap gap-3">
+          <div className="mt-4 flex flex-wrap gap-3">
             {socialLinks.map((item) => {
               const Icon = item.icon
 
@@ -149,8 +149,8 @@ export default function Footer() {
 
       {/* ── Bottom bar ── */}
       <div className="relative border-t border-[#C8A96E]/15 bg-black/10">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 sm:px-8 lg:px-12">
-          <p className="text-[12px] leading-relaxed text-slate-400">
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-3 sm:px-8 lg:px-12">
+          <p className="text-[13px] leading-relaxed text-slate-400">
             {siteConfig.footer}
           </p>
           <button

@@ -169,7 +169,7 @@ export default function CertificatesSection() {
                   <span className="text-[18px] font-bold leading-none sm:text-[21px]">
                     {certificates.length}
                   </span>
-                  <span className="mt-[3px] text-[8px] uppercase tracking-widest opacity-70 sm:text-[9px]">
+                  <span className="mt-[3px] text-[11px] uppercase tracking-widest opacity-70 sm:text-[11px]">
                     Items
                   </span>
                 </div>
@@ -178,7 +178,7 @@ export default function CertificatesSection() {
           </div>
 
           <p className="mt-3 w-full max-w-none text-sm leading-relaxed text-slate-300 md:max-w-4xl md:text-base lg:max-w-5xl">
-            A complete collection of certifications and learning achievements that support my professional development journey.
+            Courses finished, tests passed, and work recognised — with the certificate itself, not just a claim.
           </p>
         </div>
 

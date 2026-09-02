@@ -53,7 +53,7 @@ export default function ExperienceSection() {
           </h2>
 
           <p className="mt-4 text-sm leading-7 text-slate-400 md:text-base">
-            A focused record of professional, freelance, teaching, and academic experiences across system analysis, fullstack development, UI/UX design, data analysis, and tutoring.
+            Where I have worked, what I was responsible for, and what changed once it shipped.
           </p>
         </div>
 

@@ -157,9 +157,9 @@ export default function CertificatesArchiveClient() {
       <main className="relative z-10 mx-auto w-full max-w-7xl flex-1 px-5 py-12 sm:px-8 md:py-16 lg:px-12">
         <section className="mb-8 animate-[fadeInUp_0.75s_ease-out_both] rounded-[28px] border border-gold-200/20 bg-slate-950/58 p-5 shadow-[0_22px_70px_rgba(0,0,0,0.34)] backdrop-blur-xl md:p-7">
           <div className="flex flex-col gap-3">
-            <div className="inline-flex w-fit items-center gap-1.5 rounded-full border border-gold-200/25 bg-gold-300/12 px-3 py-1.5 text-[9px] font-bold uppercase tracking-[0.16em] text-gold-100 sm:text-[10px]">
+            <div className="inline-flex w-fit items-center gap-1.5 rounded-full border border-gold-200/25 bg-gold-300/12 px-3 py-1.5 text-[11px] font-bold uppercase tracking-[0.16em] text-gold-100 sm:text-[11px]">
               <GraduationCap className="h-3.5 w-3.5" />
-              Professional Learning Record
+              Certificates & Credentials
             </div>
 
             <div className="flex w-full flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
@@ -167,13 +167,13 @@ export default function CertificatesArchiveClient() {
                 Certificates
               </h1>
 
-              <span className="w-fit shrink-0 rounded-full border border-gold-200/25 bg-gold-300/12 px-3 py-1.5 text-[12px] font-bold uppercase tracking-[0.12em] text-gold-100 sm:px-4">
+              <span className="w-fit shrink-0 rounded-full border border-gold-200/25 bg-gold-300/12 px-3 py-1.5 text-[13px] font-bold uppercase tracking-[0.12em] text-gold-100 sm:px-4">
                 {filteredCertificates.length} shown
               </span>
             </div>
 
             <p className="max-w-4xl text-sm leading-relaxed text-slate-300">
-              A complete collection of certifications and learning achievements that support my professional development journey.
+              Courses finished, tests passed, and work recognised — with the certificate itself, not just a claim.
             </p>
           </div>
         </section>
@@ -204,7 +204,7 @@ export default function CertificatesArchiveClient() {
           </section>
         ) : (
           <div className="rounded-[26px] border border-dashed border-gold-300/35 bg-slate-950/65 p-8 text-center text-slate-300 shadow-sm backdrop-blur-xl">
-            No certificates match the selected search.
+            No certificates match your search.
           </div>
         )}
       </main>
