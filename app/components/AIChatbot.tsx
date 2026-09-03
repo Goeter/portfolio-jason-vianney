@@ -16,6 +16,7 @@ import {
   siteConfig,
   professionalRoles,
   projects,
+  projectsLatestFirst,
   certificates,
   experiences,
   education,
@@ -44,7 +45,15 @@ type Rule = {
   answer: () => string
 }
 
-const list = (items: string[]) => items.map((t, i) => `${i + 1}. ${t}`).join("\n")
+/**
+ * Marker an answer can embed to offer a jump to a section of the page.
+ * The renderer turns `[[goto:projects|See all my projects]]` into a button that
+ * closes the chat and scrolls there — so the bot can hand the visitor onward
+ * instead of only describing what exists.
+ */
+const goto = (section: string, label: string) => `\n[[goto:${section}|${label}]]`
+
+const GOTO_PATTERN = /\[\[goto:([a-z-]+)\|([^\]]+)\]\]/g
 
 const KNOWLEDGE: Rule[] = [
   /* ── Greetings & small talk ── */
@@ -81,13 +90,13 @@ const KNOWLEDGE: Rule[] = [
   },
   {
     id: "site-tech",
-    test: /\b(built with|made with|what (tech|stack|framework)( is| does)? this|technology behind)\b/,
+    test: /\b(built with|made with|what (tech|stack|frameworks?)( is| does)? this|technology behind)\b/,
     answer: () =>
       `This site runs on Next.js, React, TypeScript, and Tailwind CSS, deployed on Vercel. 🛠️\n\nThe AI assistant you're talking to is rule-based, so it answers instantly and works even on a slow connection.`,
   },
   {
     id: "are-you-real",
-    test: /\b(are you (a )?(real|human|bot|ai|robot)|is this (a )?bot|talking to a human|apakah kamu (manusia|robot))\b/,
+    test: /\b(are you (a )?(real|human|bot|ai|robots?)|is this (a )?bot|talking to a human|apakah kamu (manusia|robot))\b/,
     answer: () =>
       `I'm an assistant built into this site, not ${siteConfig.shortName} himself. 🤖\n\nI can answer anything about his work, projects, and background. For a real conversation, his email and WhatsApp are in the Contact section — he usually replies the same day.`,
   },
@@ -95,7 +104,7 @@ const KNOWLEDGE: Rule[] = [
   /* ── Availability & hiring — the questions a recruiter actually opens with ── */
   {
     id: "hire",
-    test: /\b(hire|hiring|available|availability|open to work|looking for (work|a job)|recruit|vacancy|lowongan|terima kerja|bisa dihubungi untuk kerja)\b/,
+    test: /\b(hire|hiring|available|availability|open to work|looking for (work|a job)|recruit|vacancys?|lowongan|terima kerja|bisa dihubungi untuk kerja)\b/,
     answer: () =>
       `Yes — ${siteConfig.shortName} is open to System Analyst, UI/UX, and Full-Stack roles, and to freelance projects. 💼\n\nHe is based in Surabaya, Indonesia, and is available for both on-site and remote work.\n\nThe quickest way to reach him:\n\nmailto:${siteConfig.contacts.email}\n${siteConfig.contacts.whatsapp}`,
   },
@@ -107,19 +116,19 @@ const KNOWLEDGE: Rule[] = [
   },
   {
     id: "rate",
-    test: /\b(rate|price|pricing|cost|how much|budget|fee|charge|tarif|harga|biaya|berapa)\b/,
+    test: /\b(rates?|price|pricing|cost|how much|budget|fees?|charge|tarif\w*|harga\w*|biaya\w*|bayaran\w*|ongkos)\b/,
     answer: () =>
       `Rates depend on scope, timeline, and how much of the work is analysis versus build — so ${siteConfig.shortName} prefers to quote after a short conversation about what you need. 💬\n\nSend him the outline and he'll come back with something concrete:\n\nmailto:${siteConfig.contacts.email}\n${siteConfig.contacts.whatsapp}`,
   },
   {
     id: "location",
-    test: /\b(where (are you|is he|do you live|based)|location|city|domisili|tinggal di mana|lokasi|remote|onsite|on.?site|relocat)\b/,
+    test: /\b(where (are you|is he|do you live|based)|location|city|domisili|tinggal di mana|lokasi|remote|onsite|on.?site|relocat\w*)\b/,
     answer: () =>
       `${siteConfig.shortName} is based in Surabaya, Indonesia. 📍\n\nHe has worked on-site in both Jakarta and Surabaya, and is open to remote work as well.`,
   },
   {
     id: "language",
-    test: /\b(english|bahasa|language|speak|communicat|ielts|cefr|toefl)\b/,
+    test: /\b(english|bahasa|language|speak|communicat\w*|ielts|cefr|toefl)\b/,
     answer: () =>
       `${siteConfig.shortName} works in both English and Indonesian. 🗣️\n\nHis English is certified at CEFR C1 Advanced by the British Council, scoring 599 — equivalent to IELTS Band 8. That covers technical documentation, client meetings, and presentations.`,
   },
@@ -133,7 +142,7 @@ const KNOWLEDGE: Rule[] = [
   },
   {
     id: "education",
-    test: /\b(education|study|studied|degree|university|college|campus|gpa|graduat|kuliah|pendidikan|kampus|s1|sarjana)\b/,
+    test: /\b(education|study|studied|degrees?|university|college|campus|gpa|graduat\w*|kuliah|pendidikan\w*|kampus|s1|sarjana)\b/,
     answer: () =>
       `🎓 ${education.degree}\n${education.school}\n${education.period}\n${education.result}`,
   },
@@ -147,17 +156,27 @@ const KNOWLEDGE: Rule[] = [
   /* ── Experience — checked before projects, since "work experience" contains "work" ── */
   {
     id: "experience",
-    test: /\b(experience|pengalaman|kerja|career|employment|work history|riwayat|magang|intern|companies|perusahaan|worked (at|for))\b/,
+    test: /\b(experience|pengalaman\w*|kerja\w*|career|employment|work history|riwayat|magang|intern|companies|perusahaan\w*|worked (at|for))\b/,
     answer: () =>
-      `💼 Work Experience:\n\n${experiences.map((e, i) => `${i + 1}. ${e.company}\n   ${e.division}`).join("\n\n")}`,
+      `💼 Work Experience:\n\n${experiences
+        .map((e, i) => `${i + 1}. ${e.company}\n   Job as : ${e.division}`)
+        .join("\n\n")}${goto("experience", "See my full experience")}`,
   },
 
   /* ── Projects ── */
   {
     id: "projects",
-    test: /\b(project|proyek|portfolio|portofolio|karya|case study|work samples|what have you built|apa saja yang dibuat)\b/,
+    test: /\b(projects?|proyek\w*|portfolio|portofolio|karya\w*|case study|work samples|what have you built|apa saja yang dibuat)\b/,
     answer: () =>
-      `📁 ${projects.length} projects in total. Here are six:\n\n${list(projects.slice(0, 6).map((p) => p.title))}\n\nOpen the Projects section on this page for the rest, each with the problem it solved and what changed afterwards.`,
+      `📁 ${siteConfig.shortName} has delivered ${projects.length} projects. Here are the 5 most recent:\n\n${projectsLatestFirst
+        .slice(0, 5)
+        .map(
+          (p, i) =>
+            `${i + 1}. ${p.title}\n   ${p.description}${
+              p.stack?.length ? `\n   Skills: ${p.stack.slice(0, 4).join(", ")}` : ""
+            }`
+        )
+        .join("\n\n")}${goto("projects", "See all my projects")}`,
   },
   {
     id: "best-project",
@@ -176,26 +195,24 @@ const KNOWLEDGE: Rule[] = [
     },
   },
   {
+    // One rule for both skills and tools — the section itself holds the detail,
+    // so the answer stays a short menu rather than a wall of chips.
     id: "skills",
-    test: /\b(skill|keahlian|expertise|capable|ability|strength|good at|specialis|specializ|bisa apa|kemampuan)\b/,
+    test: /\b(skills?|keahlian\w*|expertise|capable|abilitys?|strengths?|good at|specialis\w*|specializ\w*|bisa apa|kemampuan\w*|tools?|tech stack|stack|teknologi|software|frameworks?|platforms?)\b/,
     answer: () =>
-      `🛠️ Skills by role:\n\n${professionalRoles.map((r) => `• ${r.title}\n  ${r.skills.join(", ")}`).join("\n\n")}`,
-  },
-  {
-    id: "tools",
-    test: /\b(tool|tech stack|stack|teknologi|software|framework|platform)\b/,
-    answer: () =>
-      `⚙️ Tools by role:\n\n${professionalRoles.map((r) => `• ${r.title}\n  ${r.tools.join(", ")}`).join("\n\n")}`,
+      `🛠️ ${siteConfig.shortName} works across ${professionalRoles.length} roles:\n\n${professionalRoles
+        .map((r, i) => `${i + 1}. ${r.title}`)
+        .join("\n")}${goto("roles", "See skills and tools")}`,
   },
   {
     id: "design",
-    test: /\b(ui|ux|design|wireframe|prototype|mockup|desain|figma)\b/,
+    test: /\b(ui|ux|design|wireframes?|prototypes?|mockups?|desain|figma)\b/,
     answer: () =>
       `🎨 UI/UX is one of ${siteConfig.shortName}'s core roles, not a side interest.\n\nHe led the interface design for the Topas Multi Finance corporate website and its mobile loan application, working from user flows and wireframes through to high-fidelity screens.\n\nTools: Figma, Adobe XD, Adobe Illustrator, and Balsamiq for early wireframes.`,
   },
   {
     id: "analyst",
-    test: /\b(system analyst|business analyst|requirement|documentation|flowchart|analysis|analis)\b/,
+    test: /\b(system analyst|business analyst|requirements?|documentation|flowcharts?|analysis|analis)\b/,
     answer: () =>
       `📋 System analysis is where ${siteConfig.shortName} started, at PT Astra Honda Motor and later PT Topas Multi Finance.\n\nThe work covers gathering requirements from business teams, mapping processes into flowcharts and BPMN, writing functional specifications developers can build from, defining data and validation rules, and supporting UAT before release.`,
   },
@@ -203,15 +220,17 @@ const KNOWLEDGE: Rule[] = [
   /* ── Certificates ── */
   {
     id: "certificates",
-    test: /\b(certif|sertif|credential|training|course|kursus|award|achievement|penghargaan)\b/,
+    test: /\b(certif\w*|sertif\w*|credential\w*|trainings?|courses?|kursuss?|award\w*|achievement\w*|penghargaan)\b/,
     answer: () =>
-      `🏆 Certificates & Credentials:\n\n${certificates.map((c, i) => `${i + 1}. ${c.title}\n   ${c.issuer} · ${c.date}`).join("\n\n")}`,
+      `🏆 ${siteConfig.shortName} holds ${certificates.length} certificates:\n\n${certificates
+        .map((c, i) => `${i + 1}. ${c.title}\n   ${c.issuer} · ${c.date}`)
+        .join("\n\n")}${goto("certificates", "See my certificates")}`,
   },
 
   /* ── Teaching ── */
   {
     id: "teaching",
-    test: /\b(teach|tutor|mengajar|guru|student|les|bimbel|math|physics)\b/,
+    test: /\b(teach|tutor|mengajar|guru|students?|les|bimbel|math|physics)\b/,
     answer: () =>
       `📚 ${siteConfig.shortName} teaches Mathematics, Physics, and English part-time at Student Center, adapting each lesson to the student's own pace.\n\nVIP Course recognised him in 2025 for outstanding teaching performance in Mathematics and English.`,
   },
@@ -250,13 +269,34 @@ const KNOWLEDGE: Rule[] = [
 ]
 
 /** Try to match a specific project by name before falling back. */
+/**
+ * Words that appear in a project title but also carry their own topic, so
+ * matching on them hijacks the wrong answer — "what certificates do you have"
+ * would otherwise return the Vehicle Registration Certificate System project.
+ */
+const TITLE_STOPWORDS = new Set([
+  "multi",
+  "finance",
+  "website",
+  "system",
+  "application",
+  "certificate",
+  "certificates",
+  "project",
+  "projects",
+  "profile",
+  "company",
+  "professional",
+  "partners",
+])
+
 function findProject(q: string) {
   return projects.find((p) => {
     const words = p.title
       .toLowerCase()
       .replace(/[^a-z0-9 ]/g, " ")
       .split(/\s+/)
-      .filter((w) => w.length > 4 && !["multi", "finance", "website", "system", "application"].includes(w))
+      .filter((w) => w.length > 4 && !TITLE_STOPWORDS.has(w))
     return words.some((w) => q.includes(w))
   })
 }
@@ -443,7 +483,42 @@ export default function AIChatbot() {
 
   const handleSend = () => sendMessage(input)
 
+  /** Closes the chat and scrolls the page to the requested section. */
+  const jumpTo = useCallback((section: string) => {
+    setIsOpen(false)
+    // let the panel finish closing before the scroll starts
+    setTimeout(() => {
+      document.getElementById(section)?.scrollIntoView({ behavior: "smooth", block: "start" })
+    }, 220)
+  }, [])
+
   const renderMessageText = (text: string) => {
+    // Split on section-jump markers first, then on links, so both become buttons.
+    const gotoParts = text.split(GOTO_PATTERN)
+
+    if (gotoParts.length > 1) {
+      const nodes: React.ReactNode[] = []
+      for (let i = 0; i < gotoParts.length; i += 3) {
+        if (gotoParts[i]) nodes.push(...renderMessageText(gotoParts[i]))
+        const section = gotoParts[i + 1]
+        const label = gotoParts[i + 2]
+        if (section && label) {
+          nodes.push(
+            <button
+              key={`goto-${section}-${i}`}
+              type="button"
+              onClick={() => jumpTo(section)}
+              className="mt-2 inline-flex w-fit items-center gap-1.5 rounded-xl bg-gold-500 px-3 py-2 text-[13px] font-bold text-white shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:bg-gold-600 hover:shadow-md"
+            >
+              {label}
+              <span aria-hidden="true">→</span>
+            </button>
+          )
+        }
+      }
+      return nodes
+    }
+
     // mailto is included so the email turns into a branded button too
     const urlRegex = /((?:https?:\/\/|mailto:)[^\s]+)/g
     const parts = text.split(urlRegex)
