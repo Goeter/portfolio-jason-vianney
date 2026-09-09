@@ -81,20 +81,20 @@ export type ProfessionalRole = {
 }
 
 export const siteConfig = {
-  owner: "Jason Vianney Sugiarto",
-  shortName: "Jason Vianney",
+  owner: "Jason",
+  shortName: "Jason",
   role: "IT Professional",
   headline: "System Analyst, UI/UX Designer, Data Analyst, and Fullstack Developer",
   description:
-    "Portfolio of Jason Vianney Sugiarto, an IT professional experienced in system analysis, UI/UX design, data analytics, fullstack development, freelance IT projects, tutoring, HR systems, corporate websites, CMS websites, mobile applications, and business process digitalization.",
+    "Portfolio of Jason, an IT professional experienced in system analysis, UI/UX design, data analytics, fullstack development, freelance IT projects, tutoring, HR systems, corporate websites, CMS websites, mobile applications, and business process digitalization.",
   url: (process.env.NEXT_PUBLIC_SITE_URL || "https://portfolio-jasonvianney.vercel.app").replace(/[/]+$/, ""),
   locale: "en_US",
   defaultOgImage: "/assets/profile/photo.webp",
-  seoTitle: "Jason Vianney Sugiarto - System Analyst, UI/UX Designer, Data Analyst & Fullstack Developer",
+  seoTitle: "Jason - System Analyst, UI/UX Designer, Data Analyst & Fullstack Developer",
   seoDescription:
-    "Explore Jason Vianney Sugiarto's professional portfolio featuring system analysis, UI/UX design, data analysis, fullstack development, CMS websites, corporate profiles, mobile applications, HR systems, and digital business solutions.",
+    "Explore Jason's professional portfolio featuring system analysis, UI/UX design, data analysis, fullstack development, CMS websites, corporate profiles, mobile applications, HR systems, and digital business solutions.",
   keywords: [
-    "Jason Vianney Sugiarto",
+    "Jason",
     "System Analyst Portfolio",
     "UI UX Designer Portfolio",
     "Data Analyst Portfolio",
@@ -123,7 +123,7 @@ export const siteConfig = {
     "https://github.com/Goeter",
     "https://www.linkedin.com/in/jasonvianneysugiarto",
   ],
-  footer: "Copyright © 2025 Jason Vianney S Portfolio Web Design. All rights reserved.",
+  footer: "Copyright © 2025 Jason Portfolio Web Design. All rights reserved.",
 }
 
 export const navItems: NavItem[] = [
@@ -623,7 +623,7 @@ export const projectsCollectionStructuredData = {
   name: `${siteConfig.shortName} Projects`,
   url: getAbsoluteUrl("/projects"),
   description:
-    "Portfolio projects by Jason Vianney Sugiarto across system analysis, UI/UX design, data analytics, fullstack development, CMS websites, HR systems, and mobile applications.",
+    "Portfolio projects by Jason across system analysis, UI/UX design, data analytics, fullstack development, CMS websites, HR systems, and mobile applications.",
   creator: {
     "@type": "Person",
     name: siteConfig.owner,
@@ -645,7 +645,7 @@ export const certificatesCollectionStructuredData = {
   name: `${siteConfig.shortName} Certificates`,
   url: getAbsoluteUrl("/certificates"),
   description:
-    "Certificate archive and professional learning achievements of Jason Vianney Sugiarto.",
+    "Certificate archive and professional learning achievements of Jason.",
   creator: {
     "@type": "Person",
     name: siteConfig.owner,

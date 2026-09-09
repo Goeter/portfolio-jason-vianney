@@ -178,7 +178,7 @@ export default function HomeSection() {
     if (url.startsWith("/")) {
       const link = document.createElement("a")
       link.href = url
-      link.download = "Jason_Vianney_Resume.pdf"
+      link.download = "Jason_Resume.pdf"
       link.target = "_blank"
       document.body.appendChild(link)
       link.click()
@@ -247,10 +247,8 @@ export default function HomeSection() {
                 }}
                 {...fadeSlideLeft(0.45)}
               >
-                {siteConfig.shortName}
-                <br />
                 <span style={{ color: "#C8A96E" }}>
-                  Sugiarto
+                  {siteConfig.shortName}
                 </span>
               </m.h1>
 
