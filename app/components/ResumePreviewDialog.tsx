@@ -19,7 +19,7 @@ export default function ResumePreviewDialog({ open, onClose }: ResumePreviewDial
   const [loaded, setLoaded] = useState(false)
   const [mounted, setMounted] = useState(false)
 
-  // Portal to <body> so parent stacking contexts can't put the nav above the dialog.
+  // Portal to <body> so <main>'s stacking context can't trap the dialog; it sits below the fixed nav.
   useEffect(() => setMounted(true), [])
 
   useEffect(() => {
@@ -45,7 +45,7 @@ export default function ResumePreviewDialog({ open, onClose }: ResumePreviewDial
     <AnimatePresence>
       {open && (
         <m.div
-          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 p-3 backdrop-blur-md sm:p-6"
+          className="fixed inset-x-0 bottom-0 top-[54px] z-[100] flex items-center justify-center bg-black/80 p-3 backdrop-blur-md sm:top-[60px] sm:p-5 lg:top-[64px]"
           onClick={onClose}
           role="dialog"
           aria-modal="true"
@@ -56,7 +56,7 @@ export default function ResumePreviewDialog({ open, onClose }: ResumePreviewDial
           transition={{ duration: 0.2 }}
         >
           <m.div
-            className="flex h-[min(92vh,1000px)] w-[min(96vw,900px)] flex-col overflow-hidden rounded-[18px] border border-[#C8A96E]/25 bg-[#0B1724] shadow-2xl shadow-black/70 sm:rounded-[22px]"
+            className="flex h-full max-h-[1000px] w-[min(96vw,900px)] flex-col overflow-hidden rounded-[18px] border border-[#C8A96E]/25 bg-[#0B1724] shadow-2xl shadow-black/70 sm:rounded-[22px]"
             onClick={(event) => event.stopPropagation()}
             initial={{ opacity: 0, y: 24, scale: 0.96 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
