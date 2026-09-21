@@ -1,12 +1,14 @@
 "use client"
 
+import { useState } from "react"
 import Image from "next/image"
 import { LazyMotion, domAnimation, m } from "framer-motion"
-import { Download, ArrowRight, Sparkles } from "lucide-react"
+import { Eye, ArrowRight, Sparkles } from "lucide-react"
 import { expertise, siteConfig } from "@/lib/site-content"
 import { BLUR_DATA_URL } from "@/lib/utils"
 import StatsStrip from "./StatsStrip"
 import TypedText from "./TypedText"
+import ResumePreviewDialog from "./ResumePreviewDialog"
 import { useParallax } from "@/hooks/useParallax"
 
 /* ─────────────────────────────────────────────
@@ -173,20 +175,7 @@ export default function HomeSection() {
 
   const rolesList = expertise.map((item) => item.label)
 
-  const handleDownloadPDF = () => {
-    const url = siteConfig.contacts.resumeDownloadUrl
-    if (url.startsWith("/")) {
-      const link = document.createElement("a")
-      link.href = url
-      link.download = "Jason_Resume.pdf"
-      link.target = "_blank"
-      document.body.appendChild(link)
-      link.click()
-      document.body.removeChild(link)
-    } else {
-      window.open(url, "_blank", "noopener,noreferrer")
-    }
-  }
+  const [resumeOpen, setResumeOpen] = useState(false)
 
   const handleViewProjects = () => {
     document
@@ -312,9 +301,9 @@ export default function HomeSection() {
                 className="flex w-full flex-row flex-wrap gap-3 sm:w-auto sm:gap-4"
                 {...fadeSlideLeft(0.75)}
               >
-                {/* Download Resume */}
+                {/* View Resume */}
                 <m.button
-                  onClick={handleDownloadPDF}
+                  onClick={() => setResumeOpen(true)}
                   className="relative inline-flex flex-1 items-center justify-center gap-2 overflow-hidden rounded-[14px] sm:flex-none"
                   style={{
                     padding: "14px 30px",
@@ -345,10 +334,10 @@ export default function HomeSection() {
                     animate={{ y: [0, -2, 4, 0] }}
                     transition={{ duration: 1.4, repeat: Infinity, ease: "easeInOut" }}
                   >
-                    <Download size={17} />
+                    <Eye size={17} />
                   </m.div>
 
-                  <span className="relative z-10">Download Resume</span>
+                  <span className="relative z-10">View Resume</span>
                 </m.button>
 
                 {/* View Projects */}
@@ -405,6 +394,8 @@ export default function HomeSection() {
           </div>
         </div>
       </section>
+
+      <ResumePreviewDialog open={resumeOpen} onClose={() => setResumeOpen(false)} />
     </LazyMotion>
   )
 }

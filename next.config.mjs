@@ -12,7 +12,7 @@ const contentSecurityPolicy = [
   "media-src 'self'",
   "worker-src 'self' blob:",
   "manifest-src 'self'",
-  "frame-src 'none'",
+  "frame-src https://drive.google.com",
   "object-src 'none'",
   "base-uri 'self'",
   "form-action 'self'",
