@@ -160,7 +160,8 @@ export default function ExperienceSection() {
                               type="button"
                               onClick={() => setSelectedPhoto(photo)}
                               aria-label={`Preview photo: ${photo.alt}`}
-                              className="group/img relative aspect-[1600/738] w-full overflow-hidden rounded-xl border border-[#C8A96E]/20 bg-slate-950 transition duration-300 hover:border-[#C8A96E]/55"
+                              style={{ aspectRatio: `${photo.width} / ${photo.height}` }}
+                              className="group/img relative w-full overflow-hidden rounded-xl border border-[#C8A96E]/20 bg-slate-950 transition duration-300 hover:border-[#C8A96E]/55"
                             >
                               <Image
                                 src={photo.src}

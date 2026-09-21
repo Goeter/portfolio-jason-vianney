@@ -70,7 +70,8 @@ export type Experience = {
   /** Optional photo gallery shown under the responsibilities. */
   gallery?: {
     title: string
-    photos: { src: string; alt: string }[]
+    /** width/height set each thumbnail's frame, so no photo gets cropped. */
+    photos: { src: string; alt: string; width: number; height: number }[]
   }
 }
 
@@ -500,6 +501,23 @@ export const experiences: Experience[] = [
       "Translated business needs into functional specifications and BPMN workflows, then led the UI/UX design for the corporate website and the mobile loan application.",
       "Built a centralized HR system covering payroll, attendance, performance, and employee records, with validation checks that catch a bad entry before it reaches a report rather than after.",
     ],
+    gallery: {
+      title: "Group Photo with the IT Division Team",
+      photos: [
+        {
+          src: "/assets/team/topas-it-division-1.webp",
+          alt: "Jason giving a thumbs up with the PT Topas Multi Finance IT Division team",
+          width: 1600,
+          height: 900,
+        },
+        {
+          src: "/assets/team/topas-it-division-2.webp",
+          alt: "Jason standing with the PT Topas Multi Finance IT Division team at the office lobby",
+          width: 1600,
+          height: 900,
+        },
+      ],
+    },
   },
   {
     id: 3,
@@ -531,10 +549,14 @@ export const experiences: Experience[] = [
         {
           src: "/assets/students/english-math-class-1.webp",
           alt: "Jason posing with his English and Mathematics class students",
+          width: 1600,
+          height: 738,
         },
         {
           src: "/assets/students/english-math-class-2.webp",
           alt: "Jason standing with his English and Mathematics class students in the classroom",
+          width: 1600,
+          height: 738,
         },
       ],
     },
