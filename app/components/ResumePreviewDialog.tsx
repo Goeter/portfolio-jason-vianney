@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
+import { createPortal } from "react-dom"
 import { AnimatePresence, m } from "framer-motion"
 import { Download, ExternalLink, FileText, Loader2, X } from "lucide-react"
 import { siteConfig } from "@/lib/site-content"
@@ -16,6 +17,10 @@ const downloadUrl = `https://drive.google.com/uc?export=download&id=${fileId}`
 
 export default function ResumePreviewDialog({ open, onClose }: ResumePreviewDialogProps) {
   const [loaded, setLoaded] = useState(false)
+  const [mounted, setMounted] = useState(false)
+
+  // Portal to <body> so parent stacking contexts can't put the nav above the dialog.
+  useEffect(() => setMounted(true), [])
 
   useEffect(() => {
     if (!open) return
@@ -34,7 +39,9 @@ export default function ResumePreviewDialog({ open, onClose }: ResumePreviewDial
     }
   }, [open, onClose])
 
-  return (
+  if (!mounted) return null
+
+  return createPortal(
     <AnimatePresence>
       {open && (
         <m.div
@@ -114,6 +121,7 @@ export default function ResumePreviewDialog({ open, onClose }: ResumePreviewDial
           </m.div>
         </m.div>
       )}
-    </AnimatePresence>
+    </AnimatePresence>,
+    document.body
   )
 }
