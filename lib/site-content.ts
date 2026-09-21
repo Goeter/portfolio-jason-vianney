@@ -67,6 +67,11 @@ export type Experience = {
   details: string[]
   location?: string
   workMode?: string
+  /** Optional photo gallery shown under the responsibilities. */
+  gallery?: {
+    title: string
+    photos: { src: string; alt: string }[]
+  }
 }
 
 export type ProfessionalRoleColor = "cyan" | "purple" | "rose" | "emerald" | "amber"
@@ -520,6 +525,19 @@ export const experiences: Experience[] = [
     details: [
       "Taught Mathematics, Physics, and English to elementary and high school students, adapting each lesson to the student's own pace to build problem-solving confidence and prepare them for exams.",
     ],
+    gallery: {
+      title: "Group Photo with My English and Mathematics Class Students",
+      photos: [
+        {
+          src: "/assets/students/english-math-class-1.webp",
+          alt: "Jason posing with his English and Mathematics class students",
+        },
+        {
+          src: "/assets/students/english-math-class-2.webp",
+          alt: "Jason standing with his English and Mathematics class students in the classroom",
+        },
+      ],
+    },
   },
   {
     id: 5,

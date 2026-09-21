@@ -1,16 +1,24 @@
 "use client"
 
+import { useCallback, useMemo, useState } from "react"
 import Image from "next/image"
-import { BriefcaseBusiness, CalendarDays, GraduationCap, MapPin } from "lucide-react"
+import { BriefcaseBusiness, CalendarDays, Camera, GraduationCap, MapPin } from "lucide-react"
 import { education, experiences } from "@/lib/site-content"
 import { BLUR_DATA_URL } from "@/lib/utils"
+import ImagePreviewDialog from "./ImagePreviewDialog"
 import { motion } from "framer-motion"
 import { useScrollReveal } from "@/hooks/useScrollReveal"
 import { useParallax } from "@/hooks/useParallax"
 
+type PreviewPhoto = { src: string; alt: string }
+
 export default function ExperienceSection() {
   const { ref: sectionRef, isVisible } = useScrollReveal<HTMLElement>({ threshold: 0.06 })
   const { ref: parallaxRef, y: parallaxY } = useParallax(55)
+
+  const [selectedPhoto, setSelectedPhoto] = useState<PreviewPhoto | null>(null)
+  const previewImages = useMemo(() => (selectedPhoto ? [selectedPhoto] : null), [selectedPhoto])
+  const closePreview = useCallback(() => setSelectedPhoto(null), [])
 
   return (
     <section
@@ -142,6 +150,42 @@ export default function ExperienceSection() {
                         ))}
                       </div>
                     </div>
+
+                    {experience.gallery && (
+                      <figure className="mt-4 rounded-2xl border border-white/10 bg-white/[0.035] p-3 sm:p-4">
+                        <div className="grid gap-3 sm:grid-cols-2">
+                          {experience.gallery.photos.map((photo) => (
+                            <button
+                              key={photo.src}
+                              type="button"
+                              onClick={() => setSelectedPhoto(photo)}
+                              aria-label={`Preview photo: ${photo.alt}`}
+                              className="group/img relative aspect-[1600/738] w-full overflow-hidden rounded-xl border border-[#C8A96E]/20 bg-slate-950 transition duration-300 hover:border-[#C8A96E]/55"
+                            >
+                              <Image
+                                src={photo.src}
+                                alt={photo.alt}
+                                fill
+                                quality={75}
+                                sizes="(max-width: 640px) 88vw, (max-width: 1024px) 40vw, 380px"
+                                placeholder="blur"
+                                blurDataURL={BLUR_DATA_URL}
+                                className="object-cover object-center transition duration-500 group-hover/img:scale-[1.04]"
+                              />
+                              <span className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover/img:opacity-100" />
+                              <span className="absolute bottom-2 right-2 rounded-full border border-gold-200/30 bg-black/60 px-2.5 py-1 text-[11px] font-medium text-gold-100 shadow-md backdrop-blur-md opacity-90 transition group-hover/img:bg-gold-500 group-hover/img:text-slate-950 group-hover/img:opacity-100">
+                                Click to preview
+                              </span>
+                            </button>
+                          ))}
+                        </div>
+
+                        <figcaption className="mt-3 flex items-start justify-center gap-2 text-center text-sm font-semibold leading-relaxed text-[#F4EDD8] sm:justify-start sm:text-left">
+                          <Camera size={16} className="mt-0.5 shrink-0 text-[#C8A96E]" />
+                          <span>{experience.gallery.title}</span>
+                        </figcaption>
+                      </figure>
+                    )}
                   </div>
                 </div>
               </article>
@@ -212,6 +256,8 @@ export default function ExperienceSection() {
           </div>
         </div>
       </div>
+
+      <ImagePreviewDialog images={previewImages} title="Photo preview" onClose={closePreview} />
     </section>
   )
 }
