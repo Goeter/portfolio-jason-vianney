@@ -48,6 +48,7 @@ export type Certificate = {
   slug: string
   title: string
   description: string
+  /** File name inside `private/certificates`. Never served as a public URL; see getCertificateImageSrc. */
   image: string
   issuer: string
   date: string
@@ -384,7 +385,7 @@ export const certificates: Certificate[] = [
     title: "UI/UX Webinar Participation",
     description:
       "A session on UI/UX fundamentals: how to structure a screen, work with the standard design tools, and tell a usable layout apart from a merely decorative one.",
-    image: "/assets/certificates/ui-ux-webinar-ubaya.webp",
+    image: "ui-ux-webinar-ubaya.webp",
     issuer: "Universitas Surabaya (UBAYA)",
     date: "24 May 2025",
     uploadedAt: "24 May 2025",
@@ -395,7 +396,7 @@ export const certificates: Certificate[] = [
     title: "Intro to Data Analytics",
     description:
       "Foundations of data analysis — cleaning and organising raw spreadsheet data, then reading it closely enough to say something useful about it.",
-    image: "/assets/certificates/data-analyst-revou.webp",
+    image: "data-analyst-revou.webp",
     issuer: "RevoU",
     date: "18 July 2025",
     uploadedAt: "18 July 2025",
@@ -406,7 +407,7 @@ export const certificates: Certificate[] = [
     title: "Python for Data Analysis & SQL",
     description:
       "Hands-on course in Python for data analysis and SQL for database work: querying, cleaning, and shaping raw data into something worth reporting.",
-    image: "/assets/certificates/data-analyst-udemy.webp",
+    image: "data-analyst-udemy.webp",
     issuer: "Udemy",
     date: "02 August 2025",
     uploadedAt: "02 August 2025",
@@ -417,7 +418,7 @@ export const certificates: Certificate[] = [
     title: "Outstanding Teaching Performance",
     description:
       "Recognition for teaching performance in Mathematics and English through 2025 — awarded on results with students, not on completing a course.",
-    image: "/assets/certificates/Teaching Certification.webp",
+    image: "Teaching Certification.webp",
     issuer: "VIP Course",
     date: "10 November 2025",
     uploadedAt: "10 November 2025",
@@ -428,12 +429,27 @@ export const certificates: Certificate[] = [
     title: "CEFR C1 Advanced English",
     description:
       "Scored 599 at CEFR C1 Advanced, equivalent to IELTS Band 8 — comfortable working, writing, and presenting in English in a professional setting.",
-    image: "/assets/certificates/English Certificate Gabung_1.webp",
+    image: "English Certificate Gabung_1.webp",
     issuer: "British Council",
     date: "09 October 2025",
     uploadedAt: "09 October 2025",
   },
+  {
+    id: 6,
+    slug: "cum-laude-ubaya",
+    title: "Cum Laude Graduate — Information Systems",
+    description:
+      "Graduated with the Cum Laude distinction from the Faculty of Engineering, Information Systems — shown with the official distinction and graduation certificates.",
+    image: "cum-laude-ubaya.webp",
+    issuer: "Universitas Surabaya (UBAYA)",
+    date: "30 October 2021",
+    uploadedAt: "30 October 2021",
+  },
 ]
+
+/** Certificates are only served through a same-origin API route, never as a static file. */
+export const getCertificateImageSrc = (certificate: Certificate) =>
+  `/api/certificate/${certificate.slug}`
 
 export const getProjectPath = (project: Project) => `/projects/${project.slug}`
 
@@ -471,7 +487,7 @@ export const education: Education = {
   degree: "Bachelor of Computer Science",
   school: "University of Surabaya",
   period: "July 2017 – July 2021",
-  result: "GPA 3.54 — Cum Laude",
+  result: "Cum Laude",
   logo: "/assets/company-logos/icon_ubaya.webp",
 }
 
@@ -695,7 +711,6 @@ export const certificatesCollectionStructuredData = {
     "@type": "EducationalOccupationalCredential",
     name: certificate.title,
     description: certificate.seoDescription ?? certificate.description,
-    image: getAbsoluteImageUrl(certificate.ogImage ?? certificate.image),
     credentialCategory: "Certificate",
     recognizedBy: {
       "@type": "Organization",

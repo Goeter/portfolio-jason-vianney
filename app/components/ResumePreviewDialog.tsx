@@ -78,10 +78,10 @@ export default function ResumePreviewDialog({ open, onClose }: ResumePreviewDial
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Open in Google Drive"
-                className="hidden items-center gap-1.5 rounded-lg border border-white/15 px-3 py-2 text-xs font-semibold text-white no-underline transition hover:bg-white/10 sm:inline-flex"
+                className="inline-flex items-center gap-1.5 rounded-lg border border-white/15 px-3 py-2 text-xs font-semibold text-white no-underline transition hover:bg-white/10"
               >
                 <ExternalLink className="h-4 w-4" />
-                Open in Drive
+                <span className="hidden sm:inline">Open in Drive</span>
               </a>
 
               <a
@@ -118,6 +118,17 @@ export default function ResumePreviewDialog({ open, onClose }: ResumePreviewDial
                 onLoad={() => setLoaded(true)}
               />
             </div>
+
+            {/* Mobile browsers sometimes refuse to show the Drive viewer inline. */}
+            <a
+              href={siteConfig.contacts.resumeDownloadUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-center gap-2 border-t border-white/10 px-4 py-3 text-xs font-semibold text-[#C8A96E] no-underline sm:hidden"
+            >
+              <ExternalLink className="h-4 w-4" />
+              Preview not showing? Open in Google Drive
+            </a>
           </m.div>
         </m.div>
       )}

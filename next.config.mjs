@@ -1,10 +1,13 @@
 /** @type {import("next").NextConfig} */
 
+const isDev = process.env.NODE_ENV !== "production"
+
 // Kept on one line per directive so the policy stays easy to audit.
 const contentSecurityPolicy = [
   "default-src 'self'",
   // Next.js ships inline bootstrap scripts and the JSON-LD blocks, so 'unsafe-inline' is required.
-  "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://va.vercel-scripts.com",
+  // 'unsafe-eval' is only needed by the dev server's hot reload, never in production.
+  `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""} https://va.vercel-scripts.com`,
   "style-src 'self' 'unsafe-inline'",
   "img-src 'self' data: blob: https:",
   "font-src 'self' data:",
@@ -12,7 +15,9 @@ const contentSecurityPolicy = [
   "media-src 'self'",
   "worker-src 'self' blob:",
   "manifest-src 'self'",
-  "frame-src https://drive.google.com",
+  // Signed-in Google users are bounced through accounts/docs before the Drive viewer loads;
+  // allowing only drive.google.com blanks the resume preview on their phones.
+  "frame-src https://drive.google.com https://docs.google.com https://accounts.google.com",
   "object-src 'none'",
   "base-uri 'self'",
   "form-action 'self'",
@@ -46,6 +51,14 @@ const securityHeaders = [
     value: "same-origin",
   },
   {
+    key: "Strict-Transport-Security",
+    value: "max-age=63072000; includeSubDomains",
+  },
+  {
+    key: "X-Permitted-Cross-Domain-Policies",
+    value: "none",
+  },
+  {
     key: "X-DNS-Prefetch-Control",
     value: "on",
   },
@@ -54,6 +67,14 @@ const securityHeaders = [
 const nextConfig = {
   compress: true,
   poweredByHeader: false,
+  // Ship only minified bundles, never source maps of the original code.
+  productionBrowserSourceMaps: false,
+  experimental: {
+    // Certificates live outside /public and are read by this route at runtime.
+    outputFileTracingIncludes: {
+      "/api/certificate/[slug]": ["./private/certificates/**/*"],
+    },
+  },
   reactStrictMode: true,
   images: {
     formats: ["image/avif", "image/webp"],
@@ -78,6 +99,35 @@ const nextConfig = {
           {
             key: "X-Robots-Tag",
             value: "noindex, nofollow",
+          },
+        ],
+      },
+      {
+        // Images load only on this site; other sites can't hotlink or embed them.
+        source: "/assets/:path*",
+        headers: [
+          {
+            key: "Cross-Origin-Resource-Policy",
+            value: "same-origin",
+          },
+        ],
+      },
+      {
+        source: "/_next/image",
+        headers: [
+          {
+            key: "Cross-Origin-Resource-Policy",
+            value: "same-origin",
+          },
+        ],
+      },
+      {
+        // Personal documents and photos stay out of Google Images and other image search.
+        source: "/assets/:folder(team|students)/:path*",
+        headers: [
+          {
+            key: "X-Robots-Tag",
+            value: "noindex, noimageindex",
           },
         ],
       },

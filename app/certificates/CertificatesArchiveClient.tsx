@@ -1,14 +1,13 @@
 "use client"
 
 import { useMemo, useState } from "react"
-import Image from "next/image"
 import { Award, Eye, GraduationCap, Search } from "lucide-react"
 
 import ArchiveHeader from "../components/ArchiveHeader"
 import Footer from "../components/Footer"
 import ImagePreviewDialog from "../components/ImagePreviewDialog"
-import { certificatesLatestFirst, type Certificate } from "@/lib/site-content"
-import { BLUR_DATA_URL } from "@/lib/utils"
+import ProtectedImage from "../components/ProtectedImage"
+import { certificatesLatestFirst, getCertificateImageSrc, type Certificate } from "@/lib/site-content"
 
 function ArchiveBackground() {
   return (
@@ -77,15 +76,9 @@ function CertificateCard({
         aria-label={`Preview ${certificate.title}`}
         className="relative aspect-[16/10] w-full flex-shrink-0 overflow-hidden border-b border-gold-200/18 bg-slate-950 text-left flex items-center justify-center group/img"
       >
-        <Image
-          src={certificate.image || "/placeholder.svg"}
+        <ProtectedImage
+          src={getCertificateImageSrc(certificate)}
           alt={`${certificate.title} certificate`}
-          width={800}
-          height={520}
-          quality={95}
-          sizes="(max-width: 768px) 92vw, (max-width: 1024px) 45vw, 30vw"
-          placeholder="blur"
-          blurDataURL={BLUR_DATA_URL}
           className="h-full w-full object-cover object-center transition duration-500 group-hover/img:scale-[1.025]"
         />
 
@@ -143,8 +136,9 @@ export default function CertificatesArchiveClient() {
 
     return [
       {
-        src: selectedCertificate.image,
+        src: getCertificateImageSrc(selectedCertificate),
         alt: `${selectedCertificate.title} certificate preview`,
+        protected: true,
       },
     ]
   }, [selectedCertificate])

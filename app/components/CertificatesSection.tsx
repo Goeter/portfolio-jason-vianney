@@ -2,12 +2,16 @@
 
 import { useMemo, useState } from "react"
 import { Award, ExternalLink } from "lucide-react"
-import Image from "next/image"
 import Link from "next/link"
 
-import { certificates, certificatesLatestFirst, type Certificate } from "@/lib/site-content"
-import { BLUR_DATA_URL } from "@/lib/utils"
+import {
+  certificates,
+  certificatesLatestFirst,
+  getCertificateImageSrc,
+  type Certificate,
+} from "@/lib/site-content"
 import ImagePreviewDialog from "./ImagePreviewDialog"
+import ProtectedImage from "./ProtectedImage"
 import { motion } from "framer-motion"
 import { useScrollReveal } from "@/hooks/useScrollReveal"
 import { useParallax } from "@/hooks/useParallax"
@@ -75,19 +79,13 @@ function CertificateCard({
 
         <button
           type="button"
-          onClick={() => onPreview(certificate.image)}
+          onClick={() => onPreview(getCertificateImageSrc(certificate))}
           aria-label={`Preview ${certificate.title} certificate`}
           className="relative aspect-[16/10] w-full overflow-hidden border-b border-gold-200/18 bg-slate-950 text-left flex items-center justify-center group/img"
         >
-          <Image
-            src={certificate.image || "/placeholder.svg"}
+          <ProtectedImage
+            src={getCertificateImageSrc(certificate)}
             alt={`${certificate.title} certificate`}
-            width={800}
-            height={520}
-            quality={95}
-            sizes="(max-width: 768px) 88vw, (max-width: 1024px) 42vw, 30vw"
-            placeholder="blur"
-            blurDataURL={BLUR_DATA_URL}
             className="h-full w-full object-cover object-center transition duration-500 group-hover/img:scale-[1.025]"
           />
 
@@ -130,6 +128,7 @@ export default function CertificatesSection() {
             {
               src: selectedImage,
               alt: "Certificate preview",
+              protected: true,
             },
           ]
         : null,
@@ -182,7 +181,7 @@ export default function CertificatesSection() {
           </p>
         </div>
 
-        {/* Static grid — five certificates fit on screen, so there is nothing to page through */}
+        {/* Static grid — six certificates fit on screen, so there is nothing to page through */}
         <div className={`reveal-hidden reveal-delay-2 ${isVisible ? "reveal-visible" : ""}`}>
           <div className="grid gap-5 px-1 py-2 sm:grid-cols-2 lg:grid-cols-3">
             {certificatesLatestFirst.map((certificate, index) => (

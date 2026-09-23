@@ -5,6 +5,7 @@ import "./globals.css"
 import { fontBody, fontDisplay } from "@/lib/fonts"
 import { siteConfig, siteStructuredData } from "@/lib/site-content"
 import CustomCursor from "@/app/components/CustomCursor"
+import ContentProtection from "@/app/components/ContentProtection"
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
@@ -74,6 +75,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(siteStructuredData) }}
         />
+        <ContentProtection />
         <CustomCursor />
         {children}
         <Analytics />

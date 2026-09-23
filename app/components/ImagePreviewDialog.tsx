@@ -4,9 +4,13 @@ import { useEffect } from "react"
 import Image from "next/image"
 import { X } from "lucide-react"
 
+import ProtectedImage from "./ProtectedImage"
+
 interface PreviewImage {
   src: string
   alt: string
+  /** Render through <ProtectedImage> (canvas, no URL in the DOM). */
+  protected?: boolean
 }
 
 interface ImagePreviewDialogProps {
@@ -88,6 +92,13 @@ export default function ImagePreviewDialog({
             </div>
           ) : (
             <div className="flex max-h-[calc(100vh-140px)] sm:max-h-[calc(100vh-160px)] max-w-full items-center justify-center">
+              {images[0].protected ? (
+                <ProtectedImage
+                  src={images[0].src}
+                  alt={images[0].alt}
+                  className="block h-auto max-h-[calc(100vh-160px)] sm:max-h-[calc(100vh-180px)] w-auto max-w-[90vw] rounded-xl object-contain lg:max-w-[1400px]"
+                />
+              ) : (
               <Image
                 src={images[0].src}
                 alt={images[0].alt}
@@ -98,6 +109,7 @@ export default function ImagePreviewDialog({
                 className="block h-auto max-h-[calc(100vh-160px)] sm:max-h-[calc(100vh-180px)] w-auto max-w-[90vw] rounded-xl object-contain lg:max-w-[1400px]"
                 priority
               />
+              )}
             </div>
           )}
         </div>
