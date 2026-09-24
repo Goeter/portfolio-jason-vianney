@@ -71,7 +71,9 @@ const colorMap: Record<
 // Constants
 // ─────────────────────────────────────────────────────────────
 
-const AUTO_PLAY_DELAY = 8000
+// Slow enough to read a whole card. Autoplay pauses on hover and stops for good once
+// the visitor navigates, so a presenter controls the slides without them moving on.
+const AUTO_PLAY_DELAY = 15000
 const SWIPE_THRESHOLD = 40
 
 // ─────────────────────────────────────────────────────────────
@@ -235,6 +237,8 @@ export default function RolesShowcase() {
 
   const [current, setCurrent] = useState(0)
   const [visibleCount, setVisibleCount] = useState(3)
+  const [isHovered, setIsHovered] = useState(false)
+  const [userControlled, setUserControlled] = useState(false)
 
   const wrapRef = useRef<HTMLDivElement>(null)
   const touchStartX = useRef(0)
@@ -297,12 +301,20 @@ export default function RolesShowcase() {
     setCurrent((prev) => Math.min(prev, maxIndex))
   }, [maxIndex])
 
+  // Manual navigation hands control to the visitor and ends autoplay.
+  const navigate = (index: number) => {
+    setUserControlled(true)
+    goTo(index)
+  }
+
   // Autoplay
   useEffect(() => {
+    if (isHovered || userControlled) return
+
     startAutoPlay()
 
     return () => clearAutoPlay()
-  }, [current, startAutoPlay])
+  }, [current, startAutoPlay, isHovered, userControlled])
 
   const cardWidth = 100 / visibleCount
   const translateX = cardWidth * current
@@ -358,6 +370,8 @@ export default function RolesShowcase() {
         <div
           ref={wrapRef}
           className="no-card-scrollbar overflow-hidden pt-3 pb-8 px-4 md:px-6"
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
           onTouchStart={(e) => {
             touchStartX.current = e.touches[0].clientX
           }}
@@ -366,7 +380,7 @@ export default function RolesShowcase() {
               touchStartX.current - e.changedTouches[0].clientX
 
             if (Math.abs(diff) > SWIPE_THRESHOLD) {
-              goTo(diff > 0 ? current + 1 : current - 1)
+              navigate(diff > 0 ? current + 1 : current - 1)
             }
           }}
         >
@@ -409,7 +423,7 @@ export default function RolesShowcase() {
         <div className="flex items-center justify-center gap-[1.1rem] px-6">
           {/* Prev */}
           <button
-            onClick={() => goTo(current - 1)}
+            onClick={() => navigate(current - 1)}
             aria-label="Previous"
             className="flex h-[36px] w-[36px] items-center justify-center rounded-full border border-[#C8A96E]/40 bg-[#C8A96E]/[0.06] text-[#C8A96E] outline-none transition-all duration-200 hover:border-[#C8A96E]/65 hover:bg-[#C8A96E]/[0.15] hover:shadow-[0_0_20px_rgba(201,168,76,0.15)]"
           >
@@ -435,7 +449,7 @@ export default function RolesShowcase() {
               return (
                 <button
                   key={i}
-                  onClick={() => goTo(i)}
+                  onClick={() => navigate(i)}
                   aria-label={`Go to slide ${i + 1}`}
                   className={`relative h-[6px] rounded-full transition-all duration-300 before:absolute before:-inset-[9px] before:content-[''] ${
                     active
@@ -449,7 +463,7 @@ export default function RolesShowcase() {
 
           {/* Next */}
           <button
-            onClick={() => goTo(current + 1)}
+            onClick={() => navigate(current + 1)}
             aria-label="Next"
             className="flex h-[36px] w-[36px] items-center justify-center rounded-full border border-[#C8A96E]/40 bg-[#C8A96E]/[0.06] text-[#C8A96E] outline-none transition-all duration-200 hover:border-[#C8A96E]/65 hover:bg-[#C8A96E]/[0.15] hover:shadow-[0_0_20px_rgba(201,168,76,0.15)]"
           >

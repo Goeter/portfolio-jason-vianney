@@ -293,7 +293,7 @@ export default function HomeSection() {
                 }}
                 {...fadeSlideLeft(0.65)}
               >
-                Full-Stack Developer and System Analyst with 4+ years of experience across three industries — finance, manufacturing, and legal — delivering projects for Astra Honda Motor and Mayapada Group. Leads projects end to end, from requirements analysis and BPMN modeling through UI/UX design to deployment, using React, Next.js, Laravel, Python, SQL, and AWS, Azure, and GCP. Built a centralized HR system used by 50–100 employees, and custom CMS platforms for three clients — two websites already live — replacing licensed software to cut running costs.
+                Full-Stack Developer and System Analyst with 4+ years of experience across three industries — finance, manufacturing, and legal — delivering projects for Astra Honda Motor and Mayapada Group. Covers the full software lifecycle — Requirements Analysis, Business Process Modeling, UI/UX Design, Database Design, Development, Testing, and Deployment — keeping every solution aligned with business goals. Built a centralized HR system used by 50–100 employees, and custom CMS platforms for three clients — two websites already live — replacing licensed software to cut running costs.
               </m.p>
 
               {/* Buttons */}
