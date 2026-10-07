@@ -314,7 +314,7 @@ export const projects: Project[] = [
       "PT Steda Multi Usaha needed to present their roasting machines under the Steda Roaster brand, and to keep that content current on their own. Rather than putting them on a licensed platform with a fee attached every month, I built the CMS from scratch and shaped it around how they actually work: OTP verification on new sign-ups, caching so repeated page loads stop hitting the database again, and role-based access so an editor cannot wander into admin settings.",
     category: "website",
     image: "/assets/projects/steda-roaster.webp",
-    link: "https://stedaroaster.vercel.app/",
+    link: "https://steda.co.id/",
     role: "Full-Stack Developer, System Analyst & UI/UX Designer · Freelance IT",
     stack: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Vercel"],
     impact:
