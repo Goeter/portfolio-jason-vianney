@@ -117,13 +117,14 @@ export const siteConfig = {
     "Steda Roaster CMS",
     "Math Physics English Tutor",
   ],
+  // Public channels only. Email and WhatsApp live in server-only env vars (see lib/private-contact.ts)
+  // and reach recruiters through /for-recruiters or the CV, never through this bundle.
   contacts: {
-    resumeDownloadUrl: "https://drive.google.com/file/d/1I0ysopHxS3HyOQrGll7-mklpF98RvSN5/view?usp=sharing",
-    email: "jasonvianneys@gmail.com",
+    /** Google Drive ID of the PUBLIC resume: no phone number, address, or date of birth. */
     resumeFileId: "1I0ysopHxS3HyOQrGll7-mklpF98RvSN5",
+    resumeViewUrl: "https://drive.google.com/file/d/1I0ysopHxS3HyOQrGll7-mklpF98RvSN5/view",
     github: "https://github.com/Goeter",
     linkedin: "https://www.linkedin.com/in/jasonvianneysugiarto",
-    whatsapp: "https://wa.me/6283856681999",
     instagram: "https://www.instagram.com/jasonvianney/",
   },
   sameAs: [
@@ -440,7 +441,8 @@ export const certificates: Certificate[] = [
     title: "Cum Laude Graduate — Information Systems",
     description:
       "Graduated with the Cum Laude distinction from the Faculty of Engineering, Information Systems — shown with the official distinction and graduation certificates.",
-    image: "cum-laude-ubaya.webp",
+    // Student ID and certificate numbers are blacked out in the file itself.
+    image: "ubaya-graduation-redacted.webp",
     issuer: "Universitas Surabaya (UBAYA)",
     date: "30 October 2021",
     uploadedAt: "30 October 2021",
@@ -560,17 +562,18 @@ export const experiences: Experience[] = [
       "Taught Mathematics, Physics, and English to elementary and high school students, adapting each lesson to the student's own pace to build problem-solving confidence and prepare them for exams.",
     ],
     gallery: {
-      title: "Group Photo with My English and Mathematics Class Students",
+      // Students are minors: their faces are blurred in the image files themselves, not with CSS.
+      title: "Group Photo with My English and Mathematics Class Students (faces blurred for their privacy)",
       photos: [
         {
-          src: "/assets/students/english-math-class-1.webp",
-          alt: "Jason posing with his English and Mathematics class students",
+          src: "/assets/students/tutoring-class-blurred-1.webp",
+          alt: "Jason posing with his English and Mathematics class students, whose faces are blurred",
           width: 1600,
           height: 738,
         },
         {
-          src: "/assets/students/english-math-class-2.webp",
-          alt: "Jason standing with his English and Mathematics class students in the classroom",
+          src: "/assets/students/tutoring-class-blurred-2.webp",
+          alt: "Jason standing with his English and Mathematics class students in the classroom, whose faces are blurred",
           width: 1600,
           height: 738,
         },
@@ -619,7 +622,6 @@ export const siteStructuredData = [
     image: getAbsoluteImageUrl(siteConfig.defaultOgImage),
     jobTitle: siteConfig.headline,
     description: siteConfig.description,
-    email: siteConfig.contacts.email,
     sameAs: siteConfig.sameAs,
     knowsAbout: siteConfig.keywords,
   },

@@ -1,9 +1,10 @@
 "use client"
 
-import { Instagram, Linkedin, Mail, MessageCircle, type LucideIcon } from "lucide-react"
+import { Instagram, Linkedin, type LucideIcon } from "lucide-react"
 
 import { siteConfig } from "@/lib/site-content"
 import { useScrollReveal } from "@/hooks/useScrollReveal"
+import ContactForm from "./ContactForm"
 
 type Channel = {
   label: string
@@ -16,23 +17,9 @@ type Channel = {
   iconBg: string
 }
 
+// Email and WhatsApp are deliberately not listed: scrapers harvest them from the HTML.
+// Visitors use the form; recruiters get them through the CV or /for-recruiters.
 const channels: Channel[] = [
-  {
-    label: "Email",
-    value: siteConfig.contacts.email,
-    href: `mailto:${siteConfig.contacts.email}`,
-    icon: Mail,
-    tint: "#EA4335", // Gmail red
-    iconBg: "linear-gradient(135deg, rgba(234,67,53,0.22), rgba(234,67,53,0.10))",
-  },
-  {
-    label: "WhatsApp",
-    value: "+62 838 5668 1999",
-    href: siteConfig.contacts.whatsapp,
-    icon: MessageCircle,
-    tint: "#25D366", // WhatsApp green
-    iconBg: "linear-gradient(135deg, rgba(37,211,102,0.22), rgba(37,211,102,0.10))",
-  },
   {
     label: "LinkedIn",
     value: "jasonvianneysugiarto",
@@ -54,14 +41,13 @@ const channels: Channel[] = [
 function ChannelCard({ channel, delay }: { channel: Channel; delay: number }) {
   const { ref, isVisible } = useScrollReveal<HTMLAnchorElement>()
   const Icon = channel.icon
-  const isExternal = !channel.href.startsWith("mailto:")
 
   return (
     <a
       ref={ref}
       href={channel.href}
-      target={isExternal ? "_blank" : undefined}
-      rel={isExternal ? "noopener noreferrer" : undefined}
+      target="_blank"
+      rel="noopener noreferrer"
       style={
         {
           transitionDelay: `${delay}ms`,
@@ -134,13 +120,17 @@ export default function ContactSection() {
 
           <p className="mx-auto mt-4 max-w-xl text-[15px] leading-relaxed text-slate-300 md:text-base">
             Open to system analyst, UI/UX, and fullstack roles — and to freelance projects.
-            The quickest way to reach me is email or WhatsApp; I usually reply the same day.
+            Send a message below and it lands straight in my inbox, or find me on LinkedIn. I usually reply the same day.
           </p>
 
           <div className="mx-auto mt-6 h-0.5 w-[58px] rounded-full bg-gradient-to-r from-gold-500 via-gold-200 to-gold-500" />
         </div>
 
-        <div className="mt-10 grid gap-4 sm:grid-cols-2">
+        <div className="mt-10">
+          <ContactForm />
+        </div>
+
+        <div className="mt-4 grid gap-4 sm:grid-cols-2">
           {channels.map((channel, index) => (
             <ChannelCard key={channel.label} channel={channel} delay={index * 80} />
           ))}

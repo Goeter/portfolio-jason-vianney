@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react"
 import { createPortal } from "react-dom"
 import { AnimatePresence, m } from "framer-motion"
-import { Download, ExternalLink, FileText, Loader2, X } from "lucide-react"
+import { ExternalLink, FileText, Loader2, X } from "lucide-react"
 import { siteConfig } from "@/lib/site-content"
 
 interface ResumePreviewDialogProps {
@@ -11,9 +11,10 @@ interface ResumePreviewDialogProps {
   onClose: () => void
 }
 
-const fileId = siteConfig.contacts.resumeFileId
-const previewUrl = `https://drive.google.com/file/d/${fileId}/preview`
-const downloadUrl = `https://drive.google.com/uc?export=download&id=${fileId}`
+// The public resume has no phone number, address, or date of birth. There is no download
+// button on purpose: the full version goes to recruiters directly. Turn off download/print/copy
+// for viewers in the Drive file's share settings as well, since the viewer offers them too.
+const previewUrl = `https://drive.google.com/file/d/${siteConfig.contacts.resumeFileId}/preview`
 
 export default function ResumePreviewDialog({ open, onClose }: ResumePreviewDialogProps) {
   const [loaded, setLoaded] = useState(false)
@@ -74,7 +75,7 @@ export default function ResumePreviewDialog({ open, onClose }: ResumePreviewDial
               </p>
 
               <a
-                href={siteConfig.contacts.resumeDownloadUrl}
+                href={siteConfig.contacts.resumeViewUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Open in Google Drive"
@@ -82,15 +83,6 @@ export default function ResumePreviewDialog({ open, onClose }: ResumePreviewDial
               >
                 <ExternalLink className="h-4 w-4" />
                 <span className="hidden sm:inline">Open in Drive</span>
-              </a>
-
-              <a
-                href={downloadUrl}
-                aria-label="Download resume"
-                className="inline-flex items-center gap-1.5 rounded-lg bg-[#C8A96E] px-3 py-2 text-xs font-bold text-[#060D1C] no-underline transition hover:brightness-110"
-              >
-                <Download className="h-4 w-4" />
-                <span className="hidden sm:inline">Download</span>
               </a>
 
               <button
@@ -121,7 +113,7 @@ export default function ResumePreviewDialog({ open, onClose }: ResumePreviewDial
 
             {/* Mobile browsers sometimes refuse to show the Drive viewer inline. */}
             <a
-              href={siteConfig.contacts.resumeDownloadUrl}
+              href={siteConfig.contacts.resumeViewUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center justify-center gap-2 border-t border-white/10 px-4 py-3 text-xs font-semibold text-[#C8A96E] no-underline sm:hidden"

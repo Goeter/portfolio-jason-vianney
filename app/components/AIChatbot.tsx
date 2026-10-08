@@ -3,11 +3,9 @@
 import { useState, useRef, useEffect, useCallback } from "react"
 import Image from "next/image"
 import {
-  Download,
+  FileText,
   Instagram,
   Linkedin,
-  Mail,
-  MessageCircle,
   Send,
   X,
   type LucideIcon,
@@ -98,7 +96,7 @@ const KNOWLEDGE: Rule[] = [
     id: "are-you-real",
     test: /\b(are you (a )?(real|human|bot|ai|robots?)|is this (a )?bot|talking to a human|apakah kamu (manusia|robot))\b/,
     answer: () =>
-      `I'm an assistant built into this site, not ${siteConfig.shortName} himself. 🤖\n\nI can answer anything about his work, projects, and background. For a real conversation, his email and WhatsApp are in the Contact section — he usually replies the same day.`,
+      `I'm an assistant built into this site, not ${siteConfig.shortName} himself. 🤖\n\nI can answer anything about his work, projects, and background. For a real conversation, the contact form at the bottom of the page goes straight to his inbox — he usually replies the same day.`,
   },
 
   /* ── Availability & hiring — the questions a recruiter actually opens with ── */
@@ -106,19 +104,19 @@ const KNOWLEDGE: Rule[] = [
     id: "hire",
     test: /\b(hire|hiring|available|availability|open to work|looking for (work|a job)|recruit|vacancys?|lowongan|terima kerja|bisa dihubungi untuk kerja)\b/,
     answer: () =>
-      `Yes — ${siteConfig.shortName} is open to System Analyst, UI/UX, and Full-Stack roles, and to freelance projects. 💼\n\nHe is based in Surabaya, Indonesia, and is available for both on-site and remote work.\n\nThe quickest way to reach him:\n\nmailto:${siteConfig.contacts.email}\n${siteConfig.contacts.whatsapp}`,
+      `Yes — ${siteConfig.shortName} is open to System Analyst, UI/UX, and Full-Stack roles, and to freelance projects. 💼\n\nHe is based in Surabaya, Indonesia, and is available for both on-site and remote work.\n\nThe quickest way to reach him is the contact form or LinkedIn:\n\n${siteConfig.contacts.linkedin}${goto("contact", "Open the contact form")}`,
   },
   {
     id: "freelance",
     test: /\b(freelance|project basis|part.?time|contract work|side project|borongan)\b/,
     answer: () =>
-      `Yes, ${siteConfig.shortName} takes freelance work — that is how the Pemenang Konsultan, Pemenang Mandiri Law Firm, and Steda Roaster projects came about. 🤝\n\nEach one covered the whole scope: systems analysis, UI/UX design, development, and SEO.\n\nTo discuss a project:\n\nmailto:${siteConfig.contacts.email}\n${siteConfig.contacts.whatsapp}`,
+      `Yes, ${siteConfig.shortName} takes freelance work — that is how the Pemenang Konsultan, Pemenang Mandiri Law Firm, and Steda Roaster projects came about. 🤝\n\nEach one covered the whole scope: systems analysis, UI/UX design, development, and SEO.\n\nTo discuss a project, send him a message:\n\n${siteConfig.contacts.linkedin}${goto("contact", "Open the contact form")}`,
   },
   {
     id: "rate",
     test: /\b(rates?|price|pricing|cost|how much|budget|fees?|charge|tarif\w*|harga\w*|biaya\w*|bayaran\w*|ongkos)\b/,
     answer: () =>
-      `Rates depend on scope, timeline, and how much of the work is analysis versus build — so ${siteConfig.shortName} prefers to quote after a short conversation about what you need. 💬\n\nSend him the outline and he'll come back with something concrete:\n\nmailto:${siteConfig.contacts.email}\n${siteConfig.contacts.whatsapp}`,
+      `Rates depend on scope, timeline, and how much of the work is analysis versus build — so ${siteConfig.shortName} prefers to quote after a short conversation about what you need. 💬\n\nSend him the outline and he'll come back with something concrete:${goto("contact", "Open the contact form")}`,
   },
   {
     id: "location",
@@ -240,23 +238,26 @@ const KNOWLEDGE: Rule[] = [
     id: "resume",
     test: /\b(resume|cv|curriculum|download|unduh)\b/,
     answer: () =>
-      `📄 Here is the latest resume:\n\n${siteConfig.contacts.resumeDownloadUrl}`,
+      `📄 Here is the latest resume:\n\n${siteConfig.contacts.resumeViewUrl}`,
   },
+  // Email and WhatsApp are never printed here: anything the bot says is readable by scrapers.
   {
     id: "whatsapp",
     test: /\b(whatsapp|wa\b|phone|call|telp|hp|nomor|number)\b/,
-    answer: () => `📱 Message ${siteConfig.shortName} on WhatsApp:\n\n${siteConfig.contacts.whatsapp}`,
+    answer: () =>
+      `📱 ${siteConfig.shortName} keeps his phone number off the website to avoid spam. Send him a message through the contact form or LinkedIn and he will share it:\n\n${siteConfig.contacts.linkedin}${goto("contact", "Open the contact form")}`,
   },
   {
     id: "email",
     test: /\b(e.?mail|gmail|surat)\b/,
-    answer: () => `📧 You can reach him by email:\n\nmailto:${siteConfig.contacts.email}`,
+    answer: () =>
+      `📧 The contact form delivers straight to ${siteConfig.shortName}'s inbox, and he replies from his own email.${goto("contact", "Open the contact form")}`,
   },
   {
     id: "contact",
     test: /\b(contact|reach|get in touch|social|media|sosmed|follow|instagram|ig\b|linkedin|hubungi|kontak)\b/,
     answer: () =>
-      `🔗 Here is how to reach ${siteConfig.shortName}:\n\nmailto:${siteConfig.contacts.email}\n${siteConfig.contacts.whatsapp}\n${siteConfig.contacts.linkedin}\n${siteConfig.contacts.instagram}\n\nEmail and WhatsApp are quickest — he usually replies the same day.`,
+      `🔗 Here is how to reach ${siteConfig.shortName}:\n\n${siteConfig.contacts.linkedin}\n${siteConfig.contacts.instagram}\n\nThe contact form is quickest — he usually replies the same day.${goto("contact", "Open the contact form")}`,
   },
 
   /* ── Meta ── */
@@ -302,9 +303,9 @@ function findProject(q: string) {
 }
 
 /** Shown when the AI fallback is unavailable — no key, quota spent, or an error. */
-const STATIC_FALLBACK = `I'm not sure I caught that one. 🤔\n\nI know ${siteConfig.shortName}'s work well, so try me on any of these:\n\n• "What is this website?"\n• "Where has he worked?"\n• "Does he know React?"\n• "Is he available for hire?"\n• "Tell me about the HR Topas project"\n\nIf your question is for ${siteConfig.shortName} directly, email or WhatsApp him — he usually replies the same day:\n\nmailto:${siteConfig.contacts.email}`
+const STATIC_FALLBACK = `I'm not sure I caught that one. 🤔\n\nI know ${siteConfig.shortName}'s work well, so try me on any of these:\n\n• "What is this website?"\n• "Where has he worked?"\n• "Does he know React?"\n• "Is he available for hire?"\n• "Tell me about the HR Topas project"\n\nIf your question is for ${siteConfig.shortName} directly, send him a message — he usually replies the same day.${goto("contact", "Open the contact form")}`
 
-const QUOTA_MESSAGE = `I've hit my question limit for now. ⏳\n\nThe limit resets shortly, so do try again in a little while. In the meantime the buttons below still work — they answer instantly.\n\nAnd if it's urgent, ${siteConfig.shortName} reads his email himself:\n\nmailto:${siteConfig.contacts.email}`
+const QUOTA_MESSAGE = `I've hit my question limit for now. ⏳\n\nThe limit resets shortly, so do try again in a little while. In the meantime the buttons below still work — they answer instantly.\n\nAnd if it's urgent, the contact form goes straight to ${siteConfig.shortName}'s inbox.${goto("contact", "Open the contact form")}`
 
 /** Returns null when no rule matches, so the caller can try the AI fallback. */
 function getBotReply(input: string): string | null {
@@ -382,18 +383,6 @@ const CONTACT_BRANDS: {
   icon: LucideIcon
 }[] = [
   {
-    test: (u) => u.startsWith("mailto:"),
-    label: "Email me",
-    bg: "#EA4335",
-    icon: Mail,
-  },
-  {
-    test: (u) => u.includes("wa.me"),
-    label: "Chat on WhatsApp",
-    bg: "#25D366",
-    icon: MessageCircle,
-  },
-  {
     test: (u) => u.includes("linkedin.com"),
     label: "LinkedIn",
     bg: "#0A66C2",
@@ -407,9 +396,9 @@ const CONTACT_BRANDS: {
   },
   {
     test: (u) => u.includes("drive.google.com"),
-    label: "Download Resume",
+    label: "View Resume",
     bg: "#1A73E8",
-    icon: Download,
+    icon: FileText,
   },
 ]
 

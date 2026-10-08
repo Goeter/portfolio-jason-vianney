@@ -7,17 +7,18 @@ const contentSecurityPolicy = [
   "default-src 'self'",
   // Next.js ships inline bootstrap scripts and the JSON-LD blocks, so 'unsafe-inline' is required.
   // 'unsafe-eval' is only needed by the dev server's hot reload, never in production.
-  `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""} https://va.vercel-scripts.com`,
+  `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""} https://va.vercel-scripts.com https://challenges.cloudflare.com`,
   "style-src 'self' 'unsafe-inline'",
   "img-src 'self' data: blob: https:",
   "font-src 'self' data:",
-  "connect-src 'self' https://*.supabase.co https://va.vercel-scripts.com https://vitals.vercel-insights.com",
+  "connect-src 'self' https://challenges.cloudflare.com https://*.supabase.co https://va.vercel-scripts.com https://vitals.vercel-insights.com",
   "media-src 'self'",
   "worker-src 'self' blob:",
   "manifest-src 'self'",
   // Signed-in Google users are bounced through accounts/docs before the Drive viewer loads;
   // allowing only drive.google.com blanks the resume preview on their phones.
-  "frame-src https://drive.google.com https://docs.google.com https://accounts.google.com",
+  // Cloudflare Turnstile renders the contact form's spam check in an iframe.
+  "frame-src https://drive.google.com https://docs.google.com https://accounts.google.com https://challenges.cloudflare.com",
   "object-src 'none'",
   "base-uri 'self'",
   "form-action 'self'",
@@ -87,6 +88,15 @@ const nextConfig = {
       {
         source: "/(.*)",
         headers: securityHeaders,
+      },
+      {
+        // Holds private contacts behind a per-company key: never cache, index, or leak the key via Referer.
+        source: "/for-recruiters",
+        headers: [
+          { key: "Cache-Control", value: "private, no-store, max-age=0" },
+          { key: "X-Robots-Tag", value: "noindex, nofollow, noarchive, noimageindex" },
+          { key: "Referrer-Policy", value: "no-referrer" },
+        ],
       },
       {
         // Analytics endpoints must never be cached or indexed.
